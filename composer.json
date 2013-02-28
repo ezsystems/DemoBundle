@@ -1,0 +1,20 @@
+{
+    "name": "ezsystems/demobundle",
+    "description": "Demo bundle for eZ Publish Platform",
+    "license": "GPL-2.0",
+    "authors": [
+        {
+            "name": "eZ Publish dev-team & eZ Community",
+            "homepage": "https://github.com/ezsystems/DemoBundle/graphs/contributors"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "php": ">=5.3.3",
+        "ezsystems/ezpublish-kernel": "dev-master"
+    },
+    "autoload": {
+        "psr-0": {"EzSystems\\DemoBundle": ""}
+    },
+    "target-dir": "EzSystems/DemoBundle"
+}
