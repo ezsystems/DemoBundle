@@ -1,0 +1,23 @@
+parameters:
+
+# List of layouts provided by the DemoBundle
+# to be usable, they have to be enabled in
+# ezpublish.system.<scope>.ezpage.enabledLayouts
+    ezdemo.ezpage.layouts:
+        globalZoneLayout:
+            name: Global zone layout
+            template: globalzonelayout.tpl
+        2zonesLayout1:
+            name: 2 zones (layout 1)
+            template: 22zones_layout1.tpl
+
+# List of blocks provided by the DemoBundle
+# to be usable, they have to be enabled in
+# ezpublish.system.<scope>.ezpage.enabledBlocks
+    ezdemo.ezpage.blocks:
+        campaign:
+            name: Campaign
+        mainStory:
+            name: Main story
+
+
