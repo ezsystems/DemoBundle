@@ -56,7 +56,11 @@ class eZDemoExtension extends Extension implements PrependExtensionInterface
             array(
                 'ezpage' => array(
                     'layouts' => $container->getParameter( 'ezdemo.ezpage.layouts' ),
-                    'blocks' => $container->getParameter( 'ezdemo.ezpage.blocks' )
+                    'blocks' => $container->getParameter( 'ezdemo.ezpage.blocks' ),
+                    // by default, all layouts and blocks are enabled when
+                    // DemoBundle is enabled
+                    'enabledLayouts' => array_keys( $container->getParameter( 'ezdemo.ezpage.layouts' ) ),
+                    'enabledBlocks' => array_keys( $container->getParameter( 'ezdemo.ezpage.blocks' ) )
                 )
             )
         );
