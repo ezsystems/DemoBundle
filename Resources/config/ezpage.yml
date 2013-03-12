@@ -1,0 +1,56 @@
+parameters:
+
+# List of layouts provided by the DemoBundle
+# to be usable, they have to be enabled in
+# ezpublish.system.<scope>.ezpage.enabledLayouts
+    ezdemo.ezpage.layouts:
+        GlobalZoneLayout:
+            name: Global zone layout
+            template: globalzonelayout.tpl
+        2ZonesLayout1:
+            name: 2 zones (layout 1)
+            template: 2zoneslayout1.tpl
+        2ZonesLayout2:
+            name: 2 zones (layout 2)
+            template: 2zoneslayout2.tpl
+        2ZonesLayout3:
+            name: 2 zones (layout 3)
+            template: 2zoneslayout3.tpl
+        3ZonesLayout1:
+            name: 3 zones (layout 1)
+            template: 3zoneslayout1.tpl
+        3ZonesLayout2:
+            name: 3 zones (layout 2)
+            template: 3zoneslayout2.tpl
+        CallForActionLayout:
+            name: Call For Action zone layout
+            template: callforactionlayout.tpl
+
+# List of blocks provided by the DemoBundle
+# to be usable, they have to be enabled in
+# ezpublish.system.<scope>.ezpage.enabledBlocks
+    ezdemo.ezpage.blocks:
+        Campaign:
+            name: Campaign
+        MainStory:
+            name: Main story
+        ContentGrid:
+            name: Content Grid
+        Gallery:
+            name: Gallery
+        Banner:
+            name: Banner
+        Video:
+            name: Video
+        TagCloud:
+            name: Tag cloud
+        Poll:
+            name: Poll
+        ItemList:
+            name: Item list
+        FeedReader:
+            name: Feed reader
+        FeedbackForm:
+            name: Feedback Form
+        HighlightedItem:
+            name: Highlighted Item
