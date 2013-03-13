@@ -16,4 +16,6 @@
         {{ez_render_field( content, identifier )}}
     {% endfor %}
 </div>
+
+<p><a href="{{ path( "eZTestCreateContent", { contentId: content.contentInfo.id } ) }}">Create comment below this content</a></p>
 {% endblock %}
