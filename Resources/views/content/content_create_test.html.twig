@@ -7,7 +7,7 @@
 
 {% block content %}
 <div class="attribute-header">
-    <h1 class="long">Crating comment below #{{ content.contentInfo.id }}: {{ content.contentInfo.name }}</h1>
+    <h1 class="long">Creating comment below #{{ content.contentInfo.id }}: {{ content.contentInfo.name }}</h1>
 </div>
 
 <form method="post" action="{{ path( 'eZTestCreateContent', { contentId: content.contentInfo.id } ) }}">
