@@ -16,6 +16,7 @@ use eZ\Publish\API\Repository\Values\Content\Query\SortClause;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use eZ\Publish\API\Repository\Values\Content\Search\SearchResult;
+use eZ\Publish\Core\Repository\Values\Content\ContentCreateStruct;
 use \DateTime;
 
 class DemoController extends Controller
@@ -24,6 +25,46 @@ class DemoController extends Controller
     {
         return $this->render(
             "eZDemoBundle:content:content_test.html.twig",
+            array(
+                "content" => $this->getRepository()->getContentService()->loadContent( $contentId )
+            )
+        );
+    }
+
+    public function testCreateContentAction( $contentId )
+    {
+        $request = $this->getRequest();
+
+        if ( $request->isMethod( "POST" ) )
+        {
+            /* BEGIN: Use Case */
+            $repository = $this->getRepository();
+
+            $contentTypeService = $repository->getContentTypeService();
+
+            $contentType = $contentTypeService->loadContentTypeByIdentifier( 'comment' );
+
+            $contentService = $repository->getContentService();
+            $locationService = $repository->getLocationService();
+
+            $contentCreate = $contentService->newContentCreateStruct( $contentType, 'eng-GB' );
+            $contentCreate->setField( 'text', $request->request->get( 'text' ) );
+
+            $contentCreate->remoteId = md5( time() );
+            $contentCreate->alwaysAvailable = true;
+
+            $locationCreate = $locationService->newLocationCreateStruct( $contentService->loadContent( $contentId )->contentInfo->mainLocationId );
+
+            $content = $contentService->createContent( $contentCreate, array( $locationCreate ) );
+
+            $contentService->publishVersion( $content->getVersionInfo() );
+            /* END: Use Case */
+
+            return $this->redirect( $this->generateUrl( "eZTest", array( "contentId" => $content->id ) ) );
+        }
+
+        return $this->render(
+            "eZDemoBundle:content:content_create_test.html.twig",
             array(
                 "content" => $this->getRepository()->getContentService()->loadContent( $contentId )
             )

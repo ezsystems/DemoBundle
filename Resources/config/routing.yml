@@ -11,3 +11,10 @@ eZTestWithLegacy:
     defaults:
         _controller: eZDemoBundle:Demo:testWithLegacy
         contentId: 102
+
+eZTestCreateContent:
+    path: /test/create/{contentId}
+    defaults:
+        _controller: eZDemoBundle:Demo:testCreateContent
+    requirements:
+        contentId: \d+
