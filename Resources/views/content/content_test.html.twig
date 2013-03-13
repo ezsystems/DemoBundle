@@ -11,25 +11,9 @@
 </div>
 
 <div>
-    <h3>Name:</h3>
-    {{ ez_render_field(
-           content,
-           "name",
-           {
-               'editMode': true,
-               'attr': { 'class': 'foobar' }
-           }
-       )
-    }}
-
-    <h3>Description:</h3>
-    {{ ez_render_field(
-           content,
-           "description",
-           {
-               'editMode': true
-           }
-       )
-    }}
+    {% for identifier, field in content.getFieldsByLanguage() %}
+        <h3>{{identifier}}:</h3>
+        {{ez_render_field( content, identifier )}}
+    {% endfor %}
 </div>
 {% endblock %}
