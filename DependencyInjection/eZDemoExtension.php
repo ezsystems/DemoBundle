@@ -13,8 +13,9 @@ use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 use Symfony\Component\Config\FileLocator;
+use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
 
-class eZDemoExtension extends Extension
+class eZDemoExtension extends Extension implements PrependExtensionInterface
 {
     /**
      * Loads a specific configuration.
@@ -35,7 +36,33 @@ class eZDemoExtension extends Extension
 
         // Base services override
         $loader->load( 'services.yml' );
-        // Base fieldtypes override
-        $loader->load( 'fieldtypes.yml' );
+    }
+
+    /**
+     * Automatically imports the layouts and the blocks
+     *
+     * @param ContainerBuilder $container
+     */
+    public function prepend( ContainerBuilder $container )
+    {
+        $loader = new YamlFileLoader(
+            $container,
+            new FileLocator( __DIR__ . '/../Resources/config' )
+        );
+        $loader->load( 'ezpage.yml' );
+
+        $container->prependExtensionConfig(
+            'ezpublish',
+            array(
+                'ezpage' => array(
+                    'layouts' => $container->getParameter( 'ezdemo.ezpage.layouts' ),
+                    'blocks' => $container->getParameter( 'ezdemo.ezpage.blocks' ),
+                    // by default, all layouts and blocks are enabled when
+                    // DemoBundle is enabled
+                    'enabledLayouts' => array_keys( $container->getParameter( 'ezdemo.ezpage.layouts' ) ),
+                    'enabledBlocks' => array_keys( $container->getParameter( 'ezdemo.ezpage.blocks' ) )
+                )
+            )
+        );
     }
 }
