@@ -31,8 +31,8 @@ class DemoController extends Controller
     {
         $response = new Response;
         $response->setPublic();
-        $response->setMaxAge( 60 );
-        $location = $this->getRepository()->getLocationService()->loadLocation( $locationId );
+        $response->setSharedMaxAge( 86400 );
+        $response->headers->set( 'X-Location-Id', $locationId );
 
         $excludeCriterion = array();
         if ( !empty( $excludeContentTypes ) )
@@ -46,7 +46,6 @@ class DemoController extends Controller
             }
         }
         $criteria = array(
-            new Criterion\Subtree( $location->pathString ),
             new Criterion\ParentLocationId( $locationId ),
             new Criterion\Visibility( Criterion\Visibility::VISIBLE )
         );
@@ -96,9 +95,12 @@ class DemoController extends Controller
      */
     public function latestContentAction( $pathString, $contentTypeIdentifier, $limit, array $excludeLocations = array() )
     {
+        $tmp = explode( '/', trim( $pathString, '/' ) );
+        $locationId = end( $tmp );
         $response = new Response;
         $response->setPublic();
-        $response->setMaxAge( 60 );
+        $response->setSharedMaxAge( 86400 );
+        $response->headers->set( 'X-Location-Id', $locationId );
 
         $contentType = $this->getRepository()->getContentTypeService()->loadContentTypeByIdentifier( $contentTypeIdentifier );
 
@@ -146,7 +148,8 @@ class DemoController extends Controller
     {
         $response = new Response;
         $response->setPublic();
-        $response->setMaxAge( 60 );
+        $response->setSharedMaxAge( 86400 );
+        $response->headers->set( 'X-Location-Id', $locationId );
 
         $location = $this->getRepository()->getLocationService()->loadLocation( $locationId );
         $content = $this->getRepository()->getContentService()->loadContent( $location->contentId );
