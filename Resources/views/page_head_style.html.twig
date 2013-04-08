@@ -1,7 +1,8 @@
 {# TODO: add loading external CSS files defined in the INI settings #}
-{% stylesheets filter='less' output='bundles/ezdemo/css/all.css'
-    '@eZDemoBundle/Resources/public/less/bootstrap.less'
-    '@eZDemoBundle/Resources/public/less/responsive.less'
+{% stylesheets filter='cssrewrite'
+    '@eZDemoBundle/Resources/public/css/bootstrap.css'
+    '@eZDemoBundle/Resources/public/css/responsive.css'
+    'extension/ezdemo/design/ezdemo/stylesheets/video.css'
 %}
     <link rel="stylesheet" type="text/css" href="{{ asset_url }}"/>
 {% endstylesheets %}
