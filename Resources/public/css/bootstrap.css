@@ -399,7 +399,7 @@ header {
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#f2f3f3', GradientType=1);
 }
 header > .container {
-  background: transparent url('/bundles/ezdemo/images/bgr-header.png') no-repeat left bottom;
+  background: transparent url('../bundles/ezdemo/images/bgr-header.png') no-repeat left bottom;
 }
 header .logo {
   display: block;
@@ -421,7 +421,7 @@ header .form-search label:before {
   position: absolute;
   top: 9px;
   left: 8px;
-  background: transparent url('/bundles/ezdemo/images/ez-sprite.png') no-repeat left top;
+  background: transparent url('../bundles/ezdemo/images/ez-sprite.png') no-repeat left top;
 }
 header .form-search label input.search-query {
   padding-left: 25px;
@@ -965,7 +965,7 @@ aside > .content-view-aside:last-child > article:last-child:after {
   content: "";
   display: block;
   position: absolute;
-  background: transparent url('/bundles/ezdemo/images/ez-sprite.png') no-repeat -92px -22px;
+  background: transparent url('../bundles/ezdemo/images/ez-sprite.png') no-repeat -92px -22px;
   width: 36px;
   height: 35px;
   left: 8px;
@@ -1039,7 +1039,7 @@ aside > .content-view-aside:last-child > article:last-child:after {
   top: 15px;
   width: 9px;
   height: 17px;
-  background: transparent url('/bundles/ezdemo/images/ez-sprite.png') no-repeat -137px top;
+  background: transparent url('../bundles/ezdemo/images/ez-sprite.png') no-repeat -137px top;
 }
 .comment .comment-content-wrapper .header,
 .comment .comment-content-wrapper .comment-headline {
@@ -1262,16 +1262,16 @@ aside > .content-view-aside:last-child > article:last-child:after {
   top: auto;
 }
 .content-view-children .contacts-container article .image-and-data-set ul li.phone.mobile:before {
-  background: transparent url('/bundles/ezdemo/images/ez-sprite.png') no-repeat -61px 0;
+  background: transparent url('../bundles/ezdemo/images/ez-sprite.png') no-repeat -61px 0;
 }
 .content-view-children .contacts-container article .image-and-data-set ul li.phone.landline:before {
-  background: transparent url('/bundles/ezdemo/images/ez-sprite.png') no-repeat -80px 0;
+  background: transparent url('../bundles/ezdemo/images/ez-sprite.png') no-repeat -80px 0;
 }
 .content-view-children .contacts-container article .image-and-data-set ul li.messenger.skype:before {
-  background: transparent url('/bundles/ezdemo/images/ez-sprite.png') no-repeat -99px 0;
+  background: transparent url('../bundles/ezdemo/images/ez-sprite.png') no-repeat -99px 0;
 }
 .content-view-children .contacts-container article .image-and-data-set ul li.social.twitter:before {
-  background: transparent url('/bundles/ezdemo/images/ez-sprite.png') no-repeat -118px 0;
+  background: transparent url('../bundles/ezdemo/images/ez-sprite.png') no-repeat -118px 0;
 }
 .attribute-star-rating {
   border-top: 1px solid #ebebeb;
@@ -1460,11 +1460,11 @@ aside > .content-view-aside:last-child > article:last-child:after {
   display: inline-block;
   width: 11px;
   height: 11px;
-  background: transparent url('/bundles/ezdemo/images/ez-sprite.png') no-repeat left -13px;
+  background: transparent url('../bundles/ezdemo/images/ez-sprite.png') no-repeat left -13px;
 }
 .attribute-byline.with-comments .comments:hover:before,
 .attribute-byline.with-comments .comments:focus:before {
-  background: transparent url('/bundles/ezdemo/images/ez-sprite.png') no-repeat left -24px;
+  background: transparent url('../bundles/ezdemo/images/ez-sprite.png') no-repeat left -24px;
 }
 .flyout {
   display: block;
@@ -3910,7 +3910,7 @@ input[type="submit"].btn.small {
   position: absolute;
   width: 10px;
   height: 16px;
-  background: transparent url('/bundles/ezdemo/images/ez-sprite.png') no-repeat -132px -28px;
+  background: transparent url('../bundles/ezdemo/images/ez-sprite.png') no-repeat -132px -28px;
   right: 7px;
   top: 7px;
 }
@@ -4079,7 +4079,7 @@ input[type="submit"].btn.small {
   position: relative;
 }
 .navbar.extra-navi .nav {
-  background: transparent url('/bundles/ezdemo/images/bgr-extra-navi.png') no-repeat center bottom;
+  background: transparent url('../bundles/ezdemo/images/bgr-extra-navi.png') no-repeat center bottom;
 }
 .navbar.extra-navi .nav > li {
   border: none;
@@ -4592,13 +4592,13 @@ a.thumbnail:hover {
 .embed-gallery .gallery-navigator .next,
 .block-gallery .gallery-navigator .next {
   right: 0px;
-  background: transparent url('/bundles/ezdemo/images/ez-sprite.png') no-repeat -55px -22px;
+  background: transparent url('../bundles/ezdemo/images/ez-sprite.png') no-repeat -55px -22px;
 }
 .full-gallery .gallery-navigator .prev,
 .embed-gallery .gallery-navigator .prev,
 .block-gallery .gallery-navigator .prev {
   left: 0px;
-  background: transparent url('/bundles/ezdemo/images/ez-sprite.png') no-repeat -35px -22px;
+  background: transparent url('../bundles/ezdemo/images/ez-sprite.png') no-repeat -35px -22px;
 }
 .full-gallery .gallery-navigator .images,
 .embed-gallery .gallery-navigator .images,
@@ -4835,7 +4835,7 @@ a.thumbnail:hover {
 }
 .block-type-campaign .indicator li {
   display: inline-block;
-  background: transparent url('/bundles/ezdemo/images/ez-sprite.png') no-repeat -13px -22px;
+  background: transparent url('../bundles/ezdemo/images/ez-sprite.png') no-repeat -13px -22px;
   width: 11px;
   height: 11px;
   opacity: 0.8;
@@ -4845,7 +4845,7 @@ a.thumbnail:hover {
   display: none;
 }
 .block-type-campaign .indicator .selected {
-  background: transparent url('/bundles/ezdemo/images/ez-sprite.png') no-repeat -24px -22px;
+  background: transparent url('../bundles/ezdemo/images/ez-sprite.png') no-repeat -24px -22px;
 }
 .block-type-campaign .navig {
   display: inline-block;
@@ -4860,11 +4860,11 @@ a.thumbnail:hover {
 }
 .block-type-campaign .next {
   right: 0px;
-  background: transparent url('/bundles/ezdemo/images/ez-sprite.png') no-repeat -55px -22px;
+  background: transparent url('../bundles/ezdemo/images/ez-sprite.png') no-repeat -55px -22px;
 }
 .block-type-campaign .prev {
   left: 0px;
-  background: transparent url('/bundles/ezdemo/images/ez-sprite.png') no-repeat -35px -22px;
+  background: transparent url('../bundles/ezdemo/images/ez-sprite.png') no-repeat -35px -22px;
 }
 .block-type-campaign .images {
   margin: 0;
@@ -4920,7 +4920,7 @@ a.thumbnail:hover {
 .ezsr-star-rating a:active,
 .ezsr-star-rating a:focus,
 .ezsr-star-rating .ezsr-current-rating {
-  background: url(/bundles/ezdemo/images/star.png) left -1000px repeat-x;
+  background: url(../bundles/ezdemo/images/star.png) left -1000px repeat-x;
 }
 .ezsr-star-rating {
   position: relative;
