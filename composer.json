@@ -1,6 +1,6 @@
 {
     "name": "ezsystems/demobundle",
-    "description": "Demo bundle for eZ Publish Platform",
+    "description": "Demo Bundle for eZ Publish Platform",
     "license": "GPL-2.0",
     "authors": [
         {
