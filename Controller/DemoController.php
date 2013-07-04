@@ -165,4 +165,17 @@ class DemoController extends Controller
             $response
         );
     }
+
+    public function userLinksAction()
+    {
+        $response = new Response();
+        $response->setSharedMaxAge( 3600 );
+        $response->setVary( 'Cookie' );
+
+        return $this->render(
+            "eZDemoBundle::page_header_links.html.twig",
+            array(),
+            $response
+        );
+    }
 }
