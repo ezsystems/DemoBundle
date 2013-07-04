@@ -4,7 +4,7 @@
             <div class="nav-collapse row">
 
                 {% block userlinks %}
-                    {% include 'eZDemoBundle::page_header_links.html.twig' %}
+                    {{ render_hinclude( controller( 'eZDemoBundle:Demo:userLinks' ) ) }}
                 {% endblock %}
             </div>
         </div>

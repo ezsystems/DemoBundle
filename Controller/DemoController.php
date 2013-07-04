@@ -33,6 +33,7 @@ class DemoController extends Controller
         $response->setPublic();
         $response->setSharedMaxAge( 86400 );
         $response->headers->set( 'X-Location-Id', $locationId );
+        $response->setVary( 'X-User-Hash' );
 
         $excludeCriterion = array();
         if ( !empty( $excludeContentTypes ) )
@@ -101,6 +102,7 @@ class DemoController extends Controller
         $response->setPublic();
         $response->setSharedMaxAge( 86400 );
         $response->headers->set( 'X-Location-Id', $locationId );
+        $response->setVary( 'X-User-Hash' );
 
         $contentType = $this->getRepository()->getContentTypeService()->loadContentTypeByIdentifier( $contentTypeIdentifier );
 
@@ -150,6 +152,7 @@ class DemoController extends Controller
         $response->setPublic();
         $response->setSharedMaxAge( 86400 );
         $response->headers->set( 'X-Location-Id', $locationId );
+        $response->setVary( 'X-User-Hash' );
 
         $location = $this->getRepository()->getLocationService()->loadLocation( $locationId );
         $content = $this->getRepository()->getContentService()->loadContent( $location->contentId );
@@ -159,6 +162,19 @@ class DemoController extends Controller
             array(
                 "content" => $content
             ),
+            $response
+        );
+    }
+
+    public function userLinksAction()
+    {
+        $response = new Response();
+        $response->setSharedMaxAge( 3600 );
+        $response->setVary( 'Cookie' );
+
+        return $this->render(
+            "eZDemoBundle::page_header_links.html.twig",
+            array(),
             $response
         );
     }
