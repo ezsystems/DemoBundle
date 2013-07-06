@@ -5,13 +5,9 @@
 
         <div class="nav-collapse">
             <ul class="nav">
-                {% for location in locationList %}
-                    {% if location.contentInfo.contentType.identifer == 'link' %}
-                        <li id=""><a href="#">{{ location.contentInfo.name }}</a></li>
-                    {% else %}
-                        <li id=""><a href="{{ path( location ) }}">{{ location.contentInfo.name }}</a></li>
-                    {% endif %}
-                {% endfor %}
+            {% for location in locationList %}
+                <li id="nav-location-{{ location.id }}"><a href="{{ path( location ) }}">{{ location.contentInfo.name }}</a></li>
+            {% endfor %}
             </ul>
         </div>
 
