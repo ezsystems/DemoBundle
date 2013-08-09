@@ -1,0 +1,47 @@
+{% extends "eZDemoBundle::pagelayout.html.twig" %}
+
+{% block content %}
+    <section class="content-view-full">
+        <div class="class-blog">
+            <div class="row">
+                <div class="span8">
+                    {% if pagerBlog|length() > 0 %}
+                        <section class="content-view-children">
+                            {% for post in pagerBlog %}
+                                {# Displaying blog_post elements calling the view line #}
+                                {{ render_esi( controller( 'ez_content:viewLocation', {'locationId': post.contentInfo.mainLocationId, 'viewType': 'line'} ) ) }}
+                            {% endfor %}
+                        </section>
+
+                        {# Pagination is displayed only if needed (number of posts > limit) #}
+                        {% if pagerBlog.haveToPaginate() %}
+                            <div class="pagination-centered">
+                                {{ pagerfanta( pagerBlog, 'twitter_bootstrap_translated', {'routeName': location} ) }}
+                            </div>
+                        {% endif %}
+
+                    {% endif %}
+                </div>
+                <div class="span4">
+                    <aside>
+                        <section class="content-view-aside">
+
+                            {% if not ez_is_field_empty( content, 'description' ) %}
+                                <h2>{{ "Description"|trans }}</h2>
+                                <article>
+                                    <div class="attribute-description">
+                                        {{ ez_render_field( content, 'description' ) }}
+                                    </div>
+                                </article>
+                            {% endif %}
+
+                            {# This is a call to a subrequest calling legacy code #}
+                            {{ render( controller( 'eZDemoBundle:Demo:viewExtraInfo', {'location': location} ) ) }}
+
+                        </section>
+                    </aside>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
