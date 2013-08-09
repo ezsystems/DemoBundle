@@ -9,3 +9,5 @@ parameters:
     ezdemo.footer.content_id: 58
     # ContentType identifiers we want to have in "latest content" part of the footer.
     ezdemo.footer.latest_content.content_types: [article]
+    # Number of blog_posts displayed per page in the blog view
+    ezdemo.blog.blog_post_list.limit: 10

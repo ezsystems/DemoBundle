@@ -1,1 +1,32 @@
+siteaccess:
+    groups:
+        ezdemo_frontend_group:
+            - ezdemo_site
+            - eng
+
+system:
+    ezdemo_frontend_group:
+        location_view:
+            full:
+                # There are two ways to add extra information to your response using a custom controller
+                blog:
+                    # Fully customized, handling everything yourself
+                    controller: "eZDemoBundle:Demo:listBlogPosts"
+                    match:
+                        Identifier\ContentType: [blog]
+                blog_post:
+                    # Enriched controller, only adding extra parameters
+                    controller: "eZDemoBundle:Demo:showBlogPost"
+                    # Overriding the template used by the default viewLocation
+                    template: "eZDemoBundle:full:blog_post.html.twig"
+                    match:
+                        Identifier\ContentType: [blog_post]
+            line:
+                blog_post:
+                    controller: "eZDemoBundle:Demo:showBlogPost"
+                    template: "eZDemoBundle:line:blog_post.html.twig"
+                    match:
+                        Identifier\ContentType: [blog_post]
+        field_templates:
+            - {template: "eZDemoBundle::content_fields.html.twig", priority: 10}
 

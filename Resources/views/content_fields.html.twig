@@ -1,0 +1,19 @@
+{% extends 'EzPublishCoreBundle::content_fields.html.twig' %}
+
+{% block ezkeyword_field %}
+    {% spaceless %}
+        {% if field.value.values|length() > 0 %}
+            <ul {{ block( 'field_attributes' ) }} >
+                {% for keyword in field.value.values %}
+                <li>
+                    {# Forwarding on legacy #}
+                    <a href="{{ path( 'ez_legacy', {'module_uri': 'content/keyword/' ~ keyword} ) }}">
+                        <span class="tag-title">{{ keyword }}</span>
+                        {# TODO depends on EZP-21472 <span class="tag-amount">{fetch( 'content', 'keyword_count', hash( 'alphabet', $keyword ) )}</span> #}
+                    </a>
+                </li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endspaceless %}
+{% endblock %}
