@@ -13,7 +13,7 @@ Feature: Start page
     # @todo Expand test to also verify that we are actually logged in
     @javascript
     Scenario: Login using inline javascript form
-        Given I am on the "Search Page"
+        Given I go to the "Search Page"
           And I follow "Login"
          When I fill in "Username" with "admin"
           And I fill in "Password" with "publish"
