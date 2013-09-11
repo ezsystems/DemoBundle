@@ -4548,6 +4548,9 @@ a.thumbnail:hover {
 .break {
   clear: both;
 }
+.spamfilter {
+  display: none;
+}
 .content-view-full .attribute-short {
   font-weight: bold;
 }
