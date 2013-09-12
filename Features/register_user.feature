@@ -5,7 +5,7 @@ Feature: Register user
 
     Scenario: Register a new user
         # @TODO: find a way to verify that registered data is correctly stored
-       Given I am on the "home" page
+       Given I am at "home" page
          And I click at "Register" link
         When I fill a valid "register" form
          And I click at "Register" button
@@ -13,7 +13,7 @@ Feature: Register user
          And I see message "User account successfully created"
 
     Scenario Outline: Attempt to register a new user with an existing unique field
-       Given I am on the "register user" page
+       Given I am at "register user" page
          And I have a Content Object of ContentType "user" with
             | username | user       |
             | email    | mail@ez.no |
@@ -30,7 +30,7 @@ Feature: Register user
             | another  | mail@ez.no |
 
     Scenario: Attempt to register a new user with different password and repeat password
-       Given I am on the "register user" page
+       Given I am at "register user" page
         When I fill the form with 
             | password       | cod1 |
             | repeatPassword | cod2 |
@@ -39,7 +39,7 @@ Feature: Register user
          And I see "passwords don't match" error
 
     Scenario Outline: Attempt to register a new user without filling all required fields
-       Given I am on the "register user" page
+       Given I am at "register user" page
         When I fill the form with 
             | <firstName>      |
             | <lastName>       |
@@ -64,13 +64,13 @@ Feature: Register user
         # @TODO: complete this scenario with a "Then" sentence
         #       "Then I should be redirected to '<somewhere>'"
         # @see issue: EZP-21549
-       Given I am on the "register user" page
+       Given I am at "register user" page
         When I click at "Discard" button
         Then I see discard Draft successfuly
 
     Scenario: Register a new user with an image
         # @TODO: think how "attach image" could be achieved
-       Given I am on the "register user" page
+       Given I am at "register user" page
         When I fill a valid register form
          And I attach an image to "register form"
          And I click at "Register" button
@@ -78,7 +78,7 @@ Feature: Register user
          And I see message "User account successfully created"
 
     Scenario Outline: Register new user with valid data in fields
-       Given I am on the "register user" page
+       Given I am at "register user" page
         When I fill the form with
             | <firstName> |
             | <lastName>  |
@@ -138,7 +138,7 @@ Feature: Register user
             | First                                                           | Last                                                            | user                                                                     | mail@ez.no                                                        | thisIsA300CharacterKeythisIsA300CharacterKeythisIsA300CharacterKeythisIsA300CharacterKeythisIsA300CharacterKeythisIsA300CharacterKeythisIsA300CharacterKeythisIsA300CharacterKeythisIsA300CharacterKeythisIsA300CharacterKeythisIsA300CharacterKeythisIsA300CharacterKeythisIsA300CharacterKeythisIsA300CharacterKey |
 
     Scenario Outline: Attempt to register new user with invalid data in fields
-       Given I am on the "register user" page
+       Given I am at "register user" page
         When I fill the form with 
             | <firstName> |
             | <lastName>  |
@@ -166,7 +166,7 @@ Feature: Register user
             | First     | Last     | user     | mail@single             | cod1     |
 
     Scenario: Remove image from a register user Draft
-       Given I am on the "register user" page
+       Given I am at "register user" page
          And I have a Content Object "Z" of ContentType "user" with a "image" "A"
         When I click at "Remove Image" button
         Then I see a message "input was stored successfuly"
@@ -175,7 +175,7 @@ Feature: Register user
          And I see "Remove image" button "disabled"
 
     Scenario: Change uploaded image on a register user Draft
-       Given I am on the "register user" page
+       Given I am at "register user" page
          And I have a Content Object "Z" of ContentType "user" with a "image" "A"
         When I attach a "image" "B"
          And I store Content Object "Draft"
@@ -183,7 +183,7 @@ Feature: Register user
          And I don't see "image" "A"
 
     Scenario: Registering data is kept till discard
-       Given I am on the "register user" page
+       Given I am at "register user" page
          And I have a Content Object "A" of ContentType "user"
          And I have form with data "A"
         When I click at "logo" image
@@ -191,7 +191,7 @@ Feature: Register user
         Then I see "register" form filled with data "A"
 
     Scenario: Invalid register wont loose data
-       Given I am on the "register user" page
+       Given I am at "register user" page
          And I have a Content Object "A" of ContentType "user"
         When I fill the form with
             | email | invalid data |
