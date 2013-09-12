@@ -200,3 +200,7 @@ Feature: Register user
          And I see "register" form filled with data "A" and
             | email | invalid data |
 
+    Scenario: Search field is disabled when registering
+       Given I am at "register user" page
+        Then I have "search" input "disabled"
+
