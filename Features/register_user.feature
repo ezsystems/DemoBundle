@@ -10,11 +10,10 @@ Feature: Register user
         When I fill a valid "register" form
          And I click at "Register" button
         Then I should be redirected to "user created"
-         And I see message "User account successfully created"
 
     Scenario Outline: Attempt to register a new user with an existing unique field
        Given I am at "register user" page
-         And I have a Content Object of ContentType "user" with
+         And I have a Content object of ContentType "user" with
             | username | user       |
             | email    | mail@ez.no |
         When I fill the form with
@@ -167,7 +166,7 @@ Feature: Register user
 
     Scenario: Remove image from a register user Draft
        Given I am at "register user" page
-         And I have a Content Object "Z" of ContentType "user" with a "image" "A"
+         And I have a Content object "Z" of ContentType "user" with a "image" "A"
         When I click at "Remove Image" button
         Then I see a message "input was stored successfuly"
          And I don't see "image" "A"
@@ -176,15 +175,15 @@ Feature: Register user
 
     Scenario: Change uploaded image on a register user Draft
        Given I am at "register user" page
-         And I have a Content Object "Z" of ContentType "user" with a "image" "A"
+         And I have a Content object "Z" of ContentType "user" with a "image" "A"
         When I attach a "image" "B"
-         And I store Content Object "Draft"
+         And I store Content object "Draft"
         Then I see "image" "B"
          And I don't see "image" "A"
 
     Scenario: Registering data is kept till discard
        Given I am at "register user" page
-         And I have a Content Object "A" of ContentType "user"
+         And I have a Content object "A" of ContentType "user"
          And I have form with data "A"
         When I click at "logo" image
          And I click at "register" link
@@ -192,7 +191,7 @@ Feature: Register user
 
     Scenario: Invalid register wont loose data
        Given I am at "register user" page
-         And I have a Content Object "A" of ContentType "user"
+         And I have a Content object "A" of ContentType "user"
         When I fill the form with
             | email | invalid data |
          And I click at "Register" button
