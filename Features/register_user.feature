@@ -78,7 +78,6 @@ Feature: Register user
          And I see message "User account successfully created"
 
     Scenario Outline: Register new user with valid data in fields
-        # @TODO: find possible data for each fields
        Given I am on the "register user" page
         When I fill the form with
             | <firstName> |
@@ -139,7 +138,6 @@ Feature: Register user
             | First                                                           | Last                                                            | user                                                                     | mail@ez.no                                                        | thisIsA300CharacterKeythisIsA300CharacterKeythisIsA300CharacterKeythisIsA300CharacterKeythisIsA300CharacterKeythisIsA300CharacterKeythisIsA300CharacterKeythisIsA300CharacterKeythisIsA300CharacterKeythisIsA300CharacterKeythisIsA300CharacterKeythisIsA300CharacterKeythisIsA300CharacterKeythisIsA300CharacterKey |
 
     Scenario Outline: Attempt to register new user with invalid data in fields
-        # @TODO: find validation done for each field
        Given I am on the "register user" page
         When I fill the form with 
             | <firstName> |
