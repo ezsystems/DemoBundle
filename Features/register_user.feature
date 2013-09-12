@@ -202,5 +202,5 @@ Feature: Register user
 
     Scenario: Search field is disabled when registering
        Given I am at "register user" page
-        Then I have "search" input "disabled"
+        Then I see "search" input "disabled"
 
