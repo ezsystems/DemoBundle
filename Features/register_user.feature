@@ -1,6 +1,6 @@
 Feature: Register user
     In order to register a new user
-    As a anonymous user
+    As an anonymous user
     I need to be able to register
 
     Scenario: Register a new user
