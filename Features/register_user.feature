@@ -190,3 +190,13 @@ Feature: Register user
          And I click at "register" link
         Then I see "register" form filled with data "A"
 
+    Scenario: Invalid register wont loose data
+       Given I am on the "register user" page
+         And I have a Content Object "A" of ContentType "user"
+        When I fill the form with
+            | email | invalid data |
+         And I click at "Register" button
+        Then I see "input did not validate" error
+         And I see "register" form filled with data "A" and
+            | email | invalid data |
+
