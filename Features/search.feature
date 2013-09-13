@@ -287,3 +287,41 @@ Feature: Search ( basic search )
             | Norway.                          |
             | France                           |
 
+    # ezdate
+    Scenario Outline: Results return on ezdate field
+       Given I have a Content Type "B" with the following fields
+            | ezdate | Date | searchable |
+         And I have a Content object "A" of Content Type "B" with
+            | Date | 24/01/2013 |
+        When I search for "<data>"
+        Then I see "1" search results
+         And I see Content object "A"
+        
+        Examples:
+            | data |
+        # @NOTICE: couldn't find any positive search
+
+    Scenario Outline: No search results on ezdate field
+       Given I have a Content Type "B" with the following fields
+            | ezdate | Date | searchable |
+         And I have a Content object "A" of Content Type "B" with
+            | Date | 24/01/2013 |
+        When I search for "<data>"
+        Then I see "0" search results
+        
+        Examples:
+            | data            |
+            | 24/01/2013      |
+            | 24-01-2013      |
+            | 24-01/2013      |
+            | 24,01,2013      |
+            | 2013/01/24      |
+            | 2013/01-24      |
+            | 24 jan 2013     |
+            | 24 January 2013 |
+            | jan             |
+            | january         |
+            | 2013            |
+            | 24/01           |
+            | 01-24           |
+
