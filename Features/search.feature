@@ -1,4 +1,4 @@
-Feature: Search
+Feature: Search ( basic search )
     In order to do a search
     As an anonymous user
     I need to be able to make a search
@@ -57,9 +57,11 @@ Feature: Search
     ###
     # Testing ez fields
     ###
-    Scenario Outline: Restults returned on ezstring data
-       Given I have a Content Type "B" with
-            | ezstring | searchable |
+    
+    # eZString
+    Scenario Outline: Restults returned on ezstring field
+       Given I have a Content Type "B" with the following fields
+            | ezstring | Text | searchable |
          And I have a Content object "A" of Content Type "B" with
             | ezstring | This field has a CoupleOfWords and some numbers 10 256 0123456879 123.45$&% an example@ez.no |
         When I search for "<data>"
@@ -96,9 +98,9 @@ Feature: Search
         # complete email
             | example@ez.no    |
 
-    Scenario Outline: No search results on ezstring data
-       Given I have a Content Type "B" with
-            | ezstring | searchable |
+    Scenario Outline: No search results on ezstring field
+       Given I have a Content Type "B" with the following fields
+            | ezstring | Text | searchable |
          And I have a Content object "A" of Content Type "B" with
             | ezstring | This field has a CoupleOfWords and some numbers 10 256 0123456879 123.45$&% an example@ez.no |
         When I search for "<data>"
