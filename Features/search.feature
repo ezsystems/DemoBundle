@@ -216,3 +216,74 @@ Feature: Search ( basic search )
             | comment content |
             | 123.45          |
             | 0123456         |
+
+    # eZCountry
+    Scenario Outline: Results return on ezcountry field
+       Given I have a Content Type "B" with the following fields
+            | ezcountry | Country | searchable |
+         And I have a Content object "A" of Content Type "B" with
+            | Country | Norway |
+        When I search for "<data>"
+        Then I see "1" search results
+         And I see Content object "A"
+        
+        Examples:
+            | data    |
+            | Norway  |
+            | NORWAY  |
+            | norway  |
+            | Norway, |
+            | Norway. |
+
+    Scenario Outline: No search results on ezcountry field
+       Given I have a Content Type "B" with the following fields
+            | ezcountry | Country | searchable |
+         And I have a Content object "A" of Content Type "B" with
+            | Country | Norway |
+        When I search for "<data>"
+        Then I see "0" search results
+        
+        Examples:
+            | data          |
+            | France        |
+            | Nor           |
+            | way           |
+            | Norway,France |
+
+    Scenario Outline: Results return on ezcountry field with multiple choice
+       Given I have a Content Type "B" with the following fields
+            | ezcountry | Countries | searchable | multiple_choice |
+         And I have a Content object "A" of Content Type "B" with
+            | Countries | Norway | Portugal | United Kingdom |
+        When I search for "<data>"
+        Then I see "1" search results
+         And I see Content object "A"
+        
+        Examples:
+            | data                           |
+            | Norway,Portugal,United Kingdom |
+            | norway,portugal,united kingdom |
+            | NORWAY,portugal,UNITED kingdom |
+            | Norway,Portugal,United         |
+            | Norway.Portugal.United Kingdom |
+
+    Scenario Outline: No search results on ezcountry field with multiple choice
+       Given I have a Content Type "B" with the following fields
+            | ezcountry | Countries | searchable | multiple_choice |
+         And I have a Content object "A" of Content Type "B" with
+            | Countries | Norway | Portugal | United Kingdom |
+        When I search for "<data>"
+        Then I see "0" search results
+        
+        Examples:
+            | data                             |
+        # @NOTICE: searching for a specific country in a multiple country object won't return any value
+            | Norway                           |
+            | Norway, Portugal, United Kingdom |
+            | Norway .Portugal .United Kingdom |
+            | United                           |
+            | United Kingdom                   |
+            | Norway,                          |
+            | Norway.                          |
+            | France                           |
+
