@@ -22,7 +22,7 @@ Feature: Search ( basic search )
        Given I am at "home" page
         When I search for "this-value-doesnt-exist"
         Then I see "0" search results
-         And I see message "No results were found when searching for \"this-value-doesnt-exist\""
+         And I see message "No results were found when searching for 'this-value-doesnt-exist'"
 
     # Q: these "tips" scenarios could be merged to the above scenarios, should they?
     Scenario: No results will display search tips
