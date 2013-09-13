@@ -129,4 +129,43 @@ Feature: Search ( basic search )
             | $            |
             | $&%          |
 
+    # eZAuthor
+    Scenario Outline: Results return on ezauthor field
+       Given I have a Content Type "B" with the following fields
+            | ezauthor | Author | searchable |
+         And I have a Content object "A" of Content Type "B" with
+            | Author | 1 | Administrator | admin@ez.no  |
+            | Author | 2 | John Doe      | john@doe.com |
+        When I search for "<data>"
+        Then I see "1" search results
+         And I see Content object "A"
+        
+        Examples:
+            | data               |
+            | John               |
+            | administrator      |
+            | JOHN DOE           |
+            | john administrator |
+            | john               |
+            | john@              |
+            | john@doe.com       |
+            | admin@ john @ez.no |
+        # @NOTICE: it accepts a non existing email
+            | john@ez.no         |
+            | john@admin         |
 
+    Scenario Outline: No search results on ezauthor field
+       Given I have a Content Type "B" with the following fields
+            | ezauthor | Author | searchable |
+         And I have a Content object "A" of Content Type "B" with
+            | Author | 1 | Administrator | admin@ez.no  |
+            | Author | 2 | John Doe      | john@doe.com |
+        When I search for "<data>"
+        Then I see "0" search results
+        
+        Examples:
+            | data        |
+            | ministrator |
+            | mini        |
+            | hn Doe      |
+            | ez.com      |
