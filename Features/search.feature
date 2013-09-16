@@ -439,6 +439,42 @@ Feature: Search ( basic search )
             | abcdefg       |
             | one,two,three |
 
+    # eZKeyword
+    Scenario Outline: Results returned on ezkeyword field search
+       Given I have a Content Type "B" with the following fields
+            | ezkeyword | Keywords | searchable |
+         And I have a Content object "A" of Content Type "B" with
+            | Keywords | keyword1, keyword2, example, another, a, 1, a1 |
+        When I search for "<data>"
+        Then I see "1" search results
+         And I see Content object "A"
+        
+        Examples:
+            | data             |
+            | keyword2         |
+            | a                |
+            | 1                |
+            | a1               |
+            | example, another |
+            | a@#$>a1<£§%1     |
+
+    Scenario Outline: No search results on ezkeywords field search
+       Given I have a Content Type "B" with the following fields
+            | ezkeyword | Keywords | searchable |
+         And I have a Content object "A" of Content Type "B" with
+            | Keywords | keyword1, keyword2, example, another, a, 1, a1 |
+        When I search for "<data>"
+        Then I see "0" search results
+        
+        Examples:
+            | data            |
+            | keyword         |
+            | 1a              |
+            | word1           |
+            | key&word        |
+        # @Notice: if there is no space the object isn't returned
+            | example,another |
+
 
 # @TODO: go deep into content types and field types
 #       - (not) searcheable
