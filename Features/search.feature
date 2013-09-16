@@ -325,3 +325,19 @@ Feature: Search ( basic search )
             | 24/01           |
             | 01-24           |
 
+
+# @TODO: go deep into content types and field types
+#       - (not) searcheable
+#       - datetime
+#       - int
+
+# @TODO: test metadata search
+
+# @TODO: test multiple results
+
+# @TODO: test archived and draft versions
+
+# @TODO: go to advanced search
+
+# @TODO: permissions ( sections, version read, etc... )
+
