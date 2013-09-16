@@ -786,6 +786,83 @@ Feature: Search ( basic search )
             | omg this is a mail    |
             | width                 |
 
+    # @Notice: Binary Base tree search not implemented on LS
+    # eZBinaryFile
+    Scenario Outline: Results returned on ezbinaryfield field search
+       Given I have a Content Type "B" with the following fields
+            | ezbinaryfield | File | searchable |
+         And I have a Content object "A" of Content Type "B" with
+            | File | file:example2.tar.gz | 51.2kb |
+        When I search for "<data>"
+        Then I see "1" search results
+         And I see Content object "A"
+        
+        Examples:
+            | data |
+        # need details
+
+    Scenario Outline: No search results on ezbinaryfield field search
+       Given I have a Content Type "B" with the following fields
+            | ezbinaryfield | File | searchable |
+         And I have a Content object "A" of Content Type "B" with
+            | File | file:example2.tar.gz | 51.2kb |
+        When I search for "<data>"
+        Then I see "0" search results
+        
+        Examples:
+            | data |
+    # need details
+
+    # eZMedia
+    Scenario Outline: Results returned on ezmedia field search
+       Given I have a Content Type "B" with the following fields
+            | ezmedia | Media | searchable |
+         And I have a Content object "A" of Content Type "B" with
+            | media | file:sneezing_panda.mp4 | 730.4kb | 400x300 |
+        When I search for "<data>"
+        Then I see "1" search results
+         And I see Content object "A"
+        
+        Examples:
+            | data |
+        # need details
+
+    Scenario Outline: No search results on ezbinaryfield field search
+       Given I have a Content Type "B" with the following fields
+            | ezmedia | Media | searchable |
+         And I have a Content object "A" of Content Type "B" with
+            | media | file:sneezing_panda.mp4 | 730.4kb | 400x300 |
+        When I search for "<data>"
+        Then I see "0" search results
+        
+        Examples:
+            | data |
+    # need details
+
+    # eZImage
+    Scenario Outline: Results returned on ezimage field search
+       Given I have a Content Type "B" with the following fields
+            | ezmedia | Media | searchable |
+         And I have a Content object "A" of Content Type "B" with
+            | media | file:test.jpg | 60.9kb | 312x312
+        When I search for "<data>"
+        Then I see "1" search results
+         And I see Content object "A"
+        
+        Examples:
+            | data |
+        # need details
+
+    Scenario Outline: No search results on ezimage field search
+       Given I have a Content Type "B" with the following fields
+            | ezmedia | Media | searchable |
+         And I have a Content object "A" of Content Type "B" with
+            | media | file:test.jpg | 60.9kb | 312x312
+        When I search for "<data>"
+        Then I see "0" search results
+
+        Examples:
+            | data |
 
 # @TODO: go deep into content types and field types
 #       - (not) searchable
