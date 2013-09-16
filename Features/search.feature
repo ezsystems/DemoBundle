@@ -59,7 +59,7 @@ Feature: Search ( basic search )
     ###
     
     # eZString
-    Scenario Outline: Restults returned on ezstring field
+    Scenario Outline: Restults returned on ezstring field search
        Given I have a Content Type "B" with the following fields
             | ezstring | Text | searchable |
          And I have a Content object "A" of Content Type "B" with
@@ -98,7 +98,7 @@ Feature: Search ( basic search )
         # complete email
             | example@ez.no    |
 
-    Scenario Outline: No search results on ezstring field
+    Scenario Outline: No search results on ezstring field search
        Given I have a Content Type "B" with the following fields
             | ezstring | Text | searchable |
          And I have a Content object "A" of Content Type "B" with
@@ -130,7 +130,7 @@ Feature: Search ( basic search )
             | $&%          |
 
     # eZAuthor
-    Scenario Outline: Results return on ezauthor field
+    Scenario Outline: Results returned on ezauthor field search
        Given I have a Content Type "B" with the following fields
             | ezauthor | Author | searchable |
          And I have a Content object "A" of Content Type "B" with
@@ -154,7 +154,7 @@ Feature: Search ( basic search )
             | john@ez.no         |
             | john@admin         |
 
-    Scenario Outline: No search results on ezauthor field
+    Scenario Outline: No search results on ezauthor field search
        Given I have a Content Type "B" with the following fields
             | ezauthor | Author | searchable |
          And I have a Content object "A" of Content Type "B" with
@@ -171,7 +171,7 @@ Feature: Search ( basic search )
             | ez.com      |
 
     # eZCountry
-    Scenario Outline: Results return on ezcountry field
+    Scenario Outline: Results returned on ezcountry field search
        Given I have a Content Type "B" with the following fields
             | ezcountry | Country | searchable |
          And I have a Content object "A" of Content Type "B" with
@@ -188,7 +188,7 @@ Feature: Search ( basic search )
             | Norway, |
             | Norway. |
 
-    Scenario Outline: No search results on ezcountry field
+    Scenario Outline: No search results on ezcountry field search
        Given I have a Content Type "B" with the following fields
             | ezcountry | Country | searchable |
          And I have a Content object "A" of Content Type "B" with
@@ -203,7 +203,7 @@ Feature: Search ( basic search )
             | way           |
             | Norway,France |
 
-    Scenario Outline: Results return on ezcountry field with multiple choice
+    Scenario Outline: Results returned on ezcountry field search with multiple choice
        Given I have a Content Type "B" with the following fields
             | ezcountry | Countries | searchable | multiple_choice |
          And I have a Content object "A" of Content Type "B" with
@@ -220,7 +220,7 @@ Feature: Search ( basic search )
             | Norway,Portugal,United         |
             | Norway.Portugal.United Kingdom |
 
-    Scenario Outline: No search results on ezcountry field with multiple choice
+    Scenario Outline: No search results on ezcountry field search with multiple choice
        Given I have a Content Type "B" with the following fields
             | ezcountry | Countries | searchable | multiple_choice |
          And I have a Content object "A" of Content Type "B" with
@@ -241,7 +241,7 @@ Feature: Search ( basic search )
             | France                           |
 
     # eZDate
-    Scenario Outline: Results return on ezdate field
+    Scenario Outline: Results returned on ezdate field search
        Given I have a Content Type "B" with the following fields
             | ezdate | Date | searchable |
          And I have a Content object "A" of Content Type "B" with
@@ -254,7 +254,7 @@ Feature: Search ( basic search )
             | data |
         # @NOTICE: couldn't find any positive search
 
-    Scenario Outline: No search results on ezdate field
+    Scenario Outline: No search results on ezdate field search
        Given I have a Content Type "B" with the following fields
             | ezdate | Date | searchable |
          And I have a Content object "A" of Content Type "B" with
@@ -279,7 +279,7 @@ Feature: Search ( basic search )
             | 01-24           |
 
     # eZDateTime
-    Scenario Outline: Results return on ezdatetime field
+    Scenario Outline: Results returned on ezdatetime field search
        Given I have a Content Type "B" with the following fields
             | ezdatetime | DateAndTime | searchable |
          And I have a Content object "A" of Content Type "B" with
@@ -292,7 +292,7 @@ Feature: Search ( basic search )
             | data |
         # @NOTICE: couldn't find any positive search
 
-    Scenario Outline: No search results on ezdatetime field
+    Scenario Outline: No search results on ezdatetime field search
        Given I have a Content Type "B" with the following fields
             | ezdatetime | DateAndTime | searchable |
          And I have a Content object "A" of Content Type "B" with
@@ -325,7 +325,7 @@ Feature: Search ( basic search )
             | am                  |
 
     # eZEmail
-    Scenario Outline: Results return on ezemail field
+    Scenario Outline: Results returned on ezemail field search
        Given I have a Content Type "B" with the following fields
             | ezemail | eMail | searchable |
          And I have a Content object "A" of Content Type "B" with
@@ -342,7 +342,7 @@ Feature: Search ( basic search )
             | ez.no                  |
             | @ez.no                 |
 
-    Scenario Outline: No search results on ezemail field
+    Scenario Outline: No search results on ezemail field search
        Given I have a Content Type "B" with the following fields
             | ezemail | eMail | searchable |
          And I have a Content object "A" of Content Type "B" with
