@@ -677,38 +677,45 @@ Feature: Search ( basic search )
     # For the following tests the XML field is filled with the next XML:
     #
     #    <section>
-    #      <paragraph>this is normal text 1 12 456 7890</paragraph>
-    #      <anchor name="i got the lit.eral" />
-    #      <literal>now i'm in lit-e-ral text</literal>
+    #        <paragraph>this is normal text 1 12 456 7890</paragraph>
+    #        <anchor name="i got the lit.eral" />
+    #        <literal>now i'm in lit-e-ral text</literal>
     #    </section>
     #    <paragraph>
-    #    <link view="full" title="omg a mail" id="010" href="mailto:example@ez.no">example@ez.no</link>
-    #    <link title="ezpublish site" id="040" href="http://ezpublish.no">this is a link</link>
-    #    <custom name="factbox" custom:title="factbox" custom:align="right">this is a box a fact box</custom>
-    #    <ol>
-    #      <li>an ordered list</li>
-    #      <li>line 2</li>
-    #      <li>line 3</li>
-    #    </ol>
+    #        <link view="full" title="omg a mail" id="010" href="mailto:example@ez.no">example@ez.no</link>
+    #        <br/>
+    #        <link title="ezpublish site" id="040" href="http://ezpublish.no">this is a link</link>
+    #        <br/>
+    #        <custom name="factbox" custom:title="factbox" custom:align="right">this is a box a fact box</custom>
+    #        <br/>
+    #        <ol>
+    #            <li>an ordered list</li>
+    #            <li>line 2</li>
+    #            <li>line 3</li>
+    #        </ol>
     #    </paragraph>
     #    <paragraph>
-    #      superscript<custom name="sup">5</custom>
-    #      subscript<custom name="sub">6</custom>
+    #        superscript<custom name="sup">5</custom>
+    #        <br/>
+    #        subscript<custom name="sub">6</custom>
     #    </paragraph>
     #    <paragraph>
-    #      <strong>bold</strong>
-    #      <custom name="underline">underline</custom>
-    #      <emphasize>italic</emphasize>
+    #        <strong>bold</strong>
+    #        <br/>
+    #        <custom name="underline">underline</custom>
+    #        <br/>
+    #        <emphasize>italic</emphasize>
+    #        <br/>
     #    </paragraph>
     #    <table class="comparison" border="0" width="100%" custom:summary="comparing something" custom:caption="capiton or my mistake">
-    #      <tr>
-    #        <td>title the first</td>
-    #        <td>topic the second</td>
-    #      </tr>
-    #      <tr>
-    #        <td>resut third</td>
-    #        <td>answer fourth</td>
-    #      </tr>
+    #        <tr>
+    #            <td>title the first</td>
+    #            <td>topic the second</td>
+    #        </tr>
+    #        <tr>
+    #            <td>resut third</td>
+    #            <td>answer fourth</td>
+    #        </tr>
     #    </table>
     Scenario Outline: Results returned on ezxmltext field search
        Given I have a Content Type "B" with the following fields
@@ -759,8 +766,10 @@ Feature: Search ( basic search )
         Examples:
             | data                  |
             | superscript5          |
+            | subscript6            |
         # search for XML tags
             | literal               |
+            | factbox               |
             | paragraph             |
             | anchor                |
             | table                 |
