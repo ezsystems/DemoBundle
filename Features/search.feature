@@ -279,6 +279,7 @@ Feature: Search ( basic search )
             | 2013            |
             | 24/01           |
             | 01-24           |
+            | 1358985600      |
 
     # eZDateTime
     Scenario Outline: Results returned on ezdatetime field search
@@ -325,6 +326,7 @@ Feature: Search ( basic search )
             | 01                  |
             | 23                  |
             | am                  |
+            | 1358990580          |
 
     # eZEmail
     Scenario Outline: Results returned on ezemail field search
@@ -575,7 +577,7 @@ Feature: Search ( basic search )
             | data |
         # @NOTICE: couldn't find any positive search
 
-    Scenario Outline: No search results on ezsrrating field
+    Scenario Outline: No search results on ezsrrating field search
        Given I have a Content Type "B" with the following fields
             | ezsrrating | StarRating | searchable |
          And I have a Content object "A" of Content Type "B"
@@ -622,7 +624,7 @@ Feature: Search ( basic search )
             | @#$>text_block<£§% |
             | a                  |
 
-    Scenario Outline: No search results on eztext field
+    Scenario Outline: No search results on eztext field search
        Given I have a Content Type "B" with the following fields
             | eztext | Text | searchable |
          And I have a Content object "A" of Content Type "B" with
