@@ -595,10 +595,50 @@ Feature: Search ( basic search )
             | 5votes    |
             | 3.25stars |
 
+    # eZText
+    Scenario Outline: Results returned on eztext field search
+       Given I have a Content Type "B" with the following fields
+            | eztext | Text | searchable |
+         And I have a Content object "A" of Content Type "B" with
+            | Text | text_block: this\nis a\ntext block\n\nand It has numbers\n10\n1120\n10 2 3 50\n123.45\n123-456\n123---456 |
+        When I search for "<data>"
+        Then I see "1" search results
+         And I see Content object "A"
+        
+        Examples:
+            | data               |
+            | Text_BLOCK         |
+            | and it has         |
+            | has it and         |
+            | is a text          |
+            | 2 10 50            |
+            | 50#2$10            |
+            | 123                |
+            | 123&456            |
+            | 123@456-50         |
+            | 123---10           |
+            | 123-.456           |
+            | 123.45             |
+            | @#$>text_block<£§% |
+            | a                  |
+
+    Scenario Outline: No search results on eztext field
+       Given I have a Content Type "B" with the following fields
+            | eztext | Text | searchable |
+         And I have a Content object "A" of Content Type "B" with
+            | Text | text_block: this\nis a\ntext block\n\nand It has numbers\n10\n1120\n10 2 3 50\n123.45\n123-456\n123---456 |
+        When I search for "<data>"
+        Then I see "0" search results
+        
+        Examples:
+            | data      |
+            | 123.456   |
+            | this\nis  |
+            | .45       |
+
+
 # @TODO: go deep into content types and field types
-#       - (not) searcheable
-#       - datetime
-#       - int
+#       - (not) searchable
 
 # @TODO: test metadata search
 
