@@ -638,6 +638,41 @@ Feature: Search ( basic search )
             | this\nis  |
             | .45       |
 
+    # eZUser
+    Scenario Outline: Results returned on ezuser field search
+       Given I have a Content Type "B" with the following fields
+            | ezuser | User | searchable |
+         And I have a Content object "A" of Content Type "B" with
+            | User | 150 | user name | password1 | example@ez.no |
+        When I search for "<data>"
+        Then I see "1" search results
+         And I see Content object "A"
+        
+        Examples:
+            | data              |
+            | user name         |
+            | name              |
+            | example@ez.no     |
+            | example@          |
+            | ez.no             |
+            | user@ez.no        |
+            | @#$>user-name<£§% |
+
+    Scenario Outline: No search results on ezuser field search
+       Given I have a Content Type "B" with the following fields
+            | ezuser | User | searchable |
+         And I have a Content object "A" of Content Type "B" with
+            | User | 150 | user name | password1 | example@ez.no |
+        When I search for "<data>"
+        Then I see "0" search results
+        
+        Examples:
+            | data |
+            | 150       |
+            | password1 |
+            | username  |
+            | user,name |
+
 
 # @TODO: go deep into content types and field types
 #       - (not) searchable
