@@ -360,6 +360,41 @@ Feature: Search ( basic search )
             | test@ez   |
             | st@ez.no  |
 
+    # eZGMapLocation
+    Scenario Outline: Results returned on ezgmaplocation field search
+       Given I have a Content Type "B" with the following fields
+            | ezgmaplocation | MapLocation | searchable |
+         And I have a Content object "A" of Content Type "B" with
+            | MapLocation | 59.91,10.75 | Olso, Norway |
+        When I search for "<data>"
+        Then I see "1" search results
+         And I see Content object "A"
+        
+        Examples:
+            | data |
+            | Olso |
+
+    Scenario Outline: No search results on ezgmaplocation field search
+       Given I have a Content Type "B" with the following fields
+            | ezgmaplocation | MapLocation | searchable |
+         And I have a Content object "A" of Content Type "B" with
+            | MapLocation | 59.91,10.75 | Olso, Norway |
+        When I search for "<data>"
+        Then I see "0" search results
+        
+        Examples:
+            | data         |
+            | Norway       |
+            | 59.91        |
+            | 10.75        |
+            | 59.91,10.75  |
+            | Olso, Norway |
+            | Lisbon       |
+            | Portugal     |
+            | 38.72        |
+            | -9.15        |
+            | 38.72,-9.15  |
+
 
 # @TODO: go deep into content types and field types
 #       - (not) searcheable
