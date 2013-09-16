@@ -278,6 +278,54 @@ Feature: Search ( basic search )
             | 24/01           |
             | 01-24           |
 
+    # ezdatetime
+    Scenario Outline: Results return on ezdatetime field
+       Given I have a Content Type "B" with the following fields
+            | ezdatetime | DateAndTime | searchable |
+         And I have a Content object "A" of Content Type "B" with
+            | DateAndTime | 24/01/2013 01:23 am |
+        When I search for "<data>"
+        Then I see "1" search results
+         And I see Content object "A"
+        
+        Examples:
+            | data |
+        # @NOTICE: couldn't find any positive search
+
+    Scenario Outline: No search results on ezdatetime field
+       Given I have a Content Type "B" with the following fields
+            | ezdatetime | DateAndTime | searchable |
+         And I have a Content object "A" of Content Type "B" with
+            | DateAndTime | 24/01/2013 01:23 am |
+        When I search for "<data>"
+        Then I see "0" search results
+        
+        Examples:
+            | data                |
+            | 24/01/2013 01:23 am |
+            | 24-01-2013          |
+            | 24-01/2013          |
+            | 24,01,2013          |
+            | 2013/01/24          |
+            | 2013/01-24          |
+            | 24 jan 2013         |
+            | 24 January 2013     |
+            | jan                 |
+            | january             |
+            | 2013                |
+            | 24/01               |
+            | 01-24               |
+            | 01:23 am            |
+            | 01h23m              |
+            | 23m                 |
+            | 1 hour              |
+            | 1 hour 23 minutes   |
+            | 01                  |
+            | 23                  |
+            | am                  |
+
+
+
 
 # @TODO: go deep into content types and field types
 #       - (not) searcheable
