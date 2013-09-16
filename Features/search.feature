@@ -240,7 +240,7 @@ Feature: Search ( basic search )
             | Norway.                          |
             | France                           |
 
-    # ezdate
+    # eZDate
     Scenario Outline: Results return on ezdate field
        Given I have a Content Type "B" with the following fields
             | ezdate | Date | searchable |
@@ -278,7 +278,7 @@ Feature: Search ( basic search )
             | 24/01           |
             | 01-24           |
 
-    # ezdatetime
+    # eZDateTime
     Scenario Outline: Results return on ezdatetime field
        Given I have a Content Type "B" with the following fields
             | ezdatetime | DateAndTime | searchable |
@@ -324,7 +324,41 @@ Feature: Search ( basic search )
             | 23                  |
             | am                  |
 
+    # eZEmail
+    Scenario Outline: Results return on ezemail field
+       Given I have a Content Type "B" with the following fields
+            | ezemail | eMail | searchable |
+         And I have a Content object "A" of Content Type "B" with
+            | eMail | example_123.test@ez.no |
+        When I search for "<data>"
+        Then I see "1" search results
+         And I see Content object "A"
+        
+        Examples:
+            | data                   |
+            | example_123.test@ez.no |
+            | example_123.test       |
+            | example_123.test@      |
+            | ez.no                  |
+            | @ez.no                 |
 
+    Scenario Outline: No search results on ezemail field
+       Given I have a Content Type "B" with the following fields
+            | ezemail | eMail | searchable |
+         And I have a Content object "A" of Content Type "B" with
+            | eMail | example_123.test@ez.no |
+        When I search for "<data>"
+        Then I see "0" search results
+        
+        Examples:
+            | data      |
+            | examples  |
+            | examples_ |
+            | 123       |
+            | _123      |
+            | 123.test@ |
+            | test@ez   |
+            | st@ez.no  |
 
 
 # @TODO: go deep into content types and field types
