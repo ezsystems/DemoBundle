@@ -170,53 +170,6 @@ Feature: Search ( basic search )
             | hn Doe      |
             | ez.com      |
 
-    # eZComments
-    Scenario Outline: Results return on ezcomments field
-       Given I have a Content Type "B" with the following fields
-            | ezcomments | Comments | searchable |
-         And I have a Content object "A" of Content Type "B"
-         And I have a comment on Content object "A" with
-            | Comments.Title   | Comment title                                                          |
-            | Comments.Name    | John Doe                                                               |
-            | Comments.Email   | different@email.com                                                    |
-            | Comments.Webiste | http://my.website.ez.no                                                |
-            | Comments.Content | This is\nA\nmulti-row comment content\nwith numbers 10\n123.45 0123456 |
-        When I search for "<data>"
-        Then I see "1" search results
-         And I see Content object "A"
-        
-        Examples:
-            | data |
-        # @NOTICE: couldn't find any positive search
-
-    Scenario Outline: No search results on ezcomments field
-       Given I have a Content Type "B" with the following fields
-            | ezcomments | Comments | searchable |
-         And I have a Content object "A" of Content Type "B"
-         And I have a comment on Content object "A" with
-            | Comments.Title   | Comment title                                                          |
-            | Comments.Name    | John Doe                                                               |
-            | Comments.Email   | different@email.com                                                    |
-            | Comments.Webiste | http://my.website.ez.no                                                |
-            | Comments.Content | This is\nA\nmulti-row comment content\nwith numbers 10\n123.45 0123456 |
-        When I search for "<data>"
-        Then I see "0" search results
-        
-        Examples:
-            | data            |
-            | Comment title   |
-            | comment         |
-            | title           |
-            | ment title      |
-            | John Doe        |
-            | JOHN            |
-            | john            |
-            | website         |
-            | multi-row       |
-            | comment content |
-            | 123.45          |
-            | 0123456         |
-
     # eZCountry
     Scenario Outline: Results return on ezcountry field
        Given I have a Content Type "B" with the following fields
