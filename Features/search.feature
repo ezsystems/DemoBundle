@@ -561,6 +561,39 @@ Feature: Search ( basic search )
         # Notice: the difference from this to the one that do match is the missing '%' at the end
             | 6@£§$%4                    |
 
+    # eZSrRating
+    Scenario Outline:  Results returned on ezsrrating field search
+       Given I have a Content Type "B" with the following fields
+            | ezsrrating | StarRating | searchable |
+         And I have a Content object "A" of Content Type "B"
+         And I have an average "4.5" stars with "20" votes on Content object "A"
+        When I search for "<data>"
+        Then I see "1" search results
+         And I see Content object "A"
+        
+        Examples:
+            | data |
+        # @NOTICE: couldn't find any positive search
+
+    Scenario Outline: No search results on ezsrrating field
+       Given I have a Content Type "B" with the following fields
+            | ezsrrating | StarRating | searchable |
+         And I have a Content object "A" of Content Type "B"
+         And I have an average "4.5" stars with "20" votes on Content object "A"
+        When I search for "<data>"
+        Then I see "0" search results
+        
+        Examples:
+            | data      |
+            | 4.5 stars |
+            | 4.5       |
+            | 4.5stars  |
+            | stars     |
+            | 20 votes  |
+            | votes     |
+            | 20votes   |
+            | 5votes    |
+            | 3.25stars |
 
 # @TODO: go deep into content types and field types
 #       - (not) searcheable
