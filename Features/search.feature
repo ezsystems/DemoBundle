@@ -389,11 +389,50 @@ Feature: Search ( basic search )
             | 10.75        |
             | 59.91,10.75  |
             | Olso, Norway |
+        # search for another location
             | Lisbon       |
             | Portugal     |
             | 38.72        |
             | -9.15        |
             | 38.72,-9.15  |
+
+    # eZInteger
+    Scenario Outline: Results returned on ezinteger field search
+       Given I have a Content Type "B" with the following fields
+            | ezinteger | Integer | searchable |
+         And I have a Content object "A" of Content Type "B" with
+            | Integer | 123456 |
+        When I search for "<data>"
+        Then I see "1" search results
+         And I see Content object "A"
+        
+        Examples:
+            | data   |
+            | 123456 |
+
+    Scenario Outline: No search results on ezinteger field search
+       Given I have a Content Type "B" with the following fields
+            | ezinteger | Integer | searchable |
+         And I have a Content object "A" of Content Type "B" with
+            | Integer | 123456 |
+        When I search for "<data>"
+        Then I see "0" search results
+        
+        Examples:
+            | data          |
+            | 12345         |
+            | 23456         |
+            | 123           |
+            | 456           |
+            | 1             |
+            | 3             |
+            | 6             |
+            | 123.456       |
+            | 123-456       |
+            | 123*456       |
+            | 1.2.3.4.5.6   |
+            | abcdefg       |
+            | one,two,three |
 
 
 # @TODO: go deep into content types and field types
