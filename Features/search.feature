@@ -673,6 +673,110 @@ Feature: Search ( basic search )
             | username  |
             | user,name |
 
+    # eZXmlText
+    # For the following tests the XML field is filled with the next XML:
+    #
+    #    <section>
+    #      <paragraph>this is normal text 1 12 456 7890</paragraph>
+    #      <anchor name="i got the lit.eral" />
+    #      <literal>now i'm in lit-e-ral text</literal>
+    #    </section>
+    #    <paragraph>
+    #    <link view="full" title="omg a mail" id="010" href="mailto:example@ez.no">example@ez.no</link>
+    #    <link title="ezpublish site" id="040" href="http://ezpublish.no">this is a link</link>
+    #    <custom name="factbox" custom:title="factbox" custom:align="right">this is a box a fact box</custom>
+    #    <ol>
+    #      <li>an ordered list</li>
+    #      <li>line 2</li>
+    #      <li>line 3</li>
+    #    </ol>
+    #    </paragraph>
+    #    <paragraph>
+    #      superscript<custom name="sup">5</custom>
+    #      subscript<custom name="sub">6</custom>
+    #    </paragraph>
+    #    <paragraph>
+    #      <strong>bold</strong>
+    #      <custom name="underline">underline</custom>
+    #      <emphasize>italic</emphasize>
+    #    </paragraph>
+    #    <table class="comparison" border="0" width="100%" custom:summary="comparing something" custom:caption="capiton or my mistake">
+    #      <tr>
+    #        <td>title the first</td>
+    #        <td>topic the second</td>
+    #      </tr>
+    #      <tr>
+    #        <td>resut third</td>
+    #        <td>answer fourth</td>
+    #      </tr>
+    #    </table>
+    Scenario Outline: Results returned on ezxmltext field search
+       Given I have a Content Type "B" with the following fields
+            | ezxmltext | Text | searchable |
+         And I have a Content object "A" of Content Type "B" with
+            | Text | <section><paragraph>this is normal text 1 12 456 7890</paragraph><anchor name="i got the lit.eral" /><literal>now i'm in lit-e-ral text</literal></section><paragraph><link view="full" title="omg a mail" id="010" href="mailto:example@ez.no">example@ez.no</link><br/><link title="ezpublish site" id="040" href="http://ezpublish.no">this is a link</link><br/><custom name="factbox" custom:title="factbox" custom:align="right">this is a box a fact box</custom><br/><ol><li>an ordered list</li><li>line 2</li><li>line 3</li></ol></paragraph><paragraph>superscript<custom name="sup">5</custom><br/>subscript<custom name="sub">6</custom></paragraph><paragraph><strong>bold</strong><br/><custom name="underline">underline</custom><br/><emphasize>italic</emphasize><br/></paragraph><table class="comparison" border="0" width="100%" custom:summary="comparing something" custom:caption="capiton or my mistake"><tr><td>title the first</td><td>topic the second</td></tr><tr><td>resut third</td><td>answer fourth</td></tr></table> |
+        When I search for "<data>"
+        Then I see "1" search results
+         And I see Content object "A"
+        
+        Examples:
+            | data                |
+            | subscript           |
+            | normal text is this |
+            | 12 456              |
+            | 1-7890              |
+            | lit-e-ral           |
+            | li@nk               |
+        # subscript number
+            | 6                   |
+        # ordered list 
+            | 3. line 3           |
+            | line 3              |
+        # table contents
+            | third               |
+            | answer first        |
+        # custom
+            | box                 |
+            | fact-box            |
+            | underline           |
+            | italic              |
+            | bold                |
+        # email
+            | example             |
+            | example@            |
+            | example@ez.no       |
+            | @ez.no              |
+            | ez.no               |
+
+    Scenario Outline: No search results on ezxmltext field search
+       Given I have a Content Type "B" with the following fields
+            | ezxmltext | Text | searchable |
+         And I have a Content object "A" of Content Type "B" with
+            | Text | <section><paragraph>this is normal text 1 12 456 7890</paragraph><anchor name="i got the lit.eral" /><literal>now i'm in lit-e-ral text</literal></section><paragraph><link view="full" title="omg a mail" id="010" href="mailto:example@ez.no">example@ez.no</link><br/><link title="ezpublish site" id="040" href="http://ezpublish.no">this is a link</link><br/><custom name="factbox" custom:title="factbox" custom:align="right">this is a box a fact box</custom><br/><ol><li>an ordered list</li><li>line 2</li><li>line 3</li></ol></paragraph><paragraph>superscript<custom name="sup">5</custom><br/>subscript<custom name="sub">6</custom></paragraph><paragraph><strong>bold</strong><br/><custom name="underline">underline</custom><br/><emphasize>italic</emphasize><br/></paragraph><table class="comparison" border="0" width="100%" custom:summary="comparing something" custom:caption="capiton or my mistake"><tr><td>title the first</td><td>topic the second</td></tr><tr><td>resut third</td><td>answer fourth</td></tr></table> |
+        When I search for "<data>"
+        Then I see "0" search results
+        
+        Examples:
+            | data                  |
+            | superscript5          |
+        # search for XML tags
+            | literal               |
+            | paragraph             |
+            | anchor                |
+            | table                 |
+            | strong                |
+            | <strong>bold</strong> |
+            | custom                |
+            | br                    |
+            | <br/>                 |
+        # search for tag attributes and values
+            | i got the             |
+            | mailto                |
+            | id="040"              |
+            | 040                   |
+            | omg this is a mail    |
+            | width                 |
+
 
 # @TODO: go deep into content types and field types
 #       - (not) searchable
@@ -681,7 +785,7 @@ Feature: Search ( basic search )
 
 # @TODO: test multiple results
 
-# @TODO: test archived and draft versions
+# @TODO: test archived, draft and trashed versions
 
 # @TODO: go to advanced search
 
