@@ -150,6 +150,7 @@ Feature: Search ( basic search )
             | john@              |
             | john@doe.com       |
             | admin@ john @ez.no |
+            | @#$>john<£§%       |
         # @NOTICE: it accepts a non existing email
             | john@ez.no         |
             | john@admin         |
@@ -219,6 +220,7 @@ Feature: Search ( basic search )
             | NORWAY,portugal,UNITED kingdom |
             | Norway,Portugal,United         |
             | Norway.Portugal.United Kingdom |
+            | @#$<Norway,Portugal,United>£§% |
 
     Scenario Outline: No search results on ezcountry field search with multiple choice
        Given I have a Content Type "B" with the following fields
@@ -341,6 +343,7 @@ Feature: Search ( basic search )
             | example_123.test@      |
             | ez.no                  |
             | @ez.no                 |
+            | @#$<example>£§%        |
 
     Scenario Outline: No search results on ezemail field search
        Given I have a Content Type "B" with the following fields
@@ -371,8 +374,9 @@ Feature: Search ( basic search )
          And I see Content object "A"
         
         Examples:
-            | data |
-            | Olso |
+            | data         |
+            | Olso         |
+            | @#$<olso>£§% |
 
     Scenario Outline: No search results on ezgmaplocation field search
        Given I have a Content Type "B" with the following fields
@@ -407,8 +411,9 @@ Feature: Search ( basic search )
          And I see Content object "A"
         
         Examples:
-            | data   |
-            | 123456 |
+            | data           |
+            | 123456         |
+            | @#$<123456>£§% |
 
     Scenario Outline: No search results on ezinteger field search
        Given I have a Content Type "B" with the following fields
