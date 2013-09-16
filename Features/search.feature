@@ -475,6 +475,92 @@ Feature: Search ( basic search )
         # @Notice: if there is no space the object isn't returned
             | example,another |
 
+    # eZSelection
+    Scenario Outline: Results returned on ezselection field search
+       Given I have a Content Type "B" with the following fields
+            | ezselection | Selection | searchable | option #1 | another option | 6#4% Special 1.2 |
+         And I have a Content object "A" of Content Type "B" with
+            | Selection | 6#4% Special 1.2 |
+        When I search for "<data>"
+        Then I see "1" search results
+         And I see Content object "A"
+        
+        Examples:
+            | data             |
+            | 6#4% Special 1.2 |
+            | special          |
+            | special@1.2      |
+            | 6#4%             |
+            | 4%               |
+            | #4%              |
+            | 6#1.2            |
+            | 1.2              |
+            | @#$>1.2<£§%      |
+            | 6#@£§#$%4%       |
+
+    Scenario Outline: No search results on ezselection field search
+       Given I have a Content Type "B" with the following fields
+            | ezselection | Selection | searchable | option #1 | another option | 6#4% Special 1.2 |
+         And I have a Content object "A" of Content Type "B" with
+            | Selection | 6#4% Special 1.2 |
+        When I search for "<data>"
+        Then I see "0" search results
+        
+        Examples:
+            | data              |
+            | special,option    |
+            | another           |
+            | 6#4%Special1.2    |
+            | 6#4%_Special_1.2  |
+            | 64                |
+        # Notice: the difference from this to the one that do match is the missing '%' at the end
+            | 6@£§$%4         
+
+    # eZSelection (multiple choice)
+    Scenario Outline: Results returned on ezselection field with multiple choice search
+       Given I have a Content Type "B" with the following fields
+            | ezselection | Selection | searchable | option #1 | another option | 6#4% Special 1.2 |
+         And I have a Content object "A" of Content Type "B" with
+            | Selection | option #1 | 6#4% Special 1.2 |
+        When I search for "<data>"
+        Then I see "1" search results
+         And I see Content object "A"
+        
+        Examples:
+            | data             |
+            | 6#4% Special 1.2 |
+            | special          |
+            | special@1.2      |
+            | 6#4%             |
+            | 4%               |
+            | #4%              |
+            | 1.2              |
+            | @#$>1.2<£§%      |
+            | #1 6#4%          |
+            | 6#1.2            |
+            | #1&$§6#4%        |
+            | 6@£§$%4%         |
+            | "special #1"     |
+            | special option   |
+
+    Scenario Outline: No search results on ezselection field with multiple choice search
+       Given I have a Content Type "B" with the following fields
+            | ezselection | Selection | searchable | option #1 | another option | 6#4% Special 1.2 |
+         And I have a Content object "A" of Content Type "B" with
+            | Selection | option #1 | 6#4% Special 1.2 |
+        When I search for "<data>"
+        Then I see "0" search results
+        
+        Examples:
+            | data                       |
+            | special,option             |
+            | another                    |
+            | 6#4%Special1.2,option#1    |
+            | 6#4%_Special_1.2,option_#1 |
+            | 64                         |
+        # Notice: the difference from this to the one that do match is the missing '%' at the end
+            | 6@£§$%4                    |
+
 
 # @TODO: go deep into content types and field types
 #       - (not) searcheable
