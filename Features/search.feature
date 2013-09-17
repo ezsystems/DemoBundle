@@ -1110,6 +1110,42 @@ Feature: Search ( basic search )
             | pre.010.post |
             | pre-010-post |
 
+    # LS isbn
+    Scenario Outline: Results returned on isbn field search
+       Given I have a Content Type "B" with the following fields
+            | isbn | ISBN | searchable |
+         And I have a Content object "A" of Content Type "B" with
+            | ISBN | 19-0481-164-7 |
+        When I search for "<data>"
+        Then I see "1" search results
+         And I see Content object "A"
+
+        Examples:
+            | data            |
+            | 19              |
+            | 0481            |
+            | 164             |
+            | 7               |
+            | 19-0481-164-7   |
+            | >19#0481$164§7< |
+            | 164-7-19-0481   |
+            | 7 164 19        |
+
+    Scenario Outline: No search results on isbn field search
+       Given I have a Content Type "B" with the following fields
+            | isbn | ISBN | searchable |
+         And I have a Content object "A" of Content Type "B" with
+            | ISBN | 19-0481-164-7 |
+        When I search for "<data>"
+        Then I see "0" search results
+
+        Examples:
+            | data       |
+            | 1904811647 |
+            | 190481     |
+            | 0481164    |
+            | 1647       |
+            | 1647190481 |
 
 # @TODO: go deep into content types and field types
 #       - (not) searchable
