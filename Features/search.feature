@@ -1169,6 +1169,44 @@ Feature: Search ( basic search )
             | 1647       |
             | 1647190481 |
 
+    # LS matrix
+    Scenario Outline: Results returned on matrix field search
+       Given I have a Content Type "B" with the following fields
+            | matrix | Matrix | searcheable |
+         And I have a Content object "A" of Content Type "B" with
+            | Matrix | (1,1):row 1 column 1 - 11 | (1,2):following - 12 | (2,1):bottom - 21 | (2,2):end - 22 |
+        When I search for "<data>"
+        Then I see "1" search results
+         And I see Content object "A"
+
+        Examples:
+            | data                      |
+            | row following bottom end  |
+            | column                    |
+            | 11 12 21 22               |
+            | column 1-22               |
+            | row 22 column 22          |
+            | 1#1                       |
+            | row@1 column&22           |
+            | end @ 22                  |
+
+    Scenario Outline: No search results on matrix field search
+       Given I have a Content Type "B" with the following fields
+            | matrix | Matrix | searcheable |
+         And I have a Content object "A" of Content Type "B" with
+            | Matrix | (1,1):row 1 column 1 - 11 | (1,2):following - 12 | (2,1):bottom - 21 | (2,2):end - 22 |
+        When I search for "<data>"
+        Then I see "0" search results
+
+        Examples:
+            | data            |
+            | matrix          |
+            | -               |
+            | 1,1             |
+            | row_1           |
+            | 2               |
+            | row 2           |
+
 
 # @TODO: go deep into content types and field types
 #       - (not) searchable
