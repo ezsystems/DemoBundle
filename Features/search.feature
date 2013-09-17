@@ -143,7 +143,7 @@ Feature: Search ( basic search )
          And I see Content object "A"
         
         Examples:
-            | data               |s
+            | data               |
             | John               |
             | administrator      |
             | JOHN DOE           |
