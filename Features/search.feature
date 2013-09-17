@@ -1220,6 +1220,87 @@ Feature: Search ( basic search )
             | 2               |
             | row 2           |
 
+    # LS multi-option2
+    # For the following tests the multio-ption2 field is filled with the next multi-options:
+    #
+    #  1. Parts
+    #   +------------------+------------------+
+    #   | option           |  adicional price |
+    #   +------------------+------------------+
+    #   | Head             | 0                | Default
+    #   +------------------+------------------+
+    #   | Head+hands       | 12               |
+    #   +------------------+------------------+
+    #       1.1. Adicional options
+    #       +------------------+------------------+
+    #       | option           |  adicional price |
+    #       +------------------+------------------+
+    #       | Heads up         | 15               |
+    #       +------------------+------------------+
+    #       | Complete         | 20               |
+    #       +------------------+------------------+
+    #  2. Feet
+    #   +------------------+------------------+
+    #   | option           |  adicional price |
+    #   +------------------+------------------+
+    #   | None             | 0                |
+    #   +------------------+------------------+
+    #   | Nails Standard   | 5                | Default
+    #   +------------------+------------------+
+    #   | Nails Special    | 8                |
+    #   +------------------+------------------+
+    Scenario Outline: Results returned on  multi-option2 field search
+       Given I have a Content Type "B" with the following fields
+            |  multi-option2 | MultiOption | searcheable |
+         And I have a Content object "A" of Content Type "B" with
+            # Field       |table| name              |row| option         |Price| Default |
+            | MultiOption | 1   | Parts             | 1 | Head           |  0  | default |
+            | MultiOption | 1   |                   | 2 | Head+hands     |  12 |         |
+            | MultiOption | 1.1 | Adicional options | 1 | Heads up       |  15 |         |
+            | MultiOption | 1.1 |                   | 2 | Complete       |  20 |         |
+            | MultiOption | 2   | Feet              | 1 | None           |  0  |         |
+            | MultiOption | 2   |                   | 2 | Nails Standard |  5  | default |
+            | MultiOption | 2   |                   | 3 | Nails Special  |  8  |         |
+        When I search for "<data>"
+        Then I see "1" search results
+         And I see Content object "A"
+
+        Examples:
+            | data              |
+            | 12                |
+            | 20                |
+            | 0 12 5            |
+            | None nails        |
+            | complete#special  |
+            | feet              |
+            | Adicional         |
+            | options           |
+            | Head+hands        |
+            | Head+COMPLETE     |
+
+    Scenario Outline: No search results on  multi-option2 field search
+       Given I have a Content Type "B" with the following fields
+            |  multi-option2 | MultiOption | searcheable |
+         And I have a Content object "A" of Content Type "B" with
+            # Field       |table| name              |row| option         |Price| Default |
+            | MultiOption | 1   | Parts             | 1 | Head           |  0  | default |
+            | MultiOption | 1   |                   | 2 | Head+hands     |  12 |         |
+            | MultiOption | 1.1 | Adicional options | 1 | Heads up       |  15 |         |
+            | MultiOption | 1.1 |                   | 2 | Complete       |  20 |         |
+            | MultiOption | 2   | Feet              | 1 | None           |  0  |         |
+            | MultiOption | 2   |                   | 2 | Nails Standard |  5  | default |
+            | MultiOption | 2   |                   | 3 | Nails Special  |  8  |         |
+        When I search for "<data>"
+        Then I see "0" search results
+
+        Examples:
+            | data          |
+            | +             |
+            | multi option  |
+            | adi none      |
+            | none stop     |
+            | default       |
+
 
 # @TODO: go deep into content types and field types
 #       - (not) searchable
