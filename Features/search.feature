@@ -135,6 +135,7 @@ Feature: Search ( basic search )
        Given I have a Content Type "B" with the following fields
             | ezauthor | Author | searchable |
          And I have a Content object "A" of Content Type "B" with
+            # Field  |row| Name          | email        |
             | Author | 1 | Administrator | admin@ez.no  |
             | Author | 2 | John Doe      | john@doe.com |
         When I search for "<data>"
@@ -433,7 +434,7 @@ Feature: Search ( basic search )
         
         Examples:
             | data          |
-            | ezinteger     !
+            | ezinteger     |
             | 12345         |
             | 23456         |
             | 123           |
@@ -525,7 +526,7 @@ Feature: Search ( basic search )
             | 6#4%_Special_1.2  |
             | 64                |
         # Notice: the difference from this to the one that do match is the missing '%' at the end
-            | 6@£§$%4         
+            | 6@£§$%4           |
 
     # eZSelection (multiple choice)
     Scenario Outline: Results returned on ezselection field with multiple choice search
@@ -680,7 +681,7 @@ Feature: Search ( basic search )
         
         Examples:
             | data      |
-            | ezuser
+            | ezuser    |
             | 150       |
             | password1 |
             | username  |
@@ -1170,11 +1171,21 @@ Feature: Search ( basic search )
             | 1647190481 |
 
     # LS matrix
+    # For the following tests the Matrix field is filled with the next matrix:
+    #
+    # 
+    #   +---------------------+-----------------+
+    #   | row 1 column 1 - 11 |  following - 12 |
+    #   +---------------------+-----------------+
+    #   | bottom - 21         | end - 22        |
+    #   +---------------------+-----------------+
     Scenario Outline: Results returned on matrix field search
        Given I have a Content Type "B" with the following fields
             | matrix | Matrix | searcheable |
          And I have a Content object "A" of Content Type "B" with
-            | Matrix | (1,1):row 1 column 1 - 11 | (1,2):following - 12 | (2,1):bottom - 21 | (2,2):end - 22 |
+            # Field  |row| column 1            | column 2       |
+            | Matrix | 1 | row 1 column 1 - 11 | following - 12 |
+            | Matrix | 1 | bottom - 21         | end - 22       |
         When I search for "<data>"
         Then I see "1" search results
          And I see Content object "A"
@@ -1194,7 +1205,9 @@ Feature: Search ( basic search )
        Given I have a Content Type "B" with the following fields
             | matrix | Matrix | searcheable |
          And I have a Content object "A" of Content Type "B" with
-            | Matrix | (1,1):row 1 column 1 - 11 | (1,2):following - 12 | (2,1):bottom - 21 | (2,2):end - 22 |
+            # Field  |row| column 1            | column 2       |
+            | Matrix | 1 | row 1 column 1 - 11 | following - 12 |
+            | Matrix | 1 | bottom - 21         | end - 22       |
         When I search for "<data>"
         Then I see "0" search results
 
