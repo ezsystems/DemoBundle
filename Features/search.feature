@@ -844,7 +844,7 @@ Feature: Search ( basic search )
        Given I have a Content Type "B" with the following fields
             | ezmedia | Media | searchable |
          And I have a Content object "A" of Content Type "B" with
-            | media | file:test.jpg | 60.9kb | 312x312
+            | media | file:test.jpg | 60.9kb | 312x312 |
         When I search for "<data>"
         Then I see "1" search results
          And I see Content object "A"
@@ -857,12 +857,104 @@ Feature: Search ( basic search )
        Given I have a Content Type "B" with the following fields
             | ezmedia | Media | searchable |
          And I have a Content object "A" of Content Type "B" with
-            | media | file:test.jpg | 60.9kb | 312x312
+            | media | file:test.jpg | 60.9kb | 312x312 |
         When I search for "<data>"
         Then I see "0" search results
 
         Examples:
             | data |
+        # need details
+
+    # eZObjectRelation
+    Scenario Outline: Results returned on ezobjectrelation field search
+       Given I have a Content Type "D" with the following fields
+            | ezstring | Text | searchable |
+         And I have a Content object "C" of Content Type "D" with
+            | ezstring | This field has a CoupleOfWords and some numbers 10 256 0123456879 123.45$&% an example@ez.no |
+         And I have a Content Type "B" with the following fields
+            | ezobjectrelation | Relation | searchable |
+         And I have a Content object "A" of Content Type "B" with
+            | Relation | C |
+        When I search for "<data>"
+        Then I see "2" search results
+         And I see Content object "A"
+         And I see Content object "C"
+        
+        Examples:
+            | data             |
+            | Field            |
+            | FIELD            |
+            | 10 256           |
+            | coupleofwords    |
+            | and some numbers |
+            | 0123456789       |
+            | 123.45           |
+            | 123.45$          |
+            | 123.45$&%        |
+            | ez.no            |
+            | @ez.no           |
+            | example          |
+            | example@         |
+            | example@ez.no    |
+
+    Scenario Outline: No search results on ezobjectrelation field search
+       Given I have a Content Type "D" with the following fields
+            | ezstring | Text | searchable |
+         And I have a Content object "C" of Content Type "D" with
+            | ezstring | This field has a CoupleOfWords and some numbers 10 256 0123456879 123.45$&% an example@ez.no |
+         And I have a Content Type "B" with the following fields
+            | ezobjectrelation | Relation | searchable |
+         And I have a Content object "A" of Content Type "B" with
+            | Relation | C |
+        When I search for "<data>"
+        Then I see "0" search results
+        
+        Examples:
+            | data         |
+            | data         |
+            | fiel         | 
+            | couple       |
+            | has a Couple | 
+            | ten          | 
+            | 100          | 
+            | 10256        | 
+            | 456789       | 
+            | 123          |
+            | .45          |
+            | $            |
+            | $&%          |
+
+    Scenario Outline: : No results returned on ezobjectrelation field search when related object is non searchable
+       Given I have a Content Type "D" with the following fields
+            | ezstring | Text | not_searchable |
+         And I have a Content object "C" of Content Type "D" with
+            | ezstring | This field has a CoupleOfWords and some numbers 10 256 0123456879 123.45$&% an example@ez.no |
+         And I have a Content Type "B" with the following fields
+            | ezobjectrelation | Relation | searchable |
+         And I have a Content object "A" of Content Type "B" with
+            | Relation | C |
+        When I search for "<data>"
+        Then I see "0" search results
+        
+        Examples:
+            | data             |
+            | Field            |
+            | FIELD            |
+            | 10 256           |
+            | coupleofwords    |
+            | and some numbers |
+            | 0123456789       |
+            | 123.45           |
+            | 123.45$          |
+            | has a Couple     | 
+            | ten              | 
+            | 100              | 
+            | @ez.no           |
+            | example          |
+            | example@         |
+            | example@ez.no    |
+
+
 
 # @TODO: go deep into content types and field types
 #       - (not) searchable
