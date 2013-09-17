@@ -108,6 +108,7 @@ Feature: Search ( basic search )
 
         Examples:
             | data         |
+            | ezstring     |
         # word not complete
             | fiel         | 
         # CamelCase
@@ -141,7 +142,7 @@ Feature: Search ( basic search )
          And I see Content object "A"
         
         Examples:
-            | data               |
+            | data               |s
             | John               |
             | administrator      |
             | JOHN DOE           |
@@ -166,6 +167,7 @@ Feature: Search ( basic search )
         
         Examples:
             | data        |
+            | ezauthor    |
             | ministrator |
             | mini        |
             | hn Doe      |
@@ -357,6 +359,7 @@ Feature: Search ( basic search )
         
         Examples:
             | data      |
+            | ezemail   |
             | examples  |
             | examples_ |
             | 123       |
@@ -364,6 +367,8 @@ Feature: Search ( basic search )
             | 123.test@ |
             | test@ez   |
             | st@ez.no  |
+            | mail      |
+            | mailto    |
 
     # eZGMapLocation
     Scenario Outline: Results returned on ezgmaplocation field search
@@ -389,18 +394,19 @@ Feature: Search ( basic search )
         Then I see "0" search results
         
         Examples:
-            | data         |
-            | Norway       |
-            | 59.91        |
-            | 10.75        |
-            | 59.91,10.75  |
-            | Olso, Norway |
+            | data           |
+            | ezgmaplocation |
+            | Norway         |
+            | 59.91          |
+            | 10.75          |
+            | 59.91,10.75    |
+            | Olso, Norway   |
         # search for another location
-            | Lisbon       |
-            | Portugal     |
-            | 38.72        |
-            | -9.15        |
-            | 38.72,-9.15  |
+            | Lisbon         |
+            | Portugal       |
+            | 38.72          |
+            | -9.15          |
+            | 38.72,-9.15    |
 
     # eZInteger
     Scenario Outline: Results returned on ezinteger field search
@@ -427,6 +433,7 @@ Feature: Search ( basic search )
         
         Examples:
             | data          |
+            | ezinteger     !
             | 12345         |
             | 23456         |
             | 123           |
@@ -470,6 +477,7 @@ Feature: Search ( basic search )
         
         Examples:
             | data            |
+            | ezkeywords      |
             | keyword         |
             | 1a              |
             | word1           |
@@ -510,6 +518,7 @@ Feature: Search ( basic search )
         
         Examples:
             | data              |
+            | ezselection       |
             | special,option    |
             | another           |
             | 6#4%Special1.2    |
@@ -555,6 +564,7 @@ Feature: Search ( basic search )
         
         Examples:
             | data                       |
+            | ezselection                |
             | special,option             |
             | another                    |
             | 6#4%Special1.2,option#1    |
@@ -587,6 +597,7 @@ Feature: Search ( basic search )
         
         Examples:
             | data      |
+            | ezstars   !
             | 4.5 stars |
             | 4.5       |
             | 4.5stars  |
@@ -634,6 +645,7 @@ Feature: Search ( basic search )
         
         Examples:
             | data      |
+            | extext    |
             | 123.456   |
             | this\nis  |
             | .45       |
@@ -667,7 +679,8 @@ Feature: Search ( basic search )
         Then I see "0" search results
         
         Examples:
-            | data |
+            | data      |
+            | ezuser
             | 150       |
             | password1 |
             | username  |
@@ -765,6 +778,7 @@ Feature: Search ( basic search )
         
         Examples:
             | data                  |
+            | ezxmltext             |
             | superscript5          |
             | subscript6            |
         # search for XML tags
@@ -824,7 +838,8 @@ Feature: Search ( basic search )
          And I see Content object "A"
         
         Examples:
-            | data |
+            | data    |
+            | ezmedia |
         # need details
 
     Scenario Outline: No search results on ezbinaryfield field search
@@ -836,7 +851,8 @@ Feature: Search ( basic search )
         Then I see "0" search results
         
         Examples:
-            | data |
+            | data          |
+            | ezbinaryfield |
     # need details
 
     # eZImage
@@ -862,7 +878,8 @@ Feature: Search ( basic search )
         Then I see "0" search results
 
         Examples:
-            | data |
+            | data    |
+            | ezimage |
         # need details
 
     # eZObjectRelation
@@ -910,19 +927,21 @@ Feature: Search ( basic search )
         Then I see "0" search results
         
         Examples:
-            | data         |
-            | data         |
-            | fiel         | 
-            | couple       |
-            | has a Couple | 
-            | ten          | 
-            | 100          | 
-            | 10256        | 
-            | 456789       | 
-            | 123          |
-            | .45          |
-            | $            |
-            | $&%          |
+            | data              |
+            | ezstring          |
+            | ezobjectrelation  |
+            | data              |
+            | fiel              | 
+            | couple            |
+            | has a Couple      | 
+            | ten               |
+            | 100               | 
+            | 10256             | 
+            | 456789            | 
+            | 123               |
+            | .45               |
+            | $                 |
+            | $&%               |
 
     Scenario Outline: : No results returned on ezobjectrelation field search when related object is non searchable
        Given I have a Content Type "D" with the following fields
@@ -996,11 +1015,12 @@ Feature: Search ( basic search )
         Then I see "0" search results
         
         Examples:
-            | data                |
-            | 10256               |
-            | couple of key words |
-            | example not found   |
-            | 10 search           |
+            | data                 |
+            | ezobjectrelationlist |
+            | 10256                |
+            | couple of key words  |
+            | example not found    |
+            | 10 search            |
 
 
     Scenario Outline: Results returned on ezobjectrelationlist field search for a specific object
@@ -1099,6 +1119,7 @@ Feature: Search ( basic search )
         
         Examples:
             | data         |
+            | identifier   |
             | pre          |
             | pre010       |
             | 010          |
@@ -1141,11 +1162,13 @@ Feature: Search ( basic search )
 
         Examples:
             | data       |
+            | isbn       |
             | 1904811647 |
             | 190481     |
             | 0481164    |
             | 1647       |
             | 1647190481 |
+
 
 # @TODO: go deep into content types and field types
 #       - (not) searchable
