@@ -1075,6 +1075,41 @@ Feature: Search ( basic search )
             | example, another    |
             | a@#$>a1<£§%1        |
 
+    # LS identifier
+    Scenario Outline: Results returned on identifier field search
+       Given I have a Content Type "B" with the following fields
+            | identifier | Identifier | searchable | pre[id]post | startValue:10 | digits:3 |
+         And I have a Content object "A" of Content Type "B"
+            # Identifier = pre010post
+        When I search for "<data>"
+        Then I see "1" search results
+         And I see Content object "A"
+        
+        Examples:
+            | data       |
+            | pre010post |
+
+    Scenario Outline: No search results on identifier field search
+       Given I have a Content Type "B" with the following fields
+            | identifier | Identifier | searchable | pre[id]post | startValue:10 | digits:3 |
+         And I have a Content object "A" of Content Type "B"
+            # Identifier = pre010post
+        When I search for "<data>"
+        Then I see "0" search results
+        
+        Examples:
+            | data         |
+            | pre          |
+            | pre010       |
+            | 010          |
+            | 010post      |
+            | 10           |
+            | 01           |
+            | pre post     |
+            | pre 010 post |
+            | pre.010.post |
+            | pre-010-post |
+
 
 # @TODO: go deep into content types and field types
 #       - (not) searchable
