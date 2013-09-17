@@ -954,6 +954,126 @@ Feature: Search ( basic search )
             | example@         |
             | example@ez.no    |
 
+    # eZObjectRelationList
+    Scenario Outline: Results returned on ezobjectrelationlist field search
+       Given I have a Content Type "D" with the following fields
+            | ezstring | Text | searchable |
+         And I have a Content object "C" of Content Type "D" with
+            | ezstring | This field has a CoupleOfWords and some numbers 10 256 0123456879 123.45$&% an example@ez.no |
+         And I have a Content Type "F" with the following fields
+            | ezkeyword | Keywords | searchable |
+         And I have a Content object "E" of Content Type "F" with
+            | Keywords | keyword1, 10, example, another, a, 1, a1 |
+         And I have a Content Type "B" with the following fields
+            | ezobjectrelationlist | RelationList | searchable |
+         And I have a Content object "A" of Content Type "B" with
+            | RelationList | C | E |
+        When I search for "<data>"
+        Then I see "3" search results
+         And I see Content object "A"
+         And I see Content object "C"
+         And I see Content object "D"
+        
+        Examples:
+            | data    |
+            | example |
+            | 10      |
+
+    Scenario Outline: No search results on ezobjectrelationlist field search
+       Given I have a Content Type "D" with the following fields
+            | ezstring | Text | searchable |
+         And I have a Content object "C" of Content Type "D" with
+            | ezstring | This field has a CoupleOfWords and some numbers 10 256 0123456879 123.45$&% an example@ez.no |
+         And I have a Content Type "F" with the following fields
+            | ezkeyword | Keywords | searchable |
+         And I have a Content object "E" of Content Type "F" with
+            | Keywords | keyword1, 10, example, another, a, 1, a1 |
+         And I have a Content Type "B" with the following fields
+            | ezobjectrelationlist | RelationList | searchable |
+         And I have a Content object "A" of Content Type "B" with
+            | RelationList | C | E |
+        When I search for "<data>"
+        Then I see "0" search results
+        
+        Examples:
+            | data                |
+            | 10256               |
+            | couple of key words |
+            | example not found   |
+            | 10 search           |
+
+
+    Scenario Outline: Results returned on ezobjectrelationlist field search for a specific object
+       Given I have a Content Type "D" with the following fields
+            | ezstring | Text | searchable |
+         And I have a Content object "C" of Content Type "D" with
+            | ezstring | This field has a CoupleOfWords and some numbers 10 256 0123456879 123.45$&% an example@ez.no |
+         And I have a Content Type "F" with the following fields
+            | ezkeyword | Keywords | searchable |
+         And I have a Content object "E" of Content Type "F" with
+            | Keywords | keyword1, 10, example, another, a, 1, a1 |
+         And I have a Content Type "B" with the following fields
+            | ezobjectrelationlist | RelationList | searchable |
+         And I have a Content object "A" of Content Type "B" with
+            | RelationList | C | E |
+        When I search for "<data>"
+        Then I see "2" search results
+         And I see Content object "A"
+         And I see Content object "<object>"
+        
+        Examples:
+            | data              | object |
+            | 0123456789        | C      |
+            | example some      | C      |
+            | field 10          | C      |
+            | 10 256            | C      |
+            | coupleofwords     | C      |
+            | and some numbers  | C      |
+            | 0123456789        | C      |
+            | 123.45            | C      |
+            | 123.45$           | C      |
+            | 123.45$&%         | C      |
+            | keyword2          | E      |
+            | a                 | E      |
+            | 1                 | E      |
+            | a1                | E      |
+            | example, another  | E      |
+            | a@#$>a1<£§%1      | E      |
+
+
+    Scenario Outline: No results returned on ezobjectrelationlist field search when related objects are non searchable
+       Given I have a Content Type "D" with the following fields
+            | ezstring | Text | not_searchable |
+         And I have a Content object "C" of Content Type "D" with
+            | ezstring | This field has a CoupleOfWords and some numbers 10 256 0123456879 123.45$&% an example@ez.no |
+         And I have a Content Type "F" with the following fields
+            | ezkeyword | Keywords | not_searchable |
+         And I have a Content object "E" of Content Type "F" with
+            | Keywords | keyword1, 10, example, another, a, 1, a1 |
+         And I have a Content Type "B" with the following fields
+            | ezobjectrelationlist | RelationList | searchable |
+         And I have a Content object "A" of Content Type "B" with
+            | RelationList | C | E |
+        When I search for "<data>"
+        Then I see "0" search results
+        
+        Examples:
+            | data                |
+            | 10256               |
+            | couple of key words |
+            | example not found   |
+            | 10 search           |
+            | coupleofwords       |
+            | and some numbers    |
+            | 0123456789          |
+            | 123.45              |
+            | 123.45$             |
+            | has a Couple        |
+            | a                   |
+            | 1                   |
+            | a1                  |
+            | example, another    |
+            | a@#$>a1<£§%1        |
 
 
 # @TODO: go deep into content types and field types
