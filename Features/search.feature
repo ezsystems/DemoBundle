@@ -483,7 +483,7 @@ Feature: Search ( basic search )
             | 1a              |
             | word1           |
             | key&word        |
-        # @Notice: if there is no space the object isn't returned
+        # @NOTICE: if there is no space the object isn't returned
             | example,another |
 
     # eZSelection
@@ -525,7 +525,7 @@ Feature: Search ( basic search )
             | 6#4%Special1.2    |
             | 6#4%_Special_1.2  |
             | 64                |
-        # Notice: the difference from this to the one that do match is the missing '%' at the end
+        # NOTICE: the difference from this to the one that do match is the missing '%' at the end
             | 6@£§$%4           |
 
     # eZSelection (multiple choice)
@@ -571,7 +571,7 @@ Feature: Search ( basic search )
             | 6#4%Special1.2,option#1    |
             | 6#4%_Special_1.2,option_#1 |
             | 64                         |
-        # Notice: the difference from this to the one that do match is the missing '%' at the end
+        # NOTICE: the difference from this to the one that do match is the missing '%' at the end
             | 6@£§$%4                    |
 
     # eZSrRating
@@ -801,7 +801,7 @@ Feature: Search ( basic search )
             | omg this is a mail    |
             | width                 |
 
-    # @Notice: Binary Base tree search not implemented on LS
+    # @NOTICE: Binary Base tree search not implemented on LS
     # eZBinaryFile
     Scenario Outline: Results returned on ezbinaryfield field search
        Given I have a Content Type "B" with the following fields
@@ -1300,6 +1300,41 @@ Feature: Search ( basic search )
             | adi none      |
             | none stop     |
             | default       |
+
+    # LS Product-Category
+    Scenario Outline: Results returned on  product-category field search
+       Given I have "webshop" active with
+            | product category | Food | Pets | Cloth |
+         And I have a Content Type "B" with the following fields
+            |  product-category | ProductCategory | searcheable |
+         And I have a Content object "A" of Content Type "B" with
+            | ProductCategory | Pets |
+        When I search for "<data>"
+        Then I see "1" search results
+         And I see Content object "A"
+        
+        Examples:
+            | data |
+        # @NOTICE: couldn't find any positive search
+
+    Scenario Outline: 
+       Given I have "webshop" active with
+            | product category | Food | Pets | Cloth |
+         And I have a Content Type "B" with the following fields
+            |  product-category | ProductCategory | searcheable |
+         And I have a Content object "A" of Content Type "B" with
+            | ProductCategory | Pets |
+        When I search for "<data>"
+        Then I see "0" search results
+        
+        Examples:
+            | data     |
+            | Food     |
+            | pets     |
+            | CLOTH    |
+            | prod     |
+            | product  |
+            | category |
 
 
 # @TODO: go deep into content types and field types
