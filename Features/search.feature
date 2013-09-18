@@ -575,7 +575,7 @@ Feature: Search ( basic search )
             | 6@£§$%4                    |
 
     # eZSrRating
-    Scenario Outline:  Results returned on ezsrrating field search
+    Scenario Outline: Results returned on ezsrrating field search
        Given I have a Content Type "B" with the following fields
             | ezsrrating | StarRating | searchable |
          And I have a Content object "A" of Content Type "B"
@@ -1249,9 +1249,9 @@ Feature: Search ( basic search )
     #   +------------------+------------------+
     #   | Nails Special    | 8                |
     #   +------------------+------------------+
-    Scenario Outline: Results returned on  multi-option2 field search
+    Scenario Outline: Results returned on multi-option2 field search
        Given I have a Content Type "B" with the following fields
-            |  multi-option2 | MultiOption | searcheable |
+            | multi-option2 | MultiOption | searcheable |
          And I have a Content object "A" of Content Type "B" with
             # Field       |table| name              |row| option         |Price| Default |
             | MultiOption | 1   | Parts             | 1 | Head           |  0  | default |
@@ -1278,9 +1278,9 @@ Feature: Search ( basic search )
             | Head+hands        |
             | Head+COMPLETE     |
 
-    Scenario Outline: No search results on  multi-option2 field search
+    Scenario Outline: No search results on multi-option2 field search
        Given I have a Content Type "B" with the following fields
-            |  multi-option2 | MultiOption | searcheable |
+            | multi-option2 | MultiOption | searcheable |
          And I have a Content object "A" of Content Type "B" with
             # Field       |table| name              |row| option         |Price| Default |
             | MultiOption | 1   | Parts             | 1 | Head           |  0  | default |
@@ -1302,11 +1302,11 @@ Feature: Search ( basic search )
             | default       |
 
     # LS Product-Category
-    Scenario Outline: Results returned on  product-category field search
+    Scenario Outline: Results returned on product-category field search
        Given I have "webshop" active with
             | product category | Food | Pets | Cloth |
          And I have a Content Type "B" with the following fields
-            |  product-category | ProductCategory | searcheable |
+            | product-category | ProductCategory | searcheable |
          And I have a Content object "A" of Content Type "B" with
             | ProductCategory | Pets |
         When I search for "<data>"
@@ -1321,7 +1321,7 @@ Feature: Search ( basic search )
        Given I have "webshop" active with
             | product category | Food | Pets | Cloth |
          And I have a Content Type "B" with the following fields
-            |  product-category | ProductCategory | searcheable |
+            | product-category | ProductCategory | searcheable |
          And I have a Content object "A" of Content Type "B" with
             | ProductCategory | Pets |
         When I search for "<data>"
