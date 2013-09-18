@@ -63,7 +63,7 @@ Feature: Search ( basic search )
        Given I have a Content Type "B" with the following fields
             | ezstring | Text | searchable |
          And I have a Content object "A" of Content Type "B" with
-            | ezstring | This field has a CoupleOfWords and some numbers 10 256 0123456879 123.45$&% an example@ez.no |
+            | Text | This field has a CoupleOfWords and some numbers 10 256 0123456879 123.45$&% an example@ez.no |
         When I search for "<data>"
         Then I see "1" search results
          And I see Content object "A"
@@ -102,7 +102,7 @@ Feature: Search ( basic search )
        Given I have a Content Type "B" with the following fields
             | ezstring | Text | searchable |
          And I have a Content object "A" of Content Type "B" with
-            | ezstring | This field has a CoupleOfWords and some numbers 10 256 0123456879 123.45$&% an example@ez.no |
+            | Text | This field has a CoupleOfWords and some numbers 10 256 0123456879 123.45$&% an example@ez.no |
         When I search for "<data>"
         Then I see "0" search results
 
@@ -833,7 +833,7 @@ Feature: Search ( basic search )
        Given I have a Content Type "B" with the following fields
             | ezmedia | Media | searchable |
          And I have a Content object "A" of Content Type "B" with
-            | media | file:sneezing_panda.mp4 | 730.4kb | 400x300 |
+            | Media | file:sneezing_panda.mp4 | 730.4kb | 400x300 |
         When I search for "<data>"
         Then I see "1" search results
          And I see Content object "A"
@@ -847,7 +847,7 @@ Feature: Search ( basic search )
        Given I have a Content Type "B" with the following fields
             | ezmedia | Media | searchable |
          And I have a Content object "A" of Content Type "B" with
-            | media | file:sneezing_panda.mp4 | 730.4kb | 400x300 |
+            | Media | file:sneezing_panda.mp4 | 730.4kb | 400x300 |
         When I search for "<data>"
         Then I see "0" search results
         
@@ -861,7 +861,7 @@ Feature: Search ( basic search )
        Given I have a Content Type "B" with the following fields
             | ezmedia | Media | searchable |
          And I have a Content object "A" of Content Type "B" with
-            | media | file:test.jpg | 60.9kb | 312x312 |
+            | Media | file:test.jpg | 60.9kb | 312x312 |
         When I search for "<data>"
         Then I see "1" search results
          And I see Content object "A"
@@ -874,7 +874,7 @@ Feature: Search ( basic search )
        Given I have a Content Type "B" with the following fields
             | ezmedia | Media | searchable |
          And I have a Content object "A" of Content Type "B" with
-            | media | file:test.jpg | 60.9kb | 312x312 |
+            | Media | file:test.jpg | 60.9kb | 312x312 |
         When I search for "<data>"
         Then I see "0" search results
 
@@ -888,7 +888,7 @@ Feature: Search ( basic search )
        Given I have a Content Type "D" with the following fields
             | ezstring | Text | searchable |
          And I have a Content object "C" of Content Type "D" with
-            | ezstring | This field has a CoupleOfWords and some numbers 10 256 0123456879 123.45$&% an example@ez.no |
+            | Text | This field has a CoupleOfWords and some numbers 10 256 0123456879 123.45$&% an example@ez.no |
          And I have a Content Type "B" with the following fields
             | ezobjectrelation | Relation | searchable |
          And I have a Content object "A" of Content Type "B" with
@@ -919,7 +919,7 @@ Feature: Search ( basic search )
        Given I have a Content Type "D" with the following fields
             | ezstring | Text | searchable |
          And I have a Content object "C" of Content Type "D" with
-            | ezstring | This field has a CoupleOfWords and some numbers 10 256 0123456879 123.45$&% an example@ez.no |
+            | Text | This field has a CoupleOfWords and some numbers 10 256 0123456879 123.45$&% an example@ez.no |
          And I have a Content Type "B" with the following fields
             | ezobjectrelation | Relation | searchable |
          And I have a Content object "A" of Content Type "B" with
@@ -948,7 +948,7 @@ Feature: Search ( basic search )
        Given I have a Content Type "D" with the following fields
             | ezstring | Text | not_searchable |
          And I have a Content object "C" of Content Type "D" with
-            | ezstring | This field has a CoupleOfWords and some numbers 10 256 0123456879 123.45$&% an example@ez.no |
+            | Text | This field has a CoupleOfWords and some numbers 10 256 0123456879 123.45$&% an example@ez.no |
          And I have a Content Type "B" with the following fields
             | ezobjectrelation | Relation | searchable |
          And I have a Content object "A" of Content Type "B" with
@@ -979,7 +979,7 @@ Feature: Search ( basic search )
        Given I have a Content Type "D" with the following fields
             | ezstring | Text | searchable |
          And I have a Content object "C" of Content Type "D" with
-            | ezstring | This field has a CoupleOfWords and some numbers 10 256 0123456879 123.45$&% an example@ez.no |
+            | Text | This field has a CoupleOfWords and some numbers 10 256 0123456879 123.45$&% an example@ez.no |
          And I have a Content Type "F" with the following fields
             | ezkeyword | Keywords | searchable |
          And I have a Content object "E" of Content Type "F" with
@@ -1003,7 +1003,7 @@ Feature: Search ( basic search )
        Given I have a Content Type "D" with the following fields
             | ezstring | Text | searchable |
          And I have a Content object "C" of Content Type "D" with
-            | ezstring | This field has a CoupleOfWords and some numbers 10 256 0123456879 123.45$&% an example@ez.no |
+            | Text | This field has a CoupleOfWords and some numbers 10 256 0123456879 123.45$&% an example@ez.no |
          And I have a Content Type "F" with the following fields
             | ezkeyword | Keywords | searchable |
          And I have a Content object "E" of Content Type "F" with
@@ -1028,7 +1028,7 @@ Feature: Search ( basic search )
        Given I have a Content Type "D" with the following fields
             | ezstring | Text | searchable |
          And I have a Content object "C" of Content Type "D" with
-            | ezstring | This field has a CoupleOfWords and some numbers 10 256 0123456879 123.45$&% an example@ez.no |
+            | Text | This field has a CoupleOfWords and some numbers 10 256 0123456879 123.45$&% an example@ez.no |
          And I have a Content Type "F" with the following fields
             | ezkeyword | Keywords | searchable |
          And I have a Content object "E" of Content Type "F" with
@@ -1066,7 +1066,7 @@ Feature: Search ( basic search )
        Given I have a Content Type "D" with the following fields
             | ezstring | Text | not_searchable |
          And I have a Content object "C" of Content Type "D" with
-            | ezstring | This field has a CoupleOfWords and some numbers 10 256 0123456879 123.45$&% an example@ez.no |
+            | Text | This field has a CoupleOfWords and some numbers 10 256 0123456879 123.45$&% an example@ez.no |
          And I have a Content Type "F" with the following fields
             | ezkeyword | Keywords | not_searchable |
          And I have a Content object "E" of Content Type "F" with
