@@ -18,6 +18,44 @@ Feature: See site map
          And I see link for Content object "footer"
 
     ###
+    # Visual tests
+    ###
+    Scenario: Site map content is presented in 2 columns
+       Given I have Content Type "A" with the following fields
+            | definition:container | true |
+            | eztstring            | Name |
+         And I have the following Content objects of Content type "A"
+            # Name      | Location  |
+            | Folder1   |           |
+            | Folder2   |           |
+            | Folder3   |           |
+        When I click at "Site map" link
+        Then I see "2" columns with Content object links
+         And I see column "1" with "2" Content objects links
+         And I see column "2" with "1" Content objects links
+
+    Scenario: Site map content is presented in headers
+       Given I have Content Type "A" with the following fields (second level of the content tree)
+            | definition:container | true |
+            | eztstring            | Name |
+         And I have the following Content objects of Content type "A"
+            # Name       | Location  |
+            | Folder1    |           |
+            | Article1.1 | /Folder1  |
+            | Folder2    |           |
+            | Article2.1 | /Folder2  |
+            | Article2.2 | /Folder2  |
+        When I click at "Site map" link
+        Then I see "2" columns with Content object links
+         And I see links in
+            # Link       | Type    |
+            | Folder1    | Header2 |
+            | Article1.1 | List    |
+            | Folder2    | Header2 |
+            | Article2.1 | List    |
+            | Article2.2 | List    |
+
+    ###
     # Tests with content
     ###
     Scenario: See site map content
