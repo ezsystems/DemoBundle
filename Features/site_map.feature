@@ -210,16 +210,16 @@ Feature: See site map
     #
     # For the creation of this structure the next BDD sentence is used:       
     #   'I have "<totalObjects>" Content objects of Content Type "A" containing "<totalSubObjects>" Content objects of Content Type "A"'
-    Scenario: See site map content content with maximum sub content
+    Scenario: See site map content with maximum main and sub content
        Given I have Content Type "A" with the following fields
             | definition:container | true |
             | eztstring            | Name |
          And I have "10" Content objects of Content Type "A" containing "10" Content objects of Content Type "A"
         When I click at "Site map" link
         Then I see "10" "main" links
-         And I see a "100" Content object links
+         And I see a "110" Content object links
 
-    Scenario: Attempt to see site map content with more than maximum (10) main links
+    Scenario: Attempt to see site map content with more than maximum main and sub content
        Given I have Content Type "A" with the following fields
             | definition:container | true |
             | eztstring            | Name |
@@ -227,7 +227,7 @@ Feature: See site map
         When I click at "Site map" link
         Then I see "10" "main" links
          And I see "10" "sub" links in each "main" link
-         And I see a "100" Content object links
+         And I see a "110" Content object links
 
     # For this scenario it is needed to change the location manualy on URL
     # instead that, it has the location specified
