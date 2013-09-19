@@ -24,7 +24,6 @@ Feature: Search ( basic search )
         Then I see "0" search results
          And I see message "No results were found when searching for 'this-value-doesnt-exist'"
 
-    # Q: these "tips" scenarios could be merged to the above scenarios, should they?
     Scenario: No results will display search tips
        Given I am at "home" page
         When I search for "this-value-doesnt-exist"
@@ -59,7 +58,7 @@ Feature: Search ( basic search )
     ###
     
     # eZString
-    Scenario Outline: Restults returned on ezstring field search
+    Scenario Outline: Finding Content object with a eZString field that matches the search phrase
        Given I have a Content Type "B" with the following fields
             | ezstring | Text | searchable |
          And I have a Content object "A" of Content Type "B" with
@@ -98,7 +97,7 @@ Feature: Search ( basic search )
         # complete email
             | example@ez.no    |
 
-    Scenario Outline: No search results on ezstring field search
+    Scenario Outline: Attempt to find a Content object with a eZString field that doesn't match the search phrase
        Given I have a Content Type "B" with the following fields
             | ezstring | Text | searchable |
          And I have a Content object "A" of Content Type "B" with
@@ -131,7 +130,7 @@ Feature: Search ( basic search )
             | $&%          |
 
     # eZAuthor
-    Scenario Outline: Results returned on ezauthor field search
+    Scenario Outline: Finding Content object with a eZAuthor field that matches the search phrase
        Given I have a Content Type "B" with the following fields
             | ezauthor | Author | searchable |
          And I have a Content object "A" of Content Type "B" with
@@ -157,7 +156,7 @@ Feature: Search ( basic search )
             | john@ez.no         |
             | john@admin         |
 
-    Scenario Outline: No search results on ezauthor field search
+    Scenario Outline: Attempt to find a Content object with a eZAuthor field that doesn't match the search phrase
        Given I have a Content Type "B" with the following fields
             | ezauthor | Author | searchable |
          And I have a Content object "A" of Content Type "B" with
@@ -175,7 +174,7 @@ Feature: Search ( basic search )
             | ez.com      |
 
     # eZCountry
-    Scenario Outline: Results returned on ezcountry field search
+    Scenario Outline: Finding Content object with a eZCountry field that matches the search phrase
        Given I have a Content Type "B" with the following fields
             | ezcountry | Country | searchable |
          And I have a Content object "A" of Content Type "B" with
@@ -192,7 +191,7 @@ Feature: Search ( basic search )
             | Norway, |
             | Norway. |
 
-    Scenario Outline: No search results on ezcountry field search
+    Scenario Outline: Attempt to find a Content object with a eZCountry field that doesn't match the search phrase
        Given I have a Content Type "B" with the following fields
             | ezcountry | Country | searchable |
          And I have a Content object "A" of Content Type "B" with
@@ -207,7 +206,7 @@ Feature: Search ( basic search )
             | way           |
             | Norway,France |
 
-    Scenario Outline: Results returned on ezcountry field search with multiple choice
+    Scenario Outline: Finding Content object with a eZCountry field with multiple choice that matches the search phrase
        Given I have a Content Type "B" with the following fields
             | ezcountry | Countries | searchable | multiple_choice |
          And I have a Content object "A" of Content Type "B" with
@@ -225,7 +224,7 @@ Feature: Search ( basic search )
             | Norway.Portugal.United Kingdom |
             | @#$<Norway,Portugal,United>£§% |
 
-    Scenario Outline: No search results on ezcountry field search with multiple choice
+    Scenario Outline: Attempt to find a Content object with a eZCountry field with multiple choice that doesn't match the search phrase
        Given I have a Content Type "B" with the following fields
             | ezcountry | Countries | searchable | multiple_choice |
          And I have a Content object "A" of Content Type "B" with
@@ -246,7 +245,7 @@ Feature: Search ( basic search )
             | France                           |
 
     # eZDate
-    Scenario Outline: Results returned on ezdate field search
+    Scenario Outline: Finding Content object with a eZDate field that matches the search phrase
        Given I have a Content Type "B" with the following fields
             | ezdate | Date | searchable |
          And I have a Content object "A" of Content Type "B" with
@@ -259,7 +258,7 @@ Feature: Search ( basic search )
             | data |
         # @NOTICE: couldn't find any positive search
 
-    Scenario Outline: No search results on ezdate field search
+    Scenario Outline: Attempt to find a Content object with a eZDate field that doesn't match the search phrase
        Given I have a Content Type "B" with the following fields
             | ezdate | Date | searchable |
          And I have a Content object "A" of Content Type "B" with
@@ -285,7 +284,7 @@ Feature: Search ( basic search )
             | 1358985600      |
 
     # eZDateTime
-    Scenario Outline: Results returned on ezdatetime field search
+    Scenario Outline: Finding Content object with a eZDateTime field that matches the search phrase
        Given I have a Content Type "B" with the following fields
             | ezdatetime | DateAndTime | searchable |
          And I have a Content object "A" of Content Type "B" with
@@ -298,7 +297,7 @@ Feature: Search ( basic search )
             | data |
         # @NOTICE: couldn't find any positive search
 
-    Scenario Outline: No search results on ezdatetime field search
+    Scenario Outline: Attempt to find a Content object with a eZDateTime field that doesn't match the search phrase
        Given I have a Content Type "B" with the following fields
             | ezdatetime | DateAndTime | searchable |
          And I have a Content object "A" of Content Type "B" with
@@ -332,7 +331,7 @@ Feature: Search ( basic search )
             | 1358990580          |
 
     # eZEmail
-    Scenario Outline: Results returned on ezemail field search
+    Scenario Outline: Finding Content object with a eZEmail field that matches the search phrase
        Given I have a Content Type "B" with the following fields
             | ezemail | eMail | searchable |
          And I have a Content object "A" of Content Type "B" with
@@ -350,7 +349,7 @@ Feature: Search ( basic search )
             | @ez.no                 |
             | @#$<example>£§%        |
 
-    Scenario Outline: No search results on ezemail field search
+    Scenario Outline: Attempt to find a Content object with a eZEmail field that doesn't match the search phrase
        Given I have a Content Type "B" with the following fields
             | ezemail | eMail | searchable |
          And I have a Content object "A" of Content Type "B" with
@@ -372,7 +371,7 @@ Feature: Search ( basic search )
             | mailto    |
 
     # eZGMapLocation
-    Scenario Outline: Results returned on ezgmaplocation field search
+    Scenario Outline: Finding Content object with a eZGMapLocation field that matches the search phrase
        Given I have a Content Type "B" with the following fields
             | ezgmaplocation | MapLocation | searchable |
          And I have a Content object "A" of Content Type "B" with
@@ -386,7 +385,7 @@ Feature: Search ( basic search )
             | Olso         |
             | @#$<olso>£§% |
 
-    Scenario Outline: No search results on ezgmaplocation field search
+    Scenario Outline: Attempt to find a Content object with a eZGMapLocation field that doesn't match the search phrase
        Given I have a Content Type "B" with the following fields
             | ezgmaplocation | MapLocation | searchable |
          And I have a Content object "A" of Content Type "B" with
@@ -410,7 +409,7 @@ Feature: Search ( basic search )
             | 38.72,-9.15    |
 
     # eZInteger
-    Scenario Outline: Results returned on ezinteger field search
+    Scenario Outline: Finding Content object with a eZInteger field that matches the search phrase
        Given I have a Content Type "B" with the following fields
             | ezinteger | Integer | searchable |
          And I have a Content object "A" of Content Type "B" with
@@ -424,7 +423,7 @@ Feature: Search ( basic search )
             | 123456         |
             | @#$<123456>£§% |
 
-    Scenario Outline: No search results on ezinteger field search
+    Scenario Outline: Attempt to find a Content object with a eZInteger field that doesn't match the search phrase
        Given I have a Content Type "B" with the following fields
             | ezinteger | Integer | searchable |
          And I have a Content object "A" of Content Type "B" with
@@ -450,7 +449,7 @@ Feature: Search ( basic search )
             | one,two,three |
 
     # eZKeyword
-    Scenario Outline: Results returned on ezkeyword field search
+    Scenario Outline: Finding Content object with a eZKeyword field that matches the search phrase
        Given I have a Content Type "B" with the following fields
             | ezkeyword | Keywords | searchable |
          And I have a Content object "A" of Content Type "B" with
@@ -468,7 +467,7 @@ Feature: Search ( basic search )
             | example, another |
             | a@#$>a1<£§%1     |
 
-    Scenario Outline: No search results on ezkeywords field search
+    Scenario Outline: Attempt to find a Content object with a eZKeyword field that doesn't match the search phrase
        Given I have a Content Type "B" with the following fields
             | ezkeyword | Keywords | searchable |
          And I have a Content object "A" of Content Type "B" with
@@ -487,7 +486,7 @@ Feature: Search ( basic search )
             | example,another |
 
     # eZSelection
-    Scenario Outline: Results returned on ezselection field search
+    Scenario Outline: Finding Content object with a eZSelection field that matches the search phrase
        Given I have a Content Type "B" with the following fields
             | ezselection | Selection | searchable | option #1 | another option | 6#4% Special 1.2 |
          And I have a Content object "A" of Content Type "B" with
@@ -509,7 +508,7 @@ Feature: Search ( basic search )
             | @#$>1.2<£§%      |
             | 6#@£§#$%4%       |
 
-    Scenario Outline: No search results on ezselection field search
+    Scenario Outline: Attempt to find a Content object with a eZSelection field that doesn't match the search phrase
        Given I have a Content Type "B" with the following fields
             | ezselection | Selection | searchable | option #1 | another option | 6#4% Special 1.2 |
          And I have a Content object "A" of Content Type "B" with
@@ -529,7 +528,7 @@ Feature: Search ( basic search )
             | 6@£§$%4           |
 
     # eZSelection (multiple choice)
-    Scenario Outline: Results returned on ezselection field with multiple choice search
+    Scenario Outline: Finding Content object with a eZSelection field with multiple choices that matches the search phrase
        Given I have a Content Type "B" with the following fields
             | ezselection | Selection | searchable | option #1 | another option | 6#4% Special 1.2 |
          And I have a Content object "A" of Content Type "B" with
@@ -555,7 +554,7 @@ Feature: Search ( basic search )
             | "special #1"     |
             | special option   |
 
-    Scenario Outline: No search results on ezselection field with multiple choice search
+    Scenario Outline: Attempt to find a Content object with a eZSelection field with multiple choice that doesn't match the search phrase
        Given I have a Content Type "B" with the following fields
             | ezselection | Selection | searchable | option #1 | another option | 6#4% Special 1.2 |
          And I have a Content object "A" of Content Type "B" with
@@ -575,7 +574,7 @@ Feature: Search ( basic search )
             | 6@£§$%4                    |
 
     # eZSrRating
-    Scenario Outline: Results returned on ezsrrating field search
+    Scenario Outline: Finding Content object with a eZSrRating field that matches the search phrase
        Given I have a Content Type "B" with the following fields
             | ezsrrating | StarRating | searchable |
          And I have a Content object "A" of Content Type "B"
@@ -588,7 +587,7 @@ Feature: Search ( basic search )
             | data |
         # @NOTICE: couldn't find any positive search
 
-    Scenario Outline: No search results on ezsrrating field search
+    Scenario Outline: Attempt to find a Content object with a eZSrRating field that doesn't match the search phrase
        Given I have a Content Type "B" with the following fields
             | ezsrrating | StarRating | searchable |
          And I have a Content object "A" of Content Type "B"
@@ -610,7 +609,7 @@ Feature: Search ( basic search )
             | 3.25stars |
 
     # eZText
-    Scenario Outline: Results returned on eztext field search
+    Scenario Outline: Finding Content object with a eZText field that matches the search phrase
        Given I have a Content Type "B" with the following fields
             | eztext | Text | searchable |
          And I have a Content object "A" of Content Type "B" with
@@ -636,7 +635,7 @@ Feature: Search ( basic search )
             | @#$>text_block<£§% |
             | a                  |
 
-    Scenario Outline: No search results on eztext field search
+    Scenario Outline: Attempt to find a Content object with a eZText field that doesn't match the search phrase
        Given I have a Content Type "B" with the following fields
             | eztext | Text | searchable |
          And I have a Content object "A" of Content Type "B" with
@@ -652,7 +651,7 @@ Feature: Search ( basic search )
             | .45       |
 
     # eZUser
-    Scenario Outline: Results returned on ezuser field search
+    Scenario Outline: Finding Content object with a eZUser field that matches the search phrase
        Given I have a Content Type "B" with the following fields
             | ezuser | User | searchable |
          And I have a Content object "A" of Content Type "B" with
@@ -671,7 +670,7 @@ Feature: Search ( basic search )
             | user@ez.no        |
             | @#$>user-name<£§% |
 
-    Scenario Outline: No search results on ezuser field search
+    Scenario Outline: Attempt to find a Content object with a eZUser field that doesn't match the search phrase
        Given I have a Content Type "B" with the following fields
             | ezuser | User | searchable |
          And I have a Content object "A" of Content Type "B" with
@@ -731,7 +730,7 @@ Feature: Search ( basic search )
     #            <td>answer fourth</td>
     #        </tr>
     #    </table>
-    Scenario Outline: Results returned on ezxmltext field search
+    Scenario Outline: Finding Content object with a eZXmlText field that matches the search phrase
        Given I have a Content Type "B" with the following fields
             | ezxmltext | Text | searchable |
          And I have a Content object "A" of Content Type "B" with
@@ -769,7 +768,7 @@ Feature: Search ( basic search )
             | @ez.no              |
             | ez.no               |
 
-    Scenario Outline: No search results on ezxmltext field search
+    Scenario Outline: Attempt to find a Content object with a eZXmlText field that doesn't match the search phrase
        Given I have a Content Type "B" with the following fields
             | ezxmltext | Text | searchable |
          And I have a Content object "A" of Content Type "B" with
@@ -803,7 +802,7 @@ Feature: Search ( basic search )
 
     # @NOTICE: Binary Base tree search not implemented on LS
     # eZBinaryFile
-    Scenario Outline: Results returned on ezbinaryfield field search
+    Scenario Outline: Finding Content object with a eZBinaryFile field that matches the search phrase
        Given I have a Content Type "B" with the following fields
             | ezbinaryfield | File | searchable |
          And I have a Content object "A" of Content Type "B" with
@@ -816,7 +815,7 @@ Feature: Search ( basic search )
             | data |
         # need details
 
-    Scenario Outline: No search results on ezbinaryfield field search
+    Scenario Outline: Attempt to find a Content object with a eZBinaryFile field that doesn't match the search phrase
        Given I have a Content Type "B" with the following fields
             | ezbinaryfield | File | searchable |
          And I have a Content object "A" of Content Type "B" with
@@ -829,7 +828,7 @@ Feature: Search ( basic search )
     # need details
 
     # eZMedia
-    Scenario Outline: Results returned on ezmedia field search
+    Scenario Outline: Finding Content object with a eZMedia field that matches the search phrase
        Given I have a Content Type "B" with the following fields
             | ezmedia | Media | searchable |
          And I have a Content object "A" of Content Type "B" with
@@ -843,7 +842,7 @@ Feature: Search ( basic search )
             | ezmedia |
         # need details
 
-    Scenario Outline: No search results on ezbinaryfield field search
+    Scenario Outline: Attempt to find a Content object with a eZMedia field that doesn't match the search phrase
        Given I have a Content Type "B" with the following fields
             | ezmedia | Media | searchable |
          And I have a Content object "A" of Content Type "B" with
@@ -857,7 +856,7 @@ Feature: Search ( basic search )
     # need details
 
     # eZImage
-    Scenario Outline: Results returned on ezimage field search
+    Scenario Outline: Finding Content object with a eZImage field that matches the search phrase
        Given I have a Content Type "B" with the following fields
             | ezmedia | Media | searchable |
          And I have a Content object "A" of Content Type "B" with
@@ -870,7 +869,7 @@ Feature: Search ( basic search )
             | data |
         # need details
 
-    Scenario Outline: No search results on ezimage field search
+    Scenario Outline: Attempt to find a Content object with a eZImage field that doesn't match the search phrase
        Given I have a Content Type "B" with the following fields
             | ezmedia | Media | searchable |
          And I have a Content object "A" of Content Type "B" with
@@ -884,7 +883,7 @@ Feature: Search ( basic search )
         # need details
 
     # eZObjectRelation
-    Scenario Outline: Results returned on ezobjectrelation field search
+    Scenario Outline: Finding Content object which has a eZObjectRelation to a Content object matching the search phrase
        Given I have a Content Type "D" with the following fields
             | ezstring | Text | searchable |
          And I have a Content object "C" of Content Type "D" with
@@ -915,7 +914,7 @@ Feature: Search ( basic search )
             | example@         |
             | example@ez.no    |
 
-    Scenario Outline: No search results on ezobjectrelation field search
+    Scenario Outline: Attempting to find a Content object which has a eZObjectRelation to a Content object not matching the search phrase
        Given I have a Content Type "D" with the following fields
             | ezstring | Text | searchable |
          And I have a Content object "C" of Content Type "D" with
@@ -944,7 +943,7 @@ Feature: Search ( basic search )
             | $                 |
             | $&%               |
 
-    Scenario Outline: : No results returned on ezobjectrelation field search when related object is non searchable
+    Scenario Outline: Attempting to find a Content object which has a eZObjectRelation to a Content object that their fields are not searcheable
        Given I have a Content Type "D" with the following fields
             | ezstring | Text | not_searchable |
          And I have a Content object "C" of Content Type "D" with
@@ -975,7 +974,7 @@ Feature: Search ( basic search )
             | example@ez.no    |
 
     # eZObjectRelationList
-    Scenario Outline: Results returned on ezobjectrelationlist field search
+    Scenario Outline: Finding Content object which has a eZObjectRelationList to Content objects matching the search phrase
        Given I have a Content Type "D" with the following fields
             | ezstring | Text | searchable |
          And I have a Content object "C" of Content Type "D" with
@@ -999,7 +998,7 @@ Feature: Search ( basic search )
             | example |
             | 10      |
 
-    Scenario Outline: No search results on ezobjectrelationlist field search
+    Scenario Outline: Attempting to find a Content object which has a eZObjectRelationList to Content objects not matching the search phrase
        Given I have a Content Type "D" with the following fields
             | ezstring | Text | searchable |
          And I have a Content object "C" of Content Type "D" with
@@ -1024,7 +1023,7 @@ Feature: Search ( basic search )
             | 10 search            |
 
 
-    Scenario Outline: Results returned on ezobjectrelationlist field search for a specific object
+    Scenario Outline: Finding Content object which has a eZObjectRelationList to Content objects where only one matches the search phrase
        Given I have a Content Type "D" with the following fields
             | ezstring | Text | searchable |
          And I have a Content object "C" of Content Type "D" with
@@ -1062,7 +1061,7 @@ Feature: Search ( basic search )
             | a@#$>a1<£§%1      | E      |
 
 
-    Scenario Outline: No results returned on ezobjectrelationlist field search when related objects are non searchable
+    Scenario Outline: Attempting to find a Content object which has a eZObjectRelationList to Content objects that their fields are not searcheable
        Given I have a Content Type "D" with the following fields
             | ezstring | Text | not_searchable |
          And I have a Content object "C" of Content Type "D" with
@@ -1096,8 +1095,8 @@ Feature: Search ( basic search )
             | example, another    |
             | a@#$>a1<£§%1        |
 
-    # LS identifier
-    Scenario Outline: Results returned on identifier field search
+    # LS Identifier
+    Scenario Outline: Finding Content object with a Identifier field that matches the search phrase
        Given I have a Content Type "B" with the following fields
             | identifier | Identifier | searchable | pre[id]post | startValue:10 | digits:3 |
          And I have a Content object "A" of Content Type "B"
@@ -1110,7 +1109,7 @@ Feature: Search ( basic search )
             | data       |
             | pre010post |
 
-    Scenario Outline: No search results on identifier field search
+    Scenario Outline: Attempt to find a Content object with a Identifier field that doesn't match the search phrase
        Given I have a Content Type "B" with the following fields
             | identifier | Identifier | searchable | pre[id]post | startValue:10 | digits:3 |
          And I have a Content object "A" of Content Type "B"
@@ -1132,8 +1131,8 @@ Feature: Search ( basic search )
             | pre.010.post |
             | pre-010-post |
 
-    # LS isbn
-    Scenario Outline: Results returned on isbn field search
+    # LS ISBN
+    Scenario Outline: Finding Content object with a ISBN field that matches the search phrase
        Given I have a Content Type "B" with the following fields
             | isbn | ISBN | searchable |
          And I have a Content object "A" of Content Type "B" with
@@ -1153,7 +1152,7 @@ Feature: Search ( basic search )
             | 164-7-19-0481   |
             | 7 164 19        |
 
-    Scenario Outline: No search results on isbn field search
+    Scenario Outline: Attempt to find a Content object with a ISBN field that doesn't match the search phrase
        Given I have a Content Type "B" with the following fields
             | isbn | ISBN | searchable |
          And I have a Content object "A" of Content Type "B" with
@@ -1170,7 +1169,7 @@ Feature: Search ( basic search )
             | 1647       |
             | 1647190481 |
 
-    # LS matrix
+    # LS Matrix
     # For the following tests the Matrix field is filled with the next matrix:
     #
     # 
@@ -1179,7 +1178,7 @@ Feature: Search ( basic search )
     #   +---------------------+-----------------+
     #   | bottom - 21         | end - 22        |
     #   +---------------------+-----------------+
-    Scenario Outline: Results returned on matrix field search
+    Scenario Outline: Finding Content object with a Matrix field that matches the search phrase
        Given I have a Content Type "B" with the following fields
             | matrix | Matrix | searcheable |
          And I have a Content object "A" of Content Type "B" with
@@ -1201,7 +1200,7 @@ Feature: Search ( basic search )
             | row@1 column&22           |
             | end @ 22                  |
 
-    Scenario Outline: No search results on matrix field search
+    Scenario Outline: Attempt to find a Content object with a Matrix field that doesn't match the search phrase
        Given I have a Content Type "B" with the following fields
             | matrix | Matrix | searcheable |
          And I have a Content object "A" of Content Type "B" with
@@ -1220,8 +1219,8 @@ Feature: Search ( basic search )
             | 2               |
             | row 2           |
 
-    # LS multi-option2
-    # For the following tests the multio-ption2 field is filled with the next multi-options:
+    # LS Multi-Option2
+    # For the following tests the multi-option2 field is filled with the next multi-options:
     #
     #  1. Parts
     #   +------------------+------------------+
@@ -1249,7 +1248,7 @@ Feature: Search ( basic search )
     #   +------------------+------------------+
     #   | Nails Special    | 8                |
     #   +------------------+------------------+
-    Scenario Outline: Results returned on multi-option2 field search
+    Scenario Outline: Finding Content object with a Multi-Option2 field that matches the search phrase
        Given I have a Content Type "B" with the following fields
             | multi-option2 | MultiOption | searcheable |
          And I have a Content object "A" of Content Type "B" with
@@ -1278,7 +1277,7 @@ Feature: Search ( basic search )
             | Head+hands        |
             | Head+COMPLETE     |
 
-    Scenario Outline: No search results on multi-option2 field search
+    Scenario Outline: Attempt to find a Content object with a Multi-Option2 field that doesn't match the search phrase
        Given I have a Content Type "B" with the following fields
             | multi-option2 | MultiOption | searcheable |
          And I have a Content object "A" of Content Type "B" with
@@ -1302,7 +1301,7 @@ Feature: Search ( basic search )
             | default       |
 
     # LS Product-Category
-    Scenario Outline: Results returned on product-category field search
+    Scenario Outline: Finding Content object with a Product-Category field that matches the search phrase
        Given I have "webshop" active with
             | product category | Food | Pets | Cloth |
          And I have a Content Type "B" with the following fields
@@ -1317,7 +1316,7 @@ Feature: Search ( basic search )
             | data |
         # @NOTICE: couldn't find any positive search
 
-    Scenario Outline: 
+    Scenario Outline: Attempt to find a Content object with a Product-Category field that doesn't match the search phrase
        Given I have "webshop" active with
             | product category | Food | Pets | Cloth |
          And I have a Content Type "B" with the following fields
