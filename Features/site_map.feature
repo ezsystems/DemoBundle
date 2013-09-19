@@ -102,6 +102,26 @@ Feature: See site map
             | Folder2  |
             | Folder1  |
 
+    Scenario: Attempt to see site map sub content ordered
+       Given I have Content Type "A" with the following fields (second level of the content tree)
+            | definition:container | true |
+            | eztstring            | Name |
+         And I have the following Content objects of Content type "A"
+            # Name       | Location  | Priority  |
+            | Folder2    |           |           |
+            | Article2.1 | /Folder2  | 2         |
+            | Article2.2 | /Folder2  | 1         |
+            | Article2.3 | /Folder2  | 4         |
+            | Folder2.1  | /Folder2  | 3         |
+        When I click at "Site map" link
+        Then I see links for Content objects in following order
+            # Object     | Parent  |
+            | Folder2    |         |
+            | Article2.1 | Folder2 |
+            | Article2.2 | Folder2 |
+            | Article2.3 | Folder2 |
+            | Folder2.1  | Folder2 |
+
     Scenario: See site map content with maximum (10) main links
        Given I have Content Type "A" with the following fields (second level of the content tree)
             | definition:container | true |
@@ -209,4 +229,30 @@ Feature: See site map
          And I see "10" "sub" links in each "main" link
          And I see a "100" Content object links
 
+    # For this scenario it is needed to change the location manualy on URL
+    # instead that, it has the location specified
+    Scenario: See site map for a specific location
+       Given I have Content Type "A" with the following fields
+            | definition:container | true |
+            | eztstring            | Name |
+         And I have the following Content objects of Content type "A"
+            # Name            | Location       |
+            | Folder1         |                |
+            | Folder1.2       | /Folder1       |
+            | Folder1.2.3     | /Folder1.2     |
+            | Folder1.2.3.4   | /Folder1.2.3   |
+            | Folder1.2.3.4.5 | /Folder1.2.3.4 |
+            | Folder2         |                |
+            | Folder2.1       | /Folder2       |
+        When I check site map for location "Folder1.2.3"
+        Then I see links for Content objects
+            # Object         | Parent      |
+            | Folder1.2.3    |             |
+            | Folder1.2.3.4  | Folder1.2.3 |
+         And I don't see links
+            | Folder1         |
+            | Folder1.2       |
+            | Folder1.2.3.4.5 |
+            | Folder2         |
+            | Folder2.1       |
 
