@@ -24,7 +24,7 @@ Feature: See site map
        Given I have Content Type "A" with the following fields
             | definition:container | true |
             | eztstring            | Name |
-         And I have the following Content objects of Content type "A"
+         And I have the following Content objects of Content Type "A"
             # Name      | Location  |
             | Folder1   |           |
             | Folder2   |           |
@@ -35,10 +35,10 @@ Feature: See site map
          And I see column "2" with "1" Content objects links
 
     Scenario: Site map content is presented in headers
-       Given I have Content Type "A" with the following fields (second level of the content tree)
+       Given I have Content Type "A" with the following fields
             | definition:container | true |
             | eztstring            | Name |
-         And I have the following Content objects of Content type "A"
+         And I have the following Content objects of Content Type "A"
             # Name       | Location  |
             | Folder1    |           |
             | Article1.1 | /Folder1  |
@@ -62,7 +62,7 @@ Feature: See site map
        Given I have Content Type "A" with the following fields
             | definition:container | true |
             | eztstring            | Name |
-         And I have the following Content objects of Content type "A"
+         And I have the following Content objects of Content Type "A"
             # Name      | Location  |
             | Article1  |           |
             | Folder1   |           |
@@ -76,11 +76,11 @@ Feature: See site map
             | Folder2  |
             | Last One |
 
-    Scenario: See site map content with sub content
-       Given I have Content Type "A" with the following fields (second level of the content tree)
+    Scenario: See site map content with sub content (second level of the content tree)
+       Given I have Content Type "A" with the following fields
             | definition:container | true |
             | eztstring            | Name |
-         And I have the following Content objects of Content type "A"
+         And I have the following Content objects of Content Type "A"
             # Name       | Location  |
             | Folder2    |           |
             | Article2.1 | /Folder2  |
@@ -100,7 +100,7 @@ Feature: See site map
        Given I have Content Type "A" with the following fields
             | definition:container | true |
             | eztstring            | Name |
-         And I have the following Content objects of Content type "A"
+         And I have the following Content objects of Content Type "A"
             # Name            | Location       |
             | Folder1         |                |
             | Folder1.2       | /Folder1       |
@@ -126,7 +126,7 @@ Feature: See site map
        Given I have Content Type "A" with the following fields
             | definition:container | true |
             | eztstring            | Name |
-         And I have the following Content objects of Content type "A"
+         And I have the following Content objects of Content Type "A"
             # Name      | Location  | Priority  |
             | Article1  |           | 2         |
             | Folder1   |           | 4         |
@@ -140,11 +140,11 @@ Feature: See site map
             | Folder2  |
             | Folder1  |
 
-    Scenario: Attempt to see site map sub content ordered
-       Given I have Content Type "A" with the following fields (second level of the content tree)
+    Scenario: Attempt to see site map sub content ordered (second level of the content tree)
+       Given I have Content Type "A" with the following fields
             | definition:container | true |
             | eztstring            | Name |
-         And I have the following Content objects of Content type "A"
+         And I have the following Content objects of Content Type "A"
             # Name       | Location  | Priority  |
             | Folder2    |           |           |
             | Article2.1 | /Folder2  | 2         |
@@ -161,10 +161,10 @@ Feature: See site map
             | Folder2.1  | Folder2 |
 
     Scenario: See site map content with maximum (10) main links
-       Given I have Content Type "A" with the following fields (second level of the content tree)
+       Given I have Content Type "A" with the following fields
             | definition:container | true |
             | eztstring            | Name |
-         And I have the following Content objects of Content type "A"
+         And I have the following Content objects of Content Type "A"
             # Name       |
             | Article01  |
             | Article02  |
@@ -191,10 +191,10 @@ Feature: See site map
             | Article10  |
 
     Scenario: Attempt to see site map content with more than maximum (10) main links
-       Given I have Content Type "A" with the following fields (second level of the content tree)
+       Given I have Content Type "A" with the following fields
             | definition:container | true |
             | eztstring            | Name |
-         And I have the following Content objects of Content type "A"
+         And I have the following Content objects of Content Type "A"
             # Name       |
             | Article01  |
             | Article02  |
@@ -264,7 +264,7 @@ Feature: See site map
          And I have "15" Content objects of Content Type "A" containing "15" Content objects of Content Type "A"
         When I click at "Site map" link
         Then I see "10" "main" links
-         And I see "10" "sub" links in each "main" link
+         And I see "10" "sub" links under each "main" link
          And I see a "110" Content object links
 
     # For this scenario it is needed to change the location manualy on URL
@@ -273,7 +273,7 @@ Feature: See site map
        Given I have Content Type "A" with the following fields
             | definition:container | true |
             | eztstring            | Name |
-         And I have the following Content objects of Content type "A"
+         And I have the following Content objects of Content Type "A"
             # Name            | Location       |
             | Folder1         |                |
             | Folder1.2       | /Folder1       |
