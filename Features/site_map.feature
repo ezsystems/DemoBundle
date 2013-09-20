@@ -294,3 +294,27 @@ Feature: See site map
             | Folder2         |
             | Folder2.1       |
 
+    ###
+    # State tests ( Archived, Published, Draft )
+    ###
+    Scenario: Draft versions do not show on site map
+       Given I have Content Type "A" with the following fields
+            | eztstring            | Name |
+         And I have a Content object Draft "B" of Content Type "A"
+        When I click at "Site map" link
+         And I don't see any Content object
+
+    Scenario: Archived versions do not show on site map
+       Given I have Content Type "A" with the following fields
+            | eztstring | Name |
+         And I have a Content object "B" of Content Type "A" with
+            | Name | Archived |
+         And I update Content object "B" to
+            | Name | Published |
+        When I click at "Site map" link
+        Then I see links for Content objects
+            # Object     |
+            | Published  |
+         And I don't see links
+            | Archived   |
+
