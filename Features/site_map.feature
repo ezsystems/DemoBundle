@@ -21,9 +21,9 @@ Feature: See site map
     # Visual tests
     ###
     Scenario: Site map content is presented in 2 columns
-       Given I have Content Type "A" with the following fields
-            | definition:container | true |
-            | eztstring            | Name |
+       Given I have Content Type "A" with
+            | definition | container |      |
+            | field      | eztstring | Name |
          And I have the following Content objects of Content Type "A"
             # Name      | Location  |
             | Folder1   |           |
@@ -35,9 +35,9 @@ Feature: See site map
          And I see column "2" with "1" Content objects links
 
     Scenario: Site map content is presented in headers
-       Given I have Content Type "A" with the following fields
-            | definition:container | true |
-            | eztstring            | Name |
+       Given I have Content Type "A" with
+            | definition | container |      |
+            | field      | eztstring | Name |
          And I have the following Content objects of Content Type "A"
             # Name       | Location  |
             | Folder1    |           |
@@ -59,9 +59,9 @@ Feature: See site map
     # Tests with content
     ###
     Scenario: See site map content
-       Given I have Content Type "A" with the following fields
-            | definition:container | true |
-            | eztstring            | Name |
+       Given I have Content Type "A" with
+            | definition | container |      |
+            | field      | eztstring | Name |
          And I have the following Content objects of Content Type "A"
             # Name      | Location  |
             | Article1  |           |
@@ -77,9 +77,9 @@ Feature: See site map
             | Last One |
 
     Scenario: See site map content with sub content (second level of the content tree)
-       Given I have Content Type "A" with the following fields
-            | definition:container | true |
-            | eztstring            | Name |
+       Given I have Content Type "A" with
+            | definition | container |      |
+            | field      | eztstring | Name |
          And I have the following Content objects of Content Type "A"
             # Name       | Location  |
             | Folder2    |           |
@@ -97,9 +97,9 @@ Feature: See site map
             | Folder2.1  | Folder2 |
 
     Scenario: Attempt to see site map content with deeper sub contents (third and deeper levels of the content tree)
-       Given I have Content Type "A" with the following fields
-            | definition:container | true |
-            | eztstring            | Name |
+       Given I have Content Type "A" with
+            | definition | container |      |
+            | field      | eztstring | Name |
          And I have the following Content objects of Content Type "A"
             # Name            | Location       |
             | Folder1         |                |
@@ -123,9 +123,9 @@ Feature: See site map
             | Folder1.2.3.4.5 |
 
     Scenario: See site map content ordered
-       Given I have Content Type "A" with the following fields
-            | definition:container | true |
-            | eztstring            | Name |
+       Given I have Content Type "A" with
+            | definition | container |      |
+            | field      | eztstring | Name |
          And I have the following Content objects of Content Type "A"
             # Name      | Location  | Priority  |
             | Article1  |           | 2         |
@@ -141,9 +141,9 @@ Feature: See site map
             | Folder1  |
 
     Scenario: Attempt to see site map sub content ordered (second level of the content tree)
-       Given I have Content Type "A" with the following fields
-            | definition:container | true |
-            | eztstring            | Name |
+       Given I have Content Type "A" with
+            | definition | container |      |
+            | field      | eztstring | Name |
          And I have the following Content objects of Content Type "A"
             # Name       | Location  | Priority  |
             | Folder2    |           |           |
@@ -161,9 +161,9 @@ Feature: See site map
             | Folder2.1  | Folder2 |
 
     Scenario: See site map content with maximum (10) main links
-       Given I have Content Type "A" with the following fields
-            | definition:container | true |
-            | eztstring            | Name |
+       Given I have Content Type "A" with
+            | definition | container |      |
+            | field      | eztstring | Name |
          And I have the following Content objects of Content Type "A"
             # Name       |
             | Article01  |
@@ -191,9 +191,9 @@ Feature: See site map
             | Article10  |
 
     Scenario: Attempt to see site map content with more than maximum (10) main links
-       Given I have Content Type "A" with the following fields
-            | definition:container | true |
-            | eztstring            | Name |
+       Given I have Content Type "A" with
+            | definition | container |      |
+            | field      | eztstring | Name |
          And I have the following Content objects of Content Type "A"
             # Name       |
             | Article01  |
@@ -249,18 +249,18 @@ Feature: See site map
     # For the creation of this structure the next BDD sentence is used:       
     #   'I have "<totalObjects>" Content objects of Content Type "A" containing "<totalSubObjects>" Content objects of Content Type "A"'
     Scenario: See site map content with maximum main and sub content
-       Given I have Content Type "A" with the following fields
-            | definition:container | true |
-            | eztstring            | Name |
+       Given I have Content Type "A" with
+            | definition | container |      |
+            | field      | eztstring | Name |
          And I have "10" Content objects of Content Type "A" containing "10" Content objects of Content Type "A"
         When I click at "Site map" link
         Then I see "10" "main" links
          And I see a "110" Content object links
 
     Scenario: Attempt to see site map content with more than maximum main and sub content
-       Given I have Content Type "A" with the following fields
-            | definition:container | true |
-            | eztstring            | Name |
+       Given I have Content Type "A" with
+            | definition | container |      |
+            | field      | eztstring | Name |
          And I have "15" Content objects of Content Type "A" containing "15" Content objects of Content Type "A"
         When I click at "Site map" link
         Then I see "10" "main" links
@@ -270,9 +270,9 @@ Feature: See site map
     # For this scenario it is needed to change the location manualy on URL
     # instead that, it has the location specified
     Scenario: See site map for a specific location
-       Given I have Content Type "A" with the following fields
-            | definition:container | true |
-            | eztstring            | Name |
+       Given I have Content Type "A" with
+            | definition | container |      |
+            | field      | eztstring | Name |
          And I have the following Content objects of Content Type "A"
             # Name            | Location       |
             | Folder1         |                |
@@ -298,14 +298,14 @@ Feature: See site map
     # State tests ( Archived, Published, Draft )
     ###
     Scenario: Draft versions do not show on site map
-       Given I have Content Type "A" with the following fields
+       Given I have Content Type "A" with
             | eztstring            | Name |
          And I have a Content object Draft "B" of Content Type "A"
         When I click at "Site map" link
          And I don't see any Content object
 
     Scenario: Archived versions do not show on site map
-       Given I have Content Type "A" with the following fields
+       Given I have Content Type "A" with
             | eztstring | Name |
          And I have a Content object "B" of Content Type "A" with
             | Name | Archived |
