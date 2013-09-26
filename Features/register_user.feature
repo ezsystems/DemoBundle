@@ -3,6 +3,7 @@ Feature: Register user
     As an anonymous user
     I need to be able to register
 
+    @javascript
     Scenario: Register a new user
         # @TODO: find a way to verify that registered data is correctly stored
        Given I am at "home" page
@@ -11,6 +12,7 @@ Feature: Register user
          And I click at "Register" button
         Then I should be redirected to "user created"
 
+    @javascript
     Scenario Outline: Attempt to register a new user with an existing unique field
        Given I am at "register user" page
          And I have a Content object of Content Type "user" with
@@ -28,18 +30,20 @@ Feature: Register user
             | user     | new@ez.no  |
             | another  | mail@ez.no |
 
+    @javascript
     Scenario: Attempt to register a new user with different password and repeat password
        Given I am at "register user" page
-        When I fill the form with 
+        When I fill the form with
             | password       | cod1 |
             | repeatPassword | cod2 |
          And I click at "Register" button
         Then I see "input did not validate" error
          And I see "passwords don't match" error
 
+    @javascript
     Scenario Outline: Attempt to register a new user without filling all required fields
        Given I am at "register user" page
-        When I fill the form with 
+        When I fill the form with
             | <firstName>      |
             | <lastName>       |
             | <username>       |
@@ -59,6 +63,7 @@ Feature: Register user
             | First     | Last     | user     | mail@ez.no |          | cod1           |
             | First     | Last     | user     | mail@ez.no | cod1     |                |
 
+    @javascript
     Scenario: Discard the register new user form
         # @TODO: complete this scenario with a "Then" sentence
         #       "Then I should be redirected to '<somewhere>'"
@@ -67,6 +72,7 @@ Feature: Register user
         When I click at "Discard" button
         Then I see discard Draft successfuly
 
+    @javascript
     Scenario: Register a new user with an image
         # @TODO: think how "attach image" could be achieved
        Given I am at "register user" page
@@ -76,6 +82,7 @@ Feature: Register user
         Then I should be redirected to "user created"
          And I see message "User account successfully created"
 
+    @javascript
     Scenario Outline: Register new user with valid data in fields
        Given I am at "register user" page
         When I fill the form with
@@ -136,9 +143,10 @@ Feature: Register user
             | First                                                           | Last                                                            | user                                                                     | mail@ez.no                                                        | \"\!#$%&/()=?«»'{}[]'`^~*+ºª-_.:,;<>@ł€¶ŧ←↓→øþĸħŋđðßæ\|«»¢“”nµ                                                                                                                                                                                                                                                      |
             | First                                                           | Last                                                            | user                                                                     | mail@ez.no                                                        | thisIsA300CharacterKeythisIsA300CharacterKeythisIsA300CharacterKeythisIsA300CharacterKeythisIsA300CharacterKeythisIsA300CharacterKeythisIsA300CharacterKeythisIsA300CharacterKeythisIsA300CharacterKeythisIsA300CharacterKeythisIsA300CharacterKeythisIsA300CharacterKeythisIsA300CharacterKeythisIsA300CharacterKey |
 
+    @javascript
     Scenario Outline: Attempt to register new user with invalid data in fields
        Given I am at "register user" page
-        When I fill the form with 
+        When I fill the form with
             | <firstName> |
             | <lastName>  |
             | <username>  |
@@ -164,6 +172,7 @@ Feature: Register user
             | First     | Last     | user     | 1@2.34                  | cod1     |
             | First     | Last     | user     | mail@single             | cod1     |
 
+    @javascript
     Scenario: Remove image from a register user Draft
        Given I am at "register user" page
          And I have a Content object "Z" of Content Type "user" with a "image" "A"
@@ -173,6 +182,7 @@ Feature: Register user
          And I don't see "Edit" button
          And I see "Remove image" button "disabled"
 
+    @javascript
     Scenario: Change uploaded image on a register user Draft
        Given I am at "register user" page
          And I have a Content object "Z" of Content Type "user" with a "image" "A"
@@ -181,6 +191,7 @@ Feature: Register user
         Then I see "image" "B"
          And I don't see "image" "A"
 
+    @javascript
     Scenario: Registering data is kept till discard
        Given I am at "register user" page
          And I have a Content object "A" of Content Type "user"
@@ -189,6 +200,7 @@ Feature: Register user
          And I click at "register" link
         Then I see "register" form filled with data "A"
 
+    @javascript
     Scenario: Invalid register wont loose data
        Given I am at "register user" page
          And I have a Content object "A" of Content Type "user"
@@ -199,7 +211,7 @@ Feature: Register user
          And I see "register" form filled with data "A" and
             | email | invalid data |
 
+    @javascript
     Scenario: Search field is disabled when registering
        Given I am at "register user" page
         Then I see "search" input "disabled"
-
