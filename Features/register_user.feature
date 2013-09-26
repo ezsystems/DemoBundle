@@ -4,6 +4,20 @@ Feature: Register user
     I need to be able to register
 
     @javascript
+    Scenario: Open register user page
+       Given I am at "home" page
+        When I click at "Register" link
+        Then I see "Register" page
+
+    @javascript
+    Scenario: Register user needs cookies enabled to work
+       Given I am at "home" page
+         And I got "cookies" disabled
+        When I click at "Register" link
+        Then I see "Register" page
+         And I see "Your browser does not seem to support cookies, to register a new user, cookies need to be supported and enabled!" error
+
+    @javascript
     Scenario: Register a new user
         # @TODO: find a way to verify that registered data is correctly stored
        Given I am at "home" page
