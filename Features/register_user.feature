@@ -7,14 +7,14 @@ Feature: Register user
     Scenario: Open register user page
        Given I am at "home" page
         When I click at "Register" link
-        Then I see "Register" page
+        Then I see "register user" page
 
     @javascript
     Scenario: Register user needs cookies enabled to work
        Given I am at "home" page
          And I got "cookies" disabled
         When I click at "Register" link
-        Then I see "Register" page
+        Then I see "register user" page
          And I see "Your browser does not seem to support cookies, to register a new user, cookies need to be supported and enabled!" error
 
     @javascript
@@ -24,7 +24,7 @@ Feature: Register user
          And I click at "Register" link
         When I fill a valid "register" form
          And I click at "Register" button
-        Then I should be redirected to "user created"
+        Then I see "user created" page
 
     @javascript
     Scenario Outline: Attempt to register a new user with an existing unique field
