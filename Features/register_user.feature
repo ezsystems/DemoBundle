@@ -30,26 +30,26 @@ Feature: Register user
     Scenario Outline: Attempt to register a new user with an existing unique field
        Given I am at "register user" page
          And I have a Content object of Content Type "user" with
-            | username | user       |
-            | email    | mail@ez.no |
+            | account_login | user       |
+            | account_email | mail@ez.no |
         When I fill the form with
-            | <username> |
-            | <email>    |
+            | <account_login> |
+            | <account_email> |
          And I click at "Register" button
         Then I see "input did not validate" error
          And I see "field already exists" error
 
         Examples:
-            | username | email      |
-            | user     | new@ez.no  |
-            | another  | mail@ez.no |
+            | account_login | account_email |
+            | user          | new@ez.no     |
+            | another       | mail@ez.no    |
 
     @javascript
-    Scenario: Attempt to register a new user with different password and repeat password
+    Scenario: Attempt to register a new user with different password and confirm password
        Given I am at "register user" page
         When I fill the form with
-            | password       | cod1 |
-            | repeatPassword | cod2 |
+            | account_password         | cod1 |
+            | account_password_confirm | cod2 |
          And I click at "Register" button
         Then I see "input did not validate" error
          And I see "passwords don't match" error
@@ -58,24 +58,24 @@ Feature: Register user
     Scenario Outline: Attempt to register a new user without filling all required fields
        Given I am at "register user" page
         When I fill the form with
-            | <firstName>      |
-            | <lastName>       |
-            | <username>       |
-            | <email>          |
-            | <password>       |
-            | <repeatPassword> |
+            | <first_name>               |
+            | <last_name>                |
+            | <account_login>            |
+            | <account_email>            |
+            | <account_password>         |
+            | <account_password_confirm> |
          And I click at "Register" button
         Then I see "input did not validate" error
          And I see "field is required" error
 
         Examples:
-            | firstName | lastName | username | email      | password | repeatPassword |
-            |           | Last     | user     | mail@ez.no | cod1     | cod1           |
-            | First     |          | user     | mail@ez.no | cod1     | cod1           |
-            | First     | Last     |          | mail@ez.no | cod1     | cod1           |
-            | First     | Last     | user     |            | cod1     | cod1           |
-            | First     | Last     | user     | mail@ez.no |          | cod1           |
-            | First     | Last     | user     | mail@ez.no | cod1     |                |
+            | first_name | last_name | account_login | account_email | account_password | account_password_confirm |
+            |            | Last      | user          | mail@ez.no    | cod1             | cod1                     |
+            | First      |           | user          | mail@ez.no    | cod1             | cod1                     |
+            | First      | Last      |               | mail@ez.no    | cod1             | cod1                     |
+            | First      | Last      | user          |               | cod1             | cod1                     |
+            | First      | Last      | user          | mail@ez.no    |                  | cod1                     |
+            | First      | Last      | user          | mail@ez.no    | cod1             |                          |
 
     @javascript
     Scenario: Discard the register new user form
@@ -100,17 +100,17 @@ Feature: Register user
     Scenario Outline: Register new user with valid data in fields
        Given I am at "register user" page
         When I fill the form with
-            | <firstName> |
-            | <lastName>  |
-            | <username>  |
-            | <email>     |
-            | <password>  |
+            | <first_name>               |
+            | <last_name>                |
+            | <account_login>            |
+            | <account_email>            |
+            | <account_password>         |
          And I click at "Register" button
         Then I should be redirected to "user created"
          And I see message "User account successfully created"
 
         Examples:
-            | firstName                                                       | lastName                                                        | username                                                                 | email                                                             | password                                                                                                                                                                                                                                                                                                             |
+            | first_name                                                      | last_name                                                       | account_login                                                            | account_email                                                     | account_password                                                                                                                                                                                                                                                                                                     |
             | First                                                           | Last                                                            | user                                                                     | mail@ez.no                                                        | cod1                                                                                                                                                                                                                                                                                                                 |
             | First Second                                                    | Last                                                            | user                                                                     | mail@ez.no                                                        | cod1                                                                                                                                                                                                                                                                                                                 |
             | CamelCase                                                       | Last                                                            | user                                                                     | mail@ez.no                                                        | cod1                                                                                                                                                                                                                                                                                                                 |
@@ -161,30 +161,30 @@ Feature: Register user
     Scenario Outline: Attempt to register new user with invalid data in fields
        Given I am at "register user" page
         When I fill the form with
-            | <firstName> |
-            | <lastName>  |
-            | <username>  |
-            | <email>     |
-            | <password>  |
+            | <first_name>               |
+            | <last_name>                |
+            | <account_login>            |
+            | <account_email>            |
+            | <account_password>         |
          And I click at "Register" button
         Then I see "input did not validate" error
          And I see "is not valid" error
 
         Examples:
-            | firstName | lastName | username | email                   | password |
-            | A         | Last     | user     | main@ez.no              | cod1     |
-            | AA        | Last     | user     | main@ez.no              | cod1     |
-            | First     | A        | user     | main@ez.no              | cod1     |
-            | First     | AA       | user     | main@ez.no              | cod1     |
-            | First     | Last     | user     | end.dot.@ez.no          | cod1     |
-            | First     | Last     | user     | .start.dot@ez.no        | cod1     |
-            | First     | Last     | user     | æßðđŋ@ez.no             | cod1     |
-            | First     | Last     | user     | ãéìöû@ez.no             | cod1     |
-            | First     | Last     | user     | with spaces @ez.no      | cod1     |
-            | First     | Last     | user     | underscore@at_host.name | cod1     |
-            | First     | Last     | user     | a@b.c                   | cod1     |
-            | First     | Last     | user     | 1@2.34                  | cod1     |
-            | First     | Last     | user     | mail@single             | cod1     |
+            | first_name | last_name | account_login | account_email           | account_password |
+            | A          | Last      | user          | main@ez.no              | cod1             |
+            | AA         | Last      | user          | main@ez.no              | cod1             |
+            | First      | A         | user          | main@ez.no              | cod1             |
+            | First      | AA        | user          | main@ez.no              | cod1             |
+            | First      | Last      | user          | end.dot.@ez.no          | cod1             |
+            | First      | Last      | user          | .start.dot@ez.no        | cod1             |
+            | First      | Last      | user          | æßðđŋ@ez.no             | cod1             |
+            | First      | Last      | user          | ãéìöû@ez.no             | cod1             |
+            | First      | Last      | user          | with spaces @ez.no      | cod1             |
+            | First      | Last      | user          | underscore@at_host.name | cod1             |
+            | First      | Last      | user          | a@b.c                   | cod1             |
+            | First      | Last      | user          | 1@2.34                  | cod1             |
+            | First      | Last      | user          | mail@single             | cod1             |
 
     @javascript
     Scenario: Remove image from a register user Draft
@@ -219,11 +219,11 @@ Feature: Register user
        Given I am at "register user" page
          And I have a Content object "A" of Content Type "user"
         When I fill the form with
-            | email | invalid data |
+            | account_email | invalid data |
          And I click at "Register" button
         Then I see "input did not validate" error
          And I see "register" form filled with data "A" and
-            | email | invalid data |
+            | account_email | invalid data |
 
     @javascript
     Scenario: Search field is disabled when registering
