@@ -28,7 +28,8 @@ Feature: Register user
 
     @javascript
     Scenario Outline: Attempt to register a new user with an existing unique field
-       Given I am at "register user" page
+       Given I am at "home" page
+         And I click at "Register" link
          And I have a Content object of Content Type "user" with
             | account_login | user       |
             | account_email | mail@ez.no |
@@ -46,13 +47,14 @@ Feature: Register user
 
     @javascript
     Scenario: Attempt to register a new user with different password and confirm password
-       Given I am at "register user" page
-        When I fill the form with
+       Given I am at "home" page
+         And I click at "Register" link
+        When I fill "register" form with
             | account_password         | cod1 |
             | account_password_confirm | cod2 |
          And I click at "Register" button
-        Then I see "input did not validate" error
-         And I see "passwords don't match" error
+        Then I see "Input did not validate" error
+         And I see "The passwords do not match" error
 
     @javascript
     Scenario Outline: Attempt to register a new user without filling all required fields
@@ -82,14 +84,16 @@ Feature: Register user
         # @TODO: complete this scenario with a "Then" sentence
         #       "Then I should be redirected to '<somewhere>'"
         # @see issue: EZP-21549
-       Given I am at "register user" page
+       Given I am at "home" page
+         And I click at "Register" link
         When I click at "Discard" button
         Then I see discard Draft successfuly
 
     @javascript
     Scenario: Register a new user with an image
         # @TODO: think how "attach image" could be achieved
-       Given I am at "register user" page
+       Given I am at "home" page
+         And I click at "Register" link
         When I fill a valid register form
          And I attach an image to "register form"
          And I click at "Register" button
@@ -98,7 +102,8 @@ Feature: Register user
 
     @javascript
     Scenario Outline: Register new user with valid data in fields
-       Given I am at "register user" page
+       Given I am at "home" page
+         And I click at "Register" link
         When I fill the form with
             | <first_name>               |
             | <last_name>                |
@@ -159,7 +164,8 @@ Feature: Register user
 
     @javascript
     Scenario Outline: Attempt to register new user with invalid data in fields
-       Given I am at "register user" page
+       Given I am at "home" page
+         And I click at "Register" link
         When I fill the form with
             | <first_name>               |
             | <last_name>                |
@@ -188,7 +194,8 @@ Feature: Register user
 
     @javascript
     Scenario: Remove image from a register user Draft
-       Given I am at "register user" page
+       Given I am at "home" page
+         And I click at "Register" link
          And I have a Content object "Z" of Content Type "user" with a "image" "A"
         When I click at "Remove Image" button
         Then I see a message "input was stored successfuly"
@@ -198,7 +205,8 @@ Feature: Register user
 
     @javascript
     Scenario: Change uploaded image on a register user Draft
-       Given I am at "register user" page
+       Given I am at "home" page
+         And I click at "Register" link
          And I have a Content object "Z" of Content Type "user" with a "image" "A"
         When I attach a "image" "B"
          And I store Content object "Draft"
@@ -207,7 +215,8 @@ Feature: Register user
 
     @javascript
     Scenario: Registering data is kept till discard
-       Given I am at "register user" page
+       Given I am at "home" page
+         And I click at "Register" link
          And I have a Content object "A" of Content Type "user"
          And I have form with data "A"
         When I click at "logo" image
@@ -216,7 +225,8 @@ Feature: Register user
 
     @javascript
     Scenario: Invalid register wont loose data
-       Given I am at "register user" page
+       Given I am at "home" page
+         And I click at "Register" link
          And I have a Content object "A" of Content Type "user"
         When I fill the form with
             | account_email | invalid data |
@@ -227,5 +237,6 @@ Feature: Register user
 
     @javascript
     Scenario: Search field is disabled when registering
-       Given I am at "register user" page
+       Given I am at "home" page
+        When I click at "Register" link
         Then I see "search" input "disabled"
