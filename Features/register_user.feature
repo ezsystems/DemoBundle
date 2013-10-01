@@ -58,8 +58,9 @@ Feature: Register user
 
     @javascript
     Scenario Outline: Attempt to register a new user without filling all required fields
-       Given I am at "register user" page
-        When I fill the form with
+       Given I am at "home" page
+         And I click at "Register" link
+        When I fill "register" form with
             | <first_name>               |
             | <last_name>                |
             | <account_login>            |
@@ -67,17 +68,17 @@ Feature: Register user
             | <account_password>         |
             | <account_password_confirm> |
          And I click at "Register" button
-        Then I see "input did not validate" error
-         And I see "field is required" error
+        Then I see "Input did not validate" error
+         And I see "<error_message>" error
 
         Examples:
-            | first_name | last_name | account_login | account_email | account_password | account_password_confirm |
-            |            | Last      | user          | mail@ez.no    | cod1             | cod1                     |
-            | First      |           | user          | mail@ez.no    | cod1             | cod1                     |
-            | First      | Last      |               | mail@ez.no    | cod1             | cod1                     |
-            | First      | Last      | user          |               | cod1             | cod1                     |
-            | First      | Last      | user          | mail@ez.no    |                  | cod1                     |
-            | First      | Last      | user          | mail@ez.no    | cod1             |                          |
+            | first_name | last_name | account_login | account_email | account_password | account_password_confirm | error_message                  |
+            |            | Last      | user          | mail@ez.no    | cod1             | cod1                     | Input required                 |
+            | First      |           | user          | mail@ez.no    | cod1             | cod1                     | Input required                 |
+            | First      | Last      |               | mail@ez.no    | cod1             | cod1                     | The username must be specified |
+            | First      | Last      | user          |               | cod1             | cod1                     | The email address is not valid |
+            | First      | Last      | user          | mail@ez.no    |                  | cod1                     | The password can't be null     |
+            | First      | Last      | user          | mail@ez.no    | cod1             |                          | The passwords do not match     |
 
     @javascript
     Scenario: Discard the register new user form
