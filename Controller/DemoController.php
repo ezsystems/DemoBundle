@@ -15,7 +15,6 @@ use eZ\Publish\API\Repository\Values\Content\Query\Criterion;
 use eZ\Publish\API\Repository\Values\Content\Query\SortClause;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use eZ\Publish\API\Repository\Values\Content\Search\SearchResult;
 
 class DemoController extends Controller
 {
@@ -28,58 +27,23 @@ class DemoController extends Controller
      */
     public function topMenuAction( $locationId, array $excludeContentTypes = array() )
     {
+        // Setting HTTP cache for the response to be public and with a TTL of 1 day.
         $response = new Response;
         $response->setPublic();
         $response->setSharedMaxAge( 86400 );
+        // Menu will expire when top location cache expires.
         $response->headers->set( 'X-Location-Id', $locationId );
+        // Menu might vary depending on user permissions, so make the cache vary on the user hash.
         $response->setVary( 'X-User-Hash' );
 
-        $excludeCriterion = array();
-        if ( !empty( $excludeContentTypes ) )
-        {
-            foreach ( $excludeContentTypes as $contentTypeIdentifier )
-            {
-                $contentType = $this->getRepository()->getContentTypeService()->loadContentTypeByIdentifier( $contentTypeIdentifier );
-                $excludeCriterion[] = new Criterion\LogicalNot(
-                    new Criterion\ContentTypeId( $contentType->id )
-                );
-            }
-        }
-        $criteria = array(
-            new Criterion\ParentLocationId( $locationId ),
-            new Criterion\Visibility( Criterion\Visibility::VISIBLE )
-        );
-
-        if ( !empty( $excludeCriterion ) )
-            $criteria[] = new Criterion\LogicalAnd( $excludeCriterion );
-
-        $query = new Query(
-            array(
-                'criterion' => new Criterion\LogicalAnd(
-                    $criteria
-                ),
-                'sortClauses' => array(
-                    new SortClause\DatePublished( Query::SORT_DESC )
-                )
-            )
-        );
-
-        $searchResult = $this->getRepository()->getSearchService()->findContent( $query );
-
+        $contentList = $this->get( 'ezdemo.menu_helper' )->getTopMenuContent( $locationId, $excludeContentTypes );
         $locationList = array();
-        $contentList = array();
-        // Looping against search results to build $locationList and $contentList
+        // Looping against search results to build $locationList
         // Both arrays will be indexed by contentId so that we can easily refer to an element in a list from another element in the other list
         // See page_topmenu.html.twig
-        if ( $searchResult instanceof SearchResult )
+        foreach ( $contentList as $contentId => $content )
         {
-            foreach ( $searchResult->searchHits as $searchHit )
-            {
-                /** @var \eZ\Publish\API\Repository\Values\Content\ContentInfo $contentInfo */
-                $contentInfo = $searchHit->valueObject->contentInfo;
-                $locationList[$contentInfo->id] = $this->getRepository()->getLocationService()->loadLocation( $contentInfo->mainLocationId );
-                $contentList[$contentInfo->id] = $searchHit->valueObject;
-            }
+            $locationList[$contentId] = $this->getRepository()->getLocationService()->loadLocation( $content->contentInfo->mainLocationId );
         }
 
         return $this->render(

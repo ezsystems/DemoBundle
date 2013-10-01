@@ -1,3 +1,7 @@
 parameters:
+    ezdemo.menu_helper.class: EzSystems\DemoBundle\Helper\MenuHelper
 
 services:
+    ezdemo.menu_helper:
+        class: %ezdemo.menu_helper.class%
+        arguments: [@ezpublish.api.repository]
