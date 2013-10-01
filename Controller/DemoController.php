@@ -16,7 +16,6 @@ use eZ\Publish\API\Repository\Values\Content\Query\SortClause;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use eZ\Publish\API\Repository\Values\Content\Search\SearchResult;
-use \DateTime;
 
 class DemoController extends Controller
 {
