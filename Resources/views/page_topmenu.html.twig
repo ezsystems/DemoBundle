@@ -1,12 +1,12 @@
 <div class="navbar-inner">
     <div class="container">
 
-        <a class="btn btn-navbar" data-action="toggleclass" data-class="nav-collapse" data-target=".main-navi .nav-collapse">{% trans %}Navigation{% endtrans %}</a>
+        <a class="btn btn-navbar" data-action="toggleclass" data-class="nav-collapse" data-target=".main-navi .nav-collapse">{{ "Navigation"|trans }}</a>
 
         <div class="nav-collapse">
             <ul class="nav">
-            {% for location in locationList %}
-                <li id="nav-location-{{ location.id }}"><a href="{{ path( location ) }}">{{ location.contentInfo.name }}</a></li>
+            {% for contentId, location in locationList %}
+                <li id="nav-location-{{ location.id }}"><a href="{{ path( location ) }}">{{ ez_content_name( contentList[contentId] ) }}</a></li>
             {% endfor %}
             </ul>
         </div>
