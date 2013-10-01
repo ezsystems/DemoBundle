@@ -105,7 +105,7 @@ Feature: Register user
     Scenario Outline: Register new user with valid data in fields
        Given I am at "home" page
          And I click at "Register" link
-        When I fill the form with
+        When I fill "register" form with
             | <first_name>               |
             | <last_name>                |
             | <account_login>            |
@@ -167,7 +167,7 @@ Feature: Register user
     Scenario Outline: Attempt to register new user with invalid data in fields
        Given I am at "home" page
          And I click at "Register" link
-        When I fill the form with
+        When I fill "register" form with
             | <first_name>               |
             | <last_name>                |
             | <account_login>            |
@@ -229,7 +229,7 @@ Feature: Register user
        Given I am at "home" page
          And I click at "Register" link
          And I have a Content object "A" of Content Type "user"
-        When I fill the form with
+        When I fill "register" form with
             | account_email | invalid data |
          And I click at "Register" button
         Then I see "input did not validate" error
