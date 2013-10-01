@@ -67,18 +67,26 @@ class DemoController extends Controller
         $searchResult = $this->getRepository()->getSearchService()->findContent( $query );
 
         $locationList = array();
+        $contentList = array();
+        // Looping against search results to build $locationList and $contentList
+        // Both arrays will be indexed by contentId so that we can easily refer to an element in a list from another element in the other list
+        // See page_topmenu.html.twig
         if ( $searchResult instanceof SearchResult )
         {
             foreach ( $searchResult->searchHits as $searchHit )
             {
-                $locationList[] = $this->getRepository()->getLocationService()->loadLocation( $searchHit->valueObject->contentInfo->mainLocationId );
+                /** @var \eZ\Publish\API\Repository\Values\Content\ContentInfo $contentInfo */
+                $contentInfo = $searchHit->valueObject->contentInfo;
+                $locationList[$contentInfo->id] = $this->getRepository()->getLocationService()->loadLocation( $contentInfo->mainLocationId );
+                $contentList[$contentInfo->id] = $searchHit->valueObject;
             }
         }
 
         return $this->render(
-            "eZDemoBundle::page_topmenu.html.twig",
+            'eZDemoBundle::page_topmenu.html.twig',
             array(
-                "locationList" => $locationList
+                'locationList' => $locationList,
+                'contentList' => $contentList,
             ),
             $response
         );
