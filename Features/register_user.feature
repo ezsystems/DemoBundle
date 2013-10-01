@@ -31,9 +31,11 @@ Feature: Register user
        Given I am at "home" page
          And I click at "Register" link
          And I have a Content object of Content Type "user" with
+            # field         | value      |
             | account_login | user       |
             | account_email | mail@ez.no |
         When I fill the form with
+            # field           |
             | <account_login> |
             | <account_email> |
          And I click at "Register" button
@@ -50,8 +52,9 @@ Feature: Register user
        Given I am at "home" page
          And I click at "Register" link
         When I fill "register" form with
-            | account_password         | cod1 |
-            | account_password_confirm | cod2 |
+            # field                    | value |
+            | account_password         | cod1  |
+            | account_password_confirm | cod2  |
          And I click at "Register" button
         Then I see "Input did not validate" error
          And I see "The passwords do not match" error
@@ -61,6 +64,7 @@ Feature: Register user
        Given I am at "home" page
          And I click at "Register" link
         When I fill "register" form with
+            # field                      |
             | <first_name>               |
             | <last_name>                |
             | <account_login>            |
@@ -82,38 +86,36 @@ Feature: Register user
 
     @javascript
     Scenario: Discard the register new user form
-        # @TODO: complete this scenario with a "Then" sentence
-        #       "Then I should be redirected to '<somewhere>'"
-        # @see issue: EZP-21549
        Given I am at "home" page
          And I click at "Register" link
         When I click at "Discard" button
-        Then I see discard Draft successfuly
+        Then I see "home" page
 
     @javascript
     Scenario: Register a new user with an image
         # @TODO: think how "attach image" could be achieved
        Given I am at "home" page
          And I click at "Register" link
-        When I fill a valid register form
+        When I fill a valid "register" form
          And I attach an image to "register form"
          And I click at "Register" button
-        Then I should be redirected to "user created"
-         And I see message "User account successfully created"
+        Then I see "user created" page
+         And I see "User account successfully created" message
 
     @javascript
     Scenario Outline: Register new user with valid data in fields
        Given I am at "home" page
          And I click at "Register" link
         When I fill "register" form with
-            | <first_name>               |
-            | <last_name>                |
-            | <account_login>            |
-            | <account_email>            |
-            | <account_password>         |
+            # field              |
+            | <first_name>       |
+            | <last_name>        |
+            | <account_login>    |
+            | <account_email>    |
+            | <account_password> |
          And I click at "Register" button
-        Then I should be redirected to "user created"
-         And I see message "User account successfully created"
+        Then I see "user created" page
+         And I see "User account successfully created" message
 
         Examples:
             | first_name                                                      | last_name                                                       | account_login                                                            | account_email                                                     | account_password                                                                                                                                                                                                                                                                                                     |
@@ -126,7 +128,7 @@ Feature: Register user
             | This Is A Really Big Name With Lots of Characters And Spaces    | Last                                                            | user                                                                     | mail@ez.no                                                        | cod1                                                                                                                                                                                                                                                                                                                 |
             | email@example.com                                               | Last                                                            | user                                                                     | mail@ez.no                                                        | cod1                                                                                                                                                                                                                                                                                                                 |
             | 0123456789                                                      | Last                                                            | user                                                                     | mail@ez.no                                                        | cod1                                                                                                                                                                                                                                                                                                                 |
-            | \"\!#$%&/()=?«»'{}[]'`^~*+ºª-_.:,;<>@ł€¶ŧ←↓→øþĸħŋđðßæ\|«»¢“”nµ | Last                                                            | user                                                                     | mail@ez.no                                                        | cod1                                                                                                                                                                                                                                                                                                                 |
+            | <>!#$%&/()=?«»'{}[]'`^~*+ºª-_.:,;<>@ł€¶ŧ←↓→øþĸħŋđðßæ«»¢“”nµ     | Last                                                            | user                                                                     | mail@ez.no                                                        | cod1                                                                                                                                                                                                                                                                                                                 |
             | First                                                           | Third Last                                                      | user                                                                     | mail@ez.no                                                        | cod1                                                                                                                                                                                                                                                                                                                 |
             | First                                                           | CamelCase                                                       | user                                                                     | mail@ez.no                                                        | cod1                                                                                                                                                                                                                                                                                                                 |
             | First                                                           | lowercase                                                       | user                                                                     | mail@ez.no                                                        | cod1                                                                                                                                                                                                                                                                                                                 |
@@ -134,7 +136,7 @@ Feature: Register user
             | First                                                           | Min                                                             | user                                                                     | mail@ez.no                                                        | cod1                                                                                                                                                                                                                                                                                                                 |
             | First                                                           | This Is A Really Big Name With Lots of Characters And Spaces    | user                                                                     | mail@ez.no                                                        | cod1                                                                                                                                                                                                                                                                                                                 |
             | First                                                           | 0123456789                                                      | user                                                                     | mail@ez.no                                                        | cod1                                                                                                                                                                                                                                                                                                                 |
-            | First                                                           | \"\!#$%&/()=?«»'{}[]'`^~*+ºª-_.:,;<>@ł€¶ŧ←↓→øþĸħŋđðßæ\|«»¢“”nµ | user                                                                     | mail@ez.no                                                        | cod1                                                                                                                                                                                                                                                                                                                 |
+            | First                                                           | <>!#$%&/()=?«»'{}[]'`^~*+ºª-_.:,;<>@ł€¶ŧ←↓→øþĸħŋđðßæ«»¢“”nµ     | user                                                                     | mail@ez.no                                                        | cod1                                                                                                                                                                                                                                                                                                                 |
             | First                                                           | Last                                                            | a                                                                        | mail@ez.no                                                        | cod1                                                                                                                                                                                                                                                                                                                 |
             | First                                                           | Last                                                            | 1                                                                        | mail@ez.no                                                        | cod1                                                                                                                                                                                                                                                                                                                 |
             | First                                                           | Last                                                            | this_is_a_really_big_username_that_has_underscores_and_numers_1234567890 | mail@ez.no                                                        | cod1                                                                                                                                                                                                                                                                                                                 |
@@ -142,13 +144,13 @@ Feature: Register user
             | First                                                           | Last                                                            | CamelCase                                                                | mail@ez.no                                                        | cod1                                                                                                                                                                                                                                                                                                                 |
             | First                                                           | Last                                                            | username with spaces                                                     | mail@ez.no                                                        | cod1                                                                                                                                                                                                                                                                                                                 |
             | First                                                           | Last                                                            | 0123456789                                                               | mail@ez.no                                                        | cod1                                                                                                                                                                                                                                                                                                                 |
-            | First                                                           | Last                                                            | \"\!#$%&/()=?«»'{}[]'`^~*+ºª-_.:,;<>@ł€¶ŧ←↓→øþĸħŋđðßæ\|«»¢“”nµ          | mail@ez.no                                                        | cod1                                                                                                                                                                                                                                                                                                                 |
+            | First                                                           | Last                                                            | <>!#$%&/()=?«»'{}[]'`^~*+ºª-_.:,;<>@ł€¶ŧ←↓→øþĸħŋđðßæ«»¢“”nµ              | mail@ez.no                                                        | cod1                                                                                                                                                                                                                                                                                                                 |
             | First                                                           | Last                                                            | user                                                                     | CamelCase@ez.no                                                   | cod1                                                                                                                                                                                                                                                                                                                 |
             | First                                                           | Last                                                            | user                                                                     | lowercase@ez.no                                                   | cod1                                                                                                                                                                                                                                                                                                                 |
             | First                                                           | Last                                                            | user                                                                     | UPPERCASE@ez.no                                                   | cod1                                                                                                                                                                                                                                                                                                                 |
             | First                                                           | Last                                                            | user                                                                     | a@b.cd                                                            | cod1                                                                                                                                                                                                                                                                                                                 |
             | First                                                           | Last                                                            | user                                                                     | 1@2.cd                                                            | cod1                                                                                                                                                                                                                                                                                                                 |
-            | First                                                           | Last                                                            | user                                                                     | !#~^`+*-_{}\|'/%$@ez.no                                           | cod1                                                                                                                                                                                                                                                                                                                 |
+            | First                                                           | Last                                                            | user                                                                     | !#~^`+*-_{}|'/%$@ez.no                                            | cod1                                                                                                                                                                                                                                                                                                                 |
             | First                                                           | Last                                                            | user                                                                     | underscore_@ez.no                                                 | cod1                                                                                                                                                                                                                                                                                                                 |
             | First                                                           | Last                                                            | user                                                                     | _underscore@ez.no                                                 | cod1                                                                                                                                                                                                                                                                                                                 |
             | First                                                           | Last                                                            | user                                                                     | using.dot.s@ez.no                                                 | cod1                                                                                                                                                                                                                                                                                                                 |
@@ -160,7 +162,7 @@ Feature: Register user
             | First                                                           | Last                                                            | user                                                                     | mail@ez.no                                                        | UPPERCASE                                                                                                                                                                                                                                                                                                            |
             | First                                                           | Last                                                            | user                                                                     | mail@ez.no                                                        | password with spaces                                                                                                                                                                                                                                                                                                 |
             | First                                                           | Last                                                            | user                                                                     | mail@ez.no                                                        | 0123456789                                                                                                                                                                                                                                                                                                           |
-            | First                                                           | Last                                                            | user                                                                     | mail@ez.no                                                        | \"\!#$%&/()=?«»'{}[]'`^~*+ºª-_.:,;<>@ł€¶ŧ←↓→øþĸħŋđðßæ\|«»¢“”nµ                                                                                                                                                                                                                                                      |
+            | First                                                           | Last                                                            | user                                                                     | mail@ez.no                                                        | <>!#$%&/()=?«»'{}[]'`^~*+ºª-_.:,;<>@ł€¶ŧ←↓→øþĸħŋđðßæ«»¢“”nµ                                                                                                                                                                                                                                                          |
             | First                                                           | Last                                                            | user                                                                     | mail@ez.no                                                        | thisIsA300CharacterKeythisIsA300CharacterKeythisIsA300CharacterKeythisIsA300CharacterKeythisIsA300CharacterKeythisIsA300CharacterKeythisIsA300CharacterKeythisIsA300CharacterKeythisIsA300CharacterKeythisIsA300CharacterKeythisIsA300CharacterKeythisIsA300CharacterKeythisIsA300CharacterKeythisIsA300CharacterKey |
 
     @javascript
@@ -168,57 +170,63 @@ Feature: Register user
        Given I am at "home" page
          And I click at "Register" link
         When I fill "register" form with
-            | <first_name>               |
-            | <last_name>                |
-            | <account_login>            |
-            | <account_email>            |
-            | <account_password>         |
+            # field              |
+            | <first_name>       |
+            | <last_name>        |
+            | <account_login>    |
+            | <account_email>    |
+            | <account_password> |
          And I click at "Register" button
-        Then I see "input did not validate" error
-         And I see "is not valid" error
+        Then I see "Input did not validate" error
+         And I see "The <field> is not valid" error
 
         Examples:
-            | first_name | last_name | account_login | account_email           | account_password |
-            | A          | Last      | user          | main@ez.no              | cod1             |
-            | AA         | Last      | user          | main@ez.no              | cod1             |
-            | First      | A         | user          | main@ez.no              | cod1             |
-            | First      | AA        | user          | main@ez.no              | cod1             |
-            | First      | Last      | user          | end.dot.@ez.no          | cod1             |
-            | First      | Last      | user          | .start.dot@ez.no        | cod1             |
-            | First      | Last      | user          | æßðđŋ@ez.no             | cod1             |
-            | First      | Last      | user          | ãéìöû@ez.no             | cod1             |
-            | First      | Last      | user          | with spaces @ez.no      | cod1             |
-            | First      | Last      | user          | underscore@at_host.name | cod1             |
-            | First      | Last      | user          | a@b.c                   | cod1             |
-            | First      | Last      | user          | 1@2.34                  | cod1             |
-            | First      | Last      | user          | mail@single             | cod1             |
+            | first_name | last_name | account_login | account_email           | account_password | field         |
+            | A          | Last      | user          | mail@ez.no              | cod1             | first name    |
+            | AA         | Last      | user          | mail@ez.no              | cod1             | first name    |
+            | First      | A         | user          | mail@ez.no              | cod1             | last name     |
+            | First      | AA        | user          | mail@ez.no              | cod1             | last name     |
+            | First      | Last      | user          | end.dot.@ez.no          | cod1             | email address |
+            | First      | Last      | user          | .start.dot@ez.no        | cod1             | email address |
+            | First      | Last      | user          | æßðđŋ@ez.no             | cod1             | email address |
+            | First      | Last      | user          | ãéìöû@ez.no             | cod1             | email address |
+            | First      | Last      | user          | with spaces @ez.no      | cod1             | email address |
+            | First      | Last      | user          | underscore@at_host.name | cod1             | email address |
+            | First      | Last      | user          | a@b.c                   | cod1             | email address |
+            | First      | Last      | user          | 1@2.34                  | cod1             | email address |
+            | First      | Last      | user          | mail@single             | cod1             | email address |
 
     @javascript
     Scenario: Remove image from a register user Draft
        Given I am at "home" page
          And I click at "Register" link
-         And I have a Content object "Z" of Content Type "user" with a "image" "A"
+         And I have an User Draft "Z" with
+            # field | value |
+            | image | A     |
         When I click at "Remove Image" button
-        Then I see a message "input was stored successfuly"
-         And I don't see "image" "A"
+        Then I don't see image "A"
          And I don't see "Edit" button
-         And I see "Remove image" button "disabled"
+         And I see "Remove image" button with attributes
+            # attribute | value    |
+            | disabled  | disabled |
 
     @javascript
     Scenario: Change uploaded image on a register user Draft
        Given I am at "home" page
          And I click at "Register" link
-         And I have a Content object "Z" of Content Type "user" with a "image" "A"
+         And I have an User Draft "Z" with
+            # field | value |
+            | image | A     |
         When I attach a "image" "B"
-         And I store Content object "Draft"
-        Then I see "image" "B"
-         And I don't see "image" "A"
+         And I click at "Register" button
+        Then I see image "B"
+         And I don't see image "A"
 
     @javascript
     Scenario: Registering data is kept till discard
        Given I am at "home" page
          And I click at "Register" link
-         And I have a Content object "A" of Content Type "user"
+         And I have an User "A"
          And I have form with data "A"
         When I click at "logo" image
          And I click at "register" link
@@ -228,12 +236,14 @@ Feature: Register user
     Scenario: Invalid register wont loose data
        Given I am at "home" page
          And I click at "Register" link
-         And I have a Content object "A" of Content Type "user"
+         And I have an User "A"
         When I fill "register" form with
+            # field         | value        |
             | account_email | invalid data |
          And I click at "Register" button
         Then I see "input did not validate" error
          And I see "register" form filled with data "A" and
+            # field         | value        |
             | account_email | invalid data |
 
     @javascript
