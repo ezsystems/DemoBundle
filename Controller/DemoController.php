@@ -10,9 +10,6 @@
 namespace EzSystems\DemoBundle\Controller;
 
 use eZ\Bundle\EzPublishCoreBundle\Controller;
-use eZ\Publish\API\Repository\Values\Content\Query;
-use eZ\Publish\API\Repository\Values\Content\Query\Criterion;
-use eZ\Publish\API\Repository\Values\Content\Query\SortClause;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -75,43 +72,10 @@ class DemoController extends Controller
         $response->headers->set( 'X-Location-Id', $locationId );
         $response->setVary( 'X-User-Hash' );
 
-        $contentType = $this->getRepository()->getContentTypeService()->loadContentTypeByIdentifier( $contentTypeIdentifier );
-
-        $excludeCriterion = array();
-        if ( !empty( $excludeLocations ) )
-        {
-            foreach ( $excludeLocations as $locationId )
-            {
-                $excludeCriterion[] = new Criterion\LogicalNot(
-                    new Criterion\LocationId( $locationId )
-                );
-            }
-        }
-        $criteria = array(
-            new Criterion\Subtree( $pathString ),
-            new Criterion\ContentTypeId( $contentType->id ),
-            new Criterion\Visibility( Criterion\Visibility::VISIBLE )
-        );
-
-        if ( !empty( $excludeCriterion ) )
-            $criteria[] = new Criterion\LogicalAnd( $excludeCriterion );
-
-        $query = new Query(
-            array(
-                'criterion' => new Criterion\LogicalAnd(
-                    $criteria
-                ),
-                'sortClauses' => array(
-                    new SortClause\DatePublished( Query::SORT_DESC )
-                )
-            )
-        );
-        $query->limit = $limit;
-
         return $this->render(
-            "eZDemoBundle:footer:latest_content.html.twig",
+            'eZDemoBundle:footer:latest_content.html.twig',
             array(
-                "latestContent" => $this->getRepository()->getSearchService()->findContent( $query )
+                'latestContent' => $this->get( 'ezdemo.menu_helper' )->getLatestContent( $pathString, $contentTypeIdentifier, $limit, $excludeLocations )
             ),
             $response
         );
