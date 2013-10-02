@@ -55,62 +55,6 @@ class DemoController extends Controller
         );
     }
 
-    /**
-     * Renders the latest content for footer, with cache control
-     *
-     * @param string $pathString
-     * @param string $contentTypeIdentifier
-     * @param int $limit
-     * @param array $excludeLocations
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
-    public function latestContentAction( $pathString, $contentTypeIdentifier, $limit, array $excludeLocations = array() )
-    {
-        $tmp = explode( '/', trim( $pathString, '/' ) );
-        $locationId = end( $tmp );
-        $response = new Response;
-        $response->setPublic();
-        $response->setSharedMaxAge( 86400 );
-        $response->headers->set( 'X-Location-Id', $locationId );
-        $response->setVary( 'X-User-Hash' );
-
-        $excludeCriterion = $excludeLocations ? $this->get( 'ezdemo.criteria_helper' )->generateLocationIdExcludeCriterion( $excludeLocations ) : null;
-        $latestContent = $this->get( 'ezdemo.menu_helper' )->getLatestContent(
-            $pathString,
-            array( $contentTypeIdentifier ),
-            $excludeCriterion,
-            $this->container->getParameter( 'ezdemo.footer.latest_content.limit' )
-        );
-
-        return $this->render(
-            'eZDemoBundle:footer:latest_content.html.twig',
-            array(
-                'latestContent' => $latestContent
-            ),
-            $response
-        );
-    }
-
-    public function footerAction( $locationId )
-    {
-        $response = new Response;
-        $response->setPublic();
-        $response->setSharedMaxAge( 86400 );
-        $response->headers->set( 'X-Location-Id', $locationId );
-        $response->setVary( 'X-User-Hash' );
-
-        $location = $this->getRepository()->getLocationService()->loadLocation( $locationId );
-        $content = $this->getRepository()->getContentService()->loadContent( $location->contentId );
-
-        return $this->render(
-            "eZDemoBundle::page_footer.html.twig",
-            array(
-                "content" => $content
-            ),
-            $response
-        );
-    }
-
     public function userLinksAction()
     {
         $response = new Response();

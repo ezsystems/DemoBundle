@@ -9,8 +9,9 @@
 
 namespace EzSystems\DemoBundle\Helper;
 
-use eZ\Publish\API\Repository\Repository;
+use eZ\Publish\API\Repository\Values\Content\Location;
 use eZ\Publish\API\Repository\Values\Content\Query\Criterion;
+use eZ\Publish\Core\Base\Exceptions\InvalidArgumentType;
 
 /**
  * Helper class for building criteria easily.
@@ -40,17 +41,24 @@ class CriteriaHelper
     /**
      * Generates an exclude criterion based on locationIds.
      *
-     * @param array $excludeLocationIds
+     * @param \eZ\Publish\API\Repository\Values\Content\Location[] $excludeLocations
      *
      * @return \eZ\Publish\API\Repository\Values\Content\Query\Criterion\LogicalNot[]
+     *
+     * @throws \eZ\Publish\Core\Base\Exceptions\InvalidArgumentType
      */
-    public function generateLocationIdExcludeCriterion( array $excludeLocationIds )
+    public function generateLocationIdExcludeCriterion( array $excludeLocations )
     {
         $excludeCriterion = array();
-        foreach ( $excludeLocationIds as $locationId )
+        foreach ( $excludeLocations as $location )
         {
+            if ( !$location instanceof Location )
+            {
+                throw new InvalidArgumentType( 'excludeLocations', 'array of Location objects' );
+            }
+
             $excludeCriterion[] = new Criterion\LogicalNot(
-                new Criterion\LocationId( $locationId )
+                new Criterion\LocationId( $location->id )
             );
         }
 

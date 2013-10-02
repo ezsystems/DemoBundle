@@ -3,8 +3,6 @@ parameters:
     ezdemo.menu_helper.class: EzSystems\DemoBundle\Helper\MenuHelper
     # Default limit that will be applied when retrieving content for menus.
     ezdemo.menu_helper.default_limit: 10
-    # Limit for latest content in footer
-    ezdemo.footer.latest_content.limit: 7
 
 services:
     ezdemo.criteria_helper:
