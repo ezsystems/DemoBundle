@@ -10,9 +10,11 @@
 namespace EzSystems\DemoBundle\Helper;
 
 use eZ\Publish\API\Repository\Repository;
+use eZ\Publish\API\Repository\Values\Content\Location;
 use eZ\Publish\API\Repository\Values\Content\Query;
 use eZ\Publish\API\Repository\Values\Content\Query\Criterion;
 use eZ\Publish\API\Repository\Values\Content\Query\SortClause;
+use eZ\Publish\API\Repository\Values\Content\Search\SearchResult;
 
 /**
  * Helper for menus
@@ -24,9 +26,17 @@ class MenuHelper
      */
     private $repository;
 
-    public function __construct( Repository $repository )
+    /**
+     * Default limit for content list in menus.
+     *
+     * @var int
+     */
+    private $defaultMenuLimit;
+
+    public function __construct( Repository $repository, $defaultMenuLimit )
     {
         $this->repository = $repository;
+        $this->defaultMenuLimit = $defaultMenuLimit;
     }
 
     /**
@@ -36,20 +46,19 @@ class MenuHelper
      * One might use $excludeContentTypeIdentifiers to explicitly exclude some content types (e.g. "article").
      *
      * @param int $topLocationId
-     * @param array $excludeContentTypeIdentifiers ContentType identifiers we don't want to appear in the menu.
+     * @param \eZ\Publish\API\Repository\Values\Content\Query\Criterion $criterion Additional criterion for filtering.
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\Content[]
+     * @return \eZ\Publish\API\Repository\Values\Content\Content[] Content objects, indexed by their contentId.
      */
-    public function getTopMenuContent( $topLocationId, array $excludeContentTypeIdentifiers = array() )
+    public function getTopMenuContent( $topLocationId, Criterion $criterion = null )
     {
         $criteria = array(
             new Criterion\ParentLocationId( $topLocationId ),
             new Criterion\Visibility( Criterion\Visibility::VISIBLE )
         );
 
-        $excludeCriterion = $this->generateContentTypeExcludeCriterion( $excludeContentTypeIdentifiers );
-        if ( !empty( $excludeCriterion ) )
-            $criteria[] = new Criterion\LogicalAnd( $excludeCriterion );
+        if ( !empty( $criterion ) )
+            $criteria[] = $criterion;
 
         $query = new Query(
             array(
@@ -57,38 +66,62 @@ class MenuHelper
                 'sortClauses' => array( new SortClause\DatePublished( Query::SORT_DESC ) )
             )
         );
+        $query->limit = $this->defaultMenuLimit;
 
+        return $this->buildContentListFromSearchResult( $this->repository->getSearchService()->findContent( $query ) );
+    }
+
+    /**
+     * Returns latest published content that is located under $pathString and matching $contentTypeIdentifier.
+     * The whole subtree will be passed through to find content.
+     *
+     * @param \eZ\Publish\API\Repository\Values\Content\Location $rootLocation Root location we want to start content search from.
+     * @param string[] $includeContentTypeIdentifiers Array of ContentType identifiers we want content to match.
+     * @param \eZ\Publish\API\Repository\Values\Content\Query\Criterion $criterion Additional criterion for filtering.
+     * @param int|null $limit Max number of items to retrieve. If not provided, default limit will be used.
+     *
+     * @return \eZ\Publish\API\Repository\Values\Content\Content[]
+     */
+    public function getLatestContent( Location $rootLocation, array $includeContentTypeIdentifiers = array(), Criterion $criterion = null, $limit = null )
+    {
+        $criteria = array(
+            new Criterion\Subtree( $rootLocation->pathString ),
+            new Criterion\Visibility( Criterion\Visibility::VISIBLE )
+        );
+
+        if ( $includeContentTypeIdentifiers )
+            $criteria[] = new Criterion\ContentTypeIdentifier( $includeContentTypeIdentifiers );
+
+        if ( !empty( $criterion ) )
+            $criteria[] = $criterion;
+
+        $query = new Query(
+            array(
+                'criterion' => new Criterion\LogicalAnd( $criteria ),
+                'sortClauses' => array( new SortClause\DatePublished( Query::SORT_DESC ) )
+            )
+        );
+        $query->limit = $limit ?: $this->defaultMenuLimit;
+
+        return $this->buildContentListFromSearchResult( $this->repository->getSearchService()->findContent( $query ) );
+    }
+
+    /**
+     * Builds a Content list from $searchResult.
+     * Returned array consists of a hash of Content objects, indexed by their ID.
+     *
+     * @param \eZ\Publish\API\Repository\Values\Content\Search\SearchResult $searchResult
+     *
+     * @return \eZ\Publish\API\Repository\Values\Content\Content[]
+     */
+    private function buildContentListFromSearchResult( SearchResult $searchResult )
+    {
         $contentList = array();
-        $searchResult = $this->repository->getSearchService()->findContent( $query );
         foreach ( $searchResult->searchHits as $searchHit )
         {
             $contentList[$searchHit->valueObject->contentInfo->id] = $searchHit->valueObject;
         }
 
         return $contentList;
-    }
-
-    /**
-     * Generates an exclude criterion based on contentType identifiers.
-     *
-     * @param array $excludeContentTypeIdentifiers
-     *
-     * @return \eZ\Publish\API\Repository\Values\Content\Query\Criterion\LogicalNot[]
-     */
-    private function generateContentTypeExcludeCriterion( array $excludeContentTypeIdentifiers )
-    {
-        $excludeCriterion = array();
-        if ( !empty( $excludeContentTypeIdentifiers ) )
-        {
-            foreach ( $excludeContentTypeIdentifiers as $contentTypeIdentifier )
-            {
-                $contentType = $this->repository->getContentTypeService()->loadContentTypeByIdentifier( $contentTypeIdentifier );
-                $excludeCriterion[] = new Criterion\LogicalNot(
-                    new Criterion\ContentTypeId( $contentType->id )
-                );
-            }
-        }
-
-        return $excludeCriterion;
     }
 }
