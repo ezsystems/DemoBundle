@@ -1,0 +1,8 @@
+parameters:
+    ## Footer
+    # Limit for latest content in footer.
+    ezdemo.footer.latest_content.limit: 7
+    # LocationId for footer content object.
+    ezdemo.footer.content_id: 58
+    # ContentType identifiers we want to have in "latest content" part of the footer.
+    ezdemo.footer.latest_content.content_types: [article]

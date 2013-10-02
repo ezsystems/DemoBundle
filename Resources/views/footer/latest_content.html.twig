@@ -1,6 +1,7 @@
 <h3>{{ 'Latest News'|trans }}</h3>
 <ul>
-    {% for content in latestContent.searchHits %}
-        <li><a href="{{ path( 'ez_urlalias', {'locationId': content.valueObject.contentInfo.mainLocationId} ) }}">{{ content.valueObject.contentInfo.name }}</a></li>
+    {% for content in latestContent %}
+        {# We can generate a link to a location, even if we only have the locationId #}
+        <li><a href="{{ path( 'ez_urlalias', {'locationId': content.contentInfo.mainLocationId} ) }}">{{ ez_content_name( content ) }}</a></li>
     {% endfor %}
 </ul>

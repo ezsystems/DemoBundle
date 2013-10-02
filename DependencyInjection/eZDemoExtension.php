@@ -20,12 +20,8 @@ class eZDemoExtension extends Extension implements PrependExtensionInterface
     /**
      * Loads a specific configuration.
      *
-     * @param array            $config    An array of configuration values
-     * @param ContainerBuilder $container A ContainerBuilder instance
-     *
-     * @throws InvalidArgumentException When provided tag is not defined in this extension
-     *
-     * @api
+     * @param array $config    An array of configuration values
+     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
      */
     public function load( array $config, ContainerBuilder $container )
     {
@@ -36,6 +32,8 @@ class eZDemoExtension extends Extension implements PrependExtensionInterface
 
         // Base services override
         $loader->load( 'services.yml' );
+        // Default settings
+        $loader->load( 'default_settings.yml' );
     }
 
     /**
