@@ -33,7 +33,9 @@ class DemoController extends Controller
         // Menu might vary depending on user permissions, so make the cache vary on the user hash.
         $response->setVary( 'X-User-Hash' );
 
-        $contentList = $this->get( 'ezdemo.menu_helper' )->getTopMenuContent( $locationId, $excludeContentTypes );
+        // Generate criterion from $excludeContentTypes and pass it to the menu helper.
+        $excludeCriterion = $this->get( 'ezdemo.criteria_helper' )->generateContentTypeExcludeCriterion( $excludeContentTypes );
+        $contentList = $this->get( 'ezdemo.menu_helper' )->getTopMenuContent( $locationId, $excludeCriterion );
         $locationList = array();
         // Looping against search results to build $locationList
         // Both arrays will be indexed by contentId so that we can easily refer to an element in a list from another element in the other list
@@ -72,10 +74,18 @@ class DemoController extends Controller
         $response->headers->set( 'X-Location-Id', $locationId );
         $response->setVary( 'X-User-Hash' );
 
+        $excludeCriterion = $excludeLocations ? $this->get( 'ezdemo.criteria_helper' )->generateLocationIdExcludeCriterion( $excludeLocations ) : null;
+        $latestContent = $this->get( 'ezdemo.menu_helper' )->getLatestContent(
+            $pathString,
+            array( $contentTypeIdentifier ),
+            $excludeCriterion,
+            $this->container->getParameter( 'ezdemo.footer.latest_content.limit' )
+        );
+
         return $this->render(
             'eZDemoBundle:footer:latest_content.html.twig',
             array(
-                'latestContent' => $this->get( 'ezdemo.menu_helper' )->getLatestContent( $pathString, $contentTypeIdentifier, $limit, $excludeLocations )
+                'latestContent' => $latestContent
             ),
             $response
         );
