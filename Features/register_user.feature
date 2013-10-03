@@ -25,21 +25,22 @@ Feature: Register user
         When I fill a valid "register" form
          And I click at "Register" button
         Then I see "user created" page
+         And I see "Your account was successfully created" message
 
     @javascript
     Scenario Outline: Attempt to register a new user with an existing unique field
        Given I am at "home" page
          And I click at "Register" link
-         And I have a Content object of Content Type "user" with
+         And I have an User with
             # field         | value      |
             | account_login | user       |
             | account_email | mail@ez.no |
-        When I fill the form with
+        When I fill "register" form with
             # field           |
             | <account_login> |
             | <account_email> |
          And I click at "Register" button
-        Then I see "input did not validate" error
+        Then I see "Input did not validate" error
          And I see "field already exists" error
 
         Examples:
@@ -63,7 +64,7 @@ Feature: Register user
     Scenario Outline: Attempt to register a new user without filling all required fields
        Given I am at "home" page
          And I click at "Register" link
-        When I fill "register" form with
+        When I fill form with only
             # field                      |
             | <first_name>               |
             | <last_name>                |
@@ -81,7 +82,7 @@ Feature: Register user
             | First      |           | user          | mail@ez.no    | cod1             | cod1                     | Input required                 |
             | First      | Last      |               | mail@ez.no    | cod1             | cod1                     | The username must be specified |
             | First      | Last      | user          |               | cod1             | cod1                     | The email address is not valid |
-            | First      | Last      | user          | mail@ez.no    |                  | cod1                     | The password can't be null     |
+            | First      | Last      | user          | mail@ez.no    |                  | cod1                     | The password cannot be empty   |
             | First      | Last      | user          | mail@ez.no    | cod1             |                          | The passwords do not match     |
 
     @javascript
@@ -97,10 +98,9 @@ Feature: Register user
        Given I am at "home" page
          And I click at "Register" link
         When I fill a valid "register" form
-         And I attach an image to "register form"
+         And I attach an image
          And I click at "Register" button
         Then I see "user created" page
-         And I see "User account successfully created" message
 
     @javascript
     Scenario Outline: Register new user with valid data in fields
@@ -115,9 +115,9 @@ Feature: Register user
             | <account_password> |
          And I click at "Register" button
         Then I see "user created" page
-         And I see "User account successfully created" message
 
         Examples:
+# Find a way to test password valid data without the need to fill confirmation password in the examples table
             | first_name                                                      | last_name                                                       | account_login                                                            | account_email                                                     | account_password                                                                                                                                                                                                                                                                                                     |
             | First                                                           | Last                                                            | user                                                                     | mail@ez.no                                                        | cod1                                                                                                                                                                                                                                                                                                                 |
             | First Second                                                    | Last                                                            | user                                                                     | mail@ez.no                                                        | cod1                                                                                                                                                                                                                                                                                                                 |
@@ -197,10 +197,10 @@ Feature: Register user
             | First      | Last      | user          | mail@single             | cod1             | email address |
 
     @javascript
-    Scenario: Remove image from a register user Draft
+    Scenario: Remove image from a register User Draft
        Given I am at "home" page
          And I click at "Register" link
-         And I have an User Draft "Z" with
+         And I have an register User Draft "Z" with
             # field | value |
             | image | A     |
         When I click at "Remove Image" button
@@ -211,40 +211,36 @@ Feature: Register user
             | disabled  | disabled |
 
     @javascript
-    Scenario: Change uploaded image on a register user Draft
+    Scenario: Change uploaded image on a register User Draft
        Given I am at "home" page
          And I click at "Register" link
-         And I have an User Draft "Z" with
+         And I have an register User Draft "Z" with
             # field | value |
             | image | A     |
-        When I attach a "image" "B"
+        When I attach an image "B" to "image"
          And I click at "Register" button
         Then I see image "B"
          And I don't see image "A"
 
     @javascript
-    Scenario: Registering data is kept till discard
+    Scenario: Registering data (Draft) is kept till discard
        Given I am at "home" page
-         And I click at "Register" link
-         And I have an User "A"
-         And I have form with data "A"
-        When I click at "logo" image
-         And I click at "register" link
-        Then I see "register" form filled with data "A"
+         And I have an register User Draft "A"
+        When I click at "Register" link
+        Then I see form filled with data "A"
 
     @javascript
-    Scenario: Invalid register wont loose data
+    Scenario: Register doesn't loose invalid data
        Given I am at "home" page
          And I click at "Register" link
-         And I have an User "A"
-        When I fill "register" form with
-            # field         | value        |
-            | account_email | invalid data |
+        When I fill form with only
+            # field         | value         |
+            | account_email | invalid email |
          And I click at "Register" button
-        Then I see "input did not validate" error
-         And I see "register" form filled with data "A" and
-            # field         | value        |
-            | account_email | invalid data |
+        Then I see "Input did not validate" error
+         And I see form filled with
+            # field         | value         |
+            | account_email | invalid email |
 
     @javascript
     Scenario: Search field is disabled when registering
