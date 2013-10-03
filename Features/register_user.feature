@@ -82,7 +82,6 @@ Feature: Register user
             | First      |           | user          | mail@ez.no    | cod1             | cod1                     | Input required                 |
             | First      | Last      |               | mail@ez.no    | cod1             | cod1                     | The username must be specified |
             | First      | Last      | user          |               | cod1             | cod1                     | The email address is not valid |
-            | First      | Last      | user          | mail@ez.no    |                  | cod1                     | The password cannot be empty   |
             | First      | Last      | user          | mail@ez.no    | cod1             |                          | The passwords do not match     |
 
     @javascript
@@ -182,10 +181,6 @@ Feature: Register user
 
         Examples:
             | first_name | last_name | account_login | account_email           | account_password | field         |
-            | A          | Last      | user          | mail@ez.no              | cod1             | first name    |
-            | AA         | Last      | user          | mail@ez.no              | cod1             | first name    |
-            | First      | A         | user          | mail@ez.no              | cod1             | last name     |
-            | First      | AA        | user          | mail@ez.no              | cod1             | last name     |
             | First      | Last      | user          | end.dot.@ez.no          | cod1             | email address |
             | First      | Last      | user          | .start.dot@ez.no        | cod1             | email address |
             | First      | Last      | user          | æßðđŋ@ez.no             | cod1             | email address |
