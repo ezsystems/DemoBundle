@@ -14,6 +14,7 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
+use Symfony\Component\Yaml\Yaml;
 
 class eZDemoExtension extends Extension implements PrependExtensionInterface
 {
@@ -62,5 +63,13 @@ class eZDemoExtension extends Extension implements PrependExtensionInterface
                 )
             )
         );
+
+        $config = Yaml::parse( __DIR__ . '/../Resources/config/ezdemo.yml' );
+
+        //TODO remove if statement once we have content in the file
+        if ( !empty( $config ) )
+        {
+            $container->prependExtensionConfig( 'ezpublish', $config );
+        }
     }
 }
