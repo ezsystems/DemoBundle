@@ -3,7 +3,7 @@ Feature: Search ( basic search )
     As an anonymous user
     I need to be able to make a search
 
-    # @NOTICE:  'When I search for "<data>"' sentence is high level BDD 
+    # @NOTICE:  'When I search for "<data>"' sentence is high level BDD
     #   for low level BDD:
     #          Given I am at "home" page
     #           When I fill "top search" input with "<data>"
@@ -13,60 +13,70 @@ Feature: Search ( basic search )
     ###
     # Basic functionality
     ###
+    @javascript
     Scenario: Make a simple search
        Given I am at "home" page
         When I search for "home"
-        Then I see "1" search results
+        Then I see 1 search result
+         And I see "search" page
 
-    Scenario: No results will display that string wasn't found
+    @javascript
+    Scenario: No results will display that searched string wasn't found
        Given I am at "home" page
         When I search for "this-value-doesnt-exist"
-        Then I see "0" search results
-         And I see message "No results were found when searching for 'this-value-doesnt-exist'"
+        Then I see 0 search results
+         And I see 'No results were found when searching for "this-value-doesnt-exist".' message
 
+    @javascript
     Scenario: No results will display search tips
        Given I am at "home" page
         When I search for "this-value-doesnt-exist"
-        Then I see "0" search results
-         And I see search tips
+        Then I see 0 search results
+         And I see "Search tips" message
 
+    @javascript
     Scenario: If search returns values search tips won't be displayed
        Given I am at "home" page
         When I search for "home"
-        Then I see "1" search results
-         And I see no search tips
+        Then I see 1 search result
+         And I don't see "Search tips" message
 
+    @javascript
     Scenario Outline: Search field is present in every page
        Given I am at "home" page
         When I click at "<page>" link
         Then I see "search" input
 
-        Examples: 
+        Examples:
             | page      |
             | Tag cloud |
             | Site map  |
             | Register  |
             | Login     |
 
+    @javascript
     Scenario: Search for empty string
-       Given I am at "search" page
+       Given I am at "home" page
         When I search for ""
-        Then I see "0" search results
+        Then I see 0 search results
 
     ###
     # Testing ez fields
     ###
-    
+
     # eZString
+    @javascript
     Scenario Outline: Finding Content object with a eZString field that matches the search phrase
-       Given I have a Content Type "B" with the following fields
-            | ezstring | Text | searchable |
+       Given I have a Content Type "B" with
+            # fieldtype | name | settings   |
+            | ezstring  | Text | searchable |
          And I have a Content object "A" of Content Type "B" with
-            | Text | This field has a CoupleOfWords and some numbers 10 256 0123456879 123.45$&% an example@ez.no |
+            # field | value                                                                                        |
+            | Text  | This field has a CoupleOfWords and some numbers 10 256 0123456879 123.45$&% an example@ez.no |
         When I search for "<data>"
-        Then I see "1" search results
+        Then I see 1 search result
          And I see Content object "A"
-        
+
         Examples:
             | data             |
         # exact word
@@ -97,31 +107,34 @@ Feature: Search ( basic search )
         # complete email
             | example@ez.no    |
 
+    @javascript
     Scenario Outline: Attempt to find a Content object with a eZString field that doesn't match the search phrase
-       Given I have a Content Type "B" with the following fields
-            | ezstring | Text | searchable |
+       Given I have a Content Type "B" with
+            # fieldtype | name | settings   |
+            | ezstring  | Text | searchable |
          And I have a Content object "A" of Content Type "B" with
-            | Text | This field has a CoupleOfWords and some numbers 10 256 0123456879 123.45$&% an example@ez.no |
+            # field | value                                                                                        |
+            | Text  | This field has a CoupleOfWords and some numbers 10 256 0123456879 123.45$&% an example@ez.no |
         When I search for "<data>"
-        Then I see "0" search results
+        Then I see 0 search results
 
         Examples:
             | data         |
             | ezstring     |
         # word not complete
-            | fiel         | 
+            | fiel         |
         # CamelCase
-            | couple       | 
+            | couple       |
         # existing words and a not complete word
-            | has a Couple | 
+            | has a Couple |
         # number in text
-            | ten          | 
+            | ten          |
         # number
-            | 100          | 
+            | 100          |
         # 2 numbers without spaces
-            | 10256        | 
+            | 10256        |
         # number not complete
-            | 456789       | 
+            | 456789       |
         # float number not complete
             | 123          |
             | .45          |
@@ -130,17 +143,19 @@ Feature: Search ( basic search )
             | $&%          |
 
     # eZAuthor
+    @javascript
     Scenario Outline: Finding Content object with a eZAuthor field that matches the search phrase
-       Given I have a Content Type "B" with the following fields
-            | ezauthor | Author | searchable |
+       Given I have a Content Type "B" with
+            # fieldtype | name   | settings   |
+            | ezauthor  | Author | searchable |
          And I have a Content object "A" of Content Type "B" with
             # Field  |row| Name          | email        |
             | Author | 1 | Administrator | admin@ez.no  |
             | Author | 2 | John Doe      | john@doe.com |
         When I search for "<data>"
-        Then I see "1" search results
+        Then I see 1 search result
          And I see Content object "A"
-        
+
         Examples:
             | data               |
             | John               |
@@ -150,21 +165,24 @@ Feature: Search ( basic search )
             | john               |
             | john@              |
             | john@doe.com       |
-            | admin@ john @ez.no |
             | @#$>john<£§%       |
+            | admin@ john @ez.no |
         # @NOTICE: it accepts a non existing email
             | john@ez.no         |
             | john@admin         |
 
+    @javascript
     Scenario Outline: Attempt to find a Content object with a eZAuthor field that doesn't match the search phrase
-       Given I have a Content Type "B" with the following fields
-            | ezauthor | Author | searchable |
+       Given I have a Content Type "B" with
+            # fieldtype | name   | settings   |
+            | ezauthor  | Author | searchable |
          And I have a Content object "A" of Content Type "B" with
+            # Field  |row| Name          | email        |
             | Author | 1 | Administrator | admin@ez.no  |
             | Author | 2 | John Doe      | john@doe.com |
         When I search for "<data>"
-        Then I see "0" search results
-        
+        Then I see 0 search results
+
         Examples:
             | data        |
             | ezauthor    |
@@ -174,15 +192,18 @@ Feature: Search ( basic search )
             | ez.com      |
 
     # eZCountry
+    @javascript
     Scenario Outline: Finding Content object with a eZCountry field that matches the search phrase
-       Given I have a Content Type "B" with the following fields
+       Given I have a Content Type "B" with
+            # fieldtype | name    | settings   |
             | ezcountry | Country | searchable |
          And I have a Content object "A" of Content Type "B" with
+            # field   | value  |
             | Country | Norway |
         When I search for "<data>"
-        Then I see "1" search results
+        Then I see 1 search result
          And I see Content object "A"
-        
+
         Examples:
             | data    |
             | Norway  |
@@ -191,14 +212,17 @@ Feature: Search ( basic search )
             | Norway, |
             | Norway. |
 
+    @javascript
     Scenario Outline: Attempt to find a Content object with a eZCountry field that doesn't match the search phrase
-       Given I have a Content Type "B" with the following fields
+       Given I have a Content Type "B" with
+            # fieldtype | name    | settings   |
             | ezcountry | Country | searchable |
          And I have a Content object "A" of Content Type "B" with
+            # field   | value  |
             | Country | Norway |
         When I search for "<data>"
-        Then I see "0" search results
-        
+        Then I see 0 search results
+
         Examples:
             | data          |
             | France        |
@@ -206,32 +230,38 @@ Feature: Search ( basic search )
             | way           |
             | Norway,France |
 
+    @javascript
     Scenario Outline: Finding Content object with a eZCountry field with multiple choice that matches the search phrase
-       Given I have a Content Type "B" with the following fields
+       Given I have a Content Type "B" with
+            # fieldtype | name      | settings   | settings        |
             | ezcountry | Countries | searchable | multiple_choice |
          And I have a Content object "A" of Content Type "B" with
+            # field     | value  | value    | value          |
             | Countries | Norway | Portugal | United Kingdom |
         When I search for "<data>"
-        Then I see "1" search results
+        Then I see 1 search result
          And I see Content object "A"
-        
+
         Examples:
             | data                           |
             | Norway,Portugal,United Kingdom |
             | norway,portugal,united kingdom |
             | NORWAY,portugal,UNITED kingdom |
             | Norway,Portugal,United         |
-            | Norway.Portugal.United Kingdom |
             | @#$<Norway,Portugal,United>£§% |
+            | Norway.Portugal.United Kingdom |
 
+    @javascript
     Scenario Outline: Attempt to find a Content object with a eZCountry field with multiple choice that doesn't match the search phrase
-       Given I have a Content Type "B" with the following fields
+       Given I have a Content Type "B" with
+            # fieldtype | name      | settings   | settings        |
             | ezcountry | Countries | searchable | multiple_choice |
          And I have a Content object "A" of Content Type "B" with
+            # field     | value  | value    | value          |
             | Countries | Norway | Portugal | United Kingdom |
         When I search for "<data>"
-        Then I see "0" search results
-        
+        Then I see 0 search results
+
         Examples:
             | data                             |
         # @NOTICE: searching for a specific country in a multiple country object won't return any value
@@ -245,27 +275,33 @@ Feature: Search ( basic search )
             | France                           |
 
     # eZDate
+    @javascript
     Scenario Outline: Finding Content object with a eZDate field that matches the search phrase
-       Given I have a Content Type "B" with the following fields
-            | ezdate | Date | searchable |
+       Given I have a Content Type "B" with
+            # fieldtype | name | settings   |
+            | ezdate    | Date | searchable |
          And I have a Content object "A" of Content Type "B" with
-            | Date | 24/01/2013 |
+            # field | value      |
+            | Date  | 24/01/2013 |
         When I search for "<data>"
-        Then I see "1" search results
+        Then I see 1 search result
          And I see Content object "A"
-        
+
         Examples:
             | data |
         # @NOTICE: couldn't find any positive search
 
+    @javascript
     Scenario Outline: Attempt to find a Content object with a eZDate field that doesn't match the search phrase
-       Given I have a Content Type "B" with the following fields
-            | ezdate | Date | searchable |
+       Given I have a Content Type "B" with
+            # fieldtype | name | settings   |
+            | ezdate    | Date | searchable |
          And I have a Content object "A" of Content Type "B" with
-            | Date | 24/01/2013 |
+            # field | value      |
+            | Date  | 24/01/2013 |
         When I search for "<data>"
-        Then I see "0" search results
-        
+        Then I see 0 search results
+
         Examples:
             | data            |
             | 24/01/2013      |
@@ -284,27 +320,33 @@ Feature: Search ( basic search )
             | 1358985600      |
 
     # eZDateTime
+    @javascript
     Scenario Outline: Finding Content object with a eZDateTime field that matches the search phrase
-       Given I have a Content Type "B" with the following fields
+       Given I have a Content Type "B" with
+            # fieldtype  | name        | settings   |
             | ezdatetime | DateAndTime | searchable |
          And I have a Content object "A" of Content Type "B" with
+            # field       | value               |
             | DateAndTime | 24/01/2013 01:23 am |
         When I search for "<data>"
-        Then I see "1" search results
+        Then I see 1 search result
          And I see Content object "A"
-        
+
         Examples:
             | data |
         # @NOTICE: couldn't find any positive search
 
+    @javascript
     Scenario Outline: Attempt to find a Content object with a eZDateTime field that doesn't match the search phrase
-       Given I have a Content Type "B" with the following fields
+       Given I have a Content Type "B" with
+            # fieldtype  | name        | settings   |
             | ezdatetime | DateAndTime | searchable |
          And I have a Content object "A" of Content Type "B" with
+            # field       | value               |
             | DateAndTime | 24/01/2013 01:23 am |
         When I search for "<data>"
-        Then I see "0" search results
-        
+        Then I see 0 search results
+
         Examples:
             | data                |
             | 24/01/2013 01:23 am |
@@ -331,32 +373,38 @@ Feature: Search ( basic search )
             | 1358990580          |
 
     # eZEmail
+    @javascript
     Scenario Outline: Finding Content object with a eZEmail field that matches the search phrase
-       Given I have a Content Type "B" with the following fields
-            | ezemail | eMail | searchable |
+       Given I have a Content Type "B" with
+            # fieldtype | name  | settings   |
+            | ezemail   | eMail | searchable |
          And I have a Content object "A" of Content Type "B" with
+            # field | value                  |
             | eMail | example_123.test@ez.no |
         When I search for "<data>"
-        Then I see "1" search results
+        Then I see 1 search result
          And I see Content object "A"
-        
+
         Examples:
             | data                   |
             | example_123.test@ez.no |
             | example_123.test       |
             | example_123.test@      |
             | ez.no                  |
-            | @ez.no                 |
             | @#$<example>£§%        |
+            | @ez.no                 |
 
+    @javascript
     Scenario Outline: Attempt to find a Content object with a eZEmail field that doesn't match the search phrase
-       Given I have a Content Type "B" with the following fields
-            | ezemail | eMail | searchable |
+       Given I have a Content Type "B" with
+            # fieldtype | name  | settings   |
+            | ezemail   | eMail | searchable |
          And I have a Content object "A" of Content Type "B" with
+            # field | value                  |
             | eMail | example_123.test@ez.no |
         When I search for "<data>"
-        Then I see "0" search results
-        
+        Then I see 0 search results
+
         Examples:
             | data      |
             | ezemail   |
@@ -371,28 +419,34 @@ Feature: Search ( basic search )
             | mailto    |
 
     # eZGMapLocation
+    @javascript
     Scenario Outline: Finding Content object with a eZGMapLocation field that matches the search phrase
-       Given I have a Content Type "B" with the following fields
+       Given I have a Content Type "B" with
+            # fieldtype      | name        | settings   |
             | ezgmaplocation | MapLocation | searchable |
          And I have a Content object "A" of Content Type "B" with
+            # field       | value       | value        |
             | MapLocation | 59.91,10.75 | Olso, Norway |
         When I search for "<data>"
-        Then I see "1" search results
+        Then I see 1 search result
          And I see Content object "A"
-        
+
         Examples:
             | data         |
-            | Olso         |
             | @#$<olso>£§% |
+            | Olso         |
 
+    @javascript
     Scenario Outline: Attempt to find a Content object with a eZGMapLocation field that doesn't match the search phrase
-       Given I have a Content Type "B" with the following fields
+       Given I have a Content Type "B" with
+            # fieldtype      | name        | settings   |
             | ezgmaplocation | MapLocation | searchable |
          And I have a Content object "A" of Content Type "B" with
+            # field       | value       | value        |
             | MapLocation | 59.91,10.75 | Olso, Norway |
         When I search for "<data>"
-        Then I see "0" search results
-        
+        Then I see 0 search results
+
         Examples:
             | data           |
             | ezgmaplocation |
@@ -409,28 +463,34 @@ Feature: Search ( basic search )
             | 38.72,-9.15    |
 
     # eZInteger
+    @javascript
     Scenario Outline: Finding Content object with a eZInteger field that matches the search phrase
-       Given I have a Content Type "B" with the following fields
+       Given I have a Content Type "B" with
+            # fieldtype | name    | settings   |
             | ezinteger | Integer | searchable |
          And I have a Content object "A" of Content Type "B" with
+            # field   | value  |
             | Integer | 123456 |
         When I search for "<data>"
-        Then I see "1" search results
+        Then I see 1 search result
          And I see Content object "A"
-        
+
         Examples:
             | data           |
-            | 123456         |
             | @#$<123456>£§% |
+            | 123456         |
 
+    @javascript
     Scenario Outline: Attempt to find a Content object with a eZInteger field that doesn't match the search phrase
-       Given I have a Content Type "B" with the following fields
+       Given I have a Content Type "B" with
+            # fieldtype | name    | settings   |
             | ezinteger | Integer | searchable |
          And I have a Content object "A" of Content Type "B" with
+            # field   | value  |
             | Integer | 123456 |
         When I search for "<data>"
-        Then I see "0" search results
-        
+        Then I see 0 search results
+
         Examples:
             | data          |
             | ezinteger     |
@@ -449,32 +509,38 @@ Feature: Search ( basic search )
             | one,two,three |
 
     # eZKeyword
+    @javascript
     Scenario Outline: Finding Content object with a eZKeyword field that matches the search phrase
-       Given I have a Content Type "B" with the following fields
+       Given I have a Content Type "B" with
+            # fieldtype | name     | settings   |
             | ezkeyword | Keywords | searchable |
          And I have a Content object "A" of Content Type "B" with
+            # field    | value                                          |
             | Keywords | keyword1, keyword2, example, another, a, 1, a1 |
         When I search for "<data>"
-        Then I see "1" search results
+        Then I see 1 search result
          And I see Content object "A"
-        
+
         Examples:
             | data             |
             | keyword2         |
             | a                |
             | 1                |
             | a1               |
-            | example, another |
             | a@#$>a1<£§%1     |
+            | example, another |
 
+    @javascript
     Scenario Outline: Attempt to find a Content object with a eZKeyword field that doesn't match the search phrase
-       Given I have a Content Type "B" with the following fields
+       Given I have a Content Type "B" with
+            # fieldtype | name     | settings   |
             | ezkeyword | Keywords | searchable |
          And I have a Content object "A" of Content Type "B" with
+            # field    | value                                          |
             | Keywords | keyword1, keyword2, example, another, a, 1, a1 |
         When I search for "<data>"
-        Then I see "0" search results
-        
+        Then I see 0 search results
+
         Examples:
             | data            |
             | ezkeywords      |
@@ -486,15 +552,18 @@ Feature: Search ( basic search )
             | example,another |
 
     # eZSelection
+    @javascript
     Scenario Outline: Finding Content object with a eZSelection field that matches the search phrase
-       Given I have a Content Type "B" with the following fields
+       Given I have a Content Type "B" with
+            # fieldtype   | name      | settings   | values    | values         | values           |
             | ezselection | Selection | searchable | option #1 | another option | 6#4% Special 1.2 |
          And I have a Content object "A" of Content Type "B" with
+            # field     | value            |
             | Selection | 6#4% Special 1.2 |
         When I search for "<data>"
-        Then I see "1" search results
+        Then I see 1 search result
          And I see Content object "A"
-        
+
         Examples:
             | data             |
             | 6#4% Special 1.2 |
@@ -508,14 +577,17 @@ Feature: Search ( basic search )
             | @#$>1.2<£§%      |
             | 6#@£§#$%4%       |
 
+    @javascript
     Scenario Outline: Attempt to find a Content object with a eZSelection field that doesn't match the search phrase
-       Given I have a Content Type "B" with the following fields
+       Given I have a Content Type "B" with
+            # fieldtype   | name      | settings   | values    | values         | values           |
             | ezselection | Selection | searchable | option #1 | another option | 6#4% Special 1.2 |
          And I have a Content object "A" of Content Type "B" with
+            # field     | value            |
             | Selection | 6#4% Special 1.2 |
         When I search for "<data>"
-        Then I see "0" search results
-        
+        Then I see 0 search results
+
         Examples:
             | data              |
             | ezselection       |
@@ -528,15 +600,17 @@ Feature: Search ( basic search )
             | 6@£§$%4           |
 
     # eZSelection (multiple choice)
+    @javascript
     Scenario Outline: Finding Content object with a eZSelection field with multiple choices that matches the search phrase
-       Given I have a Content Type "B" with the following fields
-            | ezselection | Selection | searchable | option #1 | another option | 6#4% Special 1.2 |
+       Given I have a Content Type "B" with
+            # fieldtype   | name      | settings   | settings        | values    | values         | values           |
+            | ezselection | Selection | searchable | multiple choice | option #1 | another option | 6#4% Special 1.2 |
          And I have a Content object "A" of Content Type "B" with
             | Selection | option #1 | 6#4% Special 1.2 |
         When I search for "<data>"
-        Then I see "1" search results
+        Then I see 1 search result
          And I see Content object "A"
-        
+
         Examples:
             | data             |
             | 6#4% Special 1.2 |
@@ -551,17 +625,18 @@ Feature: Search ( basic search )
             | 6#1.2            |
             | #1&$§6#4%        |
             | 6@£§$%4%         |
-            | "special #1"     |
             | special option   |
 
+    @javascript
     Scenario Outline: Attempt to find a Content object with a eZSelection field with multiple choice that doesn't match the search phrase
-       Given I have a Content Type "B" with the following fields
-            | ezselection | Selection | searchable | option #1 | another option | 6#4% Special 1.2 |
+       Given I have a Content Type "B" with
+            # fieldtype   | name      | settings   | settings        | values    | values         | values           |
+            | ezselection | Selection | searchable | multiple choice | option #1 | another option | 6#4% Special 1.2 |
          And I have a Content object "A" of Content Type "B" with
             | Selection | option #1 | 6#4% Special 1.2 |
         When I search for "<data>"
-        Then I see "0" search results
-        
+        Then I see 0 search results
+
         Examples:
             | data                       |
             | ezselection                |
@@ -573,28 +648,32 @@ Feature: Search ( basic search )
         # NOTICE: the difference from this to the one that do match is the missing '%' at the end
             | 6@£§$%4                    |
 
-    # eZSrRating
+    # eZStarrRating
+    @javascript
     Scenario Outline: Finding Content object with a eZSrRating field that matches the search phrase
-       Given I have a Content Type "B" with the following fields
+       Given I have a Content Type "B" with
+            # fieldtype  | name       | settings   |
             | ezsrrating | StarRating | searchable |
          And I have a Content object "A" of Content Type "B"
          And I have an average "4.5" stars with "20" votes on Content object "A"
         When I search for "<data>"
-        Then I see "1" search results
+        Then I see 1 search result
          And I see Content object "A"
-        
+
         Examples:
             | data |
         # @NOTICE: couldn't find any positive search
 
+    @javascript
     Scenario Outline: Attempt to find a Content object with a eZSrRating field that doesn't match the search phrase
-       Given I have a Content Type "B" with the following fields
+       Given I have a Content Type "B" with
+            # fieldtype  | name       | settings   |
             | ezsrrating | StarRating | searchable |
          And I have a Content object "A" of Content Type "B"
          And I have an average "4.5" stars with "20" votes on Content object "A"
         When I search for "<data>"
-        Then I see "0" search results
-        
+        Then I see 0 search results
+
         Examples:
             | data      |
             | ezstars   !
@@ -609,15 +688,18 @@ Feature: Search ( basic search )
             | 3.25stars |
 
     # eZText
+    @javascript
     Scenario Outline: Finding Content object with a eZText field that matches the search phrase
-       Given I have a Content Type "B" with the following fields
-            | eztext | Text | searchable |
+       Given I have a Content Type "B" with
+            # fieldtype  | name       | settings   |
+            | eztext     | Text       | searchable |
          And I have a Content object "A" of Content Type "B" with
-            | Text | text_block: this\nis a\ntext block\n\nand It has numbers\n10\n1120\n10 2 3 50\n123.45\n123-456\n123---456 |
+            # field | value                                                                                                     |
+            | Text  | text_block: this\nis a\ntext block\n\nand It has numbers\n10\n1120\n10 2 3 50\n123.45\n123-456\n123---456 |
         When I search for "<data>"
-        Then I see "1" search results
+        Then I see 1 search result
          And I see Content object "A"
-        
+
         Examples:
             | data               |
             | Text_BLOCK         |
@@ -635,14 +717,17 @@ Feature: Search ( basic search )
             | @#$>text_block<£§% |
             | a                  |
 
+    @javascript
     Scenario Outline: Attempt to find a Content object with a eZText field that doesn't match the search phrase
-       Given I have a Content Type "B" with the following fields
-            | eztext | Text | searchable |
+       Given I have a Content Type "B" with
+            # fieldtype  | name       | settings   |
+            | eztext     | Text       | searchable |
          And I have a Content object "A" of Content Type "B" with
-            | Text | text_block: this\nis a\ntext block\n\nand It has numbers\n10\n1120\n10 2 3 50\n123.45\n123-456\n123---456 |
+            # field | value                                                                                                     |
+            | Text  | text_block: this\nis a\ntext block\n\nand It has numbers\n10\n1120\n10 2 3 50\n123.45\n123-456\n123---456 |
         When I search for "<data>"
-        Then I see "0" search results
-        
+        Then I see 0 search results
+
         Examples:
             | data      |
             | extext    |
@@ -651,15 +736,18 @@ Feature: Search ( basic search )
             | .45       |
 
     # eZUser
+    @javascript
     Scenario Outline: Finding Content object with a eZUser field that matches the search phrase
-       Given I have a Content Type "B" with the following fields
-            | ezuser | User | searchable |
+       Given I have a Content Type "B" with
+            # fieldtype | name | settings   |
+            | ezuser    | User | searchable |
          And I have a Content object "A" of Content Type "B" with
-            | User | 150 | user name | password1 | example@ez.no |
+            # field | ID  | username  | password  | email         |
+            | User  | 150 | user name | password1 | example@ez.no |
         When I search for "<data>"
-        Then I see "1" search results
+        Then I see 1 search result
          And I see Content object "A"
-        
+
         Examples:
             | data              |
             | user name         |
@@ -667,17 +755,20 @@ Feature: Search ( basic search )
             | example@ez.no     |
             | example@          |
             | ez.no             |
-            | user@ez.no        |
             | @#$>user-name<£§% |
+            | user@ez.no        |
 
+    @javascript
     Scenario Outline: Attempt to find a Content object with a eZUser field that doesn't match the search phrase
-       Given I have a Content Type "B" with the following fields
-            | ezuser | User | searchable |
+       Given I have a Content Type "B" with
+            # fieldtype | name | settings   |
+            | ezuser    | User | searchable |
          And I have a Content object "A" of Content Type "B" with
-            | User | 150 | user name | password1 | example@ez.no |
+            # field | ID  | username  | password  | email         |
+            | User  | 150 | user name | password1 | example@ez.no |
         When I search for "<data>"
-        Then I see "0" search results
-        
+        Then I see 0 search results
+
         Examples:
             | data      |
             | ezuser    |
@@ -730,15 +821,18 @@ Feature: Search ( basic search )
     #            <td>answer fourth</td>
     #        </tr>
     #    </table>
+    @javascript
     Scenario Outline: Finding Content object with a eZXmlText field that matches the search phrase
-       Given I have a Content Type "B" with the following fields
+       Given I have a Content Type "B" with
+            # fieldtype | name | settings   |
             | ezxmltext | Text | searchable |
          And I have a Content object "A" of Content Type "B" with
-            | Text | <section><paragraph>this is normal text 1 12 456 7890</paragraph><anchor name="i got the lit.eral" /><literal>now i'm in lit-e-ral text</literal></section><paragraph><link view="full" title="omg a mail" id="010" href="mailto:example@ez.no">example@ez.no</link><br/><link title="ezpublish site" id="040" href="http://ezpublish.no">this is a link</link><br/><custom name="factbox" custom:title="factbox" custom:align="right">this is a box a fact box</custom><br/><ol><li>an ordered list</li><li>line 2</li><li>line 3</li></ol></paragraph><paragraph>superscript<custom name="sup">5</custom><br/>subscript<custom name="sub">6</custom></paragraph><paragraph><strong>bold</strong><br/><custom name="underline">underline</custom><br/><emphasize>italic</emphasize><br/></paragraph><table class="comparison" border="0" width="100%" custom:summary="comparing something" custom:caption="capiton or my mistake"><tr><td>title the first</td><td>topic the second</td></tr><tr><td>resut third</td><td>answer fourth</td></tr></table> |
+            # field | value                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
+            | Text  | <section><paragraph>this is normal text 1 12 456 7890</paragraph><anchor name='i got the lit.eral' /><literal>now i'm in lit-e-ral text</literal></section><paragraph><link view='full' title='omg a mail' id='010' href='mailto:example@ez.no'>example@ez.no</link><br/><link title='ezpublish site' id='040' href='http://ezpublish.no'>this is a link</link><br/><custom name='factbox' custom:title='factbox' custom:align='right'>this is a box a fact box</custom><br/><ol><li>an ordered list</li><li>line 2</li><li>line 3</li></ol></paragraph><paragraph>superscript<custom name='sup'>5</custom><br/>subscript<custom name='sub'>6</custom></paragraph><paragraph><strong>bold</strong><br/><custom name='underline'>underline</custom><br/><emphasize>italic</emphasize><br/></paragraph><table class='comparison' border='0' width='100%' custom:summary='comparing something' custom:caption='capiton or my mistake'><tr><td>title the first</td><td>topic the second</td></tr><tr><td>resut third</td><td>answer fourth</td></tr></table> |
         When I search for "<data>"
-        Then I see "1" search results
+        Then I see 1 search result
          And I see Content object "A"
-        
+
         Examples:
             | data                |
             | subscript           |
@@ -749,7 +843,7 @@ Feature: Search ( basic search )
             | li@nk               |
         # subscript number
             | 6                   |
-        # ordered list 
+        # ordered list
             | 3. line 3           |
             | line 3              |
         # table contents
@@ -768,14 +862,17 @@ Feature: Search ( basic search )
             | @ez.no              |
             | ez.no               |
 
+    @javascript
     Scenario Outline: Attempt to find a Content object with a eZXmlText field that doesn't match the search phrase
-       Given I have a Content Type "B" with the following fields
+       Given I have a Content Type "B" with
+            # fieldtype | name | settings   |
             | ezxmltext | Text | searchable |
          And I have a Content object "A" of Content Type "B" with
-            | Text | <section><paragraph>this is normal text 1 12 456 7890</paragraph><anchor name="i got the lit.eral" /><literal>now i'm in lit-e-ral text</literal></section><paragraph><link view="full" title="omg a mail" id="010" href="mailto:example@ez.no">example@ez.no</link><br/><link title="ezpublish site" id="040" href="http://ezpublish.no">this is a link</link><br/><custom name="factbox" custom:title="factbox" custom:align="right">this is a box a fact box</custom><br/><ol><li>an ordered list</li><li>line 2</li><li>line 3</li></ol></paragraph><paragraph>superscript<custom name="sup">5</custom><br/>subscript<custom name="sub">6</custom></paragraph><paragraph><strong>bold</strong><br/><custom name="underline">underline</custom><br/><emphasize>italic</emphasize><br/></paragraph><table class="comparison" border="0" width="100%" custom:summary="comparing something" custom:caption="capiton or my mistake"><tr><td>title the first</td><td>topic the second</td></tr><tr><td>resut third</td><td>answer fourth</td></tr></table> |
+            # field | value                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
+            | Text  | <section><paragraph>this is normal text 1 12 456 7890</paragraph><anchor name='i got the lit.eral' /><literal>now i'm in lit-e-ral text</literal></section><paragraph><link view='full' title='omg a mail' id='010' href='mailto:example@ez.no'>example@ez.no</link><br/><link title='ezpublish site' id='040' href='http://ezpublish.no'>this is a link</link><br/><custom name='factbox' custom:title='factbox' custom:align='right'>this is a box a fact box</custom><br/><ol><li>an ordered list</li><li>line 2</li><li>line 3</li></ol></paragraph><paragraph>superscript<custom name='sup'>5</custom><br/>subscript<custom name='sub'>6</custom></paragraph><paragraph><strong>bold</strong><br/><custom name='underline'>underline</custom><br/><emphasize>italic</emphasize><br/></paragraph><table class='comparison' border='0' width='100%' custom:summary='comparing something' custom:caption='capiton or my mistake'><tr><td>title the first</td><td>topic the second</td></tr><tr><td>resut third</td><td>answer fourth</td></tr></table> |
         When I search for "<data>"
-        Then I see "0" search results
-        
+        Then I see 0 search results
+
         Examples:
             | data                  |
             | ezxmltext             |
@@ -795,87 +892,105 @@ Feature: Search ( basic search )
         # search for tag attributes and values
             | i got the             |
             | mailto                |
-            | id="040"              |
+            | id='040''              |
             | 040                   |
             | omg this is a mail    |
             | width                 |
 
     # @NOTICE: Binary Base tree search not implemented on LS
     # eZBinaryFile
+    @javascript
     Scenario Outline: Finding Content object with a eZBinaryFile field that matches the search phrase
-       Given I have a Content Type "B" with the following fields
+       Given I have a Content Type "B" with
+            # fieldtype     | name | settings   |
             | ezbinaryfield | File | searchable |
          And I have a Content object "A" of Content Type "B" with
-            | File | file:example2.tar.gz | 51.2kb |
+            # field | file           | size   |
+            | File  | example.tar.gz | 51.2kb |
         When I search for "<data>"
-        Then I see "1" search results
+        Then I see 1 search result
          And I see Content object "A"
-        
+
         Examples:
             | data |
         # need details
 
+    @javascript
     Scenario Outline: Attempt to find a Content object with a eZBinaryFile field that doesn't match the search phrase
-       Given I have a Content Type "B" with the following fields
+       Given I have a Content Type "B" with
+            # fieldtype     | name | settings   |
             | ezbinaryfield | File | searchable |
          And I have a Content object "A" of Content Type "B" with
-            | File | file:example2.tar.gz | 51.2kb |
+            # field | file           | size   |
+            | File  | example.tar.gz | 51.2kb |
         When I search for "<data>"
-        Then I see "0" search results
-        
+        Then I see 0 search results
+
         Examples:
             | data |
     # need details
 
     # eZMedia
+    @javascript
     Scenario Outline: Finding Content object with a eZMedia field that matches the search phrase
-       Given I have a Content Type "B" with the following fields
-            | ezmedia | Media | searchable |
+       Given I have a Content Type "B" with
+            # fieldtype | name  | settings   |
+            | ezmedia   | Media | searchable |
          And I have a Content object "A" of Content Type "B" with
-            | Media | file:sneezing_panda.mp4 | 730.4kb | 400x300 |
+            # field | file               | size    | resolution |
+            | Media | sneezing_panda.mp4 | 730.4kb | 400x300    |
         When I search for "<data>"
-        Then I see "1" search results
+        Then I see 1 search result
          And I see Content object "A"
-        
+
         Examples:
             | data    |
             | ezmedia |
         # need details
 
+    @javascript
     Scenario Outline: Attempt to find a Content object with a eZMedia field that doesn't match the search phrase
-       Given I have a Content Type "B" with the following fields
-            | ezmedia | Media | searchable |
+       Given I have a Content Type "B" with
+            # fieldtype | name  | settings   |
+            | ezmedia   | Media | searchable |
          And I have a Content object "A" of Content Type "B" with
-            | Media | file:sneezing_panda.mp4 | 730.4kb | 400x300 |
+            # field | file               | size    | resolution |
+            | Media | sneezing_panda.mp4 | 730.4kb | 400x300    |
         When I search for "<data>"
-        Then I see "0" search results
-        
+        Then I see 0 search results
+
         Examples:
             | data          |
             | ezbinaryfield |
     # need details
 
     # eZImage
+    @javascript
     Scenario Outline: Finding Content object with a eZImage field that matches the search phrase
-       Given I have a Content Type "B" with the following fields
-            | ezmedia | Media | searchable |
+       Given I have a Content Type "B" with
+            # fieldtype | name  | settings   |
+            | ezimage   | Image | searchable |
          And I have a Content object "A" of Content Type "B" with
-            | Media | file:test.jpg | 60.9kb | 312x312 |
+            # field | file     | size   | resolution |
+            | Image | test.jpg | 60.9kb | 312x312    |
         When I search for "<data>"
-        Then I see "1" search results
+        Then I see 1 search result
          And I see Content object "A"
-        
+
         Examples:
             | data |
         # need details
 
+    @javascript
     Scenario Outline: Attempt to find a Content object with a eZImage field that doesn't match the search phrase
-       Given I have a Content Type "B" with the following fields
-            | ezmedia | Media | searchable |
+       Given I have a Content Type "B" with
+            # fieldtype | name  | settings   |
+            | ezimage   | Image | searchable |
          And I have a Content object "A" of Content Type "B" with
-            | Media | file:test.jpg | 60.9kb | 312x312 |
+            # field | file     | size   | resolution |
+            | Image | test.jpg | 60.9kb | 312x312    |
         When I search for "<data>"
-        Then I see "0" search results
+        Then I see 0 search results
 
         Examples:
             | data    |
@@ -883,20 +998,25 @@ Feature: Search ( basic search )
         # need details
 
     # eZObjectRelation
+    @javascript
     Scenario Outline: Finding Content object which has a eZObjectRelation to a Content object matching the search phrase
-       Given I have a Content Type "D" with the following fields
-            | ezstring | Text | searchable |
+       Given I have a Content Type "D" with
+            # fieldtype | name | settings   |
+            | ezstring  | Text | searchable |
          And I have a Content object "C" of Content Type "D" with
-            | Text | This field has a CoupleOfWords and some numbers 10 256 0123456879 123.45$&% an example@ez.no |
-         And I have a Content Type "B" with the following fields
+            # field | value                                                                                        |
+            | Text  | This field has a CoupleOfWords and some numbers 10 256 0123456879 123.45$&% an example@ez.no |
+         And I have a Content Type "B" with
+            # fieldtype        | name     | settings   |
             | ezobjectrelation | Relation | searchable |
          And I have a Content object "A" of Content Type "B" with
-            | Relation | C |
+            # field    | value |
+            | Relation | C     |
         When I search for "<data>"
-        Then I see "2" search results
+        Then I see 2 search results
          And I see Content object "A"
          And I see Content object "C"
-        
+
         Examples:
             | data             |
             | Field            |
@@ -914,47 +1034,57 @@ Feature: Search ( basic search )
             | example@         |
             | example@ez.no    |
 
+    @javascript
     Scenario Outline: Attempting to find a Content object which has a eZObjectRelation to a Content object not matching the search phrase
-       Given I have a Content Type "D" with the following fields
-            | ezstring | Text | searchable |
+       Given I have a Content Type "D" with
+            # fieldtype | name | settings   |
+            | ezstring  | Text | searchable |
          And I have a Content object "C" of Content Type "D" with
-            | Text | This field has a CoupleOfWords and some numbers 10 256 0123456879 123.45$&% an example@ez.no |
-         And I have a Content Type "B" with the following fields
+            # field | value                                                                                        |
+            | Text  | This field has a CoupleOfWords and some numbers 10 256 0123456879 123.45$&% an example@ez.no |
+         And I have a Content Type "B" with
+            # fieldtype        | name     | settings   |
             | ezobjectrelation | Relation | searchable |
          And I have a Content object "A" of Content Type "B" with
-            | Relation | C |
+            # field    | value |
+            | Relation | C     |
         When I search for "<data>"
-        Then I see "0" search results
-        
+        Then I see 0 search results
+
         Examples:
             | data              |
             | ezstring          |
             | ezobjectrelation  |
             | data              |
-            | fiel              | 
+            | fiel              |
             | couple            |
-            | has a Couple      | 
+            | has a Couple      |
             | ten               |
-            | 100               | 
-            | 10256             | 
-            | 456789            | 
+            | 100               |
+            | 10256             |
+            | 456789            |
             | 123               |
             | .45               |
             | $                 |
             | $&%               |
 
+    @javascript
     Scenario Outline: Attempting to find a Content object which has a eZObjectRelation to a Content object that their fields are not searcheable
-       Given I have a Content Type "D" with the following fields
-            | ezstring | Text | not_searchable |
+       Given I have a Content Type "D" with
+            # fieldtype | name | settings       |
+            | ezstring  | Text | not_searchable |
          And I have a Content object "C" of Content Type "D" with
-            | Text | This field has a CoupleOfWords and some numbers 10 256 0123456879 123.45$&% an example@ez.no |
-         And I have a Content Type "B" with the following fields
+            # field | value                                                                                        |
+            | Text  | This field has a CoupleOfWords and some numbers 10 256 0123456879 123.45$&% an example@ez.no |
+         And I have a Content Type "B" with
+            # fieldtype        | name     | settings   |
             | ezobjectrelation | Relation | searchable |
          And I have a Content object "A" of Content Type "B" with
-            | Relation | C |
+            # field    | value |
+            | Relation | C     |
         When I search for "<data>"
-        Then I see "0" search results
-        
+        Then I see 0 search results
+
         Examples:
             | data             |
             | Field            |
@@ -965,55 +1095,69 @@ Feature: Search ( basic search )
             | 0123456789       |
             | 123.45           |
             | 123.45$          |
-            | has a Couple     | 
-            | ten              | 
-            | 100              | 
+            | has a Couple     |
+            | ten              |
+            | 100              |
             | @ez.no           |
             | example          |
             | example@         |
             | example@ez.no    |
 
     # eZObjectRelationList
+    @javascript
     Scenario Outline: Finding Content object which has a eZObjectRelationList to Content objects matching the search phrase
-       Given I have a Content Type "D" with the following fields
-            | ezstring | Text | searchable |
+       Given I have a Content Type "D" with
+            # fieldtype | name | settings   |
+            | ezstring  | Text | searchable |
          And I have a Content object "C" of Content Type "D" with
-            | Text | This field has a CoupleOfWords and some numbers 10 256 0123456879 123.45$&% an example@ez.no |
-         And I have a Content Type "F" with the following fields
+            # field | value                                                                                        |
+            | Text  | This field has a CoupleOfWords and some numbers 10 256 0123456879 123.45$&% an example@ez.no |
+         And I have a Content Type "F" with
+            # fieldtype | name     | settings   |
             | ezkeyword | Keywords | searchable |
          And I have a Content object "E" of Content Type "F" with
+            # field    | values                                   |
             | Keywords | keyword1, 10, example, another, a, 1, a1 |
-         And I have a Content Type "B" with the following fields
+         And I have a Content Type "B" with
+            # fieldtype            | name         | settings   |
             | ezobjectrelationlist | RelationList | searchable |
          And I have a Content object "A" of Content Type "B" with
-            | RelationList | C | E |
+            # field        | value   value |
+            | RelationList | C     | E     |
         When I search for "<data>"
-        Then I see "3" search results
+        Then I see 3 search results
          And I see Content object "A"
          And I see Content object "C"
          And I see Content object "D"
-        
+
         Examples:
             | data    |
             | example |
             | 10      |
 
+    @javascript
     Scenario Outline: Attempting to find a Content object which has a eZObjectRelationList to Content objects not matching the search phrase
-       Given I have a Content Type "D" with the following fields
-            | ezstring | Text | searchable |
+       Given I have a Content Type "D" with
+            # fieldtype | name | settings   |
+            | ezstring  | Text | searchable |
          And I have a Content object "C" of Content Type "D" with
-            | Text | This field has a CoupleOfWords and some numbers 10 256 0123456879 123.45$&% an example@ez.no |
-         And I have a Content Type "F" with the following fields
+            # field | value                                                                                        |
+            | Text  | This field has a CoupleOfWords and some numbers 10 256 0123456879 123.45$&% an example@ez.no |
+         And I have a Content Type "F" with
+            # fieldtype | name     | settings   |
             | ezkeyword | Keywords | searchable |
          And I have a Content object "E" of Content Type "F" with
+            # field    | values                                   |
             | Keywords | keyword1, 10, example, another, a, 1, a1 |
-         And I have a Content Type "B" with the following fields
+         And I have a Content Type "B" with
+            # fieldtype            | name         | settings   |
             | ezobjectrelationlist | RelationList | searchable |
          And I have a Content object "A" of Content Type "B" with
-            | RelationList | C | E |
+            # field        | value   value |
+            | RelationList | C     | E     |
         When I search for "<data>"
-        Then I see "0" search results
-        
+        Then I see 0 search results
+
         Examples:
             | data                 |
             | ezobjectrelationlist |
@@ -1022,25 +1166,31 @@ Feature: Search ( basic search )
             | example not found    |
             | 10 search            |
 
-
+    @javascript
     Scenario Outline: Finding Content object which has a eZObjectRelationList to Content objects where only one matches the search phrase
-       Given I have a Content Type "D" with the following fields
-            | ezstring | Text | searchable |
+       Given I have a Content Type "D" with
+            # fieldtype | name | settings   |
+            | ezstring  | Text | searchable |
          And I have a Content object "C" of Content Type "D" with
-            | Text | This field has a CoupleOfWords and some numbers 10 256 0123456879 123.45$&% an example@ez.no |
-         And I have a Content Type "F" with the following fields
+            # field | value                                                                                        |
+            | Text  | This field has a CoupleOfWords and some numbers 10 256 0123456879 123.45$&% an example@ez.no |
+         And I have a Content Type "F" with
+            # fieldtype | name     | settings   |
             | ezkeyword | Keywords | searchable |
          And I have a Content object "E" of Content Type "F" with
+            # field    | values                                   |
             | Keywords | keyword1, 10, example, another, a, 1, a1 |
-         And I have a Content Type "B" with the following fields
+         And I have a Content Type "B" with
+            # fieldtype            | name         | settings   |
             | ezobjectrelationlist | RelationList | searchable |
          And I have a Content object "A" of Content Type "B" with
-            | RelationList | C | E |
+            # field        | value   value |
+            | RelationList | C     | E     |
         When I search for "<data>"
-        Then I see "2" search results
+        Then I see 2 search results
          And I see Content object "A"
          And I see Content object "<object>"
-        
+
         Examples:
             | data              | object |
             | 0123456789        | C      |
@@ -1057,26 +1207,32 @@ Feature: Search ( basic search )
             | a                 | E      |
             | 1                 | E      |
             | a1                | E      |
-            | example, another  | E      |
             | a@#$>a1<£§%1      | E      |
+            | example, another  | E      |
 
-
+    @javascript
     Scenario Outline: Attempting to find a Content object which has a eZObjectRelationList to Content objects that their fields are not searcheable
-       Given I have a Content Type "D" with the following fields
-            | ezstring | Text | not_searchable |
+       Given I have a Content Type "D" with
+            # fieldtype | name | settings       |
+            | ezstring  | Text | not_searchable |
          And I have a Content object "C" of Content Type "D" with
-            | Text | This field has a CoupleOfWords and some numbers 10 256 0123456879 123.45$&% an example@ez.no |
-         And I have a Content Type "F" with the following fields
+            # field | value                                                                                        |
+            | Text  | This field has a CoupleOfWords and some numbers 10 256 0123456879 123.45$&% an example@ez.no |
+         And I have a Content Type "F" with
+            # fieldtype | name     | settings       |
             | ezkeyword | Keywords | not_searchable |
          And I have a Content object "E" of Content Type "F" with
+            # field    | values                                   |
             | Keywords | keyword1, 10, example, another, a, 1, a1 |
-         And I have a Content Type "B" with the following fields
+         And I have a Content Type "B" with
+            # fieldtype            | name         | settings   |
             | ezobjectrelationlist | RelationList | searchable |
          And I have a Content object "A" of Content Type "B" with
-            | RelationList | C | E |
+            # field        | value   value |
+            | RelationList | C     | E     |
         When I search for "<data>"
-        Then I see "0" search results
-        
+        Then I see 0 search results
+
         Examples:
             | data                |
             | 10256               |
@@ -1092,31 +1248,35 @@ Feature: Search ( basic search )
             | a                   |
             | 1                   |
             | a1                  |
-            | example, another    |
             | a@#$>a1<£§%1        |
+            | example, another    |
 
     # LS Identifier
+    @javascript
     Scenario Outline: Finding Content object with a Identifier field that matches the search phrase
-       Given I have a Content Type "B" with the following fields
-            | identifier | Identifier | searchable | pre[id]post | startValue:10 | digits:3 |
+       Given I have a Content Type "B" with
+            # fieldtype  | name       | settings   | setting     | setting value | setting value |
+            | identifier | Identifier | searchable | pre[id]post | startValue:10 | digits:3      |
          And I have a Content object "A" of Content Type "B"
             # Identifier = pre010post
         When I search for "<data>"
-        Then I see "1" search results
+        Then I see 1 search result
          And I see Content object "A"
-        
+
         Examples:
             | data       |
             | pre010post |
 
+    @javascript
     Scenario Outline: Attempt to find a Content object with a Identifier field that doesn't match the search phrase
-       Given I have a Content Type "B" with the following fields
-            | identifier | Identifier | searchable | pre[id]post | startValue:10 | digits:3 |
+       Given I have a Content Type "B" with
+            # fieldtype  | name       | settings   | setting     | setting value | setting value |
+            | identifier | Identifier | searchable | pre[id]post | startValue:10 | digits:3      |
          And I have a Content object "A" of Content Type "B"
             # Identifier = pre010post
         When I search for "<data>"
-        Then I see "0" search results
-        
+        Then I see 0 search results
+
         Examples:
             | data         |
             | identifier   |
@@ -1132,13 +1292,16 @@ Feature: Search ( basic search )
             | pre-010-post |
 
     # LS ISBN
+    @javascript
     Scenario Outline: Finding Content object with a ISBN field that matches the search phrase
-       Given I have a Content Type "B" with the following fields
-            | isbn | ISBN | searchable |
+       Given I have a Content Type "B" with
+            # fieldtype | name | settings   |
+            | isbn      | ISBN | searchable |
          And I have a Content object "A" of Content Type "B" with
-            | ISBN | 19-0481-164-7 |
+            # field | value         |
+            | ISBN  | 19-0481-164-7 |
         When I search for "<data>"
-        Then I see "1" search results
+        Then I see 1 search result
          And I see Content object "A"
 
         Examples:
@@ -1152,13 +1315,16 @@ Feature: Search ( basic search )
             | 164-7-19-0481   |
             | 7 164 19        |
 
+    @javascript
     Scenario Outline: Attempt to find a Content object with a ISBN field that doesn't match the search phrase
-       Given I have a Content Type "B" with the following fields
-            | isbn | ISBN | searchable |
+       Given I have a Content Type "B" with
+            # fieldtype | name | settings   |
+            | isbn      | ISBN | searchable |
          And I have a Content object "A" of Content Type "B" with
-            | ISBN | 19-0481-164-7 |
+            # field | value         |
+            | ISBN  | 19-0481-164-7 |
         When I search for "<data>"
-        Then I see "0" search results
+        Then I see 0 search results
 
         Examples:
             | data       |
@@ -1172,21 +1338,23 @@ Feature: Search ( basic search )
     # LS Matrix
     # For the following tests the Matrix field is filled with the next matrix:
     #
-    # 
+    #
     #   +---------------------+-----------------+
     #   | row 1 column 1 - 11 |  following - 12 |
     #   +---------------------+-----------------+
     #   | bottom - 21         | end - 22        |
     #   +---------------------+-----------------+
+    @javascript
     Scenario Outline: Finding Content object with a Matrix field that matches the search phrase
-       Given I have a Content Type "B" with the following fields
-            | matrix | Matrix | searcheable |
+       Given I have a Content Type "B" with
+            # fieldtype | name   | settings   |
+            | matrix    | Matrix | searchable |
          And I have a Content object "A" of Content Type "B" with
             # Field  |row| column 1            | column 2       |
             | Matrix | 1 | row 1 column 1 - 11 | following - 12 |
             | Matrix | 1 | bottom - 21         | end - 22       |
         When I search for "<data>"
-        Then I see "1" search results
+        Then I see 1 search result
          And I see Content object "A"
 
         Examples:
@@ -1200,15 +1368,17 @@ Feature: Search ( basic search )
             | row@1 column&22           |
             | end @ 22                  |
 
+    @javascript
     Scenario Outline: Attempt to find a Content object with a Matrix field that doesn't match the search phrase
-       Given I have a Content Type "B" with the following fields
-            | matrix | Matrix | searcheable |
+       Given I have a Content Type "B" with
+            # fieldtype | name   | settings   |
+            | matrix    | Matrix | searchable |
          And I have a Content object "A" of Content Type "B" with
             # Field  |row| column 1            | column 2       |
             | Matrix | 1 | row 1 column 1 - 11 | following - 12 |
             | Matrix | 1 | bottom - 21         | end - 22       |
         When I search for "<data>"
-        Then I see "0" search results
+        Then I see 0 search results
 
         Examples:
             | data            |
@@ -1248,9 +1418,11 @@ Feature: Search ( basic search )
     #   +------------------+------------------+
     #   | Nails Special    | 8                |
     #   +------------------+------------------+
+    @javascript
     Scenario Outline: Finding Content object with a Multi-Option2 field that matches the search phrase
-       Given I have a Content Type "B" with the following fields
-            | multi-option2 | MultiOption | searcheable |
+       Given I have a Content Type "B" with
+            # fieldtype     | name        | settings   |
+            | multi-option2 | MultiOption | searchable |
          And I have a Content object "A" of Content Type "B" with
             # Field       |table| name              |row| option         |Price| Default |
             | MultiOption | 1   | Parts             | 1 | Head           |  0  | default |
@@ -1261,7 +1433,7 @@ Feature: Search ( basic search )
             | MultiOption | 2   |                   | 2 | Nails Standard |  5  | default |
             | MultiOption | 2   |                   | 3 | Nails Special  |  8  |         |
         When I search for "<data>"
-        Then I see "1" search results
+        Then I see 1 search result
          And I see Content object "A"
 
         Examples:
@@ -1277,9 +1449,11 @@ Feature: Search ( basic search )
             | Head+hands        |
             | Head+COMPLETE     |
 
+    @javascript
     Scenario Outline: Attempt to find a Content object with a Multi-Option2 field that doesn't match the search phrase
-       Given I have a Content Type "B" with the following fields
-            | multi-option2 | MultiOption | searcheable |
+       Given I have a Content Type "B" with
+            # fieldtype     | name        | settings   |
+            | multi-option2 | MultiOption | searchable |
          And I have a Content object "A" of Content Type "B" with
             # Field       |table| name              |row| option         |Price| Default |
             | MultiOption | 1   | Parts             | 1 | Head           |  0  | default |
@@ -1290,7 +1464,7 @@ Feature: Search ( basic search )
             | MultiOption | 2   |                   | 2 | Nails Standard |  5  | default |
             | MultiOption | 2   |                   | 3 | Nails Special  |  8  |         |
         When I search for "<data>"
-        Then I see "0" search results
+        Then I see 0 search results
 
         Examples:
             | data          |
@@ -1301,31 +1475,38 @@ Feature: Search ( basic search )
             | default       |
 
     # LS Product-Category
+    @javascript
     Scenario Outline: Finding Content object with a Product-Category field that matches the search phrase
        Given I have "webshop" active with
-            | product category | Food | Pets | Cloth |
-         And I have a Content Type "B" with the following fields
-            | product-category | ProductCategory | searcheable |
+            # extension field  | value | value | value |
+            | product category | Food  | Pets  | Cloth |
+         And I have a Content Type "B" with
+            # fieldtype        | name            | settings   |
+            | product-category | ProductCategory | searchable |
          And I have a Content object "A" of Content Type "B" with
-            | ProductCategory | Pets |
+            # field           | value |
+            | ProductCategory | Pets  |
         When I search for "<data>"
-        Then I see "1" search results
+        Then I see 1 search result
          And I see Content object "A"
-        
+
         Examples:
             | data |
         # @NOTICE: couldn't find any positive search
 
     Scenario Outline: Attempt to find a Content object with a Product-Category field that doesn't match the search phrase
        Given I have "webshop" active with
-            | product category | Food | Pets | Cloth |
-         And I have a Content Type "B" with the following fields
-            | product-category | ProductCategory | searcheable |
+            # extension field  | value | value | value |
+            | product category | Food  | Pets  | Cloth |
+         And I have a Content Type "B" with
+            # fieldtype        | name            | settings   |
+            | product-category | ProductCategory | searchable |
          And I have a Content object "A" of Content Type "B" with
-            | ProductCategory | Pets |
+            # field           | value |
+            | ProductCategory | Pets  |
         When I search for "<data>"
-        Then I see "0" search results
-        
+        Then I see 0 search results
+
         Examples:
             | data     |
             | Food     |
@@ -1349,3 +1530,4 @@ Feature: Search ( basic search )
 
 # @TODO: permissions ( sections, version read, etc... )
 
+# @TODO: search for Users ( default user content type )
