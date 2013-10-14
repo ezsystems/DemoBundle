@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<!--[if lt IE 9 ]><html class="unsupported-ie ie" lang=""><![endif]-->
-<!--[if IE 9 ]><html class="ie ie9" lang=""><![endif]-->
-<!--[if (gt IE 9)|!(IE)]><!--><html lang=""><!--<![endif]-->
+<!--[if lt IE 9 ]><html class="unsupported-ie ie" lang="{{ app.request.locale }}"><![endif]-->
+<!--[if IE 9 ]><html class="ie ie9" lang="{{ app.request.locale }}"><![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--><html lang="{{ app.request.locale }}"><!--<![endif]-->
 <head>
     {# TODO: this probably won't be needed anymore as we will relay on the HTTP cache #}
     {% include 'eZDemoBundle::page_head_displaystyles.html.twig' %}
