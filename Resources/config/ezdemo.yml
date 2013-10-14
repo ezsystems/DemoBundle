@@ -6,6 +6,12 @@ siteaccess:
 
 system:
     ezdemo_frontend_group:
+        ezpage:
+            layouts:
+                2ZonesLayout1:
+                    name: 2 zones (layout 1)
+                    template: "eZDemoBundle:zone:2zoneslayout1.html.twig"
+
         location_view:
             full:
                 # There are two ways to add extra information to your response using a custom controller
@@ -21,12 +27,26 @@ system:
                     template: "eZDemoBundle:full:blog_post.html.twig"
                     match:
                         Identifier\ContentType: [blog_post]
+
+                frontpage:
+                    template: "eZDemoBundle:full:landing_page.html.twig"
+                    match:
+                        Identifier\ContentType: "landing_page"
+
             line:
                 blog_post:
                     controller: "eZDemoBundle:Demo:showBlogPost"
                     template: "eZDemoBundle:line:blog_post.html.twig"
                     match:
                         Identifier\ContentType: [blog_post]
+
+        block_view:
+            # "Campaign" block types.
+            campaign:
+                template: eZDemoBundle:block:campaign.html.twig
+                match:
+                    Type: Campaign
+
         field_templates:
             - {template: "eZDemoBundle::content_fields.html.twig", priority: 10}
 

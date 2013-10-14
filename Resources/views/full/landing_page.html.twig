@@ -1,0 +1,13 @@
+{% extends "eZDemoBundle::pagelayout.html.twig" %}
+
+{% block content %}
+<div class="content-view-full">
+    <div class="class-landing-page">
+
+        <div class="attribute-page">
+            {{ ez_render_field( content, "page" ) }}
+        </div>
+
+    </div>
+</div>
+{% endblock %}
