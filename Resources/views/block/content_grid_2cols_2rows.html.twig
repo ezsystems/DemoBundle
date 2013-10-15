@@ -1,0 +1,34 @@
+{% set validItems = pageService.getValidBlockItems( block ) %}
+
+<div class="block-type-content-grid block-view-{{ block.view }}">
+
+    {% if block.name != '' %}
+    <div class="attribute-header">
+        <h2>{{ block.name }}</h2>
+    </div>
+    {% endif %}
+
+    <div class="row">
+    {% for item in validItems %}
+        <div class="span4">
+            {{ render(
+                   controller(
+                       "ez_content:viewLocation",
+                       {
+                           "locationId": item.locationId,
+                           "viewType": "block_item",
+                           "params": {"image_class": "contentgrid"}
+                       }
+                   )
+               ) }}
+        </div>
+
+        {# Begin a new row each time we are in an even iteration. #}
+        {% if loop.index is even and not loop.last %}
+    </div>
+    <div class="row">
+        {% endif %}
+    {% endfor %}
+    </div>
+
+</div>

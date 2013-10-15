@@ -47,6 +47,12 @@ system:
                 match:
                     Type: Campaign
 
+            block_2_columns_2_rows:
+                template: eZDemoBundle:block:content_grid_2cols_2rows.html.twig
+                match:
+                    Type: ContentGrid
+                    View: 2_columns_2_rows
+
         field_templates:
             - {template: "eZDemoBundle::content_fields.html.twig", priority: 10}
 
