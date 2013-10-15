@@ -1,0 +1,27 @@
+{# Always set default values on variables that are supposed to be passed from upstream. #}
+{% set big_alias = big_alias|default( "gallery" ) %}
+{% set thumb_alias = thumb_alias|default( "gallerythumbnail" ) %}
+{# TODO: content.getField() only returns field in the default language, we need to retrieve the translated one like with ez_field_value() #}
+{# Image variation are \eZ\Publish\SPI\Variation\Values\Variation objects #}
+{% set big_image_variation = ez_image_alias( content.getField( 'image' ), content.versionInfo, big_alias ) %}
+{% set thumb_image_variation = ez_image_alias( content.getField( 'image' ), content.versionInfo, thumb_alias ) %}
+{% set content_name = ez_content_name( content ) %}
+<!-- BOX CONTENT: START -->
+<figure class="attribute-image"
+        data-gallery-src="{{ asset( big_image_variation.uri ) }}"
+        data-gallery-height="{{ big_image_variation.height }}"
+        data-gallery-width="{{ big_image_variation.height }}"
+        data-gallery-node-url="{{ path( location ) }}"
+        data-gallery-node-id="{{ location.id }}"
+        data-gallery-item="image"
+        title="{{ content_name }}">
+    <a href="{{ path( location ) }}">
+        <img src="{{ asset( thumb_image_variation.uri ) }}" width="{{ thumb_image_variation.width }}" height="{{ thumb_image_variation.height }}" alt="{{ content_name }}" />
+    </a>
+    <figcaption class="attribute-caption">
+    {% if not ez_is_field_empty( content, "caption" ) %}
+        {{ ez_render_field( content, "caption" ) }}
+    {% endif %}
+    </figcaption>
+</figure>
+<!-- BOX CONTENT: END -->

@@ -40,6 +40,19 @@ system:
                     match:
                         Identifier\ContentType: [blog_post]
 
+            gallery_viewer:
+                image:
+                    template: "eZDemoBundle:gallery_viewer:image.html.twig"
+                    match:
+                        Identifier\ContentType: "image"
+
+            gallery_item:
+                image:
+                    template: "eZDemoBundle:gallery_item:image.html.twig"
+                    match:
+                        Identifier\ContentType: "image"
+
+
         block_view:
             # "Campaign" block types.
             campaign:
@@ -52,6 +65,12 @@ system:
                 match:
                     Type: ContentGrid
                     View: 2_columns_2_rows
+
+            gallery:
+                template: eZDemoBundle:block:gallery.html.twig
+                match:
+                    Type: Gallery
+                    View: default
 
         field_templates:
             - {template: "eZDemoBundle::content_fields.html.twig", priority: 10}
