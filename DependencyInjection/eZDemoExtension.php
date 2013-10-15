@@ -65,11 +65,6 @@ class eZDemoExtension extends Extension implements PrependExtensionInterface
         );
 
         $config = Yaml::parse( __DIR__ . '/../Resources/config/ezdemo.yml' );
-
-        //TODO remove if statement once we have content in the file
-        if ( !empty( $config ) )
-        {
-            $container->prependExtensionConfig( 'ezpublish', $config );
-        }
+        $container->prependExtensionConfig( 'ezpublish', $config );
     }
 }
