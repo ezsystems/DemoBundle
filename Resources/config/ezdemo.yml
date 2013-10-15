@@ -40,6 +40,7 @@ system:
                     match:
                         Identifier\ContentType: [blog_post]
 
+            # Special views, mainly triggered by Page block rendering
             gallery_viewer:
                 image:
                     template: "eZDemoBundle:gallery_viewer:image.html.twig"
@@ -52,6 +53,21 @@ system:
                     match:
                         Identifier\ContentType: "image"
 
+            block_item_campaign:
+                article:
+                    template: "eZDemoBundle:block_item_campaign:article.html.twig"
+                    match:
+                        Identifier\ContentType: "article"
+
+            block_item:
+                article:
+                    template: "eZDemoBundle:block_item:article.html.twig"
+                    match:
+                        Identifier\ContentType: "article"
+                image:
+                    template: "eZDemoBundle:block_item:image.html.twig"
+                    match:
+                        Identifier\ContentType: "image"
 
         block_view:
             # "Campaign" block types.
