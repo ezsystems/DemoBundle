@@ -10,12 +10,12 @@
         {# If we have only one item, display build a link to it. Otherwise let Javascript do its job. #}
         <a href="{{ several ? path( 'ez_urlalias', {'locationId': item.locationId} ) : "#" }}" class="navig next{% if not several %} disabled{% endif %}"><span class="hide">&gt;</span></a>
 
-        <ul class="indicator">
+        <ul class="indicator{% if not several %} disabled{% endif %}">
             {# Retrieve items as ContentInfo so that we can display their names #}
             {% set validContentInfoItems = pageService.getValidBlockItemsAsContentInfo( block ) %}
             {% for contentInfo in validContentInfoItems %}
                 {# TODO: Ideally use ez_content_name() instead, but doesn't support ContentInfo #}
-                <li><span{% if not several %} disabled{% endif %}>{{ contentInfo.name }}</span></li>
+                <li{% if loop.first %} class="selected"{% endif %}><span class="hide">{{ contentInfo.name }}</span></li>
 
             {% endfor %}
         </ul>
