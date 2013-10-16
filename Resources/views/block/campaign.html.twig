@@ -14,8 +14,7 @@
             {# Retrieve items as ContentInfo so that we can display their names #}
             {% set validContentInfoItems = pageService.getValidBlockItemsAsContentInfo( block ) %}
             {% for contentInfo in validContentInfoItems %}
-                {# TODO: Ideally use ez_content_name() instead, but doesn't support ContentInfo #}
-                <li{% if loop.first %} class="selected"{% endif %}><span class="hide">{{ contentInfo.name }}</span></li>
+                <li{% if loop.first %} class="selected"{% endif %}><span class="hide">{{ ez_content_name( contentInfo ) }}</span></li>
 
             {% endfor %}
         </ul>
