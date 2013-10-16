@@ -88,6 +88,12 @@ system:
                     Type: ContentGrid
                     View: 2_columns_2_rows
 
+            content_grid_1col_2rows:
+                template: eZDemoBundle:block:content_grid_1col_2rows.html.twig
+                match:
+                    Type: ContentGrid
+                    View: default
+
             gallery:
                 template: eZDemoBundle:block:gallery.html.twig
                 match:
