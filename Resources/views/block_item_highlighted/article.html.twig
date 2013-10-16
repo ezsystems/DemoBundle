@@ -1,0 +1,26 @@
+{# This template is very similar to block_item/article.html.twig, but still has subtle differences. #}
+{# Most important is that <a> wraps every elements inside <article> #}
+{% set image_alias = image_alias|default( "contentgrid" ) %}
+<article class="highlighted">
+    <a href="{{ path( location ) }}" class="teaser-link">
+        {% if not ez_is_field_empty( content, "image" ) %}
+        <div class="attribute-image">
+            {{ ez_render_field(
+                content,
+                "image",
+                {
+                    "template": "eZDemoBundle:fields:ezimage_simple.html.twig",
+                    "parameters": {"alias": image_alias}
+                }
+            ) }}
+        </div>
+        {% endif %}
+        <div class="attribute-header">
+            <h3>{{ ez_content_name( content ) }}</h3>
+        </div>
+
+        <div class="attribute-short">
+            {{ ez_render_field( content, "intro" ) }}
+        </div>
+    </a>
+</article>

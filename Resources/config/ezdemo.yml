@@ -69,6 +69,12 @@ system:
                     match:
                         Identifier\ContentType: "image"
 
+            block_item_highlighted:
+                article:
+                    template: "eZDemoBundle:block_item_highlighted:article.html.twig"
+                    match:
+                        Identifier\ContentType: "article"
+
         block_view:
             # "Campaign" block types.
             campaign:
@@ -76,7 +82,7 @@ system:
                 match:
                     Type: Campaign
 
-            block_2_columns_2_rows:
+            content_grid_2cols_2_rows:
                 template: eZDemoBundle:block:content_grid_2cols_2rows.html.twig
                 match:
                     Type: ContentGrid
@@ -86,6 +92,12 @@ system:
                 template: eZDemoBundle:block:gallery.html.twig
                 match:
                     Type: Gallery
+                    View: default
+
+            highlighted_item:
+                template: eZDemoBundle:block:highlighted_item.html.twig
+                match:
+                    Type: HighlightedItem
                     View: default
 
         field_templates:
