@@ -5,25 +5,26 @@
 
     <div class="block-gallery">
         <div class="gallery-viewer">
-        {% for item in valid_items %}
-            {% set is_hidden = loop.first ? false : true %}
+            {# "Big" picture window #}
+            {# We only need to have the 1st element to be rendered to get the base markup #}
             {{ render(
                     controller(
                         "ez_content:viewLocation",
                         {
-                            "locationId": item.locationId,
+                            "locationId": valid_items[0].locationId,
                             "viewType": "gallery_viewer",
-                            "params": {"image_alias": big_image_alias, "total_items": items_count, "is_hidden": is_hidden}
+                            "params": {"image_alias": big_image_alias, "total_items": items_count}
                         }
                     )
                 ) }}
-        {% endfor %}
         </div>
         <div class="gallery-navigator">
             <a href="#" class="navig prev" style="opacity:0;"><span class="hide">&lt;</span></a>
             <a href="#" class="navig next"><span class="hide">&gt;</span></a>
 
             <img src="{{ asset( 'bundles/ezdemo/images/fg-selected.png' ) }}" alt="Selected indicator" class="cursor" />
+
+            {# Gallery thumbnails #}
             <ul class="images">
             {% for item in valid_items %}
                 <li>
@@ -45,12 +46,6 @@
 
     </div>
 
-    {#
-        This template is rendered in a sub-request loop (see 2zonesalayout1.html.twig).
-        isFirst variable is passed from this loop.
-        Following javascript snippet needs to be run only once.
-    #}
-    {% if isFirst is defined and isFirst %}
     <script type="text/javascript">
         YUI(YUI3_config).use('ezgallery', 'event', function (Y) {
             Y.on('domready', function () {
@@ -106,6 +101,5 @@
         });
 
     </script>
-    {% endif %}
 </div>
 <!-- BLOCK: END -->
