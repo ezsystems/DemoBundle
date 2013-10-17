@@ -40,12 +40,7 @@
     </div>
 </div>
 <!-- BLOCK: END -->
-{#
-    This template is rendered in a sub-request loop (see 2zonesalayout1.html.twig).
-    isFirst variable is passed from this loop.
-    Following javascript snippet needs to be run only once.
-#}
-{% if isFirst is defined and isFirst %}
+
 <script type="text/javascript">
     YUI(YUI3_config).use('event', 'ezsimplegallery', function (Y) {
         Y.on('domready', function () {
@@ -57,4 +52,3 @@
         });
     });
 </script>
-{% endif %}
