@@ -12,7 +12,7 @@
                 {% include "eZDemoBundle:footer:address.html.twig" with {'content': content} %}
             </div>
             <div class="span4 nav-collapse">
-                {{ render_esi( controller( "eZDemoBundle:Footer:latestContent", {'currentContent': content} ) ) }}
+                {{ render_esi( controller( "eZDemoBundle:Footer:latestContent", {'currentContentId': content.contentInfo.id} ) ) }}
             </div>
             <div class="span4 nav-collapse">
                 {% include "eZDemoBundle:footer:links.html.twig" with {'content': content} %}

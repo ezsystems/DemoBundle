@@ -10,7 +10,6 @@
 namespace EzSystems\DemoBundle\Controller;
 
 use eZ\Bundle\EzPublishCoreBundle\Controller;
-use eZ\Publish\API\Repository\Values\Content\Content;
 use Symfony\Component\HttpFoundation\Response;
 
 class FooterController extends Controller
@@ -43,13 +42,14 @@ class FooterController extends Controller
     /**
      * Return latest content for footer.
      *
-     * @param Content $currentContent
+     * @param $currentContentId
      *
      * @return Response
      */
-    public function latestContentAction( Content $currentContent )
+    public function latestContentAction( $currentContentId )
     {
         $locationService = $this->getRepository()->getLocationService();
+        $contentService = $this->getRepository()->getContentService();
 
         // Get the root location through ConfigResolver.
         $rootLocationId = $this->getConfigResolver()->getParameter( 'content.tree_root.location_id' );
@@ -63,7 +63,7 @@ class FooterController extends Controller
 
         // Build our exclude criterion.
         // We just want to exclude locations for current content which are under root location.
-        $excludeLocations = $locationService->loadLocations( $currentContent->contentInfo, $rootLocation );
+        $excludeLocations = $locationService->loadLocations( $contentService->loadContentInfo( $currentContentId ), $rootLocation );
         $excludeCriterion = $this
             ->get( 'ezdemo.criteria_helper' )
             ->generateLocationIdExcludeCriterion( $excludeLocations );
