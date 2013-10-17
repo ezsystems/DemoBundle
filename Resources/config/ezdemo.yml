@@ -106,6 +106,12 @@ system:
                     Type: HighlightedItem
                     View: default
 
+            feed_reader:
+                template: eZDemoBundle:block:feed_reader.html.twig
+                match:
+                    Type: FeedReader
+                    View: default
+
         field_templates:
             - {template: "eZDemoBundle::content_fields.html.twig", priority: 10}
 
