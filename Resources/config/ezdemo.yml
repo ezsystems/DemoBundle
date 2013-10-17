@@ -68,6 +68,10 @@ system:
                     template: "eZDemoBundle:block_item:image.html.twig"
                     match:
                         Identifier\ContentType: "image"
+                video:
+                    template: "eZDemoBundle:block_item:video.html.twig"
+                    match:
+                        Identifier\ContentType: "video"
 
             block_item_highlighted:
                 article:
@@ -111,6 +115,12 @@ system:
                 match:
                     Type: FeedReader
                     View: default
+
+            video:
+                template: eZDemoBundle:block:video.html.twig
+                match:
+                    Type: Video
+                    view: default
 
         field_templates:
             - {template: "eZDemoBundle::content_fields.html.twig", priority: 10}
