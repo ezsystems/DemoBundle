@@ -6,12 +6,6 @@ siteaccess:
 
 system:
     ezdemo_frontend_group:
-        ezpage:
-            layouts:
-                2ZonesLayout1:
-                    name: 2 zones (layout 1)
-                    template: "eZDemoBundle:zone:2zoneslayout1.html.twig"
-
         location_view:
             full:
                 # There are two ways to add extra information to your response using a custom controller
@@ -39,88 +33,6 @@ system:
                     template: "eZDemoBundle:line:blog_post.html.twig"
                     match:
                         Identifier\ContentType: [blog_post]
-
-            # Special views, mainly triggered by Page block rendering
-            gallery_viewer:
-                image:
-                    template: "eZDemoBundle:gallery_viewer:image.html.twig"
-                    match:
-                        Identifier\ContentType: "image"
-
-            gallery_item:
-                image:
-                    template: "eZDemoBundle:gallery_item:image.html.twig"
-                    match:
-                        Identifier\ContentType: "image"
-
-            block_item_campaign:
-                article:
-                    template: "eZDemoBundle:block_item_campaign:article.html.twig"
-                    match:
-                        Identifier\ContentType: "article"
-
-            block_item:
-                article:
-                    template: "eZDemoBundle:block_item:article.html.twig"
-                    match:
-                        Identifier\ContentType: "article"
-                image:
-                    template: "eZDemoBundle:block_item:image.html.twig"
-                    match:
-                        Identifier\ContentType: "image"
-                video:
-                    template: "eZDemoBundle:block_item:video.html.twig"
-                    match:
-                        Identifier\ContentType: "video"
-
-            block_item_highlighted:
-                article:
-                    template: "eZDemoBundle:block_item_highlighted:article.html.twig"
-                    match:
-                        Identifier\ContentType: "article"
-
-        block_view:
-            # "Campaign" block types.
-            campaign:
-                template: eZDemoBundle:block:campaign.html.twig
-                match:
-                    Type: Campaign
-
-            content_grid_2cols_2_rows:
-                template: eZDemoBundle:block:content_grid_2cols_2rows.html.twig
-                match:
-                    Type: ContentGrid
-                    View: 2_columns_2_rows
-
-            content_grid_1col_2rows:
-                template: eZDemoBundle:block:content_grid_1col_2rows.html.twig
-                match:
-                    Type: ContentGrid
-                    View: default
-
-            gallery:
-                template: eZDemoBundle:block:gallery.html.twig
-                match:
-                    Type: Gallery
-                    View: default
-
-            highlighted_item:
-                template: eZDemoBundle:block:highlighted_item.html.twig
-                match:
-                    Type: HighlightedItem
-                    View: default
-
-            feed_reader:
-                template: eZDemoBundle:block:feed_reader.html.twig
-                match:
-                    Type: FeedReader
-                    View: default
-
-            video:
-                template: eZDemoBundle:block:video.html.twig
-                match:
-                    Type: Video
-                    view: default
 
         field_templates:
             - {template: "eZDemoBundle::content_fields.html.twig", priority: 10}
