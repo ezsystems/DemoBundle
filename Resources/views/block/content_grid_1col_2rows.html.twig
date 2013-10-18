@@ -1,11 +1,10 @@
-{% set valid_items = pageService.getValidBlockItems( block ) %}
 <div class="block-type-content-grid block-view-{$block.view}">
 
-    {% if block.name != '' %}
+{% if block.name != '' %}
     <div class="attribute-header">
         <h2>{{ block.name }}</h2>
     </div>
-    {% endif %}
+{% endif %}
 
     {# Each item can be also be rendered by legacy. #}
     {# This is the case for "product" contentType for which view is rendered by ezpublish_legacy/extension/ezdemo/design/ezdemo/override/templates/block_item/product.tpl #}

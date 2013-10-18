@@ -2,11 +2,11 @@
 
 <div class="block-type-content-grid block-view-{{ block.view }}">
 
-    {% if block.name != '' %}
+{% if block.name != '' %}
     <div class="attribute-header">
         <h2>{{ block.name }}</h2>
     </div>
-    {% endif %}
+{% endif %}
 
     <div class="row">
     {% for item in validItems %}
