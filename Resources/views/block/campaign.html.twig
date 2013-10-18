@@ -1,8 +1,7 @@
 {# "Campaign" block view template. #}
 {# One block can contain one or several "block items". #}
-{# We first retrieve all valid items (i.e. "displayable") to display them #}
-{% set validItems = pageService.getValidBlockItems( block ) %}
-{% set several = validItems|length > 1 %}
+{# Those items are passed from the PageController as "valid_items" and "valid_contentinfo_items" #}
+{% set several = valid_items|length > 1 %}
 <!-- BLOCK: START -->
 <div class="block-type-campaign">
     <div class="campaign">
@@ -11,12 +10,11 @@
         <a href="{{ several ? path( 'ez_urlalias', {'locationId': item.locationId} ) : "#" }}" class="navig next{% if not several %} disabled{% endif %}"><span class="hide">&gt;</span></a>
 
         <ul class="indicator{% if not several %} disabled{% endif %}">
-            {# Retrieve items as ContentInfo so that we can display their names #}
-            {% set validContentInfoItems = pageService.getValidBlockItemsAsContentInfo( block ) %}
-            {% for contentInfo in validContentInfoItems %}
-                <li{% if loop.first %} class="selected"{% endif %}><span class="hide">{{ ez_content_name( contentInfo ) }}</span></li>
+        {# Loop over items as ContentInfo objects to display the content name #}
+        {% for contentInfo in valid_contentinfo_items %}
+            <li{% if loop.first %} class="selected"{% endif %}><span class="hide">{{ ez_content_name( contentInfo ) }}</span></li>
 
-            {% endfor %}
+        {% endfor %}
         </ul>
 
         <ul class="images">
@@ -24,7 +22,7 @@
         {# Block items are eZ\Publish\Core\FieldType\Page\Parts\Item objects #}
         {# Render each location using a specific "block_item_campaign" view type. #}
         {# image_class param will be used in sub-template. #}
-        {% for item in validItems %}
+        {% for item in valid_items %}
             {{ render(
                    controller(
                        'ez_content:viewLocation',
