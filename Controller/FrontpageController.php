@@ -12,6 +12,7 @@ namespace EzSystems\DemoBundle\Controller;
 use eZ\Bundle\EzPublishCoreBundle\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use ezcFeed;
+use Exception;
 
 /**
  * Controller for Frontpage content related requests. */
@@ -30,16 +31,25 @@ class FrontpageController extends Controller
     public function renderFeedBlockAction( $feedUrl, $offset = 0, $limit = 5 )
     {
         $response = new Response();
-        // Keep response in cache for 1 hour.
-        $response->setSharedMaxAge( 3600 );
-        return $this->render(
-            'eZDemoBundle:frontpage:feed_block.html.twig',
-            array(
-                'feed' => ezcFeed::parse( $feedUrl ),
-                'offset' => $offset,
-                'limit' => $limit
-            ),
-            $response
-        );
+        try
+        {
+            // Keep response in cache. TTL is configured in default_settings.yml
+            $response->setSharedMaxAge( $this->container->getParameter( 'ezdemo.cache.feed_reader_ttl' ) );
+            return $this->render(
+                'eZDemoBundle:frontpage:feed_block.html.twig',
+                array(
+                    'feed' => ezcFeed::parse( $feedUrl ),
+                    'offset' => $offset,
+                    'limit' => $limit
+                ),
+                $response
+            );
+        }
+        // In the case of exception raised in ezcFeed, return the empty response to fail nicely.
+        catch ( Exception $e )
+        {
+            $this->get( 'logger' )->error( "An exception has been raised when fetching RSS feed: {$e->getMessage()}" );
+            return $response;
+        }
     }
 }
