@@ -1,0 +1,14 @@
+{% if valid_items is not empty %}
+<div class="block-type-highlighted-item block-view-{{ block.view }}">
+    {{ render(
+       controller(
+           "ez_content:viewLocation",
+           {
+               "locationId": valid_items[0].locationId,
+               "viewType": "block_item_highlighted",
+               "params": {"image_alias": "contentgrid"}
+           }
+       )
+   ) }}
+</div>
+{% endif %}

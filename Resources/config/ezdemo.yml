@@ -21,12 +21,19 @@ system:
                     template: "eZDemoBundle:full:blog_post.html.twig"
                     match:
                         Identifier\ContentType: [blog_post]
+
+                frontpage:
+                    template: "eZDemoBundle:full:landing_page.html.twig"
+                    match:
+                        Identifier\ContentType: "landing_page"
+
             line:
                 blog_post:
                     controller: "eZDemoBundle:Demo:showBlogPost"
                     template: "eZDemoBundle:line:blog_post.html.twig"
                     match:
                         Identifier\ContentType: [blog_post]
+
         field_templates:
             - {template: "eZDemoBundle::content_fields.html.twig", priority: 10}
 

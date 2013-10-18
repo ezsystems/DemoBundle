@@ -1,0 +1,5 @@
+{# Better use a custom controller to manipulate an RSS feed. And it gives the opportunity to control cache. #}
+{% if block.customAttributes is not empty %}
+    {% set feedUrl, offset, limit = block.customAttributes["source"], block.customAttributes["offset"], block.customAttributes["limit"] %}
+    {{ render_hinclude( controller( "eZDemoBundle:Frontpage:renderFeedBlock", {"feedUrl": feedUrl, "offset": offset, "limit": limit} ) ) }}
+{% endif %}

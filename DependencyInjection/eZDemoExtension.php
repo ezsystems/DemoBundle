@@ -38,38 +38,16 @@ class eZDemoExtension extends Extension implements PrependExtensionInterface
     }
 
     /**
-     * Automatically imports the layouts and the blocks
+     * Loads DemoBundle configuration.
      *
      * @param ContainerBuilder $container
      */
     public function prepend( ContainerBuilder $container )
     {
-        $loader = new YamlFileLoader(
-            $container,
-            new FileLocator( __DIR__ . '/../Resources/config' )
-        );
-        $loader->load( 'ezpage.yml' );
-
-        $container->prependExtensionConfig(
-            'ezpublish',
-            array(
-                'ezpage' => array(
-                    'layouts' => $container->getParameter( 'ezdemo.ezpage.layouts' ),
-                    'blocks' => $container->getParameter( 'ezdemo.ezpage.blocks' ),
-                    // by default, all layouts and blocks are enabled when
-                    // DemoBundle is enabled
-                    'enabledLayouts' => array_keys( $container->getParameter( 'ezdemo.ezpage.layouts' ) ),
-                    'enabledBlocks' => array_keys( $container->getParameter( 'ezdemo.ezpage.blocks' ) )
-                )
-            )
-        );
-
         $config = Yaml::parse( __DIR__ . '/../Resources/config/ezdemo.yml' );
+        $container->prependExtensionConfig( 'ezpublish', $config );
 
-        //TODO remove if statement once we have content in the file
-        if ( !empty( $config ) )
-        {
-            $container->prependExtensionConfig( 'ezpublish', $config );
-        }
+        $ezpageConfig = Yaml::parse( __DIR__ . '/../Resources/config/ezpage.yml' );
+        $container->prependExtensionConfig( 'ezpublish', $ezpageConfig );
     }
 }

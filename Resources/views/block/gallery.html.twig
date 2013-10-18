@@ -1,0 +1,104 @@
+{% set big_image_alias, items_count = "gallery", valid_items|length %}
+<!-- BLOCK: START -->
+<div class="block-type-gallery">
+
+    <div class="block-gallery">
+        <div class="gallery-viewer">
+            {# "Big" picture window #}
+            {# We only need to have the 1st element to be rendered to get the base markup #}
+            {{ render(
+                    controller(
+                        "ez_content:viewLocation",
+                        {
+                            "locationId": valid_items[0].locationId,
+                            "viewType": "gallery_viewer",
+                            "params": {"image_alias": big_image_alias, "total_items": items_count}
+                        }
+                    )
+                ) }}
+        </div>
+        <div class="gallery-navigator">
+            <a href="#" class="navig prev" style="opacity:0;"><span class="hide">&lt;</span></a>
+            <a href="#" class="navig next"><span class="hide">&gt;</span></a>
+
+            <img src="{{ asset( 'bundles/ezdemo/images/fg-selected.png' ) }}" alt="Selected indicator" class="cursor" />
+
+            {# Gallery thumbnails #}
+            <ul class="images">
+            {% for item in valid_items %}
+                <li>
+                    {{ render(
+                        controller(
+                            "ez_content:viewLocation",
+                            {
+                                "locationId": item.locationId,
+                                "viewType": "gallery_item",
+                                "params": {"big_alias": big_image_alias, "thumb_alias": "gallerythumbnail"}
+                            }
+                        )
+                    ) }}
+                </li>
+            {% endfor %}
+            </ul>
+        </div>
+
+
+    </div>
+
+    <script type="text/javascript">
+        YUI(YUI3_config).use('ezgallery', 'event', function (Y) {
+            Y.on('domready', function () {
+                Y.all('.block-type-gallery').each(function () {
+                    var g = new Y.eZ.Gallery({
+                        title: 'h3 a',
+                        caption: 'figcaption div',
+                        autoFixSizes: false,
+                        autoScrollOnSelect: false,
+                        navigator: {
+                            gallery: this.one('.block-gallery')
+                        },
+                        initFunc: function () {
+                            var imgs = this.navigator.getImages();
+
+                            setTimeout(function () {
+                                imgs.each(function(elem) {
+                                    (new Image).src = elem.getAttribute('data-gallery-src');
+                                });
+                            }, 0);
+                        },
+                        updateFunc: function (item) {
+                            var node = item.imageNode,
+                                    img = this.container.one('.gallery-viewer-image').one('> img');
+
+                            if ( node.getAttribute('data-gallery-item') == 'image' ) {
+                                this.container.one('.visible').replaceClass('visible', 'hidden');
+                                this.container.one('.gallery-viewer-image').replaceClass('hidden', 'visible');
+                            } else if ( node.getAttribute('data-gallery-item') == 'video' ) {
+                                this.container.one('.gallery-viewer-image').replaceClass('visible', 'hidden');
+                                this.container.one('#gallery-viewer-video-' + node.getAttribute('data-gallery-node-id')).replaceClass('hidden', 'visible');
+                            }
+
+                            if ( img ) {
+                                img.setAttribute('src', node.getAttribute('data-gallery-src'));
+                                img.setAttribute('height', node.getAttribute('data-gallery-height'));
+                                img.setAttribute('width', node.getAttribute('data-gallery-width'));
+                                img.setAttribute('alt', node.get('title'));
+                            }
+
+                            var t = this.container.one('.visible ' + this.conf.title),
+                                    cap = this.container.one('.visible ' + this.conf.caption),
+                                    c = this.container.one('.visible ' + this.conf.counter);
+
+                            t.setContent(node.get('title'));
+                            t.setAttribute('href', node.getAttribute('data-gallery-node-url'));
+                            c.setContent(item.index + 1);
+                            cap.setContent(node.one('figcaption').getContent());
+                        }
+                    });
+                });
+            });
+        });
+
+    </script>
+</div>
+<!-- BLOCK: END -->
