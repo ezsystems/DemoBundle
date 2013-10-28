@@ -12,6 +12,10 @@
 namespace EzSystems\DemoBundle\Features\Context;
 
 use EzSystems\BehatBundle\Features\Context\BrowserContext;
+use PHPUnit_Framework_Assert as Assertion;
+use Behat\Behat\Context\Step;
+use Behat\Gherkin\Node\TableNode;
+use Behat\Behat\Exception\PendingException;
 
 /**
  * Feature context.
@@ -25,9 +29,38 @@ class FeatureContext extends BrowserContext
      */
     public function __construct( array $parameters )
     {
-        $this->parameters = $parameters;
+        parent::__construct( $parameters );
+
+        // add Demo pages
         $this->pageIdentifierMap += array(
-            "Search Page" => "/content/search",
+            "Search Page"   => "/content/search",
+            "Site Map"      => "/content/view/sitemap/2",
+        );
+
+        // specify the tags for specific content
+        $this->mainAttributes += array(
+            "main"  => array( "class" => "main-content" ),
+        );
+    }
+
+    /**
+     * @When /^I check site map for Location "([^"]*)"$/
+     *
+     * @todo Change the way it fetches the ID for the specific page
+     */
+    public function iCheckSiteMapForLocation( $location )
+    {
+        switch ( strtolower( $location ) ) {
+            case "shopping":
+                $id = 74;
+                break;
+
+            default:
+                throw new PendingException( "Location for '$location' not defined." );
+        }
+
+        return array(
+            new Step\When( 'I am on "/content/view/sitemap/' . $id . '"' )
         );
     }
 }
