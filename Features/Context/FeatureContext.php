@@ -11,12 +11,12 @@
 
 namespace EzSystems\DemoBundle\Features\Context;
 
-use EzSystems\BehatBundle\Features\Context\FeatureContext as BaseFeatureContext;
+use EzSystems\BehatBundle\Features\Context\BrowserContext;
 
 /**
  * Feature context.
  */
-class FeatureContext extends BaseFeatureContext
+class FeatureContext extends BrowserContext
 {
     /**
      * Initializes context with parameters from behat.yml.
