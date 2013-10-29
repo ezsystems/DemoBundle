@@ -13,7 +13,6 @@ use eZ\Bundle\EzPublishCoreBundle\Controller;
 use eZ\Publish\API\Repository\Values\Content\Location;
 use eZ\Publish\Core\Pagination\Pagerfanta\ContentSearchAdapter;
 use Pagerfanta\Pagerfanta;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use eZ\Publish\API\Repository\Values\Content\Query;
 use eZ\Publish\API\Repository\Values\Content\Query\Criterion;
@@ -65,6 +64,11 @@ class DemoController extends Controller
         );
     }
 
+    /**
+     * Renders page header links with cache control
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
     public function userLinksAction()
     {
         $response = new Response();
@@ -75,6 +79,28 @@ class DemoController extends Controller
             "eZDemoBundle::page_header_links.html.twig",
             array(),
             $response
+        );
+    }
+
+    /**
+     * Renders article with extra parameters that controls page elements visibility such as image and summary
+     *
+     * @param $locationId
+     * @param $viewType
+     * @param bool $layout
+     * @param array $params
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function showArticleAction( $locationId, $viewType, $layout = false, array $params = array() )
+    {
+        return $this->get( 'ez_content' )->viewLocation(
+            $locationId,
+            $viewType,
+            $layout,
+            array(
+                'showSummary' => $this->container->getParameter( 'ezdemo.article.full_view.show_summary' ),
+                'showImage' => $this->container->getParameter( 'ezdemo.article.full_view.show_image' )
+            ) + $params
         );
     }
 
@@ -232,6 +258,34 @@ class DemoController extends Controller
 
         return $this->render(
             'eZDemoBundle:parts/blog:extra_info.html.twig',
+            array( 'location' => $location )
+        );
+    }
+
+    /**
+     * Displays "tip a friend" link for a given location
+     *
+     * @param \eZ\Publish\API\Repository\Values\Content\Location $location
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function viewTipAFriendAction( Location $location )
+    {
+        return $this->render(
+            'eZDemoBundle:parts/article:tip_a_friend.html.twig',
+            array( 'location' => $location )
+        );
+    }
+
+    /**
+     * Displays star rating attribute for a given location
+     *
+     * @param \eZ\Publish\API\Repository\Values\Content\Location $location
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function viewStarRatingAction( Location $location )
+    {
+        return $this->render(
+            'eZDemoBundle:parts/article:star_rating.html.twig',
             array( 'location' => $location )
         );
     }
