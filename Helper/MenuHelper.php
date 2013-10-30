@@ -63,7 +63,7 @@ class MenuHelper
         $query = new Query(
             array(
                 'criterion' => new Criterion\LogicalAnd( $criteria ),
-                'sortClauses' => array( new SortClause\DatePublished( Query::SORT_DESC ) )
+                'sortClauses' => array( new SortClause\LocationPriority( Query::SORT_ASC ) )
             )
         );
         $query->limit = $this->defaultMenuLimit;
