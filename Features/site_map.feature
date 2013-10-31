@@ -13,12 +13,12 @@ Feature: See site map
     ###
 
     @javascript
-    Scenario: See site map without content
+    Scenario: See site map page
        Given I am on homepage
         When I click at "Site map" link
         Then I see "Site Map" page
 
-    Scenario: Site map content is presented in 2 columns
+    Scenario: See that site map content as different types
         When I go to "Site Map" page
         Then I see links in:
             | Link              | Type  |
@@ -54,7 +54,7 @@ Feature: See site map
             | Products          | Shopping         |
             | Services          | Shopping         |
 
-    Scenario: Attempt to see site map content with deeper sub contents (third and deeper levels of the content tree)
+    Scenario: Unable to see site map content with deeper sub contents (third and deeper levels of the content tree)
         When I go to "Site Map" page
         Then I see links for Content objects:
             | Object   | Parent   |
@@ -94,7 +94,7 @@ Feature: See site map
             | Discover eZ Publish 5 |
             | Contact Us            |
 
-    Scenario: Attempt to see site map sub content ordered (second level of the content tree)
+    Scenario: Unable to see site map sub content ordered (second level of the content tree)
         When I go to "Site Map" page
         Then I see links for Content objects in following order:
             | Object            | Parent          |
