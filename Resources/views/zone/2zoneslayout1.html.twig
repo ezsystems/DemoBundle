@@ -15,9 +15,10 @@
                            }
                        )
                    ) }}
+                {% if not loop.last %}
+                    <div class="block-separator"></div>
+                {% endif %}
             {% endfor %}
-
-            <div class="block-separator"></div>
         {% endif %}
         </section>
     </div>
@@ -28,9 +29,10 @@
             {% if zones[1].blocks %}
                 {% for block in zones[1].blocks %}
                     {{ render( controller( "ez_page:viewBlock", {'block': block} ) ) }}
+                    {% if not loop.last %}
+                        <div class="block-separator"></div>
+                    {% endif %}
                 {% endfor %}
-
-                <div class="block-separator"></div>
             {% endif %}
             </section>
         </aside>
