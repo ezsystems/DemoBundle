@@ -22,6 +22,12 @@ system:
                     Type: ContentGrid
                     View: default
 
+            content_grid_1col_4rows:
+                template: eZDemoBundle:block:content_grid_1col_4rows.html.twig
+                match:
+                    Type: ContentGrid
+                    View: 1_column_4_rows
+
             gallery:
                 template: eZDemoBundle:block:gallery.html.twig
                 match:
@@ -101,7 +107,7 @@ ezpage:
             template: "eZDemoBundle:zone:2zoneslayout1.html.twig"
         2ZonesLayout2:
             name: 2 zones (layout 2)
-            template: 2zoneslayout2.tpl
+            template: "eZDemoBundle:zone:2zoneslayout2.html.twig"
         2ZonesLayout3:
             name: 2 zones (layout 3)
             template: 2zoneslayout3.tpl
