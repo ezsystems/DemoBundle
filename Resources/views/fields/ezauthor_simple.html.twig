@@ -1,0 +1,8 @@
+{# This is a simple ezauthor field type template implementation with comma separation between author names #}
+{% block ezauthor_field %}
+{% spaceless %}
+    {% for author in field.value.authors %}
+        {{ author.name }}{% if not loop.last %}, {% endif %}
+    {% endfor %}
+{% endspaceless %}
+{% endblock %}
