@@ -101,7 +101,7 @@ ezpage:
     layouts:
         GlobalZoneLayout:
             name: Global zone layout
-            template: globalzonelayout.tpl
+            template: "eZDemoBundle:zone:globalzonelayout.html.twig"
         2ZonesLayout1:
             name: 2 zones (layout 1)
             template: "eZDemoBundle:zone:2zoneslayout1.html.twig"
@@ -110,16 +110,13 @@ ezpage:
             template: "eZDemoBundle:zone:2zoneslayout2.html.twig"
         2ZonesLayout3:
             name: 2 zones (layout 3)
-            template: 2zoneslayout3.tpl
+            template: "eZDemoBundle:zone:2zoneslayout3.html.twig"
         3ZonesLayout1:
             name: 3 zones (layout 1)
-            template: 3zoneslayout1.tpl
+            template: "eZDemoBundle:zone:3zoneslayout1.html.twig"
         3ZonesLayout2:
             name: 3 zones (layout 2)
-            template: 3zoneslayout2.tpl
-        CallForActionLayout:
-            name: Call For Action zone layout
-            template: callforactionlayout.tpl
+            template: "eZDemoBundle:zone:3zoneslayout2.html.twig"
 
     enabledLayouts:
         - GlobalZoneLayout
@@ -128,7 +125,6 @@ ezpage:
         - 2ZonesLayout3
         - 3ZonesLayout1
         - 3ZonesLayout2
-        - CallForActionLayout
 
     # List of blocks provided by the DemoBundle
     blocks:
