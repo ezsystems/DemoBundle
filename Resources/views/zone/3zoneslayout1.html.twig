@@ -1,0 +1,51 @@
+<div class="zone-layout-{{ zone_layout|lower }} row">
+    <div class="span8">
+        <section class="content-view-block">
+        {# Iterating over available blocks in 1st zone. #}
+        {# Blocks are added in the admin interface. #}
+        {% if zones[0].blocks %}
+            {% for block in zones[0].blocks %}
+                {{ render(
+                       controller(
+                           "ez_page:viewBlock",
+                           {
+                               'block': block
+                           }
+                       )
+                   ) }}
+                {% if not loop.last %}
+                    <div class="block-separator"></div>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+        </section>
+    </div>
+    <div class="span4">
+        <aside>
+            <section class="content-view-block content-view-aside">
+            {# Iterating over available blocks in 2nd zone. #}
+            {% if zones[1].blocks %}
+                {% for block in zones[1].blocks %}
+                    {{ render( controller( "ez_page:viewBlock", {'block': block} ) ) }}
+                    {% if not loop.last %}
+                        <div class="block-separator"></div>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+            </section>
+        </aside>
+    </div>
+    <div class="span12">
+        <section class="content-view-block">
+        {# Iterating over available blocks in 3rd zone. #}
+        {% if zones[2].blocks %}
+            {% for block in zones[2].blocks %}
+                {{ render( controller( "ez_page:viewBlock", {'block': block} ) ) }}
+                {% if not loop.last %}
+                    <div class="block-separator"></div>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+        </section>
+    </div>
+</div>
