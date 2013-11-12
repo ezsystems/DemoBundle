@@ -156,7 +156,7 @@ class DemoController extends Controller
         $query = new Query();
         $query->criterion = $criteria;
         $query->sortClauses = array(
-            new SortClause\Field( 'blog_post', 'publication_date', Query::SORT_DESC )
+            new SortClause\Field( 'blog_post', 'publication_date', Query::SORT_DESC, 'eng-GB' )
         );
 
         // Initialize pagination.
