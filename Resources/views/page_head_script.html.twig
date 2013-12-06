@@ -1,11 +1,11 @@
 {# TODO:  handle loading JavaScript files from the INI configuration as well as ezjscore #}
 
 <script type="text/javascript">
-var YUI3_config = {base: "{{ asset( 'extension/ezjscore/design/standard/lib/yui/3.12.0/build/' ) }}", modules: {}, combine: false};
+var YUI3_config = {base: "{{ asset( 'extension/ezjscore/design/standard/lib/yui/3.14.0/build/' ) }}", modules: {}, combine: false};
 </script>
 
 {% javascripts
-    'extension/ezjscore/design/standard/lib/yui/3.12.0/build/yui/yui-min.js'
+    'extension/ezjscore/design/standard/lib/yui/3.14.0/build/yui/yui-min.js'
     'extension/ezjscore/design/standard/javascript/jquery-1.10.2.min.js'
     'extension/ezjscore/design/standard/javascript/jquery-ui-1.10.3.custom.min.js'
     '@eZDemoBundle/Resources/public/js/ezflyout.js'
