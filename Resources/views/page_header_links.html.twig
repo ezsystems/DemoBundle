@@ -5,9 +5,9 @@
 {% if false %}
     <li id="shoppingbasket"><a href="{{ path( 'ez_legacy', {'module_uri': '/shop/basket/'} ) }}" title="{{ 'Shopping basket'|trans }}">{{ 'Shopping basket'|trans }}</a></li>
 {% endif %}
-{% if app.security.token.authenticated %}
+{% if is_granted( 'IS_AUTHENTICATED_FULLY' ) %}
     <li id="myprofile"><a href="{{ path( 'ez_legacy', {'module_uri': '/user/edit/'} ) }}" title="{{ 'My profile'|trans }}">{{ 'My profile'|trans }}</a></li>
-    <li id="logout"><a href="{{ path( 'ez_legacy', {'module_uri': '/user/logout'} ) }}" title="{{ 'Logout'|trans }}">{{ 'Logout'|trans }} ( {{ app.user }} )</a></li>
+    <li id="logout"><a href="{{ path( 'logout' ) }}" title="{{ 'Logout'|trans }}">{{ 'Logout'|trans }} ( {{ app.user }} )</a></li>
 {% else %}
     {# TODO: add check if user registration is enabled #}
     {% if true %}
@@ -16,15 +16,15 @@
     <li id="login" class="transition-showed">
         <a href="#login" title="show login form" class="show-login-form">{{ 'Login'|trans }}</a>
         <a href="#" title="hide login form" class="hide-login-form">{{ 'Login'|trans }}</a>
-        <form class="login-form span3" action="{{ path( 'ez_legacy', {'module_uri': '/user/login'} ) }}" method="post">
+        <form class="login-form span3" action="{{ path( 'login_check' ) }}" method="post">
             <fieldset>
                 <label>
                     <span class="hidden">{{ 'Username'|trans }}</span>
-                    <input type="text" name="Login" id="login-username" placeholder="Username">
+                    <input type="text" name="_username" id="login-username" placeholder="Username">
                 </label>
                 <label>
                     <span class="hidden">{{ 'Password'|trans }}</span>
-                    <input type="password" name="Password" id="login-password" placeholder="Password">
+                    <input type="password" name="_password" id="login-password" placeholder="Password">
                 </label>
                 <div class="clearfix">
                     <a href="{{ path( 'ez_legacy', {'module_uri': '/user/forgotpassword'} ) }}" class="forgot-password">{{ 'Forgot your password?'|trans }}</a>
@@ -33,7 +33,7 @@
                     </button>
                 </div>
             </fieldset>
-            <input type="hidden" name="RedirectURI" value="" />
+            <input type="hidden" name="_target_path" value="" />
         </form>
     </li>
 {% endif %}

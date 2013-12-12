@@ -38,7 +38,7 @@
     <div class="container">
         <div class="row">
             <!-- Main area: START -->
-            <div class="span{% set innerColumnSize = innerColumnSize|default( 12 ) %} main-content">
+            <div class="span{{ innerColumnSize|default( 12 ) }} main-content">
                 {% block content %}{% endblock %}
             </div>
             <!-- Main area: END -->
