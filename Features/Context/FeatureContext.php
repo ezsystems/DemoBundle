@@ -28,6 +28,27 @@ class FeatureContext extends BrowserContext
         $this->parameters = $parameters;
         $this->pageIdentifierMap += array(
             "Search Page" => "/content/search",
+            "Blog"   => "/Blog",
+            "it's helping me optimizing my business" => "/Blog/It-s-helping-me-optimizing-my-business",
+            "this will be our magic recipe" => "/Blog/This-will-be-our-magic-recipe",
+            "January 2013" => "/Blog/%28month%29/1/%28year%29/2013",
+            "March 2012" => "/Blog/(month)/3/(year)/2012",
+            "Blog Post (1)" => "/content/keyword/Blog Post",
+            "cxm (1)" => "/content/keyword/cxm",
+            "eZ Publish (1)" => "/content/keyword/eZ Publish",
+            "landing page (1)" => "/content/keyword/landing page",
+            "Social (1)" => "/content/keyword/Social",
+            "Blog Post" => "/content/keyword/Blog Post",
+            "cxm" => "/content/keyword/cxm",
+            "eZ Publish" => "/content/keyword/eZ Publish",
+            "landing page" => "/content/keyword/landing page"
+        );
+
+        // specify the tags for specific content
+        $this->mainAttributes += array(
+            "tag cloud"     => array( "class" => "attribute-tag-cloud" ),
+            "tag"           => array( "class" => "attribute-tag" ),
+            "archive"       => array( "class" => "attribute-archive" )
         );
     }
 }
