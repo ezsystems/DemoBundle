@@ -3,9 +3,13 @@ siteaccess:
         ezdemo_frontend_group:
             - ezdemo_site
             - eng
+            - fre
 
 system:
     ezdemo_frontend_group:
+        user:
+            layout: eZDemoBundle::pagelayout.html.twig
+            login_template: eZDemoBundle:Security:login.html.twig
         location_view:
             full:
                 article:
