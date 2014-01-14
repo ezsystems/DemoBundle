@@ -5,7 +5,9 @@
 {% if false %}
     <li id="shoppingbasket"><a href="{{ path( 'ez_legacy', {'module_uri': '/shop/basket/'} ) }}" title="{{ 'Shopping basket'|trans }}">{{ 'Shopping basket'|trans }}</a></li>
 {% endif %}
-{% if is_granted( 'IS_AUTHENTICATED_FULLY' ) %}
+{# Using IS_AUTHENTICATED_REMEMBERED to check if user is logged in as he can come back from another session, with "remember me" token. #}
+{# IS_AUTHENTICATED_FULLY inherits from IS_AUTHENTICATED_REMEMBERED, so a fully authenticated user will also have this role. #}
+{% if is_granted( 'IS_AUTHENTICATED_REMEMBERED' ) %}
     <li id="myprofile"><a href="{{ path( 'ez_legacy', {'module_uri': '/user/edit/'} ) }}" title="{{ 'My profile'|trans }}">{{ 'My profile'|trans }}</a></li>
     <li id="logout"><a href="{{ path( 'logout' ) }}" title="{{ 'Logout'|trans }}">{{ 'Logout'|trans }} ( {{ app.user }} )</a></li>
 {% else %}
