@@ -1,0 +1,4 @@
+{% extends "eZDemoBundle::pagelayout.html.twig" %}
+
+{# module_result variable is received from the legacy controller. #}
+{% block content %}{{ module_result.content|raw }}{% endblock %}
