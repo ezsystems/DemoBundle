@@ -27,7 +27,7 @@ class FeatureContext extends BrowserContext
     {
         $this->parameters = $parameters;
         $this->pageIdentifierMap += array(
-            "Search Page" => "/content/search",
+            "Search" => "/content/search",
         );
     }
 }
