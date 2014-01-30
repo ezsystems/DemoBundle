@@ -7,13 +7,13 @@ Feature: Start page
     Scenario: Search works from the start page
         Given I am on the homepage
          When I search for "Home"
-         Then I am on the "Search Page"
+         Then I see "Search" page
           And I see search 1 result
 
     # @todo Expand test to also verify that we are actually logged in
     @javascript
     Scenario: Login using inline javascript form
-        Given I go to the "Search Page"
+        Given I go to the "Search" page
           And I follow "Login"
          When I fill in "Username" with "admin"
           And I fill in "Password" with "publish"
