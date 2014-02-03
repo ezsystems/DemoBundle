@@ -1,0 +1,10 @@
+{#
+  Displays a list of places.
+  Expected parameters :
+      - places: a list of place Content
+#}
+{% for place in places %}
+    {# Using render_esi to benefit from the caching system #}
+    {{ render_esi( controller( 'ez_content:viewLocation', { 'locationId': place.contentInfo.mainLocationId, 'viewType': 'line'} ) ) }}
+{% endfor %}
+

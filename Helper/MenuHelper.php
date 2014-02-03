@@ -14,7 +14,6 @@ use eZ\Publish\API\Repository\Values\Content\Location;
 use eZ\Publish\API\Repository\Values\Content\Query;
 use eZ\Publish\API\Repository\Values\Content\Query\Criterion;
 use eZ\Publish\API\Repository\Values\Content\Query\SortClause;
-use eZ\Publish\API\Repository\Values\Content\Search\SearchResult;
 
 /**
  * Helper for menus
@@ -33,10 +32,16 @@ class MenuHelper
      */
     private $defaultMenuLimit;
 
-    public function __construct( Repository $repository, $defaultMenuLimit )
+    /**
+     * @var \EzSystems\DemoBundle\Helper\SearchHelper
+     */
+    private $searchHelper;
+
+    public function __construct( Repository $repository, $defaultMenuLimit, SearchHelper $searchHelper )
     {
         $this->repository = $repository;
         $this->defaultMenuLimit = $defaultMenuLimit;
+        $this->searchHelper = $searchHelper;
     }
 
     /**
@@ -68,7 +73,7 @@ class MenuHelper
         );
         $query->limit = $this->defaultMenuLimit;
 
-        return $this->buildContentListFromSearchResult( $this->repository->getSearchService()->findContent( $query ) );
+        return $this->searchHelper->buildContentListFromSearchResult( $this->repository->getSearchService()->findContent( $query ) );
     }
 
     /**
@@ -103,25 +108,7 @@ class MenuHelper
         );
         $query->limit = $limit ?: $this->defaultMenuLimit;
 
-        return $this->buildContentListFromSearchResult( $this->repository->getSearchService()->findContent( $query ) );
+        return $this->searchHelper->buildContentListFromSearchResult( $this->repository->getSearchService()->findContent( $query ) );
     }
 
-    /**
-     * Builds a Content list from $searchResult.
-     * Returned array consists of a hash of Content objects, indexed by their ID.
-     *
-     * @param \eZ\Publish\API\Repository\Values\Content\Search\SearchResult $searchResult
-     *
-     * @return \eZ\Publish\API\Repository\Values\Content\Content[]
-     */
-    private function buildContentListFromSearchResult( SearchResult $searchResult )
-    {
-        $contentList = array();
-        foreach ( $searchResult->searchHits as $searchHit )
-        {
-            $contentList[$searchHit->valueObject->contentInfo->id] = $searchHit->valueObject;
-        }
-
-        return $contentList;
-    }
 }
