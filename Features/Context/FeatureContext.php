@@ -30,4 +30,16 @@ class FeatureContext extends BrowserContext
             "Search" => "/content/search",
         );
     }
+
+    /**
+     * @Given /^I am changing password$/
+     */
+    public function iEditPassword()
+    {
+        return array(
+            new Step\Given( 'I am on "My profile" page' ),
+            new Step\When( 'I click at "Change password" button' ),
+            new Step\Then( 'I see "Change password" page' ),
+        );
+    }
 }
