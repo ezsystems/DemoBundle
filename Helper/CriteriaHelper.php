@@ -72,15 +72,17 @@ class CriteriaHelper
      *
      * @param \eZ\Publish\API\Repository\Values\Content\Location $location Location of the blog
      * @param array $viewParameters: View parameters of the blog view
+     * @param string[] $languages Array of languages
      *
      * @return \eZ\Publish\API\Repository\Values\Content\Query\Criterion
      */
-    public function generateListBlogPostCriterion( Location $location, array $viewParameters )
+    public function generateListBlogPostCriterion( Location $location, array $viewParameters, array $languages = array() )
     {
         $criteria = array();
         $criteria[] = new Criterion\Visibility( Criterion\Visibility::VISIBLE );
         $criteria[] = new Criterion\Subtree( $location->pathString );
         $criteria[] = new Criterion\ContentTypeIdentifier( array( 'blog_post' ) );
+        $criteria[] = new Criterion\LanguageCode( $languages );
 
         if ( !empty( $viewParameters ) )
         {
