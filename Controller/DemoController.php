@@ -145,17 +145,20 @@ class DemoController extends Controller
             ->getContentService()
             ->loadContentByContentInfo( $location->getContentInfo() );
 
+        // Getting language for the current siteaccess
+        $languages = $this->getConfigResolver()->getParameter( 'languages' );
+
         // Using the criteria helper (a demobundle custom service) to generate our query's criteria.
         // This is a good practice in order to have less code in your controller.
         $criteria = $this->get( 'ezdemo.criteria_helper' )->generateListBlogPostCriterion(
-            $location, $viewParameters
+            $location, $viewParameters, $languages
         );
 
         // Generating query
         $query = new Query();
         $query->criterion = $criteria;
         $query->sortClauses = array(
-            new SortClause\Field( 'blog_post', 'publication_date', Query::SORT_DESC, 'eng-GB' )
+            new SortClause\Field( 'blog_post', 'publication_date', Query::SORT_DESC, $languages[0] )
         );
 
         // Initialize pagination.
