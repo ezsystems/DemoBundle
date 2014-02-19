@@ -9,7 +9,7 @@
 {# IS_AUTHENTICATED_FULLY inherits from IS_AUTHENTICATED_REMEMBERED, so a fully authenticated user will also have this role. #}
 {% if is_granted( 'IS_AUTHENTICATED_REMEMBERED' ) %}
     <li id="myprofile"><a href="{{ path( 'ez_legacy', {'module_uri': '/user/edit/'} ) }}" title="{{ 'My profile'|trans }}">{{ 'My profile'|trans }}</a></li>
-    <li id="logout"><a href="{{ path( 'logout' ) }}" title="{{ 'Logout'|trans }}">{{ 'Logout'|trans }} ( {{ app.user }} )</a></li>
+    <li id="logout"><a href="{{ path( 'logout' ) }}" title="{{ 'Logout'|trans }}">{{ 'Logout'|trans }} ( {{ app.user.username }} )</a></li>
 {% else %}
     {# TODO: add check if user registration is enabled #}
     {% if true %}
