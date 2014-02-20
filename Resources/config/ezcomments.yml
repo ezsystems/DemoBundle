@@ -1,0 +1,14 @@
+system:
+    ezdemo_site_group:
+        default_provider: no_comments
+        disqus:
+            shortname: ezpublishplatformdemo
+        content_comments:
+            blog_post:
+                enabled: true
+                provider: disqus
+                match:
+                    Identifier\ContentType:
+                        - article
+                        - blog_post
+
