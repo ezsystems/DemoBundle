@@ -49,5 +49,8 @@ class eZDemoExtension extends Extension implements PrependExtensionInterface
 
         $ezpageConfig = Yaml::parse( __DIR__ . '/../Resources/config/ezpage.yml' );
         $container->prependExtensionConfig( 'ezpublish', $ezpageConfig );
+
+        $ezCommentsConfig = Yaml::parse( __DIR__ . '/../Resources/config/ezcomments.yml' );
+        $container->prependExtensionConfig( 'ez_comments', $ezCommentsConfig );
     }
 }
