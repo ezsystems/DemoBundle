@@ -14,6 +14,9 @@
 </head>
 <body>
 <!-- Complete page area: START -->
+{% if location is defined %}
+    {{ render( controller( "ezpublish_legacy.website_toolbar.controller:websiteToolbarAction", { 'locationId': location.id} ) ) }}
+{% endif %}
 <div id="page" class="">
     <!-- Header area: START -->
     {% block header %}
