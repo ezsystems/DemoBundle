@@ -25,6 +25,7 @@ class FeatureContext extends BrowserContext
      */
     public function __construct( array $parameters )
     {
+        parent::__construct( $parameters );
         $this->parameters = $parameters;
         $this->pageIdentifierMap += array(
             "Search" => "/content/search",
