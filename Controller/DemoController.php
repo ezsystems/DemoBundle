@@ -14,6 +14,7 @@ use eZ\Publish\API\Repository\Values\Content\Location;
 use eZ\Publish\Core\Pagination\Pagerfanta\ContentSearchAdapter;
 use Pagerfanta\Pagerfanta;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use eZ\Publish\API\Repository\Values\Content\Query;
 use eZ\Publish\API\Repository\Values\Content\Query\SortClause;
 
@@ -141,6 +142,11 @@ class DemoController extends Controller
         // Getting location and content from ezpublish dedicated services
         $repository = $this->getRepository();
         $location = $repository->getLocationService()->loadLocation( $locationId );
+        if ( $location->invisible )
+        {
+           throw new NotFoundHttpException( "Location #$locationId cannot be displayed as it is flagged as invisible." );
+        }
+
         $content = $repository
             ->getContentService()
             ->loadContentByContentInfo( $location->getContentInfo() );
