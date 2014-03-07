@@ -15,6 +15,14 @@ parameters:
     ezdemo.article.full_view.show_summary: true
     # Decide whether to show or hide article image in the full view
     ezdemo.article.full_view.show_image: true
+    # Minimum distance in km for the places lookup
+    ezdemo.places.place_list.min: 0
+    # Maximum distance in km for the places lookup
+    ezdemo.places.place_list.max: 20000
+
+    # List of content types to be displayed in the place list
+    ezdemo.places.place_list.content_types:
+        - place
 
     ## Cache settings
     ezdemo.cache.feed_reader_ttl: 3600

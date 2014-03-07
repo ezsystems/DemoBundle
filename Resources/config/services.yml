@@ -1,6 +1,8 @@
 parameters:
     ezdemo.criteria_helper.class: EzSystems\DemoBundle\Helper\CriteriaHelper
     ezdemo.menu_helper.class: EzSystems\DemoBundle\Helper\MenuHelper
+    ezdemo.place_helper.class: EzSystems\DemoBundle\Helper\PlaceHelper
+    ezdemo.search_helper.class: EzSystems\DemoBundle\Helper\SearchHelper
     # Default limit that will be applied when retrieving content for menus.
     ezdemo.menu_helper.default_limit: 10
 
@@ -12,4 +14,16 @@ services:
 
     ezdemo.menu_helper:
         class: %ezdemo.menu_helper.class%
-        arguments: [@ezpublish.api.repository, %ezdemo.menu_helper.default_limit%]
+        arguments: [@ezpublish.api.repository, %ezdemo.menu_helper.default_limit%, @ezdemo.search_helper]
+
+    ezdemo.place_helper:
+            class: %ezdemo.place_helper.class%
+            arguments:
+                - @ezpublish.api.service.location
+                - @ezpublish.api.service.search
+                - @ezdemo.search_helper
+                - %ezdemo.places.place_list.min%
+                - %ezdemo.places.place_list.max%
+
+    ezdemo.search_helper:
+        class: %ezdemo.search_helper.class%

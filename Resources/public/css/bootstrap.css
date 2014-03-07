@@ -5131,3 +5131,43 @@ div.ezcom-setting-mail {
 #ezwt-content input[disabled] {
   background-color: transparent;
 }
+.place-list-loading {
+  opacity: 0.5;
+  -webkit-transition: all 0.3s ease;
+  -moz-transition: all 0.3s ease;
+  -ms-transition: all 0.3s ease;
+  -o-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+}
+.place-list-image {
+  margin-left: 0;
+  margin-right: 0;
+  text-align: center;
+}
+.place-list-link {
+  float: right;
+}
+.place-list-form {
+  float: right;
+  max-width: 220px;
+}
+.place-list-text-error {
+  color: #b94a48;
+  font-weight: bold;
+  text-align: center;
+}
+.place-list-text-info {
+  color: #007ea6;
+  font-weight: bold;
+  text-align: center;
+}
+@media (max-width: 760px) {
+  .place-list-form {
+    float: none;
+    max-width: 100%;
+    text-align: center;
+  }
+}
+.yui3-js-enabled .jsenable-place-list-info {
+  display: none;
+}

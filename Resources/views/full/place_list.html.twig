@@ -1,0 +1,94 @@
+{% extends "eZDemoBundle::pagelayout.html.twig" %}
+
+{% block content %}
+    <section class="content-view-full">
+        <div class="place-list-form">
+            <form action="">
+                <p>
+                    <select id="max-dist-place-list" disabled="disabled">
+                        <option value="1000">{{ 'within 1000km'|trans }}</option>
+                        <option value="100">{{ 'within 100km'|trans }}</option>
+                        <option value="10">{{ 'within 10km'|trans }}</option>
+                        <option value="1">{{ 'within 1km'|trans }}</option>
+                    </select>
+                </p>
+                <p>
+                    <button class="btn btn-warning btn-large" id="sort-place-list" disabled="disabled">
+                        {{ 'Show me places close to me'|trans }}
+                    </button>
+                </p>
+            </form>
+            <p id="sort-place-list-errors" class="place-list-text-error"></p>
+            <p class="jsenable-place-list-info place-list-text-info">
+                {{ 'Javascript must be enabled in order to use the place list feature'|trans }}
+            </p>
+        </div>
+        <div class="row">
+            <div class="span8">
+                <h1>{{ ez_render_field( content, 'name') }}</h1>
+
+                <div id="place-list-container">
+                    {{ render( controller(
+                            'eZDemoBundle:Place:listPlaceList',
+                                { 'locationId': location.id }
+                            )
+                        )
+                    }}
+                </div>
+            </div>
+        </div>
+    </section>
+    <script>
+        YUI(YUI3_config).use('io-base', 'node', function(Y) {
+            //Generating URL with keys values that will be replaced when clicking
+            var uri = '{{ path(
+                        'ezpublish_ezdemo_ajax_sorted_place_list',
+                        {'locationId': location.id, 'latitude': 'key_lat', 'longitude': 'key_lon','maxDist': 'key_dist'}
+                        ) }}',
+                noGeoLocateMsg = '{{ 'Geolocation feature is not available on your browser, please consider updating it.'|trans }}',
+                disabledGeoLocateMsg = '{{ 'Geolocation feature is disabled on your browser. Check the permission settings to allow it.'|trans }}',
+                ajaxErrorMsg = '{{ 'Your request has failed, please try again later.'|trans }}',
+                container = Y.one('#place-list-container'),
+                button = Y.one('#sort-place-list'),
+                errorContainer = Y.one('#sort-place-list-errors'),
+                distanceList = Y.one('#max-dist-place-list');
+
+            if ("geolocation" in navigator) {
+                button.set('disabled', false);
+                distanceList.set('disabled', false);
+            }else{
+                errorContainer.setHTML(noGeoLocateMsg);
+            }
+
+            button.on('click', function (e) {
+                e.preventDefault();
+                container.addClass('place-list-loading');
+
+                navigator.geolocation.getCurrentPosition(function (position) {
+                    var config = {
+                            method: 'GET',
+                            on: {
+                                success: function (id, response) {
+                                    container.setHTML(response.responseText);
+                                    container.removeClass('place-list-loading');
+                                },
+                                failure: function (id, response) {
+                                    container.removeClass('place-list-loading');
+                                    errorContainer.setHTML(ajaxErrorMsg);
+                                }
+                            }
+                        },
+                        maxDist = distanceList.get('value');
+
+                    Y.io(
+                        uri.replace('key_lat', position.coords.latitude).replace('key_lon', position.coords.longitude).replace('key_dist', maxDist),
+                        config
+                    );
+                }, function () {
+                    container.removeClass('place-list-loading');
+                    errorContainer.setHTML(disabledGeoLocateMsg);
+                }, {timeout:3000});
+            });
+        });
+    </script>
+{% endblock %}
