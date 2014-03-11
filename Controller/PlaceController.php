@@ -65,6 +65,8 @@ class PlaceController extends Controller
         /** @var \EzSystems\DemoBundle\Helper\PlaceHelper $placeHelper */
         $placeHelper = $this->get( 'ezdemo.place_helper' );
 
+        $languages = $this->getConfigResolver()->getParameter( 'languages' );
+        $language = ( !empty( $languages ) ) ? $languages[0] : null;
         $sortClauses = array(
             new SortClause\MapLocationDistance(
                 "place",
@@ -72,7 +74,7 @@ class PlaceController extends Controller
                 $latitude,
                 $longitude,
                 Query::SORT_ASC,
-                $this->getConfigResolver()->getParameter( 'languages' )[0]
+                $language
             )
         );
 
