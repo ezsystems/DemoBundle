@@ -3,7 +3,7 @@
     - field / versionInfo / parameters are additional variables passed to every field template block. See EzPublishCodeBundle::content_fields_html.twig
  #}
 {% block ezimage_field %}
-    {% if field.value %}
+    {% if not ez_is_field_empty( content, field ) %}
         {% set image_alias = ez_image_alias( field, versionInfo, parameters.alias|default( 'original' ) ) %}
         <img src="{{ asset( image_alias.uri ) }}" width="{{ image_alias.width }}" height="{{ image_alias.height }}" alt="{{ parameters.alt|default( field.value.alternativeText ) }}" />
     {% endif %}
