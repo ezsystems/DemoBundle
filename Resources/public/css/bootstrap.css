@@ -315,46 +315,46 @@ a.teaser-link:focus h5,
 }
 .row-fluid > [class*="span"] {
   float: left;
-  margin-left: 2.127659574%;
+  margin-left: 2.12765957%;
 }
 .row-fluid > [class*="span"]:first-child {
   margin-left: 0;
 }
 .row-fluid > .span1 {
-  width: 6.382978723%;
+  width: 6.38297872%;
 }
 .row-fluid > .span2 {
   width: 14.89361702%;
 }
 .row-fluid > .span3 {
-  width: 23.404255317%;
+  width: 23.40425532%;
 }
 .row-fluid > .span4 {
-  width: 31.914893614%;
+  width: 31.91489361%;
 }
 .row-fluid > .span5 {
-  width: 40.425531911%;
+  width: 40.42553191%;
 }
 .row-fluid > .span6 {
-  width: 48.93617020799999%;
+  width: 48.93617021%;
 }
 .row-fluid > .span7 {
-  width: 57.446808505%;
+  width: 57.44680851%;
 }
 .row-fluid > .span8 {
-  width: 65.95744680199999%;
+  width: 65.9574468%;
 }
 .row-fluid > .span9 {
-  width: 74.468085099%;
+  width: 74.4680851%;
 }
 .row-fluid > .span10 {
-  width: 82.97872339599999%;
+  width: 82.9787234%;
 }
 .row-fluid > .span11 {
-  width: 91.489361693%;
+  width: 91.48936169%;
 }
 .row-fluid > .span12 {
-  width: 99.99999998999999%;
+  width: 99.99999999%;
 }
 .container {
   width: 940px;
@@ -551,11 +551,11 @@ aside {
 aside > .subnavigation > ul {
   background-color: rgba(219, 219, 220, 0);
   background-repeat: repeat-x;
-  background-image: -moz-linear-gradient(-45deg, rgba(219, 219, 220, 0.30000000000000004), rgba(219, 219, 220, 0));
-  background-image: -ms-linear-gradient(-45deg, rgba(219, 219, 220, 0.30000000000000004), rgba(219, 219, 220, 0));
-  background-image: -webkit-linear-gradient(-45deg, rgba(219, 219, 220, 0.30000000000000004), rgba(219, 219, 220, 0));
-  background-image: -o-linear-gradient(-45deg, rgba(219, 219, 220, 0.30000000000000004), rgba(219, 219, 220, 0));
-  background-image: linear-gradient(-45deg, rgba(219, 219, 220, 0.30000000000000004), rgba(219, 219, 220, 0));
+  background-image: -moz-linear-gradient(-45deg, rgba(219, 219, 220, 0.3), rgba(219, 219, 220, 0));
+  background-image: -ms-linear-gradient(-45deg, rgba(219, 219, 220, 0.3), rgba(219, 219, 220, 0));
+  background-image: -webkit-linear-gradient(-45deg, rgba(219, 219, 220, 0.3), rgba(219, 219, 220, 0));
+  background-image: -o-linear-gradient(-45deg, rgba(219, 219, 220, 0.3), rgba(219, 219, 220, 0));
+  background-image: linear-gradient(-45deg, rgba(219, 219, 220, 0.3), rgba(219, 219, 220, 0));
 }
 aside > .subnavigation > ul li {
   border-bottom: 1px solid #dbdbdc;
@@ -593,22 +593,16 @@ aside > .content-view-aside {
 aside > .content-view-aside:first-child {
   background: -moz-linear-gradient(top, #ffffff 0px, rgba(255, 255, 255, 0) 30px);
   /* FF3.6+ */
-
   background: -webkit-gradient(linear, left top, left bottom, color-stop(0px, #ffffff), color-stop(30px, rgba(255, 255, 255, 0)));
   /* Chrome,Safari4+ */
-
   background: -webkit-linear-gradient(top, #ffffff 0px, rgba(255, 255, 255, 0) 30px);
   /* Chrome10+,Safari5.1+ */
-
   background: -o-linear-gradient(top, #ffffff 0px, rgba(255, 255, 255, 0) 30px);
   /* Opera 11.10+ */
-
   background: -ms-linear-gradient(top, #ffffff 0px, rgba(255, 255, 255, 0) 30px);
   /* IE10+ */
-
   background: linear-gradient(top, #ffffff 0px, rgba(255, 255, 255, 0) 30px);
   /* W3C */
-
 }
 aside > .content-view-aside .product-main {
   *zoom: 1;
@@ -645,11 +639,11 @@ aside > .content-view-aside .block-content {
   padding: 20px;
   background-color: rgba(219, 219, 220, 0);
   background-repeat: repeat-x;
-  background-image: -moz-linear-gradient(-45deg, rgba(219, 219, 220, 0.30000000000000004), rgba(219, 219, 220, 0));
-  background-image: -ms-linear-gradient(-45deg, rgba(219, 219, 220, 0.30000000000000004), rgba(219, 219, 220, 0));
-  background-image: -webkit-linear-gradient(-45deg, rgba(219, 219, 220, 0.30000000000000004), rgba(219, 219, 220, 0));
-  background-image: -o-linear-gradient(-45deg, rgba(219, 219, 220, 0.30000000000000004), rgba(219, 219, 220, 0));
-  background-image: linear-gradient(-45deg, rgba(219, 219, 220, 0.30000000000000004), rgba(219, 219, 220, 0));
+  background-image: -moz-linear-gradient(-45deg, rgba(219, 219, 220, 0.3), rgba(219, 219, 220, 0));
+  background-image: -ms-linear-gradient(-45deg, rgba(219, 219, 220, 0.3), rgba(219, 219, 220, 0));
+  background-image: -webkit-linear-gradient(-45deg, rgba(219, 219, 220, 0.3), rgba(219, 219, 220, 0));
+  background-image: -o-linear-gradient(-45deg, rgba(219, 219, 220, 0.3), rgba(219, 219, 220, 0));
+  background-image: linear-gradient(-45deg, rgba(219, 219, 220, 0.3), rgba(219, 219, 220, 0));
   border-top: 1px solid #ebebeb;
 }
 aside > .content-view-aside article a.teaser-link,
@@ -1404,11 +1398,11 @@ aside > .content-view-aside:last-child > article:last-child:after {
   margin-bottom: 0;
   background-color: rgba(219, 219, 220, 0);
   background-repeat: repeat-x;
-  background-image: -moz-linear-gradient(-45deg, rgba(219, 219, 220, 0.30000000000000004), rgba(219, 219, 220, 0));
-  background-image: -ms-linear-gradient(-45deg, rgba(219, 219, 220, 0.30000000000000004), rgba(219, 219, 220, 0));
-  background-image: -webkit-linear-gradient(-45deg, rgba(219, 219, 220, 0.30000000000000004), rgba(219, 219, 220, 0));
-  background-image: -o-linear-gradient(-45deg, rgba(219, 219, 220, 0.30000000000000004), rgba(219, 219, 220, 0));
-  background-image: linear-gradient(-45deg, rgba(219, 219, 220, 0.30000000000000004), rgba(219, 219, 220, 0));
+  background-image: -moz-linear-gradient(-45deg, rgba(219, 219, 220, 0.3), rgba(219, 219, 220, 0));
+  background-image: -ms-linear-gradient(-45deg, rgba(219, 219, 220, 0.3), rgba(219, 219, 220, 0));
+  background-image: -webkit-linear-gradient(-45deg, rgba(219, 219, 220, 0.3), rgba(219, 219, 220, 0));
+  background-image: -o-linear-gradient(-45deg, rgba(219, 219, 220, 0.3), rgba(219, 219, 220, 0));
+  background-image: linear-gradient(-45deg, rgba(219, 219, 220, 0.3), rgba(219, 219, 220, 0));
   border-width: 1px 0 0 0;
   -webkit-border-image: -webkit-gradient(linear, 100% 0, 0 0, from(#ebebeb), to(rgba(235, 235, 235, 0))) 1 100%;
   -webkit-border-image: -webkit-linear-gradient(right, #ebebeb, rgba(235, 235, 235, 0)) 1 100%;
@@ -1566,7 +1560,6 @@ aside > .content-view-aside:last-child > article:last-child:after {
   padding-top: 0.1em;
   display: inline;
   /* Fix for IE */
-
 }
 .calendar .month .previous p,
 .calendar .month .next p {
@@ -2235,7 +2228,6 @@ input[type="radio"] {
   margin: 3px 0;
   *margin-top: 0;
   /* IE7 */
-
   line-height: normal;
   cursor: pointer;
   -webkit-border-radius: 0;
@@ -2243,7 +2235,6 @@ input[type="radio"] {
   border-radius: 0;
   border: 0 \9;
   /* IE9 and down */
-
 }
 input[type="image"] {
   border: 0;
@@ -2269,10 +2260,8 @@ select,
 input[type="file"] {
   height: 28px;
   /* In IE7, the height of the select element cannot be changed by height, only font-size */
-
   *margin-top: 4px;
   /* For IE7, add top margin to align select with labels */
-
   line-height: 28px;
 }
 input[type="file"] {
@@ -2341,7 +2330,6 @@ textarea:focus {
   outline: 0;
   outline: thin dotted \9;
   /* IE6-9 */
-
 }
 input[type="file"]:focus,
 input[type="radio"]:focus,
@@ -2578,7 +2566,6 @@ textarea:focus ::-webkit-input-placeholder {
   display: inline-block;
   *display: inline;
   /* IE7 inline-block hack */
-
   *zoom: 1;
   margin-bottom: 9px;
   vertical-align: middle;
@@ -2647,7 +2634,6 @@ textarea:focus ::-webkit-input-placeholder {
 .input-prepend .add-on {
   *margin-top: 1px;
   /* IE6-7 */
-
 }
 .input-append input,
 .input-append .uneditable-input {
@@ -2926,7 +2912,7 @@ table.list.table-colorized th {
 }
 table.list.table-colorized td:nth-child(even),
 table.list.table-colorized th:nth-child(even) {
-  background-color: rgba(0, 126, 166, 0.06999999999999995);
+  background-color: rgba(0, 126, 166, 0.07);
 }
 table.list tbody tr:hover td,
 table.list tbody tr:hover th {
@@ -3404,7 +3390,6 @@ input[type="submit"].btn.small {
   display: inline-block;
   *display: inline;
   /* IE7 inline-block hack */
-
   *zoom: 1;
 }
 .btn-group .btn {
@@ -4298,7 +4283,6 @@ input[type="submit"].btn.small {
   display: inline-block;
   *display: inline;
   /* IE7 inline-block hack */
-
   *zoom: 1;
   margin-left: 0;
   margin-bottom: 0;
@@ -5125,7 +5109,8 @@ div.ezcom-setting-mail {
   font-size: 1.25em;
   padding: 1px;
 }
-/*-----SETTING------*/#ezwt-content input {
+/*-----SETTING------*/
+#ezwt-content input {
   vertical-align: baseline;
 }
 #ezwt-content input[disabled] {
