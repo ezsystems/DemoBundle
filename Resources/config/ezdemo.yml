@@ -39,6 +39,10 @@ system:
                     template: "eZDemoBundle:full:place_list.html.twig"
                     match:
                         Identifier\ContentType: [place_list]
+                place:
+                    template: "eZDemoBundle:full:place.html.twig"
+                    match:
+                        Identifier\ContentType: [place]
 
             line:
                 article:
