@@ -15,8 +15,8 @@ Feature: Start page
     @javascript
     Scenario: Login using inline javascript form
         Given I go to the "Search" page
-          And I follow "Login"
-         When I fill in "Username" with "admin"
-          And I fill in "Password" with "publish"
+          And I follow "show login form"
+         When I fill in "login-username" with "admin"
+          And I fill in "login-password" with "publish"
           And I press "Login"
          Then I am on the homepage
