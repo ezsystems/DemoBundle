@@ -16,6 +16,11 @@
 <link rel="Author" href="/ezinfo/about"/>
 <link rel="Alternate" type="application/rss+xml" title="RSS" href="/rss/feed/my_feed"/>
 
+{# adding canonical url for all defined content #}
+{% if content is defined %}
+    <link rel="canonical" href="{{ path( 'ez_urlalias', {'locationId': content.contentInfo.mainLocationId} ) }}" />
+{% endif %}
+
 <script type="text/javascript">
     (function () {
         var head = document.getElementsByTagName('head')[0];
