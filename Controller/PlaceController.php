@@ -25,12 +25,13 @@ class PlaceController extends Controller
      */
     public function listPlaceListAction( $locationId )
     {
-        /** @var PlaceHelper $placeHelper */
+        /** @var \EzSystems\DemoBundle\Helper\PlaceHelper $placeHelper */
         $placeHelper = $this->get( 'ezdemo.place_helper' );
 
         $places = $placeHelper->getPlaceList(
             $locationId,
-            $this->container->getParameter( 'ezdemo.places.place_list.content_types' )
+            $this->container->getParameter( 'ezdemo.places.place_list.content_types' ),
+            $this->getConfigResolver()->getParameter( 'languages' )
         );
 
         return $this->render(
@@ -84,7 +85,8 @@ class PlaceController extends Controller
             $longitude,
             $this->container->getParameter( 'ezdemo.places.place_list.content_types' ),
             $maxDist,
-            $sortClauses
+            $sortClauses,
+            $languages
         );
 
         return $this->render(

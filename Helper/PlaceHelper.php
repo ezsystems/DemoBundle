@@ -69,10 +69,11 @@ class PlaceHelper
      *
      * @param int|string $locationId id of a place_list
      * @param string|string[] $contentTypes to be retrieved
+     * @param string|string[] $languages to be retrieved
      *
      * @return \eZ\Publish\API\Repository\Values\Content\Content[]
      */
-    public function getPlaceList( $locationId, $contentTypes )
+    public function getPlaceList( $locationId, $contentTypes, $languages = array() )
     {
         $location = $this->locationService->loadLocation( $locationId );
 
@@ -81,6 +82,7 @@ class PlaceHelper
             array(
                 new Criterion\ContentTypeIdentifier( $contentTypes ),
                 new Criterion\Subtree( $location->pathString ),
+                new Criterion\LanguageCode( $languages )
             )
         );
 
@@ -99,10 +101,11 @@ class PlaceHelper
      * @param string|string[] $contentTypes to be retrieved
      * @param int $maxDist Maximum distance for the search in km
      * @param array $sortClauses
+     * @param string|string[] $languages to be retrieved
      *
      * @return \eZ\Publish\API\Repository\Values\Content\Content[]
      */
-    public function getPlaceListSorted( $locationId, $latitude, $longitude, $contentTypes, $maxDist = null, $sortClauses = array() )
+    public function getPlaceListSorted( $locationId, $latitude, $longitude, $contentTypes, $maxDist = null, $sortClauses = array(), $languages = array() )
     {
         $location = $this->locationService->loadLocation( $locationId );
 
@@ -116,6 +119,7 @@ class PlaceHelper
             array(
                 new Criterion\ContentTypeIdentifier( $contentTypes ),
                 new Criterion\Subtree( $location->pathString ),
+                new Criterion\LanguageCode( $languages ),
                 new Criterion\MapLocationDistance(
                     "location",
                     Criterion\Operator::BETWEEN,
