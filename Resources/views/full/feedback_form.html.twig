@@ -1,0 +1,99 @@
+{% extends "eZDemoBundle::pagelayout.html.twig" %}
+
+{# Customizing the error message to add a css class since form_errors doesn't accept parameters #}
+{% form_theme form _self %}
+
+{% block form_errors %}
+    {% if errors|length > 0 %}
+        <span class="help-inline">
+            {% for error in errors %}
+                {{ error.message }}
+                {% if not loop.last %},{% endif %}
+            {% endfor %}
+        </span>
+    {% endif %}
+{% endblock form_errors %}
+
+{% block content %}
+
+<section class="content-view-full">
+    <div class="row">
+        <div class="span8">
+
+            <div class="attribute-header">
+                <h1>{{ ez_render_field( content, 'name' ) }}</h1>
+            </div>
+
+            <div class="attribute-short">
+                {{ ez_render_field( content, 'description' ) }}
+            </div>
+
+            {% for flashMessage in app.session.flashbag.get('notice') %}
+                <p class="form-success">
+                    {{ flashMessage }}
+                </p>
+
+            {% else %}
+                {{ form_start( form ) }}
+
+                <div class="row">
+                    {{ form_errors( form ) }}
+                </div>
+
+                <div class="control-group {% if form.firstName.vars.errors %}error{% endif %}">
+                    {{ form_label( form.firstName, 'First Name'|trans,  { 'attr': {'class': 'control-label'}} ) }}
+                    <div class="controls">
+                        {{ form_widget( form.firstName, { 'attr': {'class': 'span4'}} ) }}
+                        {{ form_errors( form.firstName ) }}
+                    </div>
+                </div>
+
+                <div class="control-group {% if form.lastName.vars.errors %}error{% endif %}">
+                    {{ form_label( form.lastName, 'Last Name'|trans,  { 'attr': {'class': 'control-label'}} ) }}
+                    <div class="controls">
+                        {{ form_widget( form.lastName, { 'attr': {'class': 'span4'}} ) }}
+                        {{ form_errors( form.lastName ) }}
+                    </div>
+                </div>
+
+                <div class="control-group {% if form.email.vars.errors %}error{% endif %}">
+                    {{ form_label( form.email, 'Email'|trans,  { 'attr': {'class': 'control-label'}} ) }}
+                    <div class="controls">
+                        {{ form_widget( form.email, { 'attr': {'class': 'span6'}} ) }}
+                        {{ form_errors( form.email ) }}
+                    </div>
+                </div>
+
+                <div class="control-group {% if form.subject.vars.errors %}error{% endif %}">
+                    {{ form_label( form.subject, 'Subject'|trans,  { 'attr': {'class': 'control-label'}} ) }}
+                    <div class="controls">
+                        {{ form_widget( form.subject, { 'attr': {'class': 'span6'}} ) }}
+                        {{ form_errors( form.subject ) }}
+                    </div>
+                </div>
+
+                <div class="control-group {% if form.country.vars.errors %}error{% endif %}">
+                    {{ form_label( form.country, 'Country'|trans,  { 'attr': {'class': 'control-label'}} ) }}
+                    <div class="controls">
+                        {{ form_widget( form.country ) }}
+                        {{ form_errors( form.country ) }}
+                    </div>
+                </div>
+
+                <div class="control-group {% if form.message.vars.errors %}error{% endif %}">
+                    {{ form_label( form.message, 'Message'|trans,  { 'attr': {'class': 'control-label'}} ) }}
+                    <div class="controls">
+                        {{ form_widget( form.message, { 'attr': {'class': 'span8', 'rows': '10'} } ) }}
+                        {{ form_errors( form.message ) }}
+                    </div>
+                </div>
+
+                {{ form_widget( form.save, { 'label': "Send form"|trans, 'attr': { 'class': 'btn btn-warning pull-right' } } ) }}
+
+                {{ form_end( form ) }}
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+{% endblock %}
