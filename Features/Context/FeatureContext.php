@@ -11,7 +11,7 @@
 
 namespace EzSystems\DemoBundle\Features\Context;
 
-use EzSystems\BehatBundle\Features\Context\BrowserContext;
+use EzSystems\BehatBundle\Features\Context\Browser\BrowserContext;
 
 /**
  * Feature context.
