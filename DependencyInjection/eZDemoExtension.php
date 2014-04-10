@@ -9,6 +9,7 @@
 
 namespace EzSystems\DemoBundle\DependencyInjection;
 
+use Symfony\Component\Config\Resource\FileResource;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
@@ -44,13 +45,19 @@ class eZDemoExtension extends Extension implements PrependExtensionInterface
      */
     public function prepend( ContainerBuilder $container )
     {
-        $config = Yaml::parse( __DIR__ . '/../Resources/config/ezdemo.yml' );
+        $configFile = __DIR__ . '/../Resources/config/ezdemo.yml';
+        $config = Yaml::parse( file_get_contents( $configFile ) );
         $container->prependExtensionConfig( 'ezpublish', $config );
+        $container->addResource( new FileResource( $configFile ) );
 
-        $ezpageConfig = Yaml::parse( __DIR__ . '/../Resources/config/ezpage.yml' );
+        $ezpageConfigFile = __DIR__ . '/../Resources/config/ezpage.yml';
+        $ezpageConfig = Yaml::parse( file_get_contents( $ezpageConfigFile ) );
         $container->prependExtensionConfig( 'ezpublish', $ezpageConfig );
+        $container->addResource( new FileResource( $ezpageConfigFile ) );
 
-        $ezCommentsConfig = Yaml::parse( __DIR__ . '/../Resources/config/ezcomments.yml' );
+        $ezCommentsConfigFile = __DIR__ . '/../Resources/config/ezcomments.yml';
+        $ezCommentsConfig = Yaml::parse( file_get_contents( $ezCommentsConfigFile ) );
         $container->prependExtensionConfig( 'ez_comments', $ezCommentsConfig );
+        $container->addResource( new FileResource( $ezCommentsConfigFile ) );
     }
 }
