@@ -1,5 +1,5 @@
 @democontent
-Feature: 
+Feature:
     In order use the start page side bar
     As a user
     I want to view the content and navigate in a ezpublish demo content site using the home page side bar
@@ -25,9 +25,8 @@ Feature:
         Given I am not logged in
         And I am on homepage
         When I fill "eZ Publish - Man jacket" Buy field with "2"
-        And on "eZ Publish - Man jacket" I click "Buy" button
-        Then I see Shop Add page for 2 "eZ Publish - Man jacket" items
-        And I see "Access denied" error
+        And on "eZ Publish - Man jacket" I click on "Buy" button
+        Then I see "login" page
 
     Scenario: Buying products is possible if i'm logged
         Given I am logged in as an "administrator"
@@ -79,7 +78,7 @@ Feature:
         Then I see keyword page for "<tag>"
         And I see "Keyword: <tag>" title
 
-        Examples: 
+        Examples:
             | tag               |
             | aconcagua         |
             | Blog              |
