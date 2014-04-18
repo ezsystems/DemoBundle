@@ -31,4 +31,20 @@ class FeatureContext extends BrowserContext
             "Search" => "/content/search",
         );
     }
+
+    /**
+     * @Then /^I do not see the website toolbar$/
+     */
+    public function iDoNotSeeTheWebsiteToolbar()
+    {
+        $this->assertElementNotOnPage( 'div#ezwt' );
+    }
+
+    /**
+     * @Then /^I see the website toolbar$/
+     */
+    public function iSeeTheWebsiteToolbar()
+    {
+        $this->assertElementOnPage( 'div#ezwt' );
+    }
 }
