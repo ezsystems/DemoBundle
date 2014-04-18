@@ -18,9 +18,8 @@ before_install:
   - export OLD_TRAVIS_BUILD_DIR="$TRAVIS_BUILD_DIR"
   - export TRAVIS_BUILD_DIR="$HOME/build/ezpublish-community"
   - cd "$HOME/build"
-  - git clone --depth 1 https://github.com/bdunogier/ezpublish-community.git
+  - git clone --depth 1 https://github.com/bdunogier/ezpublish-community.git -b demobundle-bdd/website_toolbar
   - cd ezpublish-community
-  - git checkout -b demobundle-bdd/website_toolbar origin/demobundle-bdd/website_toolbar
   - ./bin/.travis/behat_before_install.sh
 
 # setup requirements for running tests, move our bundle in & run last requirements script
