@@ -2,11 +2,11 @@ language: php
 
 # run tests on php 5.4 only and let unit / integration tests deal with php differences
 php:
-  - 5.5
+  - 5.3
 
 # list of paths/bundle to execute
 env:
-#  - TEST_SUITE="@eZDemoBundle"
+  - TEST_SUIT="@eZDemoBundle"
 
 # test only master (+ Pull requests)
 branches:
@@ -18,7 +18,7 @@ before_install:
   - export OLD_TRAVIS_BUILD_DIR="$TRAVIS_BUILD_DIR"
   - export TRAVIS_BUILD_DIR="$HOME/build/ezpublish-community"
   - cd "$HOME/build"
-  - git clone --depth 1 https://github.com/bdunogier/ezpublish-community.git -b demobundle-bdd/website_toolbar
+  - git clone --depth 1 https://github.com/ezsystems/ezpublish-community.git
   - cd ezpublish-community
   - ./bin/.travis/behat_before_install.sh
 
@@ -30,7 +30,7 @@ before_script:
   - ./bin/.travis/behat_before_script2.sh
 
 # execute behat as the script command
-script: "bin/behat"
+script: "bin/behat $TEST_SUIT"
 
 # disable mail notifications
 notification:
