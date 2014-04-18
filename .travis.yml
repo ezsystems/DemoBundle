@@ -27,6 +27,9 @@ before_install:
 before_script:
   - ./bin/.travis/behat_before_script1.sh
   - rm -fR vendor/ezsystems/demobundle/EzSystems/DemoBundle
+  - ls -la vendor/ezsystems/demobundle/EzSystems
+  - echo "OLD_TRAVIS_BUILD_DIR: $OLD_TRAVIS_BUILD_DIR"
+  - ls -la "$OLD_TRAVIS_BUILD_DIR"
   - mv "$OLD_TRAVIS_BUILD_DIR" vendor/ezsystems/demobundle/EzSystems
   - ./bin/.travis/behat_before_script2.sh
 
