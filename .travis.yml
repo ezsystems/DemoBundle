@@ -20,7 +20,7 @@ before_install:
   - cd "$HOME/build"
   - git clone --depth 1 https://github.com/bdunogier/ezpublish-community.git
   - cd ezpublish-community
-  - git checkout -b demobundle-bdd/website_toolbar
+  - git checkout -b demobundle-bdd/website_toolbar origin/demobundle-bdd/website_toolbar
   - ./bin/.travis/behat_before_install.sh
 
 # setup requirements for running tests, move our bundle in & run last requirements script
