@@ -18,17 +18,4 @@ use EzSystems\BehatBundle\Features\Context\Browser\BrowserContext;
  */
 class FeatureContext extends BrowserContext
 {
-    /**
-     * Initializes context with parameters from behat.yml.
-     *
-     * @param array $parameters
-     */
-    public function __construct( array $parameters )
-    {
-        parent::__construct( $parameters );
-        $this->parameters = $parameters;
-        $this->pageIdentifierMap += array(
-            "Search" => "/content/search",
-        );
-    }
 }
