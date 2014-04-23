@@ -17,7 +17,7 @@
 <link rel="Alternate" type="application/rss+xml" title="RSS" href="/rss/feed/my_feed"/>
 
 {# adding canonical url for all defined content #}
-{% if content is defined %}
+{% if content is defined and content.contentInfo.mainLocationId %}
     <link rel="canonical" href="{{ path( 'ez_urlalias', {'locationId': content.contentInfo.mainLocationId} ) }}" />
 {% endif %}
 
