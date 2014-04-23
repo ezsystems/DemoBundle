@@ -13,6 +13,7 @@
 namespace EzSystems\DemoBundle\Features\Context;
 
 use EzSystems\DemoBundle\Features\Context\FeatureContext;
+use Behat\Behat\Context\Step;
 
 /**
  * Feature context.
@@ -30,6 +31,26 @@ class ContentContext extends FeatureContext
         // specify the tags for specific content
         $this->mainAttributes += array(
             "ez logo" => array( "class" => "logo", "href" => "/" ),
+            "main content" => array( "class" => "main-content" ),
         );
+    }
+
+    /**
+     * @When /^I check site map for Location "([^"]*)"$/
+     *
+     * @todo Change the way it fetches the ID for the specific page
+     */
+    public function iCheckSiteMapForLocation( $location )
+    {
+        switch ( strtolower( $location ) ) {
+            case "shopping":
+                $id = 74;
+                break;
+
+            default:
+                throw new PendingException( "Location for '$location' not defined." );
+        }
+
+        return new Step\When( 'I am on "/content/view/sitemap/' . $id . '"' );
     }
 }
