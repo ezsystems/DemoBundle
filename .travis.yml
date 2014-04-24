@@ -2,11 +2,12 @@ language: php
 
 # run tests on php 5.4 only and let unit / integration tests deal with php differences
 php:
-  - 5.3
+  - 5.4
 
 # list of paths/bundle to execute
 env:
-  - TEST_SUIT="@eZDemoBundle"
+  # run setup wizard to install Demo+Content and then test demo with content
+  - INSTALL="installdemocontent" PROFILE="democontent"
 
 # test only master (+ Pull requests)
 branches:
@@ -20,17 +21,20 @@ before_install:
   - cd "$HOME/build"
   - git clone --depth 1 https://github.com/ezsystems/ezpublish-community.git
   - cd ezpublish-community
-  - ./bin/.travis/behat_before_install.sh
+  - ./bin/.travis/prepare_system.sh
+  - ./bin/.travis/prepare_sahi.sh
+#  - ./bin/.travis/prepare_selenium2.sh
 
 # setup requirements for running tests, move our bundle in & run last requirements script
 before_script:
-  - ./bin/.travis/behat_before_script1.sh
+  - ./bin/.travis/prepare_ezpublish.sh
   - rm -fR vendor/ezsystems/demobundle/EzSystems/DemoBundle
   - mv "$OLD_TRAVIS_BUILD_DIR" vendor/ezsystems/demobundle/EzSystems
-  - ./bin/.travis/behat_before_script2.sh
 
 # execute behat as the script command
-script: "bin/behat $TEST_SUIT"
+script:
+    - php bin/behat --profile $INSTALL
+    - php bin/behat --profile $PROFILE
 
 # disable mail notifications
 notification:
