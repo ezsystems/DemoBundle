@@ -1,3 +1,11 @@
+{#
+    Defining page title based on current content name, if available
+    See full/blog_post.html.twig for an example of customization
+#}
+{% if content is defined and title is not defined %}
+    {% set title = ez_content_name( content ) %}
+{% endif %}
+
 <title>{{ title|default( 'Home' ) }}</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 <meta name="author" content="eZ Systems"/>
@@ -32,5 +40,3 @@
         head.appendChild(printNode);
     })();
 </script>
-
-
