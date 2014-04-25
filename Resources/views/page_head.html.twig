@@ -15,14 +15,14 @@
 <meta name="MSSmartTagsPreventParsing" content="TRUE"/>
 <meta name="generator" content="eZ Publish"/>
 
-<link rel="Home" href="/" title=" front page"/>
-<link rel="Index" href="/"/>
-<link rel="Top" href="/" title="{{ title|default( 'Home' ) }}"/>
-<link rel="Search" href="/content/advancedsearch" title="Search "/>
-<link rel="Shortcut icon" href="/design/standard/images/favicon.ico" type="image/x-icon"/>
-<link rel="Copyright" href="/ezinfo/copyright"/>
-<link rel="Author" href="/ezinfo/about"/>
-<link rel="Alternate" type="application/rss+xml" title="RSS" href="/rss/feed/my_feed"/>
+<link rel="Home" href="{{ path( ezpublish.rootLocation ) }}" title="{{ 'Home'|trans }}"/>
+<link rel="Index" href="{{ path( ezpublish.rootLocation ) }}" title="{{ 'Home'|trans }}"/>
+<link rel="Top" href="{{ path( ezpublish.rootLocation ) }}" title="{{ 'Home'|trans }}"/>
+<link rel="Search" href="{{ path( 'ez_legacy', {'module_uri': '/content/advancedsearch'} ) }}" title="{{ 'Search'|trans }}"/>
+<link rel="Shortcut icon" href="{{ asset( "/design/standard/images/favicon.ico" ) }}" type="image/x-icon"/>
+<link rel="Copyright" href="{{ path( 'ez_legacy', {'module_uri': '/ezinfo/copyright'} ) }}"/>
+<link rel="Author" href="{{ path( 'ez_legacy', {'module_uri': '/ezinfo/about'} ) }}"/>
+<link rel="Alternate" type="application/rss+xml" title="RSS" href="{{ path( 'ez_legacy', {'module_uri': '/rss/feed/my_feed'} ) }}"/>
 
 {# adding canonical url for all defined content #}
 {% if content is defined %}
@@ -34,7 +34,7 @@
         var head = document.getElementsByTagName('head')[0];
         var printNode = document.createElement('link');
         printNode.rel = 'Alternate';
-        printNode.href = "/layout/set/print/content/view/sitemap/2" + document.location.search;
+        printNode.href = "{{ path( 'ez_legacy', {'module_uri': '/layout/set/print/content/view/sitemap/2'} ) }}" + document.location.search;
         printNode.media = 'print';
         printNode.title = "Printable version";
         head.appendChild(printNode);
