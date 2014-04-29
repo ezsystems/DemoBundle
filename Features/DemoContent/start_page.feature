@@ -9,7 +9,7 @@ Feature: Start page
         Given I am on the homepage
         When I search for "Home"
         Then I see "Search" page
-        And I see search 1 result
+        And I see 1 search result
 
     # @todo Expand test to also verify that we are actually logged in
     @javascript
