@@ -24,6 +24,7 @@ class ContentContext extends FeatureContext
         parent::__construct( $parameters );
         $this->pageIdentifierMap += array(
             "search" => "/content/search",
+            "site map" => "/content/view/sitemap/2",
         );
 
         // specify the tags for specific content
