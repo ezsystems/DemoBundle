@@ -19,4 +19,16 @@ use EzSystems\DemoBundle\Features\Context\FeatureContext;
  */
 class ContentContext extends FeatureContext
 {
+    public function __construct( array $parameters )
+    {
+        parent::__construct( $parameters );
+        $this->pageIdentifierMap += array(
+            "search" => "/content/search",
+        );
+
+        // specify the tags for specific content
+        $this->mainAttributes += array(
+            "ez logo" => array( "class" => "logo", "href" => "/" ),
+        );
+    }
 }
