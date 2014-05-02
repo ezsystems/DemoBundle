@@ -1,10 +1,10 @@
 @democontent
-Feature:
+Feature: All of the side bar elements are visible and usable
     In order use the start page side bar
-    As a user
-    I want to view the content and navigate in a ezpublish demo content site using the home page side bar
+    As an anonymous user
+    I need to view the content and navigate in a ezpublish demo content site using the home page side bar
 
-    Scenario: All blocks are present in side bar in the correct order
+    Scenario: I see side bar with the blocks in correct order
         Given I am not logged in
         When I go to homepage
         Then I see group elements:
@@ -21,19 +21,12 @@ Feature:
         When I click on "Get your copy!" link
         Then I see "Discover eZ Publish 5" page
 
-    Scenario: Buying products as an anonymous is not possible
+    Scenario: Buying products is not possible
         Given I am not logged in
         And I am on homepage
         When I fill "eZ Publish - Man jacket" Buy field with "2"
         And on "eZ Publish - Man jacket" I click on "Buy" button
         Then I see "login" page
-
-    Scenario: Buying products is possible if i'm logged
-        Given I am logged in as an "administrator"
-        And I am on homepage
-        When I fill "eZ Publish - Man jacket" Buy field with "4"
-        And on "eZ Publish - Man jacket" I click "Buy" button
-        Then I see Shop Basket page
 
     @javascript
     Scenario: News block redirects me to ez.no main site
