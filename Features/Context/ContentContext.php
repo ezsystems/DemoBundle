@@ -29,13 +29,25 @@ class ContentContext extends FeatureContext
             "search" => "/content/search",
             "site map" => "/content/view/sitemap/2",
             "tag cloud" => "/content/view/tagcloud/2",
+            "Discover eZ Publish 5" => "/Discover-eZ-Publish-5",
+            "Shop Basket" => "shop/basket",
+            "ez.no" => "http://ez.no/",
         );
 
         // specify the tags for specific content
         $this->mainAttributes += array(
             "ez logo" => array( "class" => "logo", "href" => "/" ),
             "main content" => array( "class" => "main-content" ),
+            "ez publish - man jacket" => array( "xpath" => "//article[.//h3[text()='eZ Publish - Man jacket']]" ),
+            "ez news" => array( "xpath" => "//div[contains(@class,'block-type-feed-reader')]/article" ),
+            "selected video" => array( "class" => "block-type-video", "tag" => "div" ),
+            "tags" => array( "class" => "block-type-tagcloud " ),
         );
+
+        $this->fileSource += array(
+            "eZ Publish Optimize" => "/content/download/107/571/version/1/file/ezshortintro.mp4",
+        );
+
     }
 
     /**
@@ -88,6 +100,60 @@ class ContentContext extends FeatureContext
     }
 
     /**
+     * @When /^I fill "(?P<field>[^"]*)" Buy field with "(?P<value>[^"]*)"$/
+     */
+    public function iFillBuyFieldWith( $field, $value )
+    {
+        $literal = $this->literal( $field );
+        $xpath = "//article[.//h3[text()={$literal}]]//input";
+        $el = $this->getSession()->getPage()->find( 'xpath', $xpath );
+        Assertion::assertNotNull( $el, "Input not found " . "\"$field\"" );
+
+        $el->setValue( $value );
+    }
+
+    /**
+     * @Then /^I see group elements:$/
+     */
+    public function iSeeGroupElements( TableNode $table )
+    {
+        $hash = $table->getHash();
+        foreach ( $hash as $row )
+        {
+            $title = $row['elements'];
+            return ( new Step\Then( "I see \"{$title}\" title" ));
+        }
+    }
+
+    /**
+     * @Then /^I see keyword page for "(?P<keyword>[^"]*)"$/
+     */
+    public function iSeeKeywordPageFor( $keyword )
+    {
+        return new Step\Then( "I am on \"/content/keyword/{$keyword}\"" );
+    }
+
+    /**
+     *  @Then /^I see Shop Add page for (?P<number>\d+) "(?P<product>[^"]*)" items$/
+     */
+    public function iSeeShopAddPageForItems( $items, $product )
+    {
+        switch ( $product )
+        {
+            case 'eZ Publish - Man jacket':
+                $shopProduct = 77;
+                break;
+            case 'eZ Publish Community - iPhone 4 Case':
+                $shopProduct = 74;
+                break;
+            default :
+                throw new PendingException( "Product '$product' does not exists." );
+        }
+
+        return new Step\Then( "I should be on \"shop/add/{$shopProduct}/{$items}\"" );
+    }
+
+    /**
      * @Then /^I see tag page for "(?P<tag>[^"]*)"$/
      */
     public function iSeeTagPageFor( $tag )
@@ -101,5 +167,24 @@ class ContentContext extends FeatureContext
             $currentUrl,
             "Unexpected URL of the current site. Expected: '$expectedUrl'. Actual: '$currentUrl'."
         );
+    }
+
+    /**
+     * @Then /^I see Shop Basket page$/
+     */
+    public function iSeeShopBasketPage()
+    {
+        // The redirection handling in goutte is not working correctly
+        // This can be done possibly using wait's in javascript, but we
+        // considered that this is not the correct solution.
+        // Some more investigation will be made to fix the redirect issue
+
+        throw new PendingException( "Redirects from buy button are not beeing correctly handled" );
+
+        // return array (
+        // new Step\Then("I should be on \"/content/action\""),
+        // new Step\Then("I should be redirected"),
+        // new Step\Then("I see \"Shop Basket\" page"),
+        // );
     }
 }
