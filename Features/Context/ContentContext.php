@@ -15,6 +15,7 @@ namespace EzSystems\DemoBundle\Features\Context;
 use EzSystems\DemoBundle\Features\Context\FeatureContext;
 use Behat\Behat\Context\Step;
 use Behat\Behat\Exception\PendingException;
+use Behat\Gherkin\Node\TableNode;
 use PHPUnit_Framework_Assert as Assertion;
 
 /**
@@ -29,8 +30,8 @@ class ContentContext extends FeatureContext
             "search" => "/content/search",
             "site map" => "/content/view/sitemap/2",
             "tag cloud" => "/content/view/tagcloud/2",
-            "Discover eZ Publish 5" => "/Discover-eZ-Publish-5",
-            "Shop Basket" => "shop/basket",
+            "discover ez publish 5" => "/Discover-eZ-Publish-5",
+            "shop basket" => "shop/basket",
             "ez.no" => "http://ez.no/",
         );
 
