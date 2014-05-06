@@ -1,5 +1,5 @@
 
-# Ajax place_list
+# Ajax sorted place_list
 ezpublish_ezdemo_ajax_sorted_place_list:
     path: /placelist/{locationId}/{latitude}/{longitude}/{maxDist}
     defaults:
@@ -11,3 +11,12 @@ ezpublish_ezdemo_ajax_sorted_place_list:
         latitude: ((-)?\d{1,2}(\.\d+)?)|key_lat
         longitude: ((-)?\d{1,2}(\.\d+)?)|key_lon
         maxDist: (\d+)|key_dist
+
+# Ajax default place list
+ezpublish_ezdemo_ajax_default_placeList:
+    path: /placelist/{locationId}
+    defaults:
+        _controller: eZDemoBundle:Place:listPlaceList
+    methods: [GET]
+    requirements:
+        locationId: \d+

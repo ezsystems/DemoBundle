@@ -10,11 +10,12 @@
                         <option value="100">{{ 'within 100km'|trans }}</option>
                         <option value="10">{{ 'within 10km'|trans }}</option>
                         <option value="1">{{ 'within 1km'|trans }}</option>
+                        <option value="0">{{ 'Show all places'|trans }}</option>
                     </select>
                 </p>
                 <p>
                     <button class="btn btn-warning btn-large" id="sort-place-list" disabled="disabled">
-                        {{ 'Show me places close to me'|trans }}
+                        {{ 'Show places'|trans }}
                     </button>
                 </p>
             </form>
@@ -49,41 +50,61 @@
                 disabledGeoLocateMsg = '{{ 'Geolocation feature is disabled on your browser. Check the permission settings to allow it.'|trans }}',
                 ajaxErrorMsg = '{{ 'Your request has failed, please try again later.'|trans }}',
                 container = Y.one('#place-list-container'),
-                button = Y.one('#sort-place-list'),
+                sortButton = Y.one('#sort-place-list'),
                 errorContainer = Y.one('#sort-place-list-errors'),
                 distanceList = Y.one('#max-dist-place-list');
 
             if ("geolocation" in navigator) {
-                button.set('disabled', false);
+                sortButton.set('disabled', false);
                 distanceList.set('disabled', false);
             }else{
                 errorContainer.setHTML(noGeoLocateMsg);
             }
 
-            button.on('click', function (e) {
+            /**
+             * Updates a sorted list of places
+             * @params string uri of ajax method
+             * @params function callback executed on success of the ajax request
+             */
+            function updatePlaceList(uri, onSuccessPlaceList)
+            {
+                var config = {
+                    method: 'GET',
+                    on: {
+                        success: onSuccessPlaceList,
+                        failure: function (id, response) {
+                            container.removeClass('place-list-loading');
+                            errorContainer.setHTML(ajaxErrorMsg);
+                        }
+                    }
+                };
+
+                Y.io( uri, config );
+            }
+
+            sortButton.on('click', function (e) {
                 e.preventDefault();
                 container.addClass('place-list-loading');
 
                 navigator.geolocation.getCurrentPosition(function (position) {
-                    var config = {
-                            method: 'GET',
-                            on: {
-                                success: function (id, response) {
-                                    container.setHTML(response.responseText);
-                                    container.removeClass('place-list-loading');
-                                },
-                                failure: function (id, response) {
-                                    container.removeClass('place-list-loading');
-                                    errorContainer.setHTML(ajaxErrorMsg);
-                                }
-                            }
-                        },
+
+                    var uri = '{{ path(
+                        'ezpublish_ezdemo_ajax_sorted_place_list',
+                        {'locationId': location.id, 'latitude': 'key_lat', 'longitude': 'key_lon','maxDist': 'key_dist'}
+                        ) }}',
                         maxDist = distanceList.get('value');
 
-                    Y.io(
-                        uri.replace('key_lat', position.coords.latitude).replace('key_lon', position.coords.longitude).replace('key_dist', maxDist),
-                        config
-                    );
+                    //Case maxdist == 0 allows to show all places (unsorted list)
+                    if (maxDist == 0){
+                        uri = '{{ path('ezpublish_ezdemo_ajax_default_placeList',{ 'locationId': location.id } ) }}';
+                    }else{
+                        uri = uri.replace('key_lat', position.coords.latitude).replace('key_lon', position.coords.longitude).replace('key_dist', maxDist);
+                    }
+
+                    updatePlaceList(uri, function(id, response) {
+                        container.setHTML(response.responseText);
+                        container.removeClass('place-list-loading');
+                    });
                 }, function () {
                     container.removeClass('place-list-loading');
                     errorContainer.setHTML(disabledGeoLocateMsg);
