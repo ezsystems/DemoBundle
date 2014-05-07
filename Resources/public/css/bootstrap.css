@@ -5161,6 +5161,23 @@ div.ezcom-setting-mail {
   margin-bottom: 25px;
   margin-top: 15px;
 }
+.place-list-gmap {
+  height: 0;
+  width: 0;
+  visibility: hidden;
+}
+.place-list-item .infobox-content {
+  display: none;
+}
+#place-list-gmap-container img {
+  max-width: none;
+}
+.place-list-map-size {
+  height: 550px;
+}
+.place-list-content-hidden {
+  display: none;
+}
 @media (max-width: 760px) {
   .place-list-form {
     float: none;
@@ -5176,6 +5193,9 @@ div.ezcom-setting-mail {
     display: none;
   }
   .place-name {
+    text-align: center;
+  }
+  .place-list-name {
     text-align: center;
   }
 }
