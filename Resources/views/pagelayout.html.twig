@@ -8,7 +8,9 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-    {% include 'eZDemoBundle::page_head.html.twig' %}
+    {% block page_head %}
+        {% include 'eZDemoBundle::page_head.html.twig' %}
+    {% endblock %}
     {% include 'eZDemoBundle::page_head_style.html.twig' %}
     {% include 'eZDemoBundle::page_head_script.html.twig' %}
 </head>
