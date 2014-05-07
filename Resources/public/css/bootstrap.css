@@ -5129,6 +5129,9 @@ div.ezcom-setting-mail {
   -o-transition: all 0.3s ease;
   transition: all 0.3s ease;
 }
+.place-list-item {
+  clear: both;
+}
 .place-list-image {
   margin-left: 0;
   margin-right: 0;
