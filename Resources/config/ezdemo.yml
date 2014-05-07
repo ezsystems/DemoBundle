@@ -13,7 +13,7 @@ system:
             imageplacesize:
                 reference: null
                 filters:
-                    - { name: geometry/scalewidthonly, params: [370] }
+                    - { name: geometry/scalewidthdownonly, params: [370] }
         user:
             layout: eZDemoBundle::pagelayout.html.twig
             login_template: eZDemoBundle:Security:login.html.twig
