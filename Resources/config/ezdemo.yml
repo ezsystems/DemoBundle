@@ -8,6 +8,12 @@ siteaccess:
 
 system:
     ezdemo_frontend_group:
+        image_variations:
+            #this is a new image's size used in the place template
+            imageplacesize:
+                reference: null
+                filters:
+                    - { name: geometry/scaledownonly, params: [370, 200] }
         user:
             layout: eZDemoBundle::pagelayout.html.twig
             login_template: eZDemoBundle:Security:login.html.twig

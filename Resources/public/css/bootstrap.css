@@ -5151,14 +5151,28 @@ div.ezcom-setting-mail {
   font-weight: bold;
   text-align: center;
 }
+.place-description {
+  text-align: justify;
+  margin-bottom: 20px;
+  margin-top: 30px;
+}
+.place-name {
+  margin-left: 0px;
+  margin-bottom: 25px;
+  margin-top: 15px;
+}
 @media (max-width: 760px) {
   .place-list-form {
     float: none;
     max-width: 100%;
     text-align: center;
   }
+  .place-description {
+    text-align: justify;
+    margin-left: 0px;
+    margin-top: 25px;
+  }
   .place-image {
-    visibility: hidden;
     display: none;
   }
   .place-name {
@@ -5169,11 +5183,13 @@ div.ezcom-setting-mail {
   display: none;
 }
 .place-image {
-  margin-top: 10px;
-  text-align: center;
+  margin-top: 0px;
+  text-align: left;
   margin-bottom: 15px;
+  margin-left: 0;
 }
-.place-location {
+.place-location img {
+  max-width: none;
   margin-top: 10px;
   margin-bottom: 15px;
 }
