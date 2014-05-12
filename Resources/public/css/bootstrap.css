@@ -4815,6 +4815,9 @@ a.thumbnail:hover {
 .content-view-aside .block-type-tagcloud .block-content {
   padding: 10px 20px;
 }
+.content-view-aside .block-type-tagcloud a {
+  padding-right: 0.2em;
+}
 .block-type-campaign {
   margin-bottom: 1em;
 }
