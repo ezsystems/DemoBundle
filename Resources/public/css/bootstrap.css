@@ -1654,6 +1654,12 @@ del:hover {
   border-bottom: none;
   text-decoration: none;
 }
+#wo-breadcrumbs {
+  padding-bottom: 0px;
+}
+#wo-breadcrumbs li:before {
+  content: none;
+}
 p {
   margin: 0 0 10.5px;
   font-family: Arial, Helvetica, sans-serif;

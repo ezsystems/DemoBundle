@@ -41,6 +41,11 @@
         <!-- Path area: END -->
     </div>
     <div class="container">
+        {% block breadcrumb %}
+            {% if location is defined and not location.isDraft %}
+                {{ render( controller( 'eZDemoBundle:Demo:viewBreadcrumb', { 'locationId': location.id } ) ) }}
+            {% endif %}
+        {% endblock %}
         <div class="row">
             <!-- Main area: START -->
             <div class="span{{ innerColumnSize|default( 12 ) }} main-content">
