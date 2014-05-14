@@ -55,7 +55,7 @@
     <script>
         YUI(YUI3_config).use('io-base', 'node', function(Y) {
             //Generating URL with keys values that will be replaced when clicking
-            var uri = '{{ path(
+            var uriTemplate = '{{ path(
                         'ezpublish_ezdemo_ajax_sorted_place_list',
                         {'locationId': location.id, 'latitude': 'key_lat', 'longitude': 'key_lon','maxDist': 'key_dist'}
                         ) }}',
@@ -137,12 +137,13 @@
                 container.addClass('place-list-loading');
 
                 navigator.geolocation.getCurrentPosition(function (position) {
-                    var maxDist = distanceList.get('value');
+                    var maxDist = distanceList.get('value'),
+                        uri;
                     //Case maxdist == 0 allows to show all places (unsorted list)
                     if (maxDist == 0) {
                         uri = '{{ path('ezpublish_ezdemo_ajax_default_placeList',{ 'locationId': location.id } ) }}';
                     } else {
-                        uri = uri.replace('key_lat', position.coords.latitude).replace('key_lon', position.coords.longitude).replace('key_dist', maxDist);
+                        uri = uriTemplate.replace('key_lat', position.coords.latitude).replace('key_lon', position.coords.longitude).replace('key_dist', maxDist);
                     }
                     var config = {
                         method: 'GET',
