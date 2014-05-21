@@ -2,25 +2,18 @@
 /**
  * File containing the ContentContext class.
  *
- * This class contains specific feature context of the DemoBundle with content
- * for Behat.
- *
  * @copyright Copyright (C) eZ Systems AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  * @version //autogentag//
  */
 
-namespace EzSystems\DemoBundle\Features\Context;
+namespace EzSystems\DemoBundle\BddTests\Context;
 
-use EzSystems\DemoBundle\Features\Context\FeatureContext;
 use Behat\Behat\Context\Step;
 use Behat\Behat\Exception\PendingException;
 use PHPUnit_Framework_Assert as Assertion;
 
-/**
- * Feature context.
- */
-class ContentContext extends FeatureContext
+class ContentContext extends DemoContext
 {
     public function __construct( array $parameters )
     {
