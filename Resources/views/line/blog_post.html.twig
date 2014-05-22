@@ -14,7 +14,7 @@
 
 
         <div class="attribute-byline with-comments">
-            <span class="date">{{ location.contentInfo.publishedDate|localizeddate( 'short', 'short', app.request.locale )}}</span>
+            <span class="date">{{ ez_field_value( content, 'publication_date' )|localizeddate( 'short', 'short', app.request.locale ) }}</span>
             <span class="author">{{ author.contentInfo.name }}</span>
 
             <span class="tags"> {{ "Tags:"|trans }}

@@ -20,7 +20,7 @@
 
                     <div class="attribute-byline">
                         <span class="date">
-                            {{ location.contentInfo.publishedDate|localizeddate( 'short', 'short', app.request.locale ) }}
+                            {{ ez_field_value( content, 'publication_date' )|localizeddate( 'short', 'short', app.request.locale ) }}
                         </span>
 
                         <span class="author">{{ author.contentInfo.name }}</span>
