@@ -95,7 +95,8 @@
                                 draggable: true,
                                 mapTypeId: google.maps.MapTypeId.ROADMAP
                             }),
-                        infowindow = new google.maps.InfoWindow();
+                        infowindow = new google.maps.InfoWindow(),
+                        latlngbounds = new google.maps.LatLngBounds();
                     //Markers are made from the data-attributes of the place list displayed
                     placeList.each(function (place) {
                         var marker = new google.maps.Marker( {
@@ -113,8 +114,15 @@
                             infowindow.open(map, this);
                         } );
                     });
-                    for (i = 0; i < markers.length; i++) {
-                        markers[i].setMap(map);
+                    if( markers.length ) {
+                        for (i = 0; i < markers.length; i++) {
+                            markers[i].setMap(map);
+                            // extend bounds with the position of the marker
+                            latlngbounds.extend(markers[i].position);
+                        }
+                        // finally extend bounds with the map center
+                        latlngbounds.extend(map.center);
+                        map.fitBounds(latlngbounds);
                     }
                 };
 
