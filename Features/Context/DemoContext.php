@@ -7,7 +7,7 @@
  * @version //autogentag//
  */
 
-namespace EzSystems\DemoBundle\BddTests\Context;
+namespace EzSystems\DemoBundle\Features\Context;
 
 use EzSystems\BehatBundle\Context\BrowserContext;
 
