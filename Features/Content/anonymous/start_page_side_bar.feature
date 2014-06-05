@@ -51,11 +51,11 @@ Feature: All of the side bar elements are visible and usable
         When I go to homepage
         Then on "Tags" I see links:
             | link              |
-            | aconcagua         |
-            | Blog              |
-            | Post              |
+            | Blog Post         |
             | cxm               |
             | deliver           |
+            | e-commerce        |
+            | ez publish        |
             | eZ Publish        |
             | kilimanjaro       |
             | landing page      |
@@ -63,6 +63,7 @@ Feature: All of the side bar elements are visible and usable
             | Shopping New York |
             | Social            |
             | tech              |
+            | Ventoux           |
 
     Scenario Outline: Tags are redirecting me to the correct page
         Given I am not logged in
@@ -71,13 +72,13 @@ Feature: All of the side bar elements are visible and usable
         Then I see keyword page for "<tag>"
         And I see "Keyword: <tag>" title
 
-        Examples:
+        Examples: 
             | tag               |
-            | aconcagua         |
-            | Blog              |
-            | Post              |
+            | Blog Post         |
             | cxm               |
             | deliver           |
+            | e-commerce        |
+            | ez publish        |
             | eZ Publish        |
             | kilimanjaro       |
             | landing page      |
@@ -85,3 +86,4 @@ Feature: All of the side bar elements are visible and usable
             | Shopping New York |
             | Social            |
             | tech              |
+            | Ventoux           |

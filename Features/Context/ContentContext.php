@@ -46,7 +46,7 @@ class ContentContext extends FeatureContext
         );
 
         $this->fileSource += array(
-            "eZ Publish Optimize" => "/content/download/107/571/version/1/file/ezshortintro.mp4",
+            "eZ Publish Optimize" => "/content/download/107/547/version/1/file/ezshortintro.mp4",
         );
 
     }
