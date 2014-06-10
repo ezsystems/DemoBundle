@@ -11,7 +11,6 @@ namespace EzSystems\DemoBundle\Controller;
 
 use eZ\Bundle\EzPublishCoreBundle\Controller;
 use EzSystems\DemoBundle\Entity\Feedback;
-use EzSystems\DemoBundle\Form\Type\FeedbackType;
 use EzSystems\DemoBundle\Helper\EmailHelper;
 
 class FeedbackFormController extends Controller
