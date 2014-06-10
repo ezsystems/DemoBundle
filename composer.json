@@ -11,8 +11,8 @@
     "minimum-stability": "dev",
     "require": {
         "php": ">=5.3.3",
-        "ezsystems/ezpublish-kernel": "*",
-        "ezsystems/comments-bundle": "*"
+        "ezsystems/ezpublish-kernel": "~5.3|>=2014.03",
+        "ezsystems/comments-bundle": "~5.3|>=2014.03"
     },
     "autoload": {
         "psr-0": {"EzSystems\\DemoBundle": ""}
