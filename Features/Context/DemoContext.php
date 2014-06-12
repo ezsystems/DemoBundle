@@ -1,8 +1,6 @@
 <?php
 /**
- * File containing the FeatureContext class.
- *
- * This class contains specific feature context of the DemoBundle for Behat.
+ * File containing the DemoContext class.
  *
  * @copyright Copyright (C) eZ Systems AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
@@ -11,11 +9,8 @@
 
 namespace EzSystems\DemoBundle\Features\Context;
 
-use EzSystems\BehatBundle\Features\Context\Browser\BrowserContext;
+use EzSystems\BehatBundle\Context\BrowserContext;
 
-/**
- * Feature context.
- */
-class FeatureContext extends BrowserContext
+class DemoContext extends BrowserContext
 {
 }
