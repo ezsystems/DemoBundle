@@ -298,4 +298,62 @@ class DemoController extends Controller
         );
     }
 
+    /**
+     * Displays breadcrumb for a given $locationId
+     *
+     * @param mixed $locationId
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function viewBreadcrumbAction( $locationId )
+    {
+        /** @var WhiteOctober\BreadcrumbsBundle\Templating\Helper\BreadcrumbsHelper $breadcrumbs */
+        $breadcrumbs = $this->get( "white_october_breadcrumbs" );
+
+        $locationService = $this->getRepository()->getLocationService();
+        $path = $locationService->loadLocation( $locationId )->path;
+
+        // The root location can be defined at site access level
+        $rootLocationId = $this->getConfigResolver()->getParameter( 'content.tree_root.location_id' );
+
+        /** @var eZ\Publish\Core\Helper\TranslationHelper $translationHelper */
+        $translationHelper = $this->get( 'ezpublish.translation_helper' );
+
+        $isRootLocation = false;
+
+        for ( $i = 0; $i < count( $path ); $i++ )
+        {
+            $location = $locationService->loadLocation( $path[$i] );
+            // if root location hasn't been found yet
+            if ( !$isRootLocation )
+            {
+                // If we reach the root location We begin to add item to the breadcrumb from it
+                if ( $location->id == $rootLocationId )
+                {
+                    $isRootLocation = true;
+                    $breadcrumbs->addItem(
+                        $translationHelper->getTranslatedContentNameByContentInfo( $location->contentInfo ),
+                        $this->generateUrl( $location )
+                    );
+                }
+            }
+            // The root location has already been reached, so we can add items to the breadcrumb
+            else
+            {
+                $breadcrumbs->addItem(
+                    $translationHelper->getTranslatedContentNameByContentInfo( $location->contentInfo ),
+                    $this->generateUrl( $location )
+                );
+            }
+        }
+
+        // We don't want the breadcrumb to be displayed if we are on the frontpage
+        // which means we display it only if we have several items in it
+        if ( count( $breadcrumbs ) <= 1 )
+        {
+            return new Response();
+        }
+        return $this->render(
+            'eZDemoBundle::breadcrumb.html.twig'
+        );
+    }
 }
