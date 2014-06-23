@@ -87,7 +87,7 @@ class PlaceHelper
 
         $searchResults = $this->searchService->findContent( $query );
 
-        return $this->searchHelper->buildContentListFromSearchResult( $searchResults );
+        return $this->searchHelper->buildListFromSearchResult( $searchResults );
     }
 
     /**
@@ -135,6 +135,6 @@ class PlaceHelper
 
         $searchResults = $this->searchService->findContent( $query );
 
-        return $this->searchHelper->buildContentListFromSearchResult( $searchResults );
+        return $this->searchHelper->buildListFromSearchResult( $searchResults );
     }
 }
