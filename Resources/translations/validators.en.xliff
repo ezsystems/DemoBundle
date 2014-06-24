@@ -10,6 +10,10 @@
                 <source>feedback.max_size.2000</source>
                 <target>This field cannot be longer than 2000 characters</target>
             </trans-unit>
+            <trans-unit id="3">
+                <source>search.simple.max_size.255</source>
+                <target>This field cannot be longer than 255 characters</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

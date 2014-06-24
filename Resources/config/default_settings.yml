@@ -8,6 +8,8 @@ parameters:
     ezdemo.footer.latest_content.content_types: [article]
     # Number of blog_posts displayed per page in the blog view
     ezdemo.blog.blog_post_list.limit: 10
+    # Number of results displayed per page in the simple search
+    ezdemo.search_list.limit: 1
     # Decide whether to show or hide article summary in the full view
     ezdemo.article.full_view.show_summary: true
     # Decide whether to show or hide article image in the full view
