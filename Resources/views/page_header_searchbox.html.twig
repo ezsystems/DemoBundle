@@ -1,17 +1,8 @@
-<form class="span4 form-search" method="get" action="{{ path( 'ez_legacy', {'module_uri': '/content/search'} ) }}" id="site-wide-search">
-    <label class="pull-right">
-        <span class="hidden">{{ 'Search'|trans }}</span>
-        {# TODO: check if currently in edit mode #}
-        {% if false %}
-            <input class="search-query span3" type="search" name="SearchText" id="site-wide-search-field" placeholder="{{ 'Search text'|trans }}" disabled="disabled" />
-        {% else %}
-            <input class="search-query span3" type="search" name="SearchText" id="site-wide-search-field" placeholder="{{ 'Search text'|trans }}" />
-            {# TODO: check if currently in content browse mode #}
-            {% if false %}
-             <input name="Mode" type="hidden" value="browse" />
-            {% endif %}
-            <input name="SearchButton" type="submit" class="hide hidden" />
-        {% endif %}
-    </label>
-</form>
+{{ form_start( form, { 'action': path('ezpublish_ezdemo_search'), 'attr': { 'class': 'span4 form-search' } } ) }}
+<label class="pull-right" for="{{ form.searchText.vars.id }}">
+    <span class="hidden">{{ 'Search'|trans }}</span>
+    {{ form_widget( form.searchText, { 'attr': {'class': 'search-query span3', 'placeholder': 'Search text'|trans } } ) }}
 
+    {{ form_widget( form.save, { 'attr': { 'class': 'hide hidden' } } ) }}
+</label>
+{{ form_end( form ) }}

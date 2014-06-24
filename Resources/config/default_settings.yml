@@ -30,3 +30,7 @@ parameters:
     ezdemo.feedback_form.email_to: root@localhost
     # Email address displayed as sent
     ezdemo.feedback_form.email_from: noreply@ezdemobundle.test
+
+    ## Search Page
+    # Number of results displayed per page in the simple search
+    ezdemo.search.list.limit: 10

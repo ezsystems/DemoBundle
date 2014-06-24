@@ -5,6 +5,7 @@ parameters:
     ezdemo.search_helper.class: EzSystems\DemoBundle\Helper\SearchHelper
     ezdemo.email_helper.class: EzSystems\DemoBundle\Helper\EmailHelper
     ezdemo.form.type.feedback.class: EzSystems\DemoBundle\Form\Type\FeedbackType
+    ezdemo.form.type.simple_search.class: EzSystems\DemoBundle\Form\Type\SimpleSearchType
 
     # Default limit that will be applied when retrieving content for menus.
     ezdemo.menu_helper.default_limit: 10
@@ -37,12 +38,20 @@ services:
 
     ezdemo.search_helper:
         class: %ezdemo.search_helper.class%
+        arguments:
+            - @ezpublish.api.service.search
+            - %ezdemo.search.list.limit%
 
     # Declaring the feedback form as a service
     ezdemo.form.type.feedback:
         class: %ezdemo.form.type.feedback.class%
         tags:
             - { name: form.type, alias: ezdemo_feedback }
+
+    ezdemo.form.type.simple_search:
+        class: %ezdemo.form.type.simple_search.class%
+        tags:
+            - { name: form.type, alias: ezdemo_simple_search }
 
     ezdemo.menu.builder:
         class: EzSystems\DemoBundle\Menu\Builder
