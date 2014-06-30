@@ -44,21 +44,11 @@ class DemoController extends Controller
                 // Get contentType identifiers we want to exclude from configuration (see default_settings.yml).
                 $this->container->getParameter( 'ezdemo.top_menu.content_types_exclude' )
             );
-        $contentList = $this->get( 'ezdemo.menu_helper' )->getTopMenuContent( $rootLocationId, $excludeCriterion );
-        $locationList = array();
-        // Looping against search results to build $locationList
-        // Both arrays will be indexed by contentId so that we can easily refer to an element in a list from another element in the other list
-        // See page_topmenu.html.twig
-        foreach ( $contentList as $contentId => $content )
-        {
-            $locationList[$contentId] = $this->getRepository()->getLocationService()->loadLocation( $content->contentInfo->mainLocationId );
-        }
-
+        $locationList = $this->get( 'ezdemo.menu_helper' )->getTopMenuContent( $rootLocationId, $excludeCriterion );
         return $this->render(
             'eZDemoBundle::page_topmenu.html.twig',
             array(
                 'locationList' => $locationList,
-                'contentList' => $contentList,
             ),
             $response
         );
