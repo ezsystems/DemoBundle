@@ -14,7 +14,7 @@ Feature: Tag cloud
        When I go to "Tag cloud" page
        Then I see links:
             | tags       |
-            | aconcagua  |
+            | Ventoux   |
             | Blog Post  |
             | cxm        |
             | deliver    |
@@ -30,22 +30,21 @@ Feature: Tag cloud
          Examples:
             | tag         |
             | Social      |
-            | aconcagua   |
+            | Ventoux     |
             | deliver     |
 
     Scenario: See where tags are used
         Given I am on "Tag cloud" page
-        When I follow "aconcagua"
+        When I follow "Ventoux"
         Then I see table with:
-            | column 1                                 | column 2 |
-            | Link                                     | Type     |
-            | Create                                   | Article  |
-            | Optimize                                 | Article  |
-            | Getting Started with eZ Publish Platform | Article  |
+            | column 1 | column 2 |
+            | Link     | Type     |
+            | Create   | Article  |
+            | Optimize | Article  |
 
 
   Scenario: Follow to Content object where Tag is used
-        Given I am on tag page for "aconcagua"
+        Given I am on tag page for "Ventoux"
         When I follow "Optimize"
         Then I see "Optimize" title
 
@@ -55,6 +54,6 @@ Feature: Tag cloud
         Then I see links:
             | links       |
             | deliver     |
-            | aconcagua   |
+            | Ventoux    |
             | kilimanjaro |
-        And I see "aconcagua" text emphasized
+        And I see "Ventoux" text emphasized
