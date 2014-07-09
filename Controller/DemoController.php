@@ -310,6 +310,9 @@ class DemoController extends Controller
 
         $isRootLocation = false;
 
+        // Shift of location "1" from path as it is not a fully valid location and not readable by most users
+        array_shift( $path );
+
         for ( $i = 0; $i < count( $path ); $i++ )
         {
             $location = $locationService->loadLocation( $path[$i] );
