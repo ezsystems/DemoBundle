@@ -14,6 +14,7 @@
 <meta name="keywords" content="cms, publish, e-commerce, content management, development framework"/>
 <meta name="MSSmartTagsPreventParsing" content="TRUE"/>
 <meta name="generator" content="eZ Publish"/>
+{{ render( controller( "ezpublish_legacy.form_token.controller:metaCsrfTokenAction" ) ) }}
 
 <link rel="Home" href="{{ path( ezpublish.rootLocation ) }}" title="{{ 'Home'|trans }}"/>
 <link rel="Index" href="{{ path( ezpublish.rootLocation ) }}" title="{{ 'Home'|trans }}"/>
