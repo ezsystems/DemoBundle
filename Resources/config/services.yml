@@ -17,7 +17,7 @@ services:
 
     ezdemo.menu_helper:
         class: %ezdemo.menu_helper.class%
-        arguments: [@ezpublish.api.repository, %ezdemo.menu_helper.default_limit%, @ezdemo.search_helper]
+        arguments: [@ezpublish.api.repository, %ezdemo.menu_helper.default_limit%, @ezdemo.search_helper, @ezpublish.config.resolver]
 
     ezdemo.place_helper:
             class: %ezdemo.place_helper.class%

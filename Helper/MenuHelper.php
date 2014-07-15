@@ -15,6 +15,7 @@ use eZ\Publish\API\Repository\Values\Content\LocationQuery;
 use eZ\Publish\API\Repository\Values\Content\Query;
 use eZ\Publish\API\Repository\Values\Content\Query\Criterion;
 use eZ\Publish\API\Repository\Values\Content\Query\SortClause;
+use eZ\Publish\Core\MVC\ConfigResolverInterface;
 
 /**
  * Helper for menus
@@ -38,11 +39,17 @@ class MenuHelper
      */
     private $searchHelper;
 
-    public function __construct( Repository $repository, $defaultMenuLimit, SearchHelper $searchHelper )
+    /**
+     * @var \eZ\Publish\Core\MVC\ConfigResolverInterface
+     */
+    private $configResolver;
+
+    public function __construct( Repository $repository, $defaultMenuLimit, SearchHelper $searchHelper, ConfigResolverInterface $configResolver )
     {
         $this->repository = $repository;
         $this->defaultMenuLimit = $defaultMenuLimit;
         $this->searchHelper = $searchHelper;
+        $this->configResolver = $configResolver;
     }
 
     /**
@@ -62,6 +69,11 @@ class MenuHelper
             new Criterion\ParentLocationId( $topLocationId ),
             new Criterion\Visibility( Criterion\Visibility::VISIBLE )
         );
+
+        $languages = $this->configResolver->getParameter( 'languages' );
+
+        if ( !empty( $languages ) )
+            $criteria[] = new Criterion\LanguageCode( $languages );
 
         if ( !empty( $criterion ) )
             $criteria[] = $criterion;
