@@ -12,7 +12,8 @@
     "require": {
         "php": ">=5.3.3",
         "ezsystems/ezpublish-kernel": "@dev",
-        "ezsystems/comments-bundle": "@dev"
+        "ezsystems/comments-bundle": "@dev",
+        "knplabs/knp-menu-bundle": "1.*"
     },
     "autoload": {
         "psr-0": {"EzSystems\\DemoBundle": ""}
