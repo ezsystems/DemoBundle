@@ -11,6 +11,7 @@ namespace EzSystems\DemoBundle\Helper;
 
 use eZ\Publish\API\Repository\Repository;
 use eZ\Publish\API\Repository\Values\Content\Location;
+use eZ\Publish\API\Repository\Values\Content\LocationQuery;
 use eZ\Publish\API\Repository\Values\Content\Query;
 use eZ\Publish\API\Repository\Values\Content\Query\Criterion;
 use eZ\Publish\API\Repository\Values\Content\Query\SortClause;
@@ -52,15 +53,15 @@ class MenuHelper
     }
 
     /**
-     * Returns Content objects that we want to display in top menu, based on $topLocationId.
-     * All content objects are fetched under $topLocationId only (not in the whole tree).
+     * Returns Location objects that we want to display in top menu, based on $topLocationId.
+     * All location objects are fetched under $topLocationId only (not in the whole tree).
      *
      * One might use $excludeContentTypeIdentifiers to explicitly exclude some content types (e.g. "article").
      *
      * @param int $topLocationId
      * @param \eZ\Publish\API\Repository\Values\Content\Query\Criterion $criterion Additional criterion for filtering.
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\Content[] Content objects, indexed by their contentId.
+     * @return \eZ\Publish\API\Repository\Values\Content\Location[] Location objects, indexed by their contentId.
      */
     public function getTopMenuContent( $topLocationId, Criterion $criterion = null )
     {
@@ -77,15 +78,15 @@ class MenuHelper
         if ( !empty( $criterion ) )
             $criteria[] = $criterion;
 
-        $query = new Query(
+        $query = new LocationQuery(
             array(
                 'criterion' => new Criterion\LogicalAnd( $criteria ),
-                'sortClauses' => array( new SortClause\LocationPriority( Query::SORT_ASC ) )
+                'sortClauses' => array( new SortClause\Location\Priority( LocationQuery::SORT_ASC ) )
             )
         );
         $query->limit = $this->defaultMenuLimit;
 
-        return $this->searchHelper->buildContentListFromSearchResult( $this->repository->getSearchService()->findContent( $query ) );
+        return $this->searchHelper->buildListFromSearchResult( $this->repository->getSearchService()->findLocations( $query ) );
     }
 
     /**
@@ -120,7 +121,7 @@ class MenuHelper
         );
         $query->limit = $limit ?: $this->defaultMenuLimit;
 
-        return $this->searchHelper->buildContentListFromSearchResult( $this->repository->getSearchService()->findContent( $query ) );
+        return $this->searchHelper->buildListFromSearchResult( $this->repository->getSearchService()->findContent( $query ) );
     }
 
 }

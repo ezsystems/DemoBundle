@@ -17,21 +17,21 @@ use eZ\Publish\API\Repository\Values\Content\Search\SearchResult;
 class SearchHelper
 {
     /**
-     * Builds a Content list from $searchResult.
-     * Returned array consists of a hash of Content objects, indexed by their ID.
+     * Builds a list from $searchResult.
+     * Returned array consists of a hash of objects, indexed by their ID.
      *
      * @param \eZ\Publish\API\Repository\Values\Content\Search\SearchResult $searchResult
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\Content[]
+     * @return array
      */
-    public function buildContentListFromSearchResult( SearchResult $searchResult )
+    public function buildListFromSearchResult( SearchResult $searchResult )
     {
-        $contentList = array();
+        $list = array();
         foreach ( $searchResult->searchHits as $searchHit )
         {
-            $contentList[$searchHit->valueObject->contentInfo->id] = $searchHit->valueObject;
+            $list[$searchHit->valueObject->id] = $searchHit->valueObject;
         }
 
-        return $contentList;
+        return $list;
     }
 }
