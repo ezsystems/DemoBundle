@@ -43,12 +43,31 @@ class Builder
         $this->router = $router;
     }
 
-    public function createMainMenu( Request $request )
+    public function createTopMenu( Request $request )
     {
         $menu = $this->factory->createItem( 'root' );
         $menu->setChildrenAttribute( 'class', 'nav' );
 
-        $this->addLocationsToMenu( $menu, $this->getSearchResults() );
+        $this->addLocationsToMenu( $menu, $this->getSearchResults( 2, 2 ) );
+
+        return $menu;
+    }
+
+    public function createTopSubMenu( Request $request )
+    {
+        $menu = $this->factory->createItem( 'root' );
+
+        if ( !$request->attributes->has( 'locationId' ) )
+        {
+            return $menu;
+        }
+
+        $menu->setChildrenAttribute( 'class', 'nav' );
+
+        $this->addLocationsToMenu(
+            $menu,
+            $this->getSearchResults( $request->attributes->get( 'locationId' ), 3 )
+        );
 
         return $menu;
     }
@@ -81,7 +100,7 @@ class Builder
      * Builds the menu items search query
      * @return array
      */
-    private function getSearchResults()
+    private function getSearchResults( $locationId, $depth )
     {
         $query = new LocationQuery();
 
@@ -89,11 +108,11 @@ class Builder
             array(
                 new Criterion\ContentTypeIdentifier( array( 'folder', 'landing_page' ) ),
                 new Criterion\Visibility( Criterion\Visibility::VISIBLE ),
-                new Criterion\Location\Depth( Criterion\Operator::BETWEEN, array( 2, 3 ) ),
-                new Criterion\Subtree( '/1/2/' )
+                new Criterion\Location\Depth( Criterion\Operator::EQ, $depth ),
+                new Criterion\ParentLocationId( $locationId )
             )
         );
-        $query->sortClauses = array( new Query\SortClause\Location\Path() );
+        $query->sortClauses = array( new Query\SortClause\ContentName() );
 
         return $this->searchService->findLocations( $query )->searchHits;
     }
