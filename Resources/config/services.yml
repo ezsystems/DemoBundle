@@ -46,7 +46,7 @@ services:
 
     ezdemo.menu.builder:
         class: EzSystems\DemoBundle\Menu\Builder
-        arguments: [ @knp_menu.factory, @ezpublish.api.service.search, @router ]
+        arguments: [ @knp_menu.factory, @ezpublish.api.service.search, @router, @ezpublish.config.resolver ]
 
     ezdemo.menu.top:
         class: EzSystems\DemoBundle\Menu\Builder

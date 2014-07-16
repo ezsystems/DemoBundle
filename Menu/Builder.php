@@ -8,6 +8,7 @@
  */
 namespace EzSystems\DemoBundle\Menu;
 
+use eZ\Publish\Core\MVC\ConfigResolverInterface;
 use eZ\Publish\API\Repository\SearchService;
 use eZ\Publish\API\Repository\Values\Content\Location;
 use eZ\Publish\API\Repository\Values\Content\LocationQuery;
@@ -36,11 +37,15 @@ class Builder
      */
     private $router;
 
-    public function __construct( FactoryInterface $factory, SearchService $searchService, RouterInterface $router )
+    /** @var ConfigResolver */
+    private $configResolver;
+
+    public function __construct( FactoryInterface $factory, SearchService $searchService, RouterInterface $router, ConfigResolverInterface $configResolver )
     {
         $this->factory = $factory;
         $this->searchService = $searchService;
         $this->router = $router;
+        $this->configResolver = $configResolver;
     }
 
     public function createTopMenu( Request $request )
@@ -48,7 +53,12 @@ class Builder
         $menu = $this->factory->createItem( 'root' );
         $menu->setChildrenAttribute( 'class', 'nav' );
 
-        $this->addLocationsToMenu( $menu, $this->getSearchResults( 2, 2 ) );
+        $this->addLocationsToMenu(
+            $menu,
+            $this->getSearchResults(
+                $this->configResolver->getParameter( 'content.tree_root.location_id' ), 2
+            )
+        );
 
         return $menu;
     }
@@ -92,7 +102,6 @@ class Builder
                     'attributes' => array( 'id' => 'nav-location-' . $location->id )
                 )
             );
-            $menuItem[$location->id]->setChildrenAttribute( 'class', 'nav' );
         }
     }
 
