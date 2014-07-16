@@ -37,7 +37,7 @@ class Builder
      */
     private $router;
 
-    /** @var ConfigResolver */
+    /** @var ConfigResolverInterface */
     private $configResolver;
 
     public function __construct( FactoryInterface $factory, SearchService $searchService, RouterInterface $router, ConfigResolverInterface $configResolver )
@@ -55,28 +55,7 @@ class Builder
 
         $this->addLocationsToMenu(
             $menu,
-            $this->getSearchResults(
-                $this->configResolver->getParameter( 'content.tree_root.location_id' ), 2
-            )
-        );
-
-        return $menu;
-    }
-
-    public function createTopSubMenu( Request $request )
-    {
-        $menu = $this->factory->createItem( 'root' );
-
-        if ( !$request->attributes->has( 'locationId' ) )
-        {
-            return $menu;
-        }
-
-        $menu->setChildrenAttribute( 'class', 'nav' );
-
-        $this->addLocationsToMenu(
-            $menu,
-            $this->getSearchResults( $request->attributes->get( 'locationId' ), 3 )
+            $this->getSearchResults( $this->configResolver->getParameter( 'content.tree_root.location_id' ) )
         );
 
         return $menu;
@@ -109,7 +88,7 @@ class Builder
      * Builds the menu items search query
      * @return array
      */
-    private function getSearchResults( $locationId, $depth )
+    private function getSearchResults( $rootLocationId )
     {
         $query = new LocationQuery();
 
@@ -117,11 +96,11 @@ class Builder
             array(
                 new Criterion\ContentTypeIdentifier( array( 'folder', 'landing_page' ) ),
                 new Criterion\Visibility( Criterion\Visibility::VISIBLE ),
-                new Criterion\Location\Depth( Criterion\Operator::EQ, $depth ),
-                new Criterion\ParentLocationId( $locationId )
+                new Criterion\Location\Depth( Criterion\Operator::BETWEEN, array( 2, 3 ) ),
+                new Criterion\Subtree( "/1/$rootLocationId/" )
             )
         );
-        $query->sortClauses = array( new Query\SortClause\ContentName() );
+        $query->sortClauses = array( new Query\SortClause\Location\Path() );
 
         return $this->searchService->findLocations( $query )->searchHits;
     }

@@ -51,17 +51,8 @@ services:
     ezdemo.menu.top:
         class: EzSystems\DemoBundle\Menu\Builder
         factory_service: ezdemo.menu.builder
-        factory_method: createTopMenu
+        factory_method: createMainMenu
         arguments: [ @request ]
         scope: request # needed as we have the request as a dependency here
         tags:
             - { name: knp_menu.menu, alias: top } # The alias is what is used to retrieve the menu
-
-    ezdemo.menu.top_sub:
-        class: EzSystems\DemoBundle\Menu\Builder
-        factory_service: ezdemo.menu.builder
-        factory_method: createTopSubMenu
-        arguments: [ @request ]
-        scope: request # needed as we have the request as a dependency here
-        tags:
-            - { name: knp_menu.menu, alias: top_sub } # The alias is what is used to retrieve the menu
