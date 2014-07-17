@@ -20,24 +20,37 @@ class MenuController extends Controller
      */
     public function topMenuAction( $currentLocationId )
     {
+        if ( $currentLocationId !== null )
+        {
+            $secondLevelLocationId = $this->getLocationService()->loadLocation( $currentLocationId )->path[2];
+        }
+
         $response = new Response;
 
         $menu = $this->getMenu( 'top' );
         $parameters = array( 'menu' => $menu );
-        if ( isset( $menu[$currentLocationId] ) )
+        if ( isset( $secondLevelLocationId ) && isset( $menu[$secondLevelLocationId] ) )
         {
-            $parameters['submenu'] = $menu[$currentLocationId];
+            $parameters['submenu'] = $menu[$secondLevelLocationId];
         }
 
         return $this->render( 'eZDemoBundle::page_topmenu.html.twig', $parameters, $response );
     }
 
     /**
-     * @param string  $identifier
+     * @param string $identifier
      * @return \Knp\Menu\MenuItem
      */
     private function getMenu( $identifier )
     {
         return $this->container->get( "ezdemo.menu.$identifier" );
+    }
+
+    /**
+     * @return \eZ\Publish\API\Repository\LocationService
+     */
+    private function getLocationService()
+    {
+        return $this->container->get( 'ezpublish.api.service.location' );
     }
 }
