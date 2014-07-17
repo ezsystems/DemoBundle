@@ -8,6 +8,7 @@
  */
 namespace EzSystems\DemoBundle\Menu;
 
+use eZ\Publish\API\Repository\LocationService;
 use eZ\Publish\Core\MVC\ConfigResolverInterface;
 use eZ\Publish\API\Repository\SearchService;
 use eZ\Publish\API\Repository\Values\Content\Location;
@@ -20,6 +21,11 @@ use Knp\Menu\ItemInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\RouterInterface;
 
+/**
+ * A simple eZ Publish menu provider.
+ * Generates a two level menu, starting from the configured root note,
+ * including all content but ezdemo.top_menu.content_types_exclude.
+ */
 class Builder
 {
     /**
@@ -40,22 +46,34 @@ class Builder
     /** @var ConfigResolverInterface */
     private $configResolver;
 
-    public function __construct( FactoryInterface $factory, SearchService $searchService, RouterInterface $router, ConfigResolverInterface $configResolver )
+    /**
+     * @var LocationService
+     */
+    private $locationService;
+
+    public function __construct(
+        FactoryInterface $factory,
+        SearchService $searchService,
+        RouterInterface $router,
+        ConfigResolverInterface $configResolver,
+        LocationService $locationService
+    )
     {
         $this->factory = $factory;
         $this->searchService = $searchService;
         $this->router = $router;
         $this->configResolver = $configResolver;
+        $this->locationService = $locationService;
     }
 
     public function createTopMenu( Request $request )
     {
         $menu = $this->factory->createItem( 'root' );
-        $menu->setChildrenAttribute( 'class', 'nav' );
-
         $this->addLocationsToMenu(
             $menu,
-            $this->getSearchResults( $this->configResolver->getParameter( 'content.tree_root.location_id' ) )
+            $this->getSearchResults(
+                $this->configResolver->getParameter( 'content.tree_root.location_id' )
+            )
         );
 
         return $menu;
@@ -91,18 +109,28 @@ class Builder
      */
     private function getSearchResults( $rootLocationId )
     {
+        $rootLocation = $this->locationService->loadLocation( $rootLocationId );
+
         $query = new LocationQuery();
 
         $query->query = new Criterion\LogicalAnd(
             array(
-                new Criterion\ContentTypeIdentifier( array( 'folder', 'landing_page' ) ),
+                new Criterion\ContentTypeIdentifier( $this->getTopMenuContentTypeIdentifierList() ),
                 new Criterion\Visibility( Criterion\Visibility::VISIBLE ),
-                new Criterion\Location\Depth( Criterion\Operator::BETWEEN, array( 2, 3 ) ),
-                new Criterion\Subtree( "/1/$rootLocationId/" )
+                new Criterion\Location\Depth(
+                    Criterion\Operator::BETWEEN,
+                    array( $rootLocation->depth + 1, $rootLocation->depth + 2 )
+                ),
+                new Criterion\Subtree( $rootLocation->pathString )
             )
         );
         $query->sortClauses = array( new Query\SortClause\Location\Path() );
 
         return $this->searchService->findLocations( $query )->searchHits;
+    }
+
+    private function getTopMenuContentTypeIdentifierList()
+    {
+        return $this->configResolver->getParameter( 'MenuContentSettings.TopIdentifierList', 'menu' );
     }
 }
