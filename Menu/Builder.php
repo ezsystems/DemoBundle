@@ -81,6 +81,7 @@ class Builder
                     'attributes' => array( 'id' => 'nav-location-' . $location->id )
                 )
             );
+            $menuItem->setChildrenAttribute( 'class', 'nav' );
         }
     }
 

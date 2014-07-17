@@ -51,7 +51,7 @@ services:
     ezdemo.menu.top:
         class: EzSystems\DemoBundle\Menu\Builder
         factory_service: ezdemo.menu.builder
-        factory_method: createMainMenu
+        factory_method: createTopMenu
         arguments: [ @request ]
         scope: request # needed as we have the request as a dependency here
         tags:
