@@ -121,7 +121,8 @@ class Builder
                     Criterion\Operator::BETWEEN,
                     array( $rootLocation->depth + 1, $rootLocation->depth + 2 )
                 ),
-                new Criterion\Subtree( $rootLocation->pathString )
+                new Criterion\Subtree( $rootLocation->pathString ),
+                new Criterion\LanguageCode( $this->configResolver->getParameter( 'languages' ) )
             )
         );
         $query->sortClauses = array( new Query\SortClause\Location\Path() );
