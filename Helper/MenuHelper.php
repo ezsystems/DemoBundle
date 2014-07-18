@@ -53,14 +53,16 @@ class MenuHelper
      *
      * @param int $topLocationId
      * @param \eZ\Publish\API\Repository\Values\Content\Query\Criterion $criterion Additional criterion for filtering.
+     * @param string[] $languages Array of languages
      *
      * @return \eZ\Publish\API\Repository\Values\Content\Location[] Location objects, indexed by their contentId.
      */
-    public function getTopMenuContent( $topLocationId, Criterion $criterion = null )
+    public function getTopMenuContent( $topLocationId, Criterion $criterion = null, array $languages = array() )
     {
         $criteria = array(
             new Criterion\ParentLocationId( $topLocationId ),
-            new Criterion\Visibility( Criterion\Visibility::VISIBLE )
+            new Criterion\Visibility( Criterion\Visibility::VISIBLE ),
+            new Criterion\LanguageCode( $languages )
         );
 
         if ( !empty( $criterion ) )

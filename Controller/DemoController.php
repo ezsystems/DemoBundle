@@ -44,7 +44,13 @@ class DemoController extends Controller
                 // Get contentType identifiers we want to exclude from configuration (see default_settings.yml).
                 $this->container->getParameter( 'ezdemo.top_menu.content_types_exclude' )
             );
-        $locationList = $this->get( 'ezdemo.menu_helper' )->getTopMenuContent( $rootLocationId, $excludeCriterion );
+
+        $locationList = $this->get( 'ezdemo.menu_helper' )->getTopMenuContent(
+            $rootLocationId,
+            $excludeCriterion,
+            $this->getConfigResolver()->getParameter( 'languages' )
+        );
+
         return $this->render(
             'eZDemoBundle::page_topmenu.html.twig',
             array(
