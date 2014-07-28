@@ -21,40 +21,6 @@ use eZ\Publish\API\Repository\Values\Content\Query\SortClause;
 class DemoController extends Controller
 {
     /**
-     * Renders the top menu, with cache control
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
-    public function topMenuAction()
-    {
-        $rootLocationId = $this->getConfigResolver()->getParameter( 'content.tree_root.location_id' );
-
-        // Setting HTTP cache for the response to be public and with a TTL of 1 day.
-        $response = new Response;
-        $response->setPublic();
-        $response->setSharedMaxAge( 86400 );
-        // Menu will expire when top location cache expires.
-        $response->headers->set( 'X-Location-Id', $rootLocationId );
-        // Menu might vary depending on user permissions, so make the cache vary on the user hash.
-        $response->setVary( 'X-User-Hash' );
-
-        // Generate criterion from $excludeContentTypes and pass it to the menu helper.
-        $excludeCriterion = $this->get( 'ezdemo.criteria_helper' )
-            ->generateContentTypeExcludeCriterion(
-                // Get contentType identifiers we want to exclude from configuration (see default_settings.yml).
-                $this->container->getParameter( 'ezdemo.top_menu.content_types_exclude' )
-            );
-        $locationList = $this->get( 'ezdemo.menu_helper' )->getTopMenuContent( $rootLocationId, $excludeCriterion );
-        return $this->render(
-            'eZDemoBundle::page_topmenu.html.twig',
-            array(
-                'locationList' => $locationList,
-            ),
-            $response
-        );
-    }
-
-    /**
      * Renders page header links with cache control
      *
      * @return \Symfony\Component\HttpFoundation\Response

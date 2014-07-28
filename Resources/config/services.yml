@@ -43,3 +43,21 @@ services:
         class: %ezdemo.form.type.feedback.class%
         tags:
             - { name: form.type, alias: ezdemo_feedback }
+
+    ezdemo.menu.builder:
+        class: EzSystems\DemoBundle\Menu\Builder
+        arguments:
+            - @knp_menu.factory
+            - @ezpublish.api.service.search
+            - @router
+            - @ezpublish.config.resolver
+            - @ezpublish.api.service.location
+
+    ezdemo.menu.top:
+        class: EzSystems\DemoBundle\Menu\Builder
+        factory_service: ezdemo.menu.builder
+        factory_method: createTopMenu
+        arguments: [ @request ]
+        scope: request # needed as we have the request as a dependency here
+        tags:
+            - { name: knp_menu.menu, alias: top } # The alias is what is used to retrieve the menu

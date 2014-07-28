@@ -1,7 +1,4 @@
 parameters:
-    ## Top menu
-    ezdemo.top_menu.content_types_exclude: [article]
-
     ## Footer
     # Limit for latest content in footer.
     ezdemo.footer.latest_content.limit: 7
