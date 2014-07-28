@@ -14,27 +14,33 @@ branches:
   only:
     - master
 
-# Get ezpublish5 repo, set it as build dir & install it's packages
+# Get ezpublish5 repo, and use it as the build dir
 before_install:
-  - export OLD_TRAVIS_BUILD_DIR="$TRAVIS_BUILD_DIR"
+  - export BRANCH_BUILD_DIR=$TRAVIS_BUILD_DIR
   - export TRAVIS_BUILD_DIR="$HOME/build/ezpublish-community"
   - cd "$HOME/build"
-  - git clone --depth 1 https://github.com/ezsystems/ezpublish-community.git
+
+  # Change the branch and/or remote to use a different ezpublish-community branch
+  - git clone --depth 1 --single-branch --branch master https://github.com/ezsystems/ezpublish-community.git
   - cd ezpublish-community
+
+  # Use this if you depend on another branch for a dependency (only works for the ezsystems remote)
+  # (note that packagist may take time to update the references, leading to errors. Just retrigger the build)
+  #- composer require --no-update dev-MyCustomBranch
   - ./bin/.travis/prepare_system.sh
   - ./bin/.travis/prepare_sahi.sh
-#  - ./bin/.travis/prepare_selenium2.sh
 
-# setup requirements for running tests, move our bundle in & run last requirements script
+# setup requirements for running tests
 before_script:
   - ./bin/.travis/prepare_ezpublish.sh
-  - rm -fR vendor/ezsystems/demobundle/EzSystems/DemoBundle
-  - mv "$OLD_TRAVIS_BUILD_DIR" vendor/ezsystems/demobundle/EzSystems
+
+  # Replace demobundle with the one from the pull-request
+  - rm -rf vendor/ezsystems/demobundle/EzSystems/DemoBundle && mv "$BRANCH_BUILD_DIR" vendor/ezsystems/demobundle/EzSystems/DemoBundle
 
 # execute behat as the script command
 script:
-    - php bin/behat --profile $INSTALL
-    - php bin/behat --profile $PROFILE
+  - php bin/behat --profile $INSTALL
+  - php bin/behat --profile $PROFILE
 
 # disable mail notifications
 notification:
