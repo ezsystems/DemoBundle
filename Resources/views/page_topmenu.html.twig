@@ -4,12 +4,18 @@
         <a class="btn btn-navbar" data-action="toggleclass" data-class="nav-collapse" data-target=".main-navi .nav-collapse">{{ "Navigation"|trans }}</a>
 
         <div class="nav-collapse">
-            <ul class="nav">
-            {% for location in locationList %}
-                <li id="nav-location-{{ location.id }}"><a href="{{ path( location ) }}">{{ ez_content_name( location.contentInfo ) }}</a></li>
-            {% endfor %}
-            </ul>
+            {{ knp_menu_render(menu, {'depth': 1, 'firstClass': 'firstli', 'lastClass': 'lastli', 'branch_class': 'nav'}) }}
         </div>
 
     </div>
 </div>
+
+{% if submenu is defined %}
+<div class="navbar-inner sublevel">
+    <div class="container">
+        <div class="nav-collapse">
+            {{ knp_menu_render(submenu, {'firstClass': 'firstli', 'lastClass': 'lastli', 'branch_class': 'nav'}) }}
+        </div>
+    </div>
+</div>
+{% endif %}

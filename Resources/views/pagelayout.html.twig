@@ -15,9 +15,14 @@
     {% include 'eZDemoBundle::page_head_script.html.twig' %}
 </head>
 <body>
-<!-- Complete page area: START -->
+
 {% if location is defined and not location.isDraft %}
-    {{ render( controller( "ezpublish_legacy.website_toolbar.controller:websiteToolbarAction", { 'locationId': location.id} ) ) }}
+    {% set currentLocation=location %}
+{% endif %}
+
+<!-- Complete page area: START -->
+{% if currentLocation is defined %}
+    {{ render( controller( "ezpublish_legacy.website_toolbar.controller:websiteToolbarAction", { 'locationId': currentLocation.id} ) ) }}
 {% endif %}
 <div id="page" class="">
     <!-- Header area: START -->
@@ -28,7 +33,12 @@
     <div class="navbar main-navi">
         <!-- Top menu area: START -->
         {% block topMenu %}
-            {{ render_esi( controller( "eZDemoBundle:Demo:topMenu" ) ) }}
+            {{ render(
+                controller(
+                    "eZDemoBundle:Menu:topMenu",
+                    {'currentLocationId': currentLocation is defined ? currentLocation.id : null}
+                )
+            ) }}
         {% endblock %}
         <!-- Top menu area: END -->
         {# TODO: implement logic to control path visibility #}
@@ -42,8 +52,8 @@
     </div>
     <div class="container">
         {% block breadcrumb %}
-            {% if location is defined and not location.isDraft %}
-                {{ render( controller( 'eZDemoBundle:Demo:viewBreadcrumb', { 'locationId': location.id } ) ) }}
+            {% if currentLocation is defined %}
+                {{ render( controller( 'eZDemoBundle:Demo:viewBreadcrumb', { 'locationId': currentLocation.id } ) ) }}
             {% endif %}
         {% endblock %}
         <div class="row">
