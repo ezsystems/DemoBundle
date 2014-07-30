@@ -21,7 +21,7 @@ before_install:
   - cd "$HOME/build"
 
   # Change the branch and/or remote to use a different ezpublish-community branch
-  - git clone --depth 1 --single-branch --branch EZP-22601-KnpMenu https://github.com/ezsystems/ezpublish-community.git
+  - git clone --depth 1 --single-branch --branch master https://github.com/ezsystems/ezpublish-community.git
   - cd ezpublish-community
 
   # Use this if you depend on another branch for a dependency (only works for the ezsystems remote)
