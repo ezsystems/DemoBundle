@@ -11,8 +11,8 @@
     "minimum-stability": "dev",
     "require": {
         "php": ">=5.3.3",
-        "ezsystems/ezpublish-kernel": "@dev",
-        "ezsystems/comments-bundle": "@dev",
+        "ezsystems/ezpublish-kernel": ">=2014.07",
+        "ezsystems/comments-bundle": ">=2014.07",
         "knplabs/knp-menu-bundle": "1.*"
     },
     "autoload": {
