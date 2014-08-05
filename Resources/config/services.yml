@@ -52,6 +52,7 @@ services:
             - @router
             - @ezpublish.config.resolver
             - @ezpublish.api.service.location
+            - @ezpublish.translation_helper
 
     ezdemo.menu.top:
         class: EzSystems\DemoBundle\Menu\Builder

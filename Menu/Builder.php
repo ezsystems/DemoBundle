@@ -20,6 +20,7 @@ use Knp\Menu\FactoryInterface;
 use Knp\Menu\ItemInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\RouterInterface;
+use eZ\Publish\Core\Helper\TranslationHelper;
 
 /**
  * A simple eZ Publish menu provider.
@@ -56,12 +57,18 @@ class Builder
      */
     private $locationService;
 
+    /**
+     * @var TranslationHelper
+     */
+    private $translationHelper;
+
     public function __construct(
         FactoryInterface $factory,
         SearchService $searchService,
         RouterInterface $router,
         ConfigResolverInterface $configResolver,
-        LocationService $locationService
+        LocationService $locationService,
+        TranslationHelper $translationHelper
     )
     {
         $this->factory = $factory;
@@ -69,6 +76,7 @@ class Builder
         $this->router = $router;
         $this->configResolver = $configResolver;
         $this->locationService = $locationService;
+        $this->translationHelper = $translationHelper;
     }
 
     public function createTopMenu( Request $request )
@@ -101,7 +109,7 @@ class Builder
             $menuItem->addChild(
                 $location->id,
                 array(
-                    'label' => $location->contentInfo->name,
+                    'label' => $this->translationHelper->getTranslatedContentNameByContentInfo( $location->contentInfo ),
                     'uri' => $this->router->generate( $location ),
                     'attributes' => array( 'id' => 'nav-location-' . $location->id )
                 )
