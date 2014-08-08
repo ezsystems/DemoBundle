@@ -22,7 +22,11 @@ class MenuController extends Controller
     {
         if ( $currentLocationId !== null )
         {
-            $secondLevelLocationId = $this->getLocationService()->loadLocation( $currentLocationId )->path[2];
+            $location = $this->getLocationService()->loadLocation( $currentLocationId );
+            if ( isset( $location->path[2] ) )
+            {
+                $secondLevelLocationId = $location->path[2];
+            }
         }
 
         $response = new Response;
