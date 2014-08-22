@@ -1,4 +1,3 @@
-@democontent
 Feature: Tag cloud
     In order to check tags has a cloud
     As an anonymous user

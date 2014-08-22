@@ -1,4 +1,3 @@
-@democontent
 Feature: Start page
 
     Scenario: Start page displays welcome text
