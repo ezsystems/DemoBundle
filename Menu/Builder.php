@@ -81,12 +81,12 @@ class Builder
 
     public function createTopMenu( Request $request )
     {
+        $rootLocationId = $this->configResolver->getParameter( 'content.tree_root.location_id' );
         $menu = $this->factory->createItem( 'root' );
         $this->addLocationsToMenu(
             $menu,
-            $this->getMenuItems(
-                $this->configResolver->getParameter( 'content.tree_root.location_id' )
-            )
+            $this->getMenuItems( $rootLocationId ),
+            $rootLocationId
         );
 
         return $menu;
@@ -97,25 +97,41 @@ class Builder
      *
      * @param ItemInterface $menu
      * @param SearchHit[] $searchHits
+     * @param $rootLocationId
+     *
      * @return void
      */
-    private function addLocationsToMenu( ItemInterface $menu, array $searchHits )
+    private function addLocationsToMenu( ItemInterface $menu, array $searchHits, $rootLocationId )
     {
-        foreach ( $searchHits as $searchHit )
+
+        $menu->setChildrenAttribute( 'class', 'nav' );
+
+        foreach ( $searchHits as $k => $searchHit )
         {
             /** @var Location $location */
             $location = $searchHit->valueObject;
-            $menuItem = isset( $menu[$location->parentLocationId] ) ? $menu[$location->parentLocationId] : $menu;
-            $menuItem->addChild(
-                $location->id,
-                array(
-                    'label' => $this->translationHelper->getTranslatedContentNameByContentInfo( $location->contentInfo ),
-                    'uri' => $this->router->generate( $location ),
-                    'attributes' => array( 'id' => 'nav-location-' . $location->id )
-                )
-            );
-            $menuItem->setChildrenAttribute( 'class', 'nav' );
+
+            if ( $location->parentLocationId == $rootLocationId )
+            {
+                unset( $searchHits[$k] );
+
+                $child = $menu->addChild(
+                    $location->id,
+                    array(
+                        'label' => $this->translationHelper->getTranslatedContentNameByContentInfo(
+                                $location->contentInfo
+                            ),
+                        'uri' => $this->router->generate( $location ),
+                        'attributes' => array(
+                            'id' => 'nav-location-' . $location->id
+                        )
+                    )
+                );
+
+                $this->addLocationsToMenu( $child, $searchHits, $location->id );
+            }
         }
+
     }
 
     /**
@@ -141,7 +157,7 @@ class Builder
                 new Criterion\LanguageCode( $this->configResolver->getParameter( 'languages' ) )
             )
         );
-        $query->sortClauses = array( new Query\SortClause\Location\Path() );
+        $query->sortClauses = array( new Query\SortClause\Location\Priority() );
 
         return $this->searchService->findLocations( $query )->searchHits;
     }
