@@ -1,4 +1,3 @@
-@democontent
 Feature: See site map
     In order to do see site map
     As an anonymous user or administrator for restricted content
