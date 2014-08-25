@@ -19,7 +19,7 @@ class SimpleSearchType extends AbstractType
     {
         $builder
             ->setMethod( 'GET' )
-            ->add( 'searchText', 'text' )
+            ->add( 'searchText', 'search' )
             ->add( 'save', 'submit' );
     }
 

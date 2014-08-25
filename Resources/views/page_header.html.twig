@@ -14,7 +14,7 @@
             {% endblock %}
 
             {% block searchbox %}
-                {% include 'eZDemoBundle::page_header_searchbox.html.twig' %}
+                {{ render_esi( controller( 'eZDemoBundle:Search:searchBox' ) ) }}
             {% endblock %}
         </div>
     </div>

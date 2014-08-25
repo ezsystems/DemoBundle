@@ -77,4 +77,19 @@ class SearchController extends Controller
         );
     }
 
+    public function searchBoxAction()
+    {
+        $response = new Response();
+
+        $simpleSearch = new SimpleSearch();
+        $form = $this->createForm( $this->get( 'ezdemo.form.type.simple_search' ), $simpleSearch );
+
+        return $this->render(
+            'eZDemoBundle::page_header_searchbox.html.twig',
+            array(
+                'form' => $form->createView()
+            ),
+            $response
+        );
+    }
 }
