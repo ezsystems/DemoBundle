@@ -9,15 +9,20 @@
 
 namespace EzSystems\DemoBundle\Features\Context;
 
+use EzSystems\BehatBundle\Helpers\EzAssertion;
 use Behat\Behat\Context\Step;
-use Behat\Behat\Exception\PendingException;
+use Behat\Gherkin\Node\TableNode;
 use PHPUnit_Framework_Assert as Assertion;
 
 class ContentContext extends DemoContext
 {
-    public function __construct( array $parameters )
+    /**
+     * Set initial definitions
+     */
+    public function __construct()
     {
-        parent::__construct( $parameters );
+        parent::__construct();
+
         $this->pageIdentifierMap += array(
             "search" => "/content/search",
             "site map" => "/content/view/sitemap/2",
@@ -55,20 +60,20 @@ class ContentContext extends DemoContext
     }
 
     /**
-     * @When /^I check site map for Location "(?P<location>[^"]*)"$/
+     * @When I check site map for Location :location
      */
     public function iCheckSiteMapForLocation( $location )
     {
         $id = $this->getDemoObjectLocationByText( $location );
-        return new Step\When( 'I am on "/content/view/sitemap/' . $id . '"' );
+        $this->visit( '/content/view/sitemap/' . $id );
     }
 
     /**
-     * @Given /^I am on tag page for "(?P<tag>[^"]*)"$/
+     * @Given I am on tag page for :tag
      */
     public function iAmOnTagPageFor( $tag )
     {
-        return new Step\When( "I am on \"/content/keyword/$tag\"" );
+        $this->visit( "/content/keyword/$tag" );
     }
 
     /**
@@ -77,11 +82,11 @@ class ContentContext extends DemoContext
     public function iCheckTagCloudFor( $tag )
     {
         $id = $this->getDemoObjectLocationByText( $tag );
-        return new Step\When( "I am on \"/content/view/tagcloud/$id\"" );
+        $this->visit( "/content/view/tagcloud/$id" );
     }
 
     /**
-     * @Then /^I see tag page for "(?P<tag>[^"]*)"$/
+     * @Then I (should) see tag page for :tag
      */
     public function iSeeTagPageFor( $tag )
     {
