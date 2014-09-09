@@ -7,11 +7,11 @@ Feature: See site map
     Scenario: See site map page
        Given I am on homepage
         When I click at "Site map" link
-        Then I see "Site Map" page
+        Then I should be at "Site Map" page
 
     Scenario: See that site map content as different types
         When I go to "Site Map" page
-        Then I see links in:
+        Then I should see the following links in:
             | link              | type  |
             | Getting Started   | Title |
             | Feedback          | List  |
@@ -21,7 +21,7 @@ Feature: See site map
 
     Scenario: See site map content
         When I go to "Site Map" page
-        Then I see links for Content objects:
+        Then I should see the following links:
             | object link                           |
             | Getting Started                       |
             | footer                                |
@@ -35,7 +35,7 @@ Feature: See site map
 
     Scenario: See site map content with sub content (second level of the content tree)
         When I go to "Site Map" page
-        Then I see links for Content objects:
+        Then I should see links:
             | object link       | parent           |
             | Getting Started   |                  |
             | Feedback          | Getting Started  |
@@ -47,12 +47,12 @@ Feature: See site map
 
     Scenario: Unable to see site map content with deeper sub contents (third and deeper levels of the content tree)
         When I go to "Site Map" page
-        Then on "main content" I see links:
+        Then on "main content" I should see links:
             | object   | parent   |
             | Shopping |          |
             | Products | Shopping |
             | Services | Shopping |
-        And on "main content" I don't see links:
+        And on "main content" I shouldn't see links:
             | link                    |
             | eZPublish Community Mug |
             | Trainning Services      |
@@ -61,14 +61,14 @@ Feature: See site map
     Scenario: See site map for Shopping Location
        Given I am on "Site Map" page
         When I check site map for Location "Shopping"
-        Then on "main content" I see links:
-            | object link       | parent          |
+        Then on "main content" I should see links:
+            | object link              | parent   |
             | Products                 |          |
             | eZ Publish Community Mug | Products |
             | Services                 |          |
             | Training Services        | Services |
             | Professional Services    | Services |
-        And on "main content" I don't see links:
+        And on "main content" I shouldn't see links:
             | Link            |
             | Getting Started |
             | Shopping        |
@@ -76,7 +76,7 @@ Feature: See site map
 
     Scenario: See site map main Content objects ordered
         When I go to "Site Map" page
-        Then I see links in following order:
+        Then I should see links in the following order:
             | object link           |
             | Getting Started       |
             | Shopping              |
@@ -87,7 +87,7 @@ Feature: See site map
 
     Scenario: Unable to see site map sub content ordered (second level of the content tree)
         When I go to "Site Map" page
-        Then I see links in following order:
+        Then I should see links in the following order:
             | object link       | parent          |
             | Getting Started   |                 |
             | Feedback          | Getting Started |
@@ -98,7 +98,7 @@ Feature: See site map
     Scenario: As administrator I can see restricted objects
         Given I am logged as an "administrator"
         When I go to "Site Map" page
-        Then on "main content" I see links:
+        Then on "main content" I should see links:
             | links         |
             | eZ Logo Black |
             | eZ Logo White |
@@ -107,7 +107,7 @@ Feature: See site map
     Scenario: A visitor can't see restricted objects
         Given I am not logged in
         When I go to "Site Map" page
-        Then on "main content" I don't see links:
+        Then on "main content" I shouldn't see links:
             | links         |
             | eZ Logo Black |
             | eZ Logo White |
