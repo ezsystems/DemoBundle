@@ -53,7 +53,7 @@ class FeedbackFormController extends Controller
                     $this->get( 'translator' )->trans( 'Thank you for your message, we will get back to you as soon as possible.' )
                 );
 
-                $this->redirect(
+                return $this->redirect(
                     $this->generateUrl(
                         $this->getRepository()->getLocationService()->loadLocation( $locationId )
                     )
