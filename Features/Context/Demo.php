@@ -9,11 +9,11 @@
 
 namespace EzSystems\DemoBundle\Features\Context;
 
-use EzSystems\BehatBundle\Context\EzBrowserContext;
-use EzSystems\BehatBundle\Helpers\EzAssertion;
+use EzSystems\BehatBundle\Context\Browser\Context;
+use EzSystems\BehatBundle\Helper\EzAssertion;
 use PHPUnit_Framework_Assert as Assertion;
 
-class DemoContext extends EzBrowserContext
+class Demo extends Context
 {
     /**
      * Set initial definitions
@@ -37,7 +37,7 @@ class DemoContext extends EzBrowserContext
     public function iSearchFor( $search )
     {
         // workaround to get the search box that doesn't have a unique way to do it
-        $elements = $this->xpath->findFields( 'SearchText' );
+        $elements = $this->getXpath()->findFields( 'SearchText' );
         Assertion::assertEquals(
             2,
             count( $elements ),
@@ -53,7 +53,7 @@ class DemoContext extends EzBrowserContext
      */
     public function iClickAtEzLogoImage()
     {
-        $el = $this->xpath->findXpath( $this->makeXpathForBlock( 'ez logo' ) );
+        $el = $this->getXpath()->findXpath( $this->makeXpathForBlock( 'ez logo' ) );
         EzAssertion::assertSingleElemenet( 'eZ Logo', $el, null, 'image link' );
         $el[0]->click();
     }
@@ -63,7 +63,7 @@ class DemoContext extends EzBrowserContext
      */
     public function iSeeSearchResults( $total )
     {
-        $resultCountElement = $this->xpath->findXpath( "//div[@class = 'feedback']" );
+        $resultCountElement = $this->getXpath()->findXpath( "//div[@class = 'feedback']" );
 
         EzAssertion::assertSingleElemenet( 'search feedback', $resultCountElement );
 

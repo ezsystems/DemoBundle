@@ -7,14 +7,15 @@
  * @version //autogentag//
  */
 
-namespace EzSystems\DemoBundle\Features\Context;
+namespace EzSystems\DemoBundle\Features\Context\Content;
 
-use EzSystems\BehatBundle\Helpers\EzAssertion;
+use EzSystems\DemoBundle\Features\Context\Demo;
+use EzSystems\BehatBundle\Helper\EzAssertion;
 use Behat\Behat\Context\Step;
 use Behat\Gherkin\Node\TableNode;
 use PHPUnit_Framework_Assert as Assertion;
 
-class ContentContext extends DemoContext
+class Context extends Demo
 {
     /**
      * Set initial definitions
