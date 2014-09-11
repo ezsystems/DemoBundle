@@ -6,7 +6,7 @@ Feature: Tag cloud
     @javascript
     Scenario: Open Tag cloud page
         Given I am on homepage
-        When I follow "Tag cloud"
+        When I click at "Tag cloud" link
         Then I should be at "Tag cloud" page
 
     Scenario: See tags on Tag cloud
@@ -44,7 +44,7 @@ Feature: Tag cloud
 
   Scenario: Follow to Content object where Tag is used
         Given I am on tag page for "Ventoux"
-        When I follow "Optimize"
+        When I click at "Optimize" link
         Then I should see "Optimize" title
 
     Scenario: See Tag cloud for a specific location

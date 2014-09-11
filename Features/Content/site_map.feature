@@ -5,7 +5,7 @@ Feature: See site map
 
     @javascript
     Scenario: See site map page
-       Given I am on homepage
+       Given I am on home page
         When I click at "Site map" link
         Then I should be at "Site Map" page
 
