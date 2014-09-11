@@ -1,7 +1,7 @@
 Feature: Start page
 
     Scenario: Start page displays welcome text
-        When I go to homepage
+        When I go to the homepage
         Then I should see "Home" text
 
     Scenario: Search works from the start page

@@ -1,6 +1,6 @@
 <?php
 /**
- * File containing the DemoContext class.
+ * File containing the Demo Context class.
  *
  * @copyright Copyright (C) eZ Systems AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
@@ -13,6 +13,9 @@ use EzSystems\BehatBundle\Context\Browser\Context;
 use EzSystems\BehatBundle\Helper\EzAssertion;
 use PHPUnit_Framework_Assert as Assertion;
 
+/**
+ * Demo context base class
+ */
 class Demo extends Context
 {
     /**

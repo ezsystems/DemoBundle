@@ -1,6 +1,6 @@
 <?php
 /**
- * File containing the ContentContext class.
+ * File containing the Context class for Demo.
  *
  * @copyright Copyright (C) eZ Systems AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
@@ -15,6 +15,9 @@ use Behat\Behat\Context\Step;
 use Behat\Gherkin\Node\TableNode;
 use PHPUnit_Framework_Assert as Assertion;
 
+/**
+ * Base context for Demo content assertion
+ */
 class Context extends Demo
 {
     /**
