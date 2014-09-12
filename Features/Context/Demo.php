@@ -57,7 +57,7 @@ class Demo extends Context
     public function iClickAtEzLogoImage()
     {
         $el = $this->getXpath()->findXpath( $this->makeXpathForBlock( 'ez logo' ) );
-        EzAssertion::assertSingleElemenet( 'eZ Logo', $el, null, 'image link' );
+        EzAssertion::assertSingleElement( 'eZ Logo', $el, null, 'image link' );
         $el[0]->click();
     }
 
@@ -68,7 +68,7 @@ class Demo extends Context
     {
         $resultCountElement = $this->getXpath()->findXpath( "//div[@class = 'feedback']" );
 
-        EzAssertion::assertSingleElemenet( 'search feedback', $resultCountElement );
+        EzAssertion::assertSingleElement( 'search feedback', $resultCountElement );
 
         Assertion::assertRegExp(
             "/Search for \"(.*)\" returned {$total} matches/",
