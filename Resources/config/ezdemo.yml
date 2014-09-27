@@ -1,11 +1,3 @@
-siteaccess:
-    groups:
-        ezdemo_frontend_group:
-            - ezdemo_site
-            - ezdemo_site_user
-            - eng
-            - fre
-
 system:
     ezdemo_frontend_group:
         image_variations:

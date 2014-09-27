@@ -59,5 +59,16 @@ class eZDemoExtension extends Extension implements PrependExtensionInterface
         $ezCommentsConfig = Yaml::parse( file_get_contents( $ezCommentsConfigFile ) );
         $container->prependExtensionConfig( 'ez_comments', $ezCommentsConfig );
         $container->addResource( new FileResource( $ezCommentsConfigFile ) );
+
+        // ezdemo.ezdemo_frontend_group.siteaccess_group_enabled must be defined before we get here
+        // or we assume true
+        if ( !$container->hasParameter('ezdemo.ezdemo_frontend_group.siteaccess_group_enabled')
+            || $container->getParameter('ezdemo.ezdemo_frontend_group.siteaccess_group_enabled') === true )
+        {
+            $siteAccessConfigFile = __DIR__ . '/../Resources/config/siteaccess.yml';
+            $siteAccessConfig = Yaml::parse( file_get_contents( $siteAccessConfigFile ) );
+            $container->prependExtensionConfig( 'ezpublish', $siteAccessConfig );
+            $container->addResource( new FileResource( $siteAccessConfigFile ) );
+        }
     }
 }
