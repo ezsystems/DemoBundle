@@ -30,3 +30,8 @@ parameters:
     ezdemo.feedback_form.email_to: root@localhost
     # Email address displayed as sent
     ezdemo.feedback_form.email_from: noreply@ezdemobundle.test
+
+    # Allows to disable the default ezdemo_frontend_group siteaccess group so user defined siteaccess group
+    # can take precedence.
+    # If not enabled sites mmust be added to the ezdemo_frontend_group siteaccess group manualy
+    ezdemo.ezdemo_frontend_group.siteaccess_group_enabled: true
