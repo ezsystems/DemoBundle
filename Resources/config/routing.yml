@@ -20,3 +20,11 @@ ezpublish_ezdemo_ajax_default_placeList:
     methods: [GET]
     requirements:
         locationId: \d+
+
+# Search page
+ezpublish_ezdemo_search:
+    path: /content/search
+    defaults:
+        _controller: eZDemoBundle:Search:showSearchResults
+    methods: [GET]
+
