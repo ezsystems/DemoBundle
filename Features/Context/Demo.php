@@ -40,7 +40,7 @@ class Demo extends Context
     public function iSearchFor( $search )
     {
         // workaround to get the search box that doesn't have a unique way to do it
-        $elements = $this->getXpath()->findFields( 'SearchText' );
+        $elements = $this->getXpath()->findFields( 'ezdemo_simple_search[searchText]' );
         Assertion::assertEquals(
             2,
             count( $elements ),
@@ -73,7 +73,6 @@ class Demo extends Context
         Assertion::assertRegExp(
             "/Search for \"(.*)\" returned {$total} matches/",
             $resultCountElement[0]->getText()
-
         );
     }
 }
