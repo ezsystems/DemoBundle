@@ -1,0 +1,24 @@
+<div class="content-view-embed">
+    <div class="class-image">
+        <div class="attribute-image">
+            {% if not ez_is_field_empty( content, 'image' ) %}
+                <div class="attribute-image full-head">
+                    {{ ez_render_field(
+                        content,
+                        'image',
+                        {
+                            'template': 'eZDemoBundle:fields:ezimage_simple.html.twig',
+                            'parameters': { 'alias': objectParameters.size }
+                        }
+                    ) }}
+
+                    {% if not ez_is_field_empty( content, 'caption' ) %}
+                        <div class="attribute-caption">
+                            {{ ez_render_field( content, 'caption' ) }}
+                        </div>
+                    {% endif %}
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
