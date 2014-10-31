@@ -69,6 +69,12 @@ system:
                     template: "eZDemoBundle:line:place.html.twig"
                     match:
                         Identifier\ContentType: [place]
+        content_view:
+            embed:
+                image:
+                    template: "eZDemoBundle:embed:image.html.twig"
+                    match:
+                        Identifier\ContentType: [image]
 
         field_templates:
             - {template: "eZDemoBundle::content_fields.html.twig", priority: 10}
