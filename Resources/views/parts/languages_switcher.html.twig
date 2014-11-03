@@ -1,0 +1,22 @@
+{# Template parameters:
+#    - 'routeRef'
+#    - 'siteaccess'
+#    - 'currentLanguage'
+#    - 'availableLanguages'
+#}
+<div id="lang-selector">
+    {# Looping over all available languages to display the links #}
+
+    {% for lang in availableLanguages %}
+        {# This time, we alter the "siteaccess" parameter directly. #}
+        {# We get the right siteaccess with the help of ezpublish.translationSiteAccess() helper #}
+
+        {% do routeRef.set( "siteaccess", ezpublish.translationSiteAccess( lang ) ) %}
+        {% if lang != currentLanguage %}
+            <a href="{{ url( routeRef ) }}" title="{{ 'Switch to %siteaccess%'|trans({ '%siteaccess%': siteaccess[lang] })  }}">
+                <img src="{{ asset( 'bundles/ezdemo/images/flags/' ~ lang ~ '.gif' ) }}" title="{{ lang }}">
+                {{ siteaccess[lang]}}
+            </a>
+        {% endif %}
+    {% endfor %}
+</div>
