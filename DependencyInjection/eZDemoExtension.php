@@ -50,6 +50,11 @@ class eZDemoExtension extends Extension implements PrependExtensionInterface
         $container->prependExtensionConfig( 'ezpublish', $config );
         $container->addResource( new FileResource( $configFile ) );
 
+        $configFile = __DIR__ . '/../Resources/config/image_variations.yml';
+        $config = Yaml::parse( file_get_contents( $configFile ) );
+        $container->prependExtensionConfig( 'ezpublish', $config );
+        $container->addResource( new FileResource( $configFile ) );
+
         $ezpageConfigFile = __DIR__ . '/../Resources/config/ezpage.yml';
         $ezpageConfig = Yaml::parse( file_get_contents( $ezpageConfigFile ) );
         $container->prependExtensionConfig( 'ezpublish', $ezpageConfig );
