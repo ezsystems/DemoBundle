@@ -34,3 +34,7 @@ parameters:
     ## Search Page
     # Number of results displayed per page in the simple search
     ezdemo.search.list.limit: 10
+
+    ## Premium content
+    ezdemo.premium_content.section_id: 7
+    ezdemo.premium_content.role_id: 6

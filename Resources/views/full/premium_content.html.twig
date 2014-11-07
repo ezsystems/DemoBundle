@@ -1,0 +1,21 @@
+{% extends "eZDemoBundle::pagelayout.html.twig" %}
+
+{% block content %}
+<section class="content-view-full">
+    <article class="class-article row">
+        <div class="span8">
+            <div class="attribute-header">
+                <h1>{{ ez_render_field( content, 'title' ) }}</h1>
+            </div>
+
+            {% if not ez_is_field_empty( content, 'subscriber_teaser' ) %}
+                <div class="attribute-short">
+                    {{ ez_render_field( content, 'subscriber_teaser' ) }}
+                </div>
+            {% endif %}
+
+            This article is only available to Premium subscribers.
+        </div>
+    </article>
+</section>
+{% endblock %}
