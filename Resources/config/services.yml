@@ -69,3 +69,18 @@ services:
         scope: request # needed as we have the request as a dependency here
         tags:
             - { name: knp_menu.menu, alias: top } # The alias is what is used to retrieve the menu
+
+    ezdemo.premium_content.location_view_provider:
+        class: EzSystems\DemoBundle\PremiumContent\PremiumLocationViewProvider
+        arguments:
+            - @ezpublish.api.repository
+            - @ezdemo.premium_content.subscription_checker
+            - %ezdemo.premium_content.section_id%
+        tags:
+            - {name: ezpublish.location_view_provider, priority: 30}
+
+    ezdemo.premium_content.subscription_checker:
+        class: EzSystems\DemoBundle\PremiumContent\PremiumSubscriptionChecker
+        arguments:
+            - @ezpublish.api.repository
+            - %ezdemo.premium_content.role_id%
