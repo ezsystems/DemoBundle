@@ -1,0 +1,15 @@
+{# Looping over all available languages to display the links #}
+<div id="lang-selector">
+    {% for lang in ezpublish.availableLanguages %}
+        {# This time, we alter the "siteaccess" parameter directly. #}
+        {# We get the right siteaccess with the help of ezpublish.translationSiteAccess() helper #}
+
+        {% do routeRef.set( "siteaccess", ezpublish.translationSiteAccess( lang ) ) %}
+        {% if lang != currentLanguage %}
+            <a href="{{ url( routeRef ) }}" title="Switch to {{ siteaccess[lang] }}">
+                <img src="{{ asset( '/share/icons/flags/' ~ lang ~ '.gif' ) }}" title="{{ lang }}">
+                {{ siteaccess[lang]}}
+            </a>
+        {% endif %}
+    {% endfor %}
+</div>

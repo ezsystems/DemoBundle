@@ -5,8 +5,13 @@ siteaccess:
             - ezdemo_site_user
             - eng
             - fre
+        language_switcher_group:
+            - eng
+            - fre
 
 system:
+    language_switcher_group:
+        translation_siteaccesses: [fre, eng]
     ezdemo_frontend_group:
         user:
             layout: eZDemoBundle::pagelayout.html.twig
