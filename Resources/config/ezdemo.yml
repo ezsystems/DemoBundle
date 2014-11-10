@@ -7,7 +7,7 @@ siteaccess:
             - fre
 
 system:
-    ezdemo_frontend_group:
+    default:
         user:
             layout: eZDemoBundle::pagelayout.html.twig
             login_template: eZDemoBundle:Security:login.html.twig
