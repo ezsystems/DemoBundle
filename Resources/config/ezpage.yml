@@ -1,5 +1,5 @@
 system:
-    ezdemo_frontend_group:
+    default:
         # Configuration for block views.
         # This configuration is used when using sub-requests on ez_page:viewBlock.
         # Block views are triggered from eZPage Zone layouts.

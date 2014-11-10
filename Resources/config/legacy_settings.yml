@@ -1,0 +1,5 @@
+system:
+    default:
+        templating:
+            view_layout: "eZDemoBundle::pagelayout.html.twig"
+            module_layout: "eZDemoBundle::pagelayout_legacy.html.twig"
