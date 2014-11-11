@@ -31,7 +31,7 @@
     {% set advancedSearchUrl = '' %}
 
     {% if searchText %}
-        {% set advancedSearchUrl = '?SearchText=' ~ searchText %}
+        {% set advancedSearchUrl = '?SearchText=' ~ searchText|replace({' ': '+'}) %}
     {% endif %}
 
     <p>
