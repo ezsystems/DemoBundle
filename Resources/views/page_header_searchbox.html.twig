@@ -1,8 +1,0 @@
-{{ form_start( form, { 'action': path('ezpublish_ezdemo_search'), 'attr': { 'class': 'span4 form-search' } } ) }}
-<label class="pull-right" for="{{ form.searchText.vars.id }}">
-    <span class="hidden">{{ 'Search'|trans }}</span>
-    {{ form_widget( form.searchText, { 'attr': {'class': 'search-query span3', 'placeholder': 'Search text'|trans } } ) }}
-
-    {{ form_widget( form.save, { 'attr': { 'class': 'hide hidden' } } ) }}
-</label>
-{{ form_end( form ) }}

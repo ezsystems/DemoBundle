@@ -1,7 +1,0 @@
-{# TODO: Make sure current user data is available here  #}
-{% set userId = app.user.APIUser.id|default( 'anonymous' ) %}
-<style type="text/css">
-.limitdisplay-user { display: none; }
-.limitdisplay-user-{{ userId }} { display: inline; }
-.limitdisplay-user-block-{{ userId }} { display: block; }
-</style>
