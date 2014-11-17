@@ -93,7 +93,7 @@ system:
             productimage:
                 reference: null
                 filters:
-                    - { name: geometry/scaledownwidthonly, params: [770] }
+                    - { name: geometry/scalewidthdownonly, params: [770] }
             mainstory1:
                 reference: null
                 filters:
