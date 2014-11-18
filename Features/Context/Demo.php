@@ -27,7 +27,7 @@ class Demo extends Context
 
         $this->pageIdentifierMap += array(
             "search" => "/content/search",
-            "premium_article" => "/Premium-article"
+            "premium_article" => "/Getting-Started/Selected-Features/Getting-Started-with-eZ-Publish-Platform"
         );
 
         $this->mainAttributes += array(
