@@ -13,7 +13,7 @@ Feature: Tag cloud
        When I go to "Tag cloud" page
        Then I should see links:
             | tags       |
-            | Ventoux    |
+            | Castor     |
             | Blog Post  |
             | cxm        |
             | deliver    |
@@ -29,12 +29,12 @@ Feature: Tag cloud
          Examples:
             | tag         |
             | Social      |
-            | Ventoux     |
+            | Castor      |
             | deliver     |
 
     Scenario: See where tags are used
         Given I am on "Tag cloud" page
-        When I click at "Ventoux" link
+        When I click at "Castor" link
         Then I should see table with:
             | column 1 | column 2 |
             | Link     | Type     |
@@ -43,7 +43,7 @@ Feature: Tag cloud
 
 
   Scenario: Follow to Content object where Tag is used
-        Given I am on tag page for "Ventoux"
+        Given I am on tag page for "Castor"
         When I click at "Optimize" link
         Then I should see "Optimize" title
 
@@ -52,7 +52,7 @@ Feature: Tag cloud
         When I go to tag cloud for "Getting started"
         Then I should see links:
             | links       |
-            | deliver     |
-            | Ventoux     |
-            | kilimanjaro |
-        And I should see "Ventoux" text emphasized
+            | automate    |
+            | Castor      |
+            | create      |
+        And I should see "Castor" text emphasized
