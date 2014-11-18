@@ -26,7 +26,8 @@ class Demo extends Context
         parent::__construct();
 
         $this->pageIdentifierMap += array(
-            "search" => "/content/search"
+            "search" => "/content/search",
+            "premium_article" => "/Premium-article"
         );
 
         $this->mainAttributes += array(
