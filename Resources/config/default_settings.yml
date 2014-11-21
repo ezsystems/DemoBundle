@@ -35,6 +35,9 @@ parameters:
     # Number of results displayed per page in the simple search
     ezdemo.search.list.limit: 10
 
+    ## Menu. Overrides MenuContentSettings.TopIdentifierList from ezpublish_legacy/settings/menu.ini.
+    menu.default.menucontentsettings.topidentifierlist: [folder, gallery, place_list]
+
     ## Premium content
     ezdemo.premium_content.section_id: 7
     ezdemo.premium_content.role_id: 6
