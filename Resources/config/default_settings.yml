@@ -36,7 +36,7 @@ parameters:
     ezdemo.search.list.limit: 10
 
     ## Menu. Overrides MenuContentSettings.TopIdentifierList from ezpublish_legacy/settings/menu.ini.
-    menu.default.menucontentsettings.topidentifierlist: [folder, gallery, place_list]
+    menu.default.menucontentsettings.topidentifierlist: [landing_page, folder, gallery, place_list, blog, feedback_form]
 
     ## Premium content
     ezdemo.premium_content.section_id: 7
