@@ -43,9 +43,9 @@ system:
                 filters:
                     geometry/scalewidthdownonly: [770]
             listitem:
-                    reference: null
-                    filters:
-                        - { name: geometry/scaledownonly, params: [130, 190] }
+                reference: null
+                filters:
+                    - { name: geometry/scaledownonly, params: [130, 190] }
             articleimage:
                 reference: null
                 filters:
