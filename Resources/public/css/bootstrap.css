@@ -4282,6 +4282,10 @@ input[type="submit"].btn.small {
 .breadcrumb li afocus {
   color: #006a8d;
 }
+.breadcrumb li .separator {
+  display: inline-block;
+  padding: 0px 3px;
+}
 .breadcrumb .divider {
   padding: 0 5px;
   color: #dbdbdc;
