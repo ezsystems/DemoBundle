@@ -66,10 +66,10 @@ class DemoController extends Controller
      *       the view. Since it is not calling the ViewControler we don't need to match a specific
      *       method signature.
      *
-     * @param int $locationId of a blog
+     * @param \eZ\Publish\API\Repository\Values\Content\Location $location containing blog posts
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function listBlogPostsAction( $locationId )
+    public function listBlogPostsAction( Location $location )
     {
         $response = new Response();
 
@@ -77,7 +77,7 @@ class DemoController extends Controller
         $response->setSharedMaxAge( $this->getConfigResolver()->getParameter( 'content.default_ttl' ) );
 
         // Make the response location cache aware for the reverse proxy
-        $response->headers->set( 'X-Location-Id', $locationId );
+        $response->headers->set( 'X-Location-Id', $location->id );
         $response->setVary( 'X-User-Hash' );
 
         $viewParameters = $this->getRequest()->attributes->get( 'viewParameters' );
@@ -97,10 +97,9 @@ class DemoController extends Controller
 
         // Getting location and content from ezpublish dedicated services
         $repository = $this->getRepository();
-        $location = $repository->getLocationService()->loadLocation( $locationId );
         if ( $location->invisible )
         {
-           throw new NotFoundHttpException( "Location #$locationId cannot be displayed as it is flagged as invisible." );
+           throw new NotFoundHttpException( "Location #$location->id cannot be displayed as it is flagged as invisible." );
         }
 
         $content = $repository
@@ -148,17 +147,16 @@ class DemoController extends Controller
      *       Viewcontroller's viewLocation method. To be able to do that, we need to implement it's
      *       full signature.
      *
-     * @param $locationId
+     * @param \eZ\Publish\API\Repository\Values\Content\Location $location of the blog post
      * @param $viewType
      * @param bool $layout
      * @param array $params
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function showBlogPostAction( $locationId, $viewType, $layout = false, array $params = array() )
+    public function showBlogPostAction( Location $location, $viewType, $layout = false, array $params = array() )
     {
         // We need the author, whatever the view type is.
         $repository = $this->getRepository();
-        $location = $repository->getLocationService()->loadLocation( $locationId );
         $author = $repository->getUserService()->loadUser( $location->getContentInfo()->ownerId );
 
         // TODO once the keyword service is available, load the number of keyword for each keyword
@@ -167,7 +165,7 @@ class DemoController extends Controller
         // (makes it possible to continue using defined template rules)
         // We just add "author" to the list of variables exposed to the final template
         return $this->get( 'ez_content' )->viewLocation(
-            $locationId,
+            $location->id,
             $viewType,
             $layout,
             array( 'author' => $author )
@@ -257,16 +255,16 @@ class DemoController extends Controller
     /**
      * Displays breadcrumb for a given $locationId
      *
-     * @param mixed $locationId
+     * @param \eZ\Publish\API\Repository\Values\Content\Location $location
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function viewBreadcrumbAction( $locationId )
+    public function viewBreadcrumbAction( Location $location )
     {
         /** @var WhiteOctober\BreadcrumbsBundle\Templating\Helper\BreadcrumbsHelper $breadcrumbs */
         $breadcrumbs = $this->get( "white_october_breadcrumbs" );
 
         $locationService = $this->getRepository()->getLocationService();
-        $path = $locationService->loadLocation( $locationId )->path;
+        $path = $location->path;
 
         // The root location can be defined at site access level
         $rootLocationId = $this->getConfigResolver()->getParameter( 'content.tree_root.location_id' );

@@ -21,7 +21,6 @@ services:
     ezdemo.place_helper:
             class: %ezdemo.place_helper.class%
             arguments:
-                - @ezpublish.api.service.location
                 - @ezpublish.api.service.search
                 - @ezdemo.search_helper
                 - %ezdemo.places.place_list.min%
