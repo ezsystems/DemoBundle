@@ -104,4 +104,18 @@ class Context extends Demo
             "Unexpected URL of the current site. Expected: '$expectedUrl'. Actual: '$currentUrl'."
         );
     }
+
+    /**
+     * Tests that the page contains a specific link with a specific text (the text must be within a span)
+     * @Then It has the text :text in a span linked to :link
+     * @Then I see the text :text in a span linked to :link
+     */
+    public function itHasATextSpanLinkedTo( $text, $link )
+    {
+        $this->assertSession()->pageTextContains( $text );
+        Assertion::assertCount(
+            1,
+            $this->getXpath()->findXpath( sprintf( '//a[@href="%s"]/span[text()="%s"]', $link, $text ) )
+        );
+    }
 }
