@@ -3,6 +3,9 @@
         <div class="attribute-image">
             {% if not ez_is_field_empty( content, 'image' ) %}
                 <div class="attribute-image full-head">
+                    {% if linkParameters is defined and linkParameters.wrapped == false %}
+                        <a href="{{ linkParameters.href }}"{% if linkParameters.title is defined %} title="{{ linkParameters.title }}"{% endif %}{% if linkParameters.class is defined %} class="{{ linkParameters.class }}"{% endif %}{% if linkParameters.id is defined %} id="{{ linkParameters.id }}"{% endif %}{% if linkParameters.target is defined %} target="{{ linkParameters.target }}"{% endif %}>
+                    {% endif %}
                     {{ ez_render_field(
                         content,
                         'image',
@@ -11,6 +14,9 @@
                             'parameters': { 'alias': objectParameters.size }
                         }
                     ) }}
+                    {% if linkParameters is defined and linkParameters.wrapped == false %}
+                        </a>
+                    {% endif %}
 
                     {% if not ez_is_field_empty( content, 'caption' ) %}
                         <div class="attribute-caption">
