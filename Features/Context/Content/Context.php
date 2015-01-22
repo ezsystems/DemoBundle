@@ -118,4 +118,38 @@ class Context extends Demo
             $this->getXpath()->findXpath( sprintf( '//a[@href="%s"]/span[text()="%s"]', $link, $text ) )
         );
     }
+
+    /**
+     * Tests if a link is present in the breadcrumbs
+     * @Then the breadcrumb has the following links:
+     */
+    public function breadcrumbHasTheFollowingLinks( TableNode $table )
+    {
+        foreach ( $table->getTable() as $breadcrumbItem )
+        {
+            $text = $breadcrumbItem[0];
+            $url = $breadcrumbItem[1];
+
+            // this is not a link (the current page)
+            if ( $url === "null" )
+            {
+                $query = sprintf(
+                    '//ul[@id="wo-breadcrumbs"]/li/span[text()="%s"]',
+                    $text
+                );
+            }
+            else
+            {
+                $query = sprintf(
+                    '//ul[@id="wo-breadcrumbs"]/li/a[@href="%s"]/span[text()="%s"]',
+                    $url,
+                    $text
+                );
+            }
+
+            Assertion::assertCount(
+                1, $this->getXpath()->findXpath( $query )
+            );
+        }
+    }
 }
