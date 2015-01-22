@@ -96,7 +96,7 @@ Feature: See site map
             | Shopping          |                 |
 
     Scenario: As administrator I can see restricted objects
-        Given I am logged as an "administrator"
+       Given I am logged in as "admin" with password "publish"
         When I go to "Site Map" page
         Then on "main content" I should see links:
             | links         |
