@@ -29,7 +29,8 @@ class Demo extends Context
             "search" => "/content/search",
             "premium_article" => "/Getting-Started/Selected-Features/Getting-Started-with-eZ-Publish-Platform",
             "blog" => "/Blog",
-            "feedback_form" => "/Contact-Us"
+            "feedback_form" => "/Contact-Us",
+            "place" => "/eZ-Mountains"
         );
 
         $this->mainAttributes += array(
