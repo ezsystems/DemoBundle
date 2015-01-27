@@ -18,11 +18,6 @@
 <link rel="Home" href="{{ path( ezpublish.rootLocation ) }}" title="{{ 'Home'|trans }}"/>
 <link rel="Index" href="{{ path( ezpublish.rootLocation ) }}" title="{{ 'Home'|trans }}"/>
 <link rel="Top" href="{{ path( ezpublish.rootLocation ) }}" title="{{ 'Home'|trans }}"/>
-<link rel="Search" href="{{ path( 'ez_legacy', {'module_uri': '/content/advancedsearch'} ) }}" title="{{ 'Search'|trans }}"/>
-<link rel="Shortcut icon" href="{{ asset( "/design/standard/images/favicon.ico" ) }}" type="image/x-icon"/>
-<link rel="Copyright" href="{{ path( 'ez_legacy', {'module_uri': '/ezinfo/copyright'} ) }}"/>
-<link rel="Author" href="{{ path( 'ez_legacy', {'module_uri': '/ezinfo/about'} ) }}"/>
-<link rel="Alternate" type="application/rss+xml" title="RSS" href="{{ path( 'ez_legacy', {'module_uri': '/rss/feed/my_feed'} ) }}"/>
 
 {# adding canonical url for all defined content #}
 {% if content is defined and content.contentInfo.mainLocationId %}
