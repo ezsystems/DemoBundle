@@ -1,4 +1,3 @@
-{# TODO: add loading external CSS files defined in the INI settings #}
 {% stylesheets
     '@eZDemoBundle/Resources/public/css/bootstrap.css'
     '@eZDemoBundle/Resources/public/css/responsive.css'
@@ -7,6 +6,8 @@
     <link rel="stylesheet" type="text/css" href="{{ asset_url }}"/>
 {% endstylesheets %}
 
+{% if ezpublish.legacy is defined %}
 <style type="text/css">
     @import url("{{ asset('extension/ezwt/design/standard/stylesheets/websitetoolbar.css') }}");
 </style>
+{% endif %}
