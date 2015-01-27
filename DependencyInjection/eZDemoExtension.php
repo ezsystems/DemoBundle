@@ -45,10 +45,14 @@ class eZDemoExtension extends Extension implements PrependExtensionInterface
      */
     public function prepend( ContainerBuilder $container )
     {
-        $legacyConfigFile = __DIR__ . '/../Resources/config/legacy_settings.yml';
-        $config = Yaml::parse( file_get_contents( $legacyConfigFile ) );
-        $container->prependExtensionConfig( 'ez_publish_legacy', $config );
-        $container->addResource( new FileResource( $legacyConfigFile ) );
+        // Add legacy bundle settings only if it's present.
+        if ( $container->hasExtension( 'ez_publish_legacy' ) )
+        {
+            $legacyConfigFile = __DIR__ . '/../Resources/config/legacy_settings.yml';
+            $config = Yaml::parse( file_get_contents( $legacyConfigFile ) );
+            $container->prependExtensionConfig( 'ez_publish_legacy', $config );
+            $container->addResource( new FileResource( $legacyConfigFile ) );
+        }
 
         $configFile = __DIR__ . '/../Resources/config/ezdemo.yml';
         $config = Yaml::parse( file_get_contents( $configFile ) );
