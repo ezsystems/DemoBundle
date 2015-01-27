@@ -24,15 +24,3 @@
 {% if content is defined and content.contentInfo.mainLocationId %}
     <link rel="canonical" href="{{ path( 'ez_urlalias', {'locationId': content.contentInfo.mainLocationId} ) }}" />
 {% endif %}
-
-<script type="text/javascript">
-    (function () {
-        var head = document.getElementsByTagName('head')[0];
-        var printNode = document.createElement('link');
-        printNode.rel = 'Alternate';
-        printNode.href = "{{ path( 'ez_legacy', {'module_uri': '/layout/set/print/content/view/sitemap/2'} ) }}" + document.location.search;
-        printNode.media = 'print';
-        printNode.title = "Printable version";
-        head.appendChild(printNode);
-    })();
-</script>
