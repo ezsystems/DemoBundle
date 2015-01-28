@@ -34,11 +34,13 @@
         {% set advancedSearchUrl = '?SearchText=' ~ searchText|replace({' ': '+'}) %}
     {% endif %}
 
+    {% if ezpublish.legacy is defined %}
     <p>
         <a href={{ path( 'ez_legacy', {'module_uri': '/content/advancedsearch/' ~ advancedSearchUrl } ) }}>
             {{ 'For more options try the advanced search'|trans }}
         </a>
     </p>
+    {% endif %}
 
     {% if searchCount > 0 %}
         <div class="feedback">
