@@ -52,6 +52,10 @@ system:
                     template: "eZDemoBundle:full:product.html.twig"
                     match:
                         Identifier\ContentType: "product"
+                call_to_action:
+                    template: "eZDemoBundle:full:call_to_action.html.twig"
+                    match:
+                        Identifier\ContentType: "call_to_action"
 
             line:
                 article:
