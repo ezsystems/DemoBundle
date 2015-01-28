@@ -52,6 +52,11 @@ system:
                     Type: Video
                     view: default
 
+            tag_cloud:
+                template: eZDemoBundle:block:tag_cloud.html.twig
+                match:
+                    Type: TagCloud
+
         # Location views triggered by Page block rendering, using sub-requests with ez_content:viewLocation.
         # See eZDemoBundle:block:campaign.html.twig or eZDemoBundle:block:gallery.html.twig for concrete examples.
         location_view:
