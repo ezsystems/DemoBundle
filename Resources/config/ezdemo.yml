@@ -71,6 +71,10 @@ system:
                     template: "eZDemoBundle:line:place.html.twig"
                     match:
                         Identifier\ContentType: [place]
+                generic:
+                    template: "eZDemoBundle:line:line.html.twig"
+                    match:
+                        Identifier\ContentType: [landing_page, call_to_action, product, blog]
         content_view:
             embed:
                 image:

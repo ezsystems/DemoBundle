@@ -1,0 +1,21 @@
+{#
+    Generic line view
+#}
+
+<div class="content-view-line">
+    <article class="class-article row">
+        <div class="span8">
+            <div class="attribute-header">
+                <h2>
+                    <a href={{ path( location ) }} title="{{ ez_content_name( content ) }}" class="teaser-link">{{ ez_content_name( content ) }}</a>
+                </h2>
+            </div>
+
+            <div class="attribute-byline with-comments">
+                <span class="date">
+                    {{ location.contentInfo.publishedDate|localizeddate( 'short', 'short', app.request.locale ) }}
+                </span>
+            </div>
+        </div>
+    </article>
+</div>
