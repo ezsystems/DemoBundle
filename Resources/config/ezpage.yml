@@ -86,6 +86,10 @@ system:
                     template: "eZDemoBundle:block_item:video.html.twig"
                     match:
                         Identifier\ContentType: "video"
+                product:
+                    template: "eZDemoBundle:block_item:product.html.twig"
+                    match:
+                        Identifier\ContentType: "product"
 
             block_item_highlighted:
                 article:

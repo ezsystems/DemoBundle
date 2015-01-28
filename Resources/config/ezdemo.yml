@@ -48,6 +48,10 @@ system:
                     template: "eZDemoBundle:full:feedback_form.html.twig"
                     match:
                         Identifier\ContentType: "feedback_form"
+                product:
+                    template: "eZDemoBundle:full:product.html.twig"
+                    match:
+                        Identifier\ContentType: "product"
 
             line:
                 article:
