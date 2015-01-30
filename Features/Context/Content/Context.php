@@ -104,4 +104,52 @@ class Context extends Demo
             "Unexpected URL of the current site. Expected: '$expectedUrl'. Actual: '$currentUrl'."
         );
     }
+
+    /**
+     * Tests that the page contains a specific link with a specific text (the text must be within a span)
+     * @Then It has the text :text in a span linked to :link
+     * @Then I see the text :text in a span linked to :link
+     */
+    public function itHasATextSpanLinkedTo( $text, $link )
+    {
+        $this->assertSession()->pageTextContains( $text );
+        Assertion::assertCount(
+            1,
+            $this->getXpath()->findXpath( sprintf( '//a[@href="%s"]/span[text()="%s"]', $link, $text ) )
+        );
+    }
+
+    /**
+     * Tests if a link is present in the breadcrumbs
+     * @Then the breadcrumb has the following links:
+     */
+    public function breadcrumbHasTheFollowingLinks( TableNode $table )
+    {
+        foreach ( $table->getTable() as $breadcrumbItem )
+        {
+            $text = $breadcrumbItem[0];
+            $url = $breadcrumbItem[1];
+
+            // this is not a link (the current page)
+            if ( $url === "null" )
+            {
+                $query = sprintf(
+                    '//ul[@id="wo-breadcrumbs"]/li/span[text()="%s"]',
+                    $text
+                );
+            }
+            else
+            {
+                $query = sprintf(
+                    '//ul[@id="wo-breadcrumbs"]/li/a[@href="%s"]/span[text()="%s"]',
+                    $url,
+                    $text
+                );
+            }
+
+            Assertion::assertCount(
+                1, $this->getXpath()->findXpath( $query )
+            );
+        }
+    }
 }
