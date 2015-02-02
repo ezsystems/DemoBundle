@@ -1,0 +1,6 @@
+{% set contentName = ez_content_name( content ) %}
+<article class="clearfix">
+    <h3>{{ contentName }}</h3>
+
+    <a href="{{ path( location ) }}" title="{{ contentName }}" class="btn btn-warning pull-right">{% if not ez_is_field_empty( content, "action_button_label" ) %}{{ ez_field_value( content, "action_button_label" ).text }}{% else %}{{ "Download!"|trans }}{% endif %}</a>
+</article>

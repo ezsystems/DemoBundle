@@ -21,7 +21,7 @@
 {% endif %}
 
 <!-- Complete page area: START -->
-{% if currentLocation is defined %}
+{% if ezpublish.legacy is defined and currentLocation is defined %}
     {{ render( controller( "ezpublish_legacy.website_toolbar.controller:websiteToolbarAction", { 'locationId': currentLocation.id} ) ) }}
 {% endif %}
 <div id="page" class="">

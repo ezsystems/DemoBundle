@@ -3,4 +3,4 @@
  # You can look at the DemoController calling this template to have a good example on own to sandbox
  # a legacy feature inside a controller using a subrequest.
  #}
-{% include "design:parts/article/star_rating.tpl" with {"node": location } %}
+{% if ezpublish.legacy is defined %}{% include "design:parts/article/star_rating.tpl" with {"node": location } %}{% endif %}

@@ -48,6 +48,14 @@ system:
                     template: "eZDemoBundle:full:feedback_form.html.twig"
                     match:
                         Identifier\ContentType: "feedback_form"
+                product:
+                    template: "eZDemoBundle:full:product.html.twig"
+                    match:
+                        Identifier\ContentType: "product"
+                call_to_action:
+                    template: "eZDemoBundle:full:call_to_action.html.twig"
+                    match:
+                        Identifier\ContentType: "call_to_action"
 
             line:
                 article:
@@ -63,6 +71,10 @@ system:
                     template: "eZDemoBundle:line:place.html.twig"
                     match:
                         Identifier\ContentType: [place]
+                generic:
+                    template: "eZDemoBundle:line:line.html.twig"
+                    match:
+                        Identifier\ContentType: [landing_page, call_to_action, product, blog]
         content_view:
             embed:
                 image:
