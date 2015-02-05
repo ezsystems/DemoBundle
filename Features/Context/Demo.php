@@ -30,7 +30,10 @@ class Demo extends Context
             "premium_article" => "/Getting-Started/Selected-Features/Getting-Started-with-eZ-Publish-Platform",
             "blog" => "/Blog",
             "feedback_form" => "/Contact-Us",
-            "place" => "/eZ-Mountains"
+            "place" => "/eZ-Mountains",
+            "services" => "/Shopping/Services",
+            "products" => "/Shopping/Products",
+            "resources" => "/Getting-Started/Resources"
         );
 
         $this->mainAttributes += array(

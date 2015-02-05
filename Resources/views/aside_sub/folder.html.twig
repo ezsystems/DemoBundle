@@ -1,0 +1,9 @@
+{% if treeChildItems is not empty %}
+    <ul>
+
+        {% for treeChildItem in treeChildItems %}
+            <li><a href="{{ path( 'ez_urlalias', { 'locationId': treeChildItem.contentInfo.mainLocationId } ) }}" title="{{ ez_content_name( treeChildItem.contentInfo ) }}">{{ ez_content_name( treeChildItem.contentInfo ) }}</a></li>
+        {% endfor %}
+
+    </ul>
+{% endif %}

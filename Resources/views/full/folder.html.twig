@@ -1,0 +1,46 @@
+{% extends "eZDemoBundle::pagelayout.html.twig" %}
+
+{% block content %}
+    <section class="content-view-full">
+        <div class="class-folder">
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="attribute-header">
+                        <h1>{{  ez_content_name( content ) }}</h1>
+                    </div>
+
+                    {% for article in pagerFolder %}
+                        <section class="content-view-children">
+                            {{ render_esi( controller( 'ez_content:viewLocation', { 'locationId': article.contentInfo.mainLocationId, 'viewType': 'line' } ) ) }}
+                        </section>
+                    {% endfor %}
+
+                    {% if pagerFolder.haveToPaginate() %}
+                        <div class="pagination-centered">
+                            {{ pagerfanta( pagerFolder, 'twitter_bootstrap_translated', { 'routeName': location } ) }}
+                        </div>
+                    {% endif %}
+
+                </div>
+
+                <aside class="col-md-4">
+                    <section class="subnavigation row nav-collapse">
+                        <div class="attribute-header">
+                            <h2>{{ ez_content_name( content ) }}</h2>
+                        </div>
+
+                        {% if treeItems is not empty %}
+                            <ul class="break folder-view">
+                                {% for treeItem in treeItems %}
+                                    {{ render_esi( controller( 'ez_content:viewLocation', { 'locationId': treeItem.contentInfo.mainLocationId, 'viewType': 'aside' } ) ) }}
+                                {% endfor %}
+                            </ul>
+                        {% endif %}
+
+                    </section>
+                </aside>
+
+            </div>
+        </div>
+    </section>
+{% endblock %}
