@@ -5,6 +5,9 @@ siteaccess:
             - ezdemo_site_user
             - eng
             - fre
+        language_switcher_group:
+            - eng
+            - fre
 
 system:
     default:
@@ -84,4 +87,8 @@ system:
 
         field_templates:
             - {template: "eZDemoBundle::content_fields.html.twig", priority: 10}
+
+    # Install the eng and fre translations to have a demo of the language switcher
+    language_switcher_group:
+        translation_siteaccesses: [fre, eng]
 
