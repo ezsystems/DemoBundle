@@ -10,6 +10,7 @@
 namespace EzSystems\DemoBundle\Controller;
 
 use eZ\Bundle\EzPublishCoreBundle\Controller;
+use eZ\Publish\API\Repository\Values\Content\Location;
 use EzSystems\DemoBundle\Entity\Feedback;
 use EzSystems\DemoBundle\Helper\EmailHelper;
 
@@ -19,14 +20,14 @@ class FeedbackFormController extends Controller
      * Displays and manages the feedback form.
      *
      * The signature of this method follows the one from the default view controller.
-     * @param $locationId
+     * @param \eZ\Publish\API\Repository\Values\Content\Location $location
      * @param $viewType
      * @param bool $layout
      * @param array $params
      *
      * @return mixed
      */
-    public function showFeedbackFormAction( $locationId, $viewType, $layout = false, array $params = array() )
+    public function showFeedbackFormAction( Location $location, $viewType, $layout = false, array $params = array() )
     {
         // Creating a form using Symfony's form component
         $feedback = new Feedback();
@@ -53,16 +54,12 @@ class FeedbackFormController extends Controller
                     $this->get( 'translator' )->trans( 'Thank you for your message, we will get back to you as soon as possible.' )
                 );
 
-                return $this->redirect(
-                    $this->generateUrl(
-                        $this->getRepository()->getLocationService()->loadLocation( $locationId )
-                    )
-                );
+                return $this->redirect( $this->generateUrl( $location ) );
             }
         }
 
         return $this->get( 'ez_content' )->viewLocation(
-            $locationId,
+            $location->id,
             $viewType,
             $layout,
             array( 'form' => $form->createView() )

@@ -12,23 +12,24 @@ namespace EzSystems\DemoBundle\Controller;
 use eZ\Bundle\EzPublishCoreBundle\Controller;
 use eZ\Publish\API\Repository\Values\Content\Query;
 use eZ\Publish\API\Repository\Values\Content\Query\SortClause;
+use eZ\Publish\API\Repository\Values\Content\Location;
 
 class PlaceController extends Controller
 {
     /**
      * Displays all the places contained in a place list
      *
-     * @param mixed $locationId id of the place list
+     * @param \eZ\Publish\API\Repository\Values\Content\Location $location of a place_list
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function listPlaceListAction( $locationId )
+    public function listPlaceListAction( Location $location )
     {
         /** @var \EzSystems\DemoBundle\Helper\PlaceHelper $placeHelper */
         $placeHelper = $this->get( 'ezdemo.place_helper' );
 
         $places = $placeHelper->getPlaceList(
-            $locationId,
+            $location,
             $this->container->getParameter( 'ezdemo.places.place_list.content_types' ),
             $this->getConfigResolver()->getParameter( 'languages' )
         );
@@ -43,7 +44,7 @@ class PlaceController extends Controller
      * Displays all the places sorted by proximity contained in a place list
      * The max distance of the places displayed can be modified in the default config
      *
-     * @param mixed $locationId
+     * @param \eZ\Publish\API\Repository\Values\Content\Location $location of a place_list
      * @param float $latitude
      * @param float $longitude
      * @param int $maxDist Maximum distance for the search in km
@@ -52,7 +53,7 @@ class PlaceController extends Controller
      *
      * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
      */
-    public function listPlaceListSortedAction( $locationId, $latitude, $longitude, $maxDist )
+    public function listPlaceListSortedAction( Location $location, $latitude, $longitude, $maxDist )
     {
         // The Symfony router is configured (routing.yml) not to check for keys needed to generate URL
         // template from twig (without calling the controller).
@@ -79,7 +80,7 @@ class PlaceController extends Controller
         );
 
         $places = $placeHelper->getPlaceListSorted(
-            $locationId,
+            $location,
             $latitude,
             $longitude,
             $this->container->getParameter( 'ezdemo.places.place_list.content_types' ),

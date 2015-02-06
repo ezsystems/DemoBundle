@@ -9,8 +9,8 @@
 
 namespace EzSystems\DemoBundle\Helper;
 
-use eZ\Publish\API\Repository\LocationService;
 use eZ\Publish\API\Repository\SearchService;
+use eZ\Publish\API\Repository\Values\Content\Location;
 use eZ\Publish\API\Repository\Values\Content\Query;
 use eZ\Publish\API\Repository\Values\Content\Query\Criterion;
 
@@ -19,11 +19,6 @@ use eZ\Publish\API\Repository\Values\Content\Query\Criterion;
  */
 class PlaceHelper
 {
-    /**
-     * @var  \eZ\Publish\API\Repository\LocationService
-     */
-    private $locationService;
-
     /**
      * @var  \eZ\Publish\API\Repository\SearchService
      */
@@ -49,14 +44,12 @@ class PlaceHelper
     private $placeListMaxDist;
 
     public function __construct(
-        LocationService $locationService,
         SearchService $searchService,
         SearchHelper $searchHelper,
         $placeListMinDist,
         $placeListMaxDist
     )
     {
-        $this->locationService = $locationService;
         $this->searchService = $searchService;
         $this->searchHelper = $searchHelper;
         $this->placeListMinDist = $placeListMinDist;
@@ -66,16 +59,14 @@ class PlaceHelper
     /**
      * Returns all places contained in a place_list
      *
-     * @param int|string $locationId id of a place_list
+     * @param \eZ\Publish\API\Repository\Values\Content\Location $location of a place_list
      * @param string|string[] $contentTypes to be retrieved
      * @param string|string[] $languages to be retrieved
      *
      * @return \eZ\Publish\API\Repository\Values\Content\Content[]
      */
-    public function getPlaceList( $locationId, $contentTypes, $languages = array() )
+    public function getPlaceList( Location $location, $contentTypes, $languages = array() )
     {
-        $location = $this->locationService->loadLocation( $locationId );
-
         $query = new Query();
         $query->filter = new Criterion\LogicalAnd(
             array(
@@ -94,7 +85,7 @@ class PlaceHelper
      * Returns all places contained in a place_list that are located between the range defined in
      * the default configuration. A sort clause array can be provided in order to sort the results.
      *
-     * @param int|string $locationId
+     * @param \eZ\Publish\API\Repository\Values\Content\Location $location of a place_list
      * @param float $latitude
      * @param float $longitude
      * @param string|string[] $contentTypes to be retrieved
@@ -104,10 +95,8 @@ class PlaceHelper
      *
      * @return \eZ\Publish\API\Repository\Values\Content\Content[]
      */
-    public function getPlaceListSorted( $locationId, $latitude, $longitude, $contentTypes, $maxDist = null, $sortClauses = array(), $languages = array() )
+    public function getPlaceListSorted( Location $location, $latitude, $longitude, $contentTypes, $maxDist = null, $sortClauses = array(), $languages = array() )
     {
-        $location = $this->locationService->loadLocation( $locationId );
-
         if ( $maxDist === null )
         {
             $maxDist = $this->placeListMaxDist;
