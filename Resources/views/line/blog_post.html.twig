@@ -35,13 +35,17 @@
  # the default template.
  #}
 {% block ezkeyword_field %}
-    {% spaceless %}
-        {% if field.value.values|length() > 0 %}
-            {% for keyword in field.value.values %}
-                {# Forwarding on legacy #}
-                <a href="{{ path( 'ez_legacy', {'module_uri': 'content/keyword/' ~ keyword} ) }}" title="{{ keyword }}">{{ keyword }}</a>
-                {% if not loop.last %},{% endif %}
-            {% endfor %}
-        {% endif %}
-    {% endspaceless %}
+    {% if ezpublish.legacy is defined %}
+        {% spaceless %}
+            {% if field.value.values|length() > 0 %}
+                {% for keyword in field.value.values %}
+                    {# Forwarding on legacy #}
+                    <a href="{{ path( 'ez_legacy', {'module_uri': 'content/keyword/' ~ keyword} ) }}" title="{{ keyword }}">{{ keyword }}</a>
+                    {% if not loop.last %},{% endif %}
+                {% endfor %}
+            {% endif %}
+        {% endspaceless %}
+    {% else %}
+        {{ parent() }}
+    {% endif %}
 {% endblock %}

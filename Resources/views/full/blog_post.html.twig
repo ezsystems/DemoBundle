@@ -39,7 +39,9 @@
                     </div>
 
                     {# This is a call to a subrequest calling legacy code #}
-                    {{ render( controller( 'eZDemoBundle:Demo:viewTagRelatedContent', {'location': location} ) ) }}
+                    {% if ezpublish.legacy is defined %}
+                        {{ render( controller( 'eZDemoBundle:Demo:viewTagRelatedContent', {'location': location} ) ) }}
+                    {% endif %}
 
                 </div>
 
