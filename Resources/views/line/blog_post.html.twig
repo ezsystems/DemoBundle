@@ -19,7 +19,7 @@
 
             <span class="tags"> {{ "Tags:"|trans }}
                 {# _self is used to lookup the override template within this file #}
-                {{ ez_render_field( content, 'tags' , { 'template': _self } ) }}
+                {{ ez_render_field( content, 'tags' , { 'template': _self, 'viewbaseLayout': viewbaseLayout } ) }}
             </span>
         </div>
 
