@@ -51,7 +51,7 @@ class DemoInstaller extends DbBasedInstaller implements Installer
         $fs = new Filesystem();
         $fs->mkdir( 'web/var/ezdemo_site' );
         $fs->mirror(
-            'vendor/bdunogier/demobundle-data/data/storage',
+            'vendor/ezsystems/demobundle-data/data/storage',
             'web/var/ezdemo_site/storage'
         );
     }
