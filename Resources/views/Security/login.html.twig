@@ -31,8 +31,10 @@
                         <input class="defaultbutton" type="submit" name="LoginButton" value="{{ "Login"|trans }}" />
                     </div>
 
-                    <p><a href="{{ path( 'ez_legacy', {'module_uri': 'user/forgotpassword'} ) }}">{{ "Forgot your password?"|trans }}</a></p>
 
+                    {% if ezpublish.legacy is defined %}
+                        <p><a href="{{ path( 'ez_legacy', {'module_uri': 'user/forgotpassword'} ) }}">{{ "Forgot your password?"|trans }}</a></p>
+                    {% endif %}
                 {% endblock %}
             </form>
         </div>

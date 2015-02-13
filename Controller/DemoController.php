@@ -82,19 +82,6 @@ class DemoController extends Controller
 
         $viewParameters = $this->getRequest()->attributes->get( 'viewParameters' );
 
-        // TODO keyword search is not implemented in the public API yet, so we forward to a legacy view
-        if ( !empty( $viewParameters['tag'] ) )
-        {
-            $tag = $viewParameters['tag'];
-
-            return $this->redirect(
-                $this->generateUrl(
-                    'ez_legacy',
-                    array( 'module_uri' => '/content/keyword/' . $tag )
-                )
-            );
-        }
-
         // Getting location and content from ezpublish dedicated services
         $repository = $this->getRepository();
         if ( $location->invisible )
