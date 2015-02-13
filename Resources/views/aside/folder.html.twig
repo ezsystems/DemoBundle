@@ -1,0 +1,4 @@
+<li>
+    <a href="{{ path( 'ez_urlalias', { 'locationId': location.contentInfo.mainLocationId } ) }}" title="{{ ez_content_name( location.contentInfo ) }}">{{ ez_content_name( location.contentInfo ) }}</a>
+    {{ render_esi( controller( 'ez_content:viewLocation', { 'locationId': location.contentInfo.mainLocationId, 'viewType': 'aside_sub' } ) ) }}
+</li>

@@ -15,6 +15,19 @@ system:
             layout: eZDemoBundle::pagelayout.html.twig
             login_template: eZDemoBundle:Security:login.html.twig
         location_view:
+            aside:
+                folder:
+                    template: "eZDemoBundle:aside:folder.html.twig"
+                    match:
+                        Identifier\ContentType: [folder]
+
+            aside_sub:
+                folder:
+                    controller: "eZDemoBundle:Folder:showFolderListAsideView"
+                    template: "eZDemoBundle:aside_sub:folder.html.twig"
+                    match:
+                        Identifier\ContentType: [folder]
+
             full:
                 article:
                     controller: "eZDemoBundle:Demo:showArticle"
@@ -59,6 +72,11 @@ system:
                     template: "eZDemoBundle:full:call_to_action.html.twig"
                     match:
                         Identifier\ContentType: "call_to_action"
+                folder:
+                    controller: "eZDemoBundle:Folder:showFolderList"
+                    template: "eZDemoBundle:full:folder.html.twig"
+                    match:
+                        Identifier\ContentType: [folder]
 
             line:
                 article:
@@ -78,6 +96,11 @@ system:
                     template: "eZDemoBundle:line:line.html.twig"
                     match:
                         Identifier\ContentType: [landing_page, call_to_action, product, blog]
+                folder:
+                    template: "eZDemoBundle:line:folder.html.twig"
+                    match:
+                        Identifier\ContentType: [folder]
+
         content_view:
             embed:
                 image:

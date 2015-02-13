@@ -21,6 +21,46 @@ use DateInterval;
 class CriteriaHelper
 {
     /**
+     * Generate criterion list to be used to list article
+     *
+     * @param \eZ\Publish\API\Repository\Values\Content\Location $location Location of the folder
+     * @param string[] $excludeContentTypeIdentifiers Array of excluded contentType identifiers
+     * @param string[] $languages Array of languages
+     *
+     * @return \eZ\Publish\API\Repository\Values\Content\Query\Criterion
+     */
+    public function generateListFolderCriterion( Location $location, array $excludeContentTypeIdentifiers = array(), array $languages = array() )
+    {
+        $criteria = array();
+        $criteria[] = new Criterion\Visibility( Criterion\Visibility::VISIBLE );
+        $criteria[] = new Criterion\ParentLocationId( $location->id );
+        $criteria[] = new Criterion\LogicalNot( new Criterion\ContentTypeIdentifier( $excludeContentTypeIdentifiers ) );
+        $criteria[] = new Criterion\LanguageCode( $languages );
+
+        return new Criterion\LogicalAnd( $criteria );
+    }
+
+    /**
+     * Generate criterion list to be used to list sub folder items
+     *
+     * @param \eZ\Publish\API\Repository\Values\Content\Location $location Location of the folder
+     * @param string[] $includedContentTypeIdentifiers Array of included contentType identifiers
+     * @param string[] $languages Array of languages
+     *
+     * @return \eZ\Publish\API\Repository\Values\Content\Query\Criterion
+     */
+    public function generateSubContentCriterion( Location $location, array $includedContentTypeIdentifiers = array(), array $languages = array() )
+    {
+        $criteria = array();
+        $criteria[] = new Criterion\Visibility( Criterion\Visibility::VISIBLE );
+        $criteria[] = new Criterion\ContentTypeIdentifier( $includedContentTypeIdentifiers );
+        $criteria[] = new Criterion\LanguageCode( $languages );
+        $criteria[] = new Criterion\ParentLocationId( $location->id );
+
+        return new Criterion\LogicalAnd( $criteria );
+    }
+
+    /**
      * Generates an exclude criterion based on contentType identifiers.
      *
      * @param array $excludeContentTypeIdentifiers
