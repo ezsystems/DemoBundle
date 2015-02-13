@@ -31,7 +31,6 @@ class FolderController extends Controller
      */
     public function showFolderListAsideViewAction( Location $location, $viewType, $layout = false )
     {
-
         if ( $location->invisible )
         {
             throw new NotFoundHttpException( "Location #$location->id cannot be displayed as it is flagged as invisible." );
