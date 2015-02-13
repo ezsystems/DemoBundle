@@ -61,18 +61,12 @@ class FolderController extends Controller
             $treeChildItems[] = $hit->valueObject;
         }
 
-        $response = $this->get( 'ez_content' )->viewLocation(
+        return $this->get( 'ez_content' )->viewLocation(
             $location->id,
             $viewType,
             $layout,
             ['treeChildItems' => $treeChildItems]
         );
-
-        $response->setSharedMaxAge( $this->getConfigResolver()->getParameter( 'content.default_ttl' ) );
-        $response->headers->set( 'X-Location-Id', $location->id );
-        $response->setVary( 'X-User-Hash' );
-
-        return $response;
     }
 
     /**
@@ -142,17 +136,11 @@ class FolderController extends Controller
             $treeItems[] = $hit->valueObject;
         }
 
-        $response = $this->get( 'ez_content' )->viewLocation(
+        return $this->get( 'ez_content' )->viewLocation(
             $location->id,
             $viewType,
             $layout,
             ['pagerFolder' => $pager, 'treeItems' => $treeItems]
         );
-
-        $response->setSharedMaxAge( $this->getConfigResolver()->getParameter( 'content.default_ttl' ) );
-        $response->headers->set( 'X-Location-Id', $location->id );
-        $response->setVary( 'X-User-Hash' );
-
-        return $response;
     }
 }
