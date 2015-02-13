@@ -29,7 +29,7 @@ class FolderController extends Controller
      * @throws NotFoundHttpException $location is flagged as invisible
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function showFolderListAsideViewAction( Location $location, $viewType, $layout = false )
+    public function showFolderListAsideViewAction( Location $location, $viewType, $layout = false, array $params = array() )
     {
         if ( $location->invisible )
         {
@@ -64,7 +64,7 @@ class FolderController extends Controller
             $location->id,
             $viewType,
             $layout,
-            ['treeChildItems' => $treeChildItems]
+            array( 'treeChildItems' => $treeChildItems ) + $params
         );
     }
 
@@ -76,7 +76,7 @@ class FolderController extends Controller
      * @throws NotFoundHttpException $location is flagged as invisible
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function showFolderListAction( Request $request, Location $location, $viewType, $layout = false )
+    public function showFolderListAction( Request $request, Location $location, $viewType, $layout = false, array $params = array() )
     {
         if ( $location->invisible )
         {
@@ -139,7 +139,7 @@ class FolderController extends Controller
             $location->id,
             $viewType,
             $layout,
-            ['pagerFolder' => $pager, 'treeItems' => $treeItems]
+            array( 'pagerFolder' => $pager, 'treeItems' => $treeItems ) + $params
         );
     }
 }
