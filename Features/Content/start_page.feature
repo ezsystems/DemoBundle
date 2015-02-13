@@ -20,6 +20,6 @@ Feature: Start page
         Then I should be at homepage
 
     Scenario: eZ Logo redirects to homepage
-        Given I am on "Site map" page
+        Given I am on "blog" page
         When I click at eZ Logo image
         Then I should be at homepage

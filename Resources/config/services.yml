@@ -10,6 +10,9 @@ parameters:
     # Default limit that will be applied when retrieving content for menus.
     ezdemo.menu_helper.default_limit: 10
 
+    ezdemo.installer.democlean_installer.class: EzSystems\DemoBundle\Installer\DemoCleanInstaller
+    ezdemo.installer.demo_installer.class: EzSystems\DemoBundle\Installer\DemoInstaller
+
 services:
     ezdemo.criteria_helper:
         class: %ezdemo.criteria_helper.class%
@@ -83,3 +86,15 @@ services:
         arguments:
             - @ezpublish.api.repository
             - %ezdemo.premium_content.role_id%
+
+    ezdemo.installer.democlean_installer:
+        parent: ezplatform.installer.db_based_installer
+        class: %ezdemo.installer.democlean_installer.class%
+        tags:
+            - {name: ezplatform.installer, type: demo-clean}
+
+    ezdemo.installer.demo_installer:
+        parent: ezplatform.installer.db_based_installer
+        class: %ezdemo.installer.demo_installer.class%
+        tags:
+            - {name: ezplatform.installer, type: demo}
