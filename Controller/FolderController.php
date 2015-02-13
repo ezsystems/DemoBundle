@@ -29,18 +29,13 @@ class FolderController extends Controller
      * @throws NotFoundHttpException $location is flagged as invisible
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function showFolderListAsideViewAction( Location $location )
+    public function showFolderListAsideViewAction( Location $location, $viewType, $layout = false )
     {
-        $response = new Response();
 
         if ( $location->invisible )
         {
             throw new NotFoundHttpException( "Location #$location->id cannot be displayed as it is flagged as invisible." );
         }
-
-        $response->setSharedMaxAge( $this->getConfigResolver()->getParameter( 'content.default_ttl' ) );
-        $response->headers->set( 'X-Location-Id', $location->id );
-        $response->setVary( 'X-User-Hash' );
 
         $languages = $this->getConfigResolver()->getParameter( 'languages' );
 
@@ -66,12 +61,18 @@ class FolderController extends Controller
             $treeChildItems[] = $hit->valueObject;
         }
 
-        return $this->get( 'ez_content' )->viewLocation(
+        $response = $this->get( 'ez_content' )->viewLocation(
             $location->id,
-            'aside_sub',
-            true,
+            $viewType,
+            $layout,
             ['treeChildItems' => $treeChildItems]
         );
+
+        $response->setSharedMaxAge( $this->getConfigResolver()->getParameter( 'content.default_ttl' ) );
+        $response->headers->set( 'X-Location-Id', $location->id );
+        $response->setVary( 'X-User-Hash' );
+
+        return $response;
     }
 
     /**
@@ -82,18 +83,12 @@ class FolderController extends Controller
      * @throws NotFoundHttpException $location is flagged as invisible
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function showFolderListAction( Request $request, Location $location )
+    public function showFolderListAction( Request $request, Location $location, $viewType, $layout = false )
     {
-        $response = new Response();
-
         if ( $location->invisible )
         {
             throw new NotFoundHttpException( "Location #$location->id cannot be displayed as it is flagged as invisible." );
         }
-
-        $response->setSharedMaxAge( $this->getConfigResolver()->getParameter( 'content.default_ttl' ) );
-        $response->headers->set( 'X-Location-Id', $location->id );
-        $response->setVary( 'X-User-Hash' );
 
         $content = $this->getRepository()
             ->getContentService()
@@ -147,11 +142,17 @@ class FolderController extends Controller
             $treeItems[] = $hit->valueObject;
         }
 
-        return $this->get( 'ez_content' )->viewLocation(
+        $response = $this->get( 'ez_content' )->viewLocation(
             $location->id,
-            'full',
-            true,
+            $viewType,
+            $layout,
             ['pagerFolder' => $pager, 'treeItems' => $treeItems]
         );
+
+        $response->setSharedMaxAge( $this->getConfigResolver()->getParameter( 'content.default_ttl' ) );
+        $response->headers->set( 'X-Location-Id', $location->id );
+        $response->setVary( 'X-User-Hash' );
+
+        return $response;
     }
 }
