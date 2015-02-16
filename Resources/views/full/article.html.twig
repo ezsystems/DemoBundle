@@ -7,7 +7,7 @@
 {% block content %}
 <section class="content-view-full">
     <article class="class-article row">
-        <div class="span8">
+        <div class="col-md-8">
             <div class="attribute-header">
                 <h1>{{ ez_render_field( content, 'title' ) }}</h1>
             </div>
@@ -84,7 +84,7 @@
 
             {{ render( controller( 'eZDemoBundle:Demo:viewTipAFriend', {'location': location} ) ) }}
         </div>
-        <div class="span4">
+        <div class="col-md-4">
             <aside>
                 <section class="content-view-aside">
                 {% if not ez_is_field_empty( content, 'location' ) %}

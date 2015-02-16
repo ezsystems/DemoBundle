@@ -17,25 +17,31 @@
                 {{ ez_content_name( content ) }}
             </a>
         </h2>
-        {{ ez_render_field( content, 'image', { 'attr': { 'class': 'place-list-image' }, 'parameters': {'alias' : 'small'} } ) }}
+        {{ ez_render_field( content, 'image', { 'attr': { 'class': 'place-list-image' }, 'parameters': {'alias' : 'small' } } ) }}
     </div>
     
     <div class="row">
         {% if ez_is_field_empty( content, 'image' ) %}
-            <div class="span8">
+            <div class="col-md-12">
                 {{ ez_render_field( content, 'description' ) }}
             </div>
         {% else %}
-            <div class="span2">
-                {{ ez_render_field( content, 'image', { 'attr': { 'class': 'place-list-image' }, 'parameters': {'alias' : 'large'} } ) }}
+            <div class="col-md-3">
+                <figure class="place-list-image">
+                    {{ ez_render_field( content, 'image', {
+                        "template": "eZDemoBundle:fields:ezimage_simple.html.twig",
+                        'attr': {'class': 'place-list-image' },
+                        'parameters': {'alias' : 'large'} } )
+                    }}
+                </figure>
             </div>
-            <div class="span6">
+            <div class="col-md-9">
                 {{ ez_render_field( content, 'description' ) }}
             </div>
         {% endif %}
 
     </div>
-    <div class="row span8">
+    <div class="row col-md-12">
         <a class="place-list-link" href="{{ path( 'ez_urlalias', {'locationId': content.contentInfo.mainLocationId} ) }}"> >> {{ 'more'|trans }}</a>
     </div>
 </div>

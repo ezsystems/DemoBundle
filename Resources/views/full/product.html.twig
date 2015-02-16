@@ -3,7 +3,7 @@
 {% block content %}
 <section class="content-view-full">
     <article class="class-product row">
-        <div class="span8">
+        <div class="col-md-8">
             {% if not ez_is_field_empty( content, "image" ) %}
             <div class="attribute-image full-head">
                 {{ ez_render_field( content, "image", {"parameters": {"alias": "productimage"}} ) }}

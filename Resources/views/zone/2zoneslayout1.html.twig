@@ -1,7 +1,7 @@
 {# Zone layout template for Page fieldType #}
 {# This zone layout has 2 zones (1 on the left, 1 on the right). #}
 <div class="zone-layout-{{ zone_layout|lower }} row">
-    <div class="span8">
+    <div class="col-md-8">
         <section class="content-view-block">
         {# Iterating over available blocks in 1st zone. #}
         {# Blocks are added in the admin interface. #}
@@ -22,7 +22,7 @@
         {% endif %}
         </section>
     </div>
-    <div class="span4">
+    <div class="col-md-4">
         <aside>
             <section class="content-view-block content-view-aside">
             {# Iterating over available blocks in 2nd zone. #}

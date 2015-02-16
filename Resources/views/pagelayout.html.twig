@@ -58,7 +58,7 @@
         {% endblock %}
         <div class="row">
             <!-- Main area: START -->
-            <div class="span{{ innerColumnSize|default( 12 ) }} main-content">
+            <div class="col-md-{{ innerColumnSize|default( 12 ) }} main-content">
                 {% block content %}{% endblock %}
             </div>
             <!-- Main area: END -->

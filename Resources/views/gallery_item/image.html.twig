@@ -16,7 +16,7 @@
         data-gallery-item="image"
         title="{{ content_name }}">
     <a href="{{ path( location ) }}">
-        <img src="{{ asset( thumb_image_variation.uri ) }}" width="{{ thumb_image_variation.width }}" height="{{ thumb_image_variation.height }}" alt="{{ content_name }}" />
+        <img src="{{ asset( thumb_image_variation.uri ) }}" width="{{ thumb_image_variation.width }}" height="{{ thumb_image_variation.height }}" alt="{{ content_name }}" class="img-responsive" />
     </a>
     <figcaption class="attribute-caption">
     {% if not ez_is_field_empty( content, "caption" ) %}

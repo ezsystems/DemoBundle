@@ -13,7 +13,7 @@
     <section class="content-view-full">
         <div class="class-blog-post">
             <div class="row">
-                <div class="span8">
+                <div class="col-md-8">
                     <div class="attribute-header">
                         <h1>{{ ez_render_field( content, "title" ) }}</h1>
                     </div>
@@ -45,7 +45,7 @@
 
                 </div>
 
-                <div class="span4">
+                <div class="col-md-4">
                     <aside>
                         <section class="content-view-aside">
                             {{ render( controller( 'eZDemoBundle:Demo:viewParentExtraInfo', {'location': location} ) ) }}

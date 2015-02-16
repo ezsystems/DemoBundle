@@ -16,7 +16,7 @@
     <li id="login" class="transition-showed">
         <a href="#login" title="show login form" class="show-login-form">{{ 'Login'|trans }}</a>
         <a href="#" title="hide login form" class="hide-login-form">{{ 'Login'|trans }}</a>
-        <form class="login-form span3" action="{{ path( 'login_check' ) }}" method="post">
+        <form class="login-form" action="{{ path( 'login_check' ) }}" method="post">
             <fieldset>
                 <label>
                     <span class="hidden">{{ 'Username'|trans }}</span>

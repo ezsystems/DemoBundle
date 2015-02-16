@@ -1,23 +1,21 @@
-<div class="navbar-inner">
-    <div class="container">
+<nav class="navbar navbar-default">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-menu" aria-expanded="false" aria-controls="navbar-menu">
+            {{ "Navigation"|trans }}
+        </button>
+    </div>
 
-        <a class="btn btn-navbar" data-action="toggleclass" data-class="nav-collapse" data-target=".main-navi .nav-collapse">{{ "Navigation"|trans }}</a>
+    <div class="navbar-collapse collapse navbar-menu navbar-top">
+        <div class="container">
+            {{ knp_menu_render(menu, {'depth': 1}) }}
+        </div>
+    </div>
 
-        <div class="nav-collapse">
-            <div class="nav">
-                {{ knp_menu_render(menu, {'depth': 1, 'firstClass': 'firstli', 'lastClass': 'lastli'}) }}
+    {% if submenu is defined %}
+        <div class="navbar-collapse collapse navbar-menu navbar-sublevel">
+            <div class="container">
+                {{ knp_menu_render(submenu, {'branch_class': 'nav'}) }}
             </div>
         </div>
-
-    </div>
-</div>
-
-{% if submenu is defined %}
-<div class="navbar-inner sublevel">
-    <div class="container">
-        <div class="nav-collapse">
-            {{ knp_menu_render(submenu, {'firstClass': 'firstli', 'lastClass': 'lastli', 'branch_class': 'nav'}) }}
-        </div>
-    </div>
-</div>
-{% endif %}
+    {% endif %}
+</nav>

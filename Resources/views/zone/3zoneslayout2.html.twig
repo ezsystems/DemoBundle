@@ -1,5 +1,5 @@
 <div class="zone-layout-{{ zone_layout|lower }} row">
-    <div class="span4">
+    <div class="col-md-4">
         <aside>
             <section class="content-view-block content-view-aside">
             {# Iterating over available blocks in 1st zone. #}
@@ -22,7 +22,7 @@
             </section>
         </aside>
     </div>
-    <div class="span8">
+    <div class="col-md-8">
         <section>
             {# Iterating over available blocks in 2nd zone. #}
             {% if zones[1].blocks %}
@@ -35,7 +35,7 @@
             {% endif %}
         </section>
     </div>
-    <div class="span12">
+    <div class="col-md-12">
         <section class="content-view-block">
         {# Iterating over available blocks in 3rd zone. #}
         {% if zones[2].blocks %}

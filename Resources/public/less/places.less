@@ -1,6 +1,6 @@
 .place-list-loading {
-    opacity: 0.5;
-   .transition(all 0.30s ease);
+  opacity: 0.5;
+  .transition(all 0.30s ease);
 }
 
 .place-list-item {
@@ -8,24 +8,24 @@
 }
 
 .place-list-image {
-    margin-left: 0;
-    margin-right: 0;
-    text-align: center;
+  margin-left: 0;
+  margin-right: 0;
+  text-align: center;
 }
 
 .place-list-link {
-    float: right;
+  float: right;
 }
 
 .place-list-form {
-    float: right;
-    max-width: 220px;
+  float: right;
+  max-width: 220px;
 }
 
 .place-list-text-error{
-    color: rgb(185, 74, 72);
-    font-weight: bold;
-    text-align: center;
+  color: rgb(185, 74, 72);
+  font-weight: bold;
+  text-align: center;
 }
 
 .place-list-text-info{
@@ -57,7 +57,7 @@
 }
 
 #place-list-gmap-container img {
-    max-width: none;
+  max-width: none;
 }
 
 .place-list-map-size {
@@ -68,13 +68,19 @@
   display: none;
 }
 
+@media (max-width: 991px) {
+  .place-list-image {
+    display: inline-block;
+    margin-bottom: 10px;
+  }
+}
+
 @media (max-width: 760px) {
   .place-list-form {
     float: none;
     max-width: 100%;
     text-align: center;
   }
-
   .place-description {
     text-align: justify;
     margin-left: 0px;
@@ -83,11 +89,9 @@
   .place-image {
     display: none;
   }
-
   .place-name {
     text-align: center;
   }
-
   .place-list-name {
     text-align: center;
   }

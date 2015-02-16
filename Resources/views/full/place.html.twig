@@ -2,21 +2,21 @@
 {% block content %}
 <div>
     <div class="row">
-        <div class="span6 place-name">
+        <div class="col-md-6 place-name">
             <h1>{{ ez_render_field( content, 'name' ) }}</h1>
         </div>
     </div>
     <div class="row">
         {% if not ez_is_field_empty( content, 'image' ) %}
-            <div class="span6">
+            <div class="col-md-6">
                 {{ ez_render_field(
                     content, 'image', { 'attr': { 'class': 'place-image' }, 'parameters': {'alias' : 'imageplacesize'} }
                     )
                 }}
             </div>
-            <div class="span4">
+            <div class="col-md-4">
         {% else %}
-            <div class="span10">
+            <div class="col-md-10">
         {% endif %}
                 {{ ez_render_field(
                     content, 'location', { 'attr': { 'class': 'place-location' }, 'parameters':{ 'showInfo':false, 'width': '100%', 'zoom' : 16 } }
@@ -25,7 +25,7 @@
             </div>
     </div>
     <div class="row">
-        <div class="span10">
+        <div class="col-md-10">
             {{ ez_render_field( content, 'description', { 'attr': { 'class': 'place-description' }, } ) }}
         </div>
     </div>

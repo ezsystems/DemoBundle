@@ -1,5 +1,5 @@
 <div class="zone-layout-{{ zone_layout|lower }} row">
-    <div class="span12">
+    <div class="col-md-12">
         <section class="content-view-block">
         {# Iterating over available blocks in 1st zone. #}
         {# Blocks are added in the admin interface. #}
@@ -20,7 +20,7 @@
         {% endif %}
         </section>
     </div>
-    <div class="span12">
+    <div class="col-md-12">
         <section class="content-view-block">
         {# Iterating over available blocks in 2nd zone. #}
         {% if zones[1].blocks %}

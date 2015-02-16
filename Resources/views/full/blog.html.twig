@@ -4,7 +4,7 @@
     <section class="content-view-full">
         <div class="class-blog">
             <div class="row">
-                <div class="span8">
+                <div class="col-md-8">
                     {% if pagerBlog|length() > 0 %}
                         <section class="content-view-children">
                             {% for post in pagerBlog %}
@@ -22,26 +22,24 @@
 
                     {% endif %}
                 </div>
-                <div class="span4">
-                    <aside>
-                        <section class="content-view-aside">
+                <aside class="col-md-4">
+                    <section class="content-view-aside">
 
-                            {% if not ez_is_field_empty( content, 'description' ) %}
-                                <h2>{{ "Description"|trans }}</h2>
-                                <article>
-                                    <div class="attribute-description">
-                                        {{ ez_render_field( content, 'description' ) }}
-                                    </div>
-                                </article>
-                            {% endif %}
+                        {% if not ez_is_field_empty( content, 'description' ) %}
+                            <h2>{{ "Description"|trans }}</h2>
+                            <article>
+                                <div class="attribute-description">
+                                    {{ ez_render_field( content, 'description' ) }}
+                                </div>
+                            </article>
+                        {% endif %}
 
-                            {# This is a call to a subrequest calling legacy code #}
-                            {% if ezpublish.legacy is defined %}
-                                {{ render( controller( 'eZDemoBundle:Demo:viewExtraInfo', {'location': location} ) ) }}
-                            {% endif %}
-                        </section>
-                    </aside>
-                </div>
+                        {# This is a call to a subrequest calling legacy code #}
+                        {% if ezpublish.legacy is defined %}
+                            {{ render( controller( 'eZDemoBundle:Demo:viewExtraInfo', {'location': location} ) ) }}
+                        {% endif %}
+                    </section>
+                </aside>
             </div>
         </div>
     </section>

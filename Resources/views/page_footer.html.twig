@@ -1,20 +1,20 @@
 <footer>
     <div class="claim-wrapper">
         <div class="container">
-            <div class="nav-collapse">
+            <div class="navbar-collapse hidden-xs">
                 Powered by <a href="http://ez.no/ezpublish" title="eZ Platform&#8482; CMS Open Source Web Content Management">eZ Platform&#8482; CMS Open Source Web Content Management</a>.
             </div>
         </div>
     </div>
     <div class="container">
         <div class="row">
-            <div class="span4">
+            <div class="col-md-4">
                 {% include "eZDemoBundle:footer:address.html.twig" with {'content': content} %}
             </div>
-            <div class="span4 nav-collapse">
+            <div class="col-md-4 hidden-xs hidden-sm">
                 {{ render_esi( controller( "eZDemoBundle:Footer:latestContent", {'currentContentId': content.contentInfo.id} ) ) }}
             </div>
-            <div class="span4 nav-collapse">
+            <div class="col-md-4 hidden-xs hidden-sm">
                 {% include "eZDemoBundle:footer:links.html.twig" with {'content': content} %}
             </div>
         </div>

@@ -4,8 +4,9 @@ var YUI3_config = {base: "{{ asset( 'bundles/ezplatformuiassets/vendors/yui3/bui
 </script>
 
 {% javascripts
+    '%kernel.root_dir%/../vendor/components/jquery/jquery.min.js'
+    '%kernel.root_dir%/../vendor/components/bootstrap/js/bootstrap.min.js'
     '@eZPlatformUIAssetsBundle/Resources/public/vendors/yui3/build/yui/yui-min.js'
-    '@eZDemoBundle/Resources/public/js/jquery-1.10.2.min.js'
     '@eZDemoBundle/Resources/public/js/ezflyout.js'
     '@eZDemoBundle/Resources/public/js/ezgallery.js'
     '@eZDemoBundle/Resources/public/js/ezgallerynavigator.js'
