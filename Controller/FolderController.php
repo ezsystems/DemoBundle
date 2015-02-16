@@ -31,11 +31,6 @@ class FolderController extends Controller
      */
     public function showFolderListAsideViewAction( Location $location, $viewType, $layout = false, array $params = array() )
     {
-        if ( $location->invisible )
-        {
-            throw new NotFoundHttpException( "Location #$location->id cannot be displayed as it is flagged as invisible." );
-        }
-
         $languages = $this->getConfigResolver()->getParameter( 'languages' );
 
         $includedContentTypeIdentifiers = $this->container->getParameter( 'ezdemo.folder.folder_tree.included_content_types' );
@@ -78,11 +73,6 @@ class FolderController extends Controller
      */
     public function showFolderListAction( Request $request, Location $location, $viewType, $layout = false, array $params = array() )
     {
-        if ( $location->invisible )
-        {
-            throw new NotFoundHttpException( "Location #$location->id cannot be displayed as it is flagged as invisible." );
-        }
-
         $content = $this->getRepository()
             ->getContentService()
             ->loadContentByContentInfo( $location->getContentInfo() );
