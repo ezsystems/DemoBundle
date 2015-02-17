@@ -17,7 +17,6 @@ use eZ\Publish\Core\Pagination\Pagerfanta\ContentSearchAdapter;
 use eZ\Bundle\EzPublishCoreBundle\Controller;
 use Pagerfanta\Pagerfanta;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpFoundation\Request;
 
 class FolderController extends Controller
@@ -26,7 +25,6 @@ class FolderController extends Controller
      * Displays the sub folder if it exists
      *
      * @param \eZ\Publish\API\Repository\Values\Content\Location $location of a folder
-     * @throws NotFoundHttpException $location is flagged as invisible
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function showFolderListAsideViewAction( Location $location, $viewType, $layout = false, array $params = array() )
@@ -68,7 +66,6 @@ class FolderController extends Controller
      *
      * @param \eZ\Publish\API\Repository\Values\Content\Location $location of a folder
      * @param \Symfony\Component\HttpFoundation\Request $request request object
-     * @throws NotFoundHttpException $location is flagged as invisible
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function showFolderListAction( Request $request, Location $location, $viewType, $layout = false, array $params = array() )
