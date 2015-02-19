@@ -1,6 +1,7 @@
-{% stylesheets
-    '@eZDemoBundle/Resources/public/css/bootstrap.css'
-    '@eZDemoBundle/Resources/public/css/video.css'
+{% stylesheets filter='cssrewrite'
+    'bundles/ezdemo/css/video.css'
+    'bundles/ezdemo/css/bootstrap.css'
+    'bundles/ezplatformuiassets/vendors/flag-icon-css/css/flag-icon.min.css'
 %}
     <link rel="stylesheet" type="text/css" href="{{ asset_url }}"/>
 {% endstylesheets %}

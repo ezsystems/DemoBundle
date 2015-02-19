@@ -4,19 +4,29 @@
 #    - 'currentLanguage'
 #    - 'availableLanguages'
 #}
-<div id="lang-selector">
-    {# Looping over all available languages to display the links #}
 
-    {% for lang in availableLanguages %}
-        {# This time, we alter the "siteaccess" parameter directly. #}
-        {# We get the right siteaccess with the help of ezpublish.translationSiteAccess() helper #}
+{% if availableLanguages|length > 1 %}
+    <div id="lang-selector" class="transition-showed">
+        <ul class="lang-select">
 
-        {% do routeRef.set( "siteaccess", ezpublish.translationSiteAccess( lang ) ) %}
-        {% if lang != currentLanguage %}
-            <a href="{{ url( routeRef ) }}" title="{{ 'Switch to %siteaccess%'|trans({ '%siteaccess%': siteaccess[lang] })  }}">
-                <img src="{{ asset( 'bundles/ezdemo/images/flags/' ~ lang ~ '.gif' ) }}" title="{{ lang }}">
-                {{ siteaccess[lang]}}
-            </a>
-        {% endif %}
-    {% endfor %}
-</div>
+            {% for lang in availableLanguages %}
+                {% do routeRef.set( "siteaccess", ezpublish.translationSiteAccess( lang ) ) %}
+                    {% if lang == currentLang %}
+                        <li class="current">
+                            <span class="flag-icon flag-icon-background flag-icon-{{ lang[4:]|lower }}"></span>{{ lang[:3]|lower|capitalize }}
+                        </li>
+                    {% else %}
+                        <li>
+                            <a href="{{ url( routeRef ) }}">
+                                <span class="flag-icon flag-icon-background flag-icon-{{ lang[4:]|lower }}"></span>{{ lang[:3]|lower|capitalize }}
+                            </a>
+                        </li>
+                    {% endif %}
+            {% endfor %}
+        </ul>
+
+        <a href="#lang-selector" class="current-lang">
+            <span class="current-language flag-icon flag-icon-background flag-icon-{{ currentLanguage[4:]|lower }}"></span>{{ currentLanguage[:3]|lower|capitalize }}&nbsp;↴
+        </a>
+    </div>
+{% endif %}
