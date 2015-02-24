@@ -1,11 +1,10 @@
 <header>
     <div class="container">
-        <div class="navbar extra-navi">
+        <div class="navbar extra-navi hidden-xs hidden-sm">
             <div id="language-switcher" class="pull-right">
                 {{ render( controller( 'eZDemoBundle:LanguageSwitcher:showSwitcher', {'routeReference': ez_route()} ) ) }}
             </div>
-            <div class="nav-collapse row">
-
+            <div class="navbar-collapse row">
                 {% block userlinks %}
                     {{ render_hinclude( controller( 'eZDemoBundle:Demo:userLinks' ) ) }}
                 {% endblock %}

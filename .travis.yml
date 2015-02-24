@@ -38,6 +38,7 @@ before_script:
 
   # Replace demobundle with the one from pull-request
   - rm -rf vendor/ezsystems/demobundle/EzSystems/DemoBundle && mv "$BRANCH_BUILD_DIR" vendor/ezsystems/demobundle/EzSystems/DemoBundle
+  - php ezpublish/console cache:clear --env=behat --no-debug
   - php ezpublish/console assetic:dump --env=behat --no-debug
 
 # execute behat as the script command

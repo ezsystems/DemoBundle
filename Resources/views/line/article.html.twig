@@ -4,13 +4,13 @@
 
 {# content_size variable is in a relationship with Twitter Bootstrap grid system. #}
 {# When image is not set then maximum page width will be used, which is 8 in this case. #}
-{% set content_size = '8' %}
+{% set content_size = '12' %}
 
 <div class="content-view-line">
     <article class="class-article row">
 
     {% if not ez_is_field_empty( content, 'image' ) %}
-        <div class="span2">
+        <div class="col-md-3">
             <div class="attribute-image">
                 {{ ez_render_field(
                     content,
@@ -22,10 +22,10 @@
                 ) }}
             </div>
         </div>
-        {% set content_size = '6' %}
+        {% set content_size = '9' %}
     {% endif %}
 
-    <div class="span{{ content_size }}">
+    <div class="col-md-{{ content_size }}">
         <div class="attribute-header">
             <h2>
                 <a href={{ path( location ) }} title="{{ ez_field_value( content, 'title' ) }}" class="teaser-link">{{ ez_render_field( content, 'title' ) }}</a>
