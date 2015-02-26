@@ -155,7 +155,7 @@ class DemoController extends Controller
             $location->id,
             $viewType,
             $layout,
-            array( 'author' => $author )
+            array( 'author' => $author ) + $params
         );
     }
 
