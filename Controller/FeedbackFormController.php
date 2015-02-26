@@ -65,7 +65,7 @@ class FeedbackFormController extends Controller
             $locationId,
             $viewType,
             $layout,
-            array( 'form' => $form->createView() )
+            array( 'form' => $form->createView() ) + $params
         );
     }
 }
