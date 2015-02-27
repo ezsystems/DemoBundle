@@ -55,6 +55,7 @@ class FolderController extends Controller
         $subContentQuery->sortClauses = array(
             new SortClause\ContentName()
         );
+        $subContentQuery->performCount = false;
 
         $searchService = $this->getRepository()->getSearchService();
         $subContent = $searchService->findLocations( $subContentQuery );
