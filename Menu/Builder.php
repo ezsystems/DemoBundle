@@ -142,6 +142,7 @@ class Builder
             )
         );
         $query->sortClauses = array( new Query\SortClause\Location\Path() );
+        $query->performCount = false;
 
         return $this->searchService->findLocations( $query )->searchHits;
     }
