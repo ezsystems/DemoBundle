@@ -73,6 +73,7 @@ class MenuHelper
             )
         );
         $query->limit = $this->defaultMenuLimit;
+        $query->performCount = false;
 
         return $this->searchHelper->buildListFromSearchResult( $this->repository->getSearchService()->findLocations( $query ) );
     }
@@ -108,6 +109,7 @@ class MenuHelper
             )
         );
         $query->limit = $limit ?: $this->defaultMenuLimit;
+        $query->performCount = false;
 
         return $this->searchHelper->buildListFromSearchResult( $this->repository->getSearchService()->findContent( $query ) );
     }
