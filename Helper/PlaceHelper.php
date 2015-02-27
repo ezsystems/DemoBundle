@@ -84,6 +84,7 @@ class PlaceHelper
                 new Criterion\LanguageCode( $languages )
             )
         );
+        $query->performCount = false;
 
         $searchResults = $this->searchService->findContent( $query );
 
@@ -132,6 +133,7 @@ class PlaceHelper
             )
         );
         $query->sortClauses = $sortClauses;
+        $query->performCount = false;
 
         $searchResults = $this->searchService->findContent( $query );
 
