@@ -7805,7 +7805,6 @@ aside > .content-view-aside:last-child > article:last-child:after {
 }
 .attribute-image img {
   max-width: 100%;
-  height: 100%;
 }
 .content-view-embed .attribute-header {
   margin-top: 2em;
