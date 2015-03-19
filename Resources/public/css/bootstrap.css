@@ -7069,13 +7069,13 @@ input#recaptcha_response_field {
 .embed-gallery .gallery-navigator .next,
 .block-gallery .gallery-navigator .next {
   right: 0;
-  background: transparent url('../bundles/ezdemo/images/ez-sprite.png') no-repeat -55px -22px;
+  background: transparent url('../images/ez-sprite.png') no-repeat -55px -22px;
 }
 .full-gallery .gallery-navigator .prev,
 .embed-gallery .gallery-navigator .prev,
 .block-gallery .gallery-navigator .prev {
   left: 0;
-  background: transparent url('../bundles/ezdemo/images/ez-sprite.png') no-repeat -35px -22px;
+  background: transparent url('../images/ez-sprite.png') no-repeat -35px -22px;
 }
 .full-gallery .gallery-navigator .images,
 .embed-gallery .gallery-navigator .images,
@@ -7197,7 +7197,7 @@ header {
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffffff', endColorstr='#fff2f3f3', GradientType=1);
 }
 header > .container {
-  background: transparent url('../bundles/ezdemo/images/bgr-header.png') no-repeat left bottom;
+  background: transparent url('../images/bgr-header.png') no-repeat left bottom;
 }
 header .logo {
   display: block;
@@ -7221,7 +7221,7 @@ header .form-search label:before {
   top: 9px;
   left: 8px;
   z-index: 1;
-  background: transparent url('../bundles/ezdemo/images/ez-sprite.png') no-repeat left top;
+  background: transparent url('../images/ez-sprite.png') no-repeat left top;
 }
 header .form-search label input.search-query {
   padding-left: 25px;
@@ -7852,7 +7852,7 @@ aside > .content-view-aside:last-child > article:last-child:after {
   content: "";
   display: block;
   position: absolute;
-  background: transparent url('../bundles/ezdemo/images/ez-sprite.png') no-repeat -92px -22px;
+  background: transparent url('../images/ez-sprite.png') no-repeat -92px -22px;
   width: 36px;
   height: 35px;
   left: 8px;
@@ -7970,7 +7970,7 @@ aside > .content-view-aside:last-child > article:last-child:after {
   top: 15px;
   width: 9px;
   height: 17px;
-  background: transparent url('../bundles/ezdemo/images/ez-sprite.png') no-repeat -137px top;
+  background: transparent url('../images/ez-sprite.png') no-repeat -137px top;
 }
 .comment .comment-content-wrapper .header,
 .comment .comment-content-wrapper .comment-headline {
@@ -8308,16 +8308,16 @@ aside > .content-view-aside:last-child > article:last-child:after {
   position: relative;
 }
 .content-view-children .contacts-container article .image-and-data-set ul li.phone.mobile:before {
-  background: transparent url('../bundles/ezdemo/images/ez-sprite.png') no-repeat -61px 0;
+  background: transparent url('../images/ez-sprite.png') no-repeat -61px 0;
 }
 .content-view-children .contacts-container article .image-and-data-set ul li.phone.landline:before {
-  background: transparent url('../bundles/ezdemo/images/ez-sprite.png') no-repeat -80px 0;
+  background: transparent url('../images/ez-sprite.png') no-repeat -80px 0;
 }
 .content-view-children .contacts-container article .image-and-data-set ul li.messenger.skype:before {
-  background: transparent url('../bundles/ezdemo/images/ez-sprite.png') no-repeat -99px 0;
+  background: transparent url('../images/ez-sprite.png') no-repeat -99px 0;
 }
 .content-view-children .contacts-container article .image-and-data-set ul li.social.twitter:before {
-  background: transparent url('../bundles/ezdemo/images/ez-sprite.png') no-repeat -118px 0;
+  background: transparent url('../images/ez-sprite.png') no-repeat -118px 0;
 }
 .attribute-star-rating {
   border-top: 1px solid #ebebeb;
@@ -8609,11 +8609,11 @@ aside > .content-view-aside:last-child > article:last-child:after {
   display: inline-block;
   width: 11px;
   height: 11px;
-  background: transparent url('../bundles/ezdemo/images/ez-sprite.png') no-repeat left -13px;
+  background: transparent url('../images/ez-sprite.png') no-repeat left -13px;
 }
 .attribute-byline.with-comments .comments:hover:before,
 .attribute-byline.with-comments .comments:focus:before {
-  background: transparent url('../bundles/ezdemo/images/ez-sprite.png') no-repeat left -24px;
+  background: transparent url('../images/ez-sprite.png') no-repeat left -24px;
 }
 .flyout {
   display: block;
@@ -8915,7 +8915,7 @@ del:hover {
   position: relative;
 }
 .navbar.extra-navi .nav {
-  background: transparent url('../bundles/ezdemo/images/bgr-extra-navi.png') no-repeat center bottom;
+  background: transparent url('../images/bgr-extra-navi.png') no-repeat center bottom;
 }
 .navbar.extra-navi .nav > li {
   border: none;
@@ -8941,7 +8941,7 @@ del:hover {
 }
 .navbar.extra-navi #lang-selector a {
   display: inline-block;
-  padding: 5px 10px 5px 30px;
+  padding: 5px 10px;
 }
 .navbar.extra-navi #lang-selector ul {
   margin: 0;
@@ -8950,6 +8950,7 @@ del:hover {
   left: 170px;
   top: -1000px;
   z-index: 15;
+  padding: 0;
   background-image: -webkit-linear-gradient(top, #007ea6 0%, #006a8d 100%);
   background-image: -o-linear-gradient(top, #007ea6 0%, #006a8d 100%);
   background-image: linear-gradient(to bottom, #007ea6 0%, #006a8d 100%);
@@ -8970,6 +8971,8 @@ del:hover {
 }
 .navbar.extra-navi #lang-selector ul > .current {
   background: #004d66;
+  padding: 5px 10px;
+  color: #ffffff;
 }
 .navbar.extra-navi #lang-selector:target ul {
   overflow: hidden;
@@ -8977,6 +8980,12 @@ del:hover {
 }
 .navbar.extra-navi #lang-selector:target a {
   color: #ffffff;
+  padding-left: 10px;
+}
+.flag-icon {
+  width: 18px;
+  height: 12px;
+  margin-right: 5px;
 }
 .extra-navi .navbar-collapse {
   margin-top: -1px;
@@ -9040,7 +9049,7 @@ del:hover {
   position: absolute;
   width: 10px;
   height: 16px;
-  background: transparent url('../bundles/ezdemo/images/ez-sprite.png') no-repeat -132px -28px;
+  background: transparent url('../images/ez-sprite.png') no-repeat -132px -28px;
   right: 7px;
   top: 7px;
 }
@@ -9315,7 +9324,7 @@ a.teaser-link:focus h5,
 }
 .block-type-campaign .indicator li {
   display: inline-block;
-  background: transparent url('../bundles/ezdemo/images/ez-sprite.png') no-repeat -13px -22px;
+  background: transparent url('../images/ez-sprite.png') no-repeat -13px -22px;
   width: 11px;
   height: 11px;
   opacity: 0.8;
@@ -9325,7 +9334,7 @@ a.teaser-link:focus h5,
   display: none;
 }
 .block-type-campaign .indicator .selected {
-  background: transparent url('../bundles/ezdemo/images/ez-sprite.png') no-repeat -24px -22px;
+  background: transparent url('../images/ez-sprite.png') no-repeat -24px -22px;
 }
 .block-type-campaign .navig {
   display: inline-block;
@@ -9340,11 +9349,11 @@ a.teaser-link:focus h5,
 }
 .block-type-campaign .next {
   right: 0px;
-  background: transparent url('../bundles/ezdemo/images/ez-sprite.png') no-repeat -55px -22px;
+  background: transparent url('../images/ez-sprite.png') no-repeat -55px -22px;
 }
 .block-type-campaign .prev {
   left: 0px;
-  background: transparent url('../bundles/ezdemo/images/ez-sprite.png') no-repeat -35px -22px;
+  background: transparent url('../images/ez-sprite.png') no-repeat -35px -22px;
 }
 .block-type-campaign .images {
   margin: 0;
@@ -9507,7 +9516,7 @@ table.list tbody tr:hover th {
 .ezsr-star-rating a:active,
 .ezsr-star-rating a:focus,
 .ezsr-star-rating .ezsr-current-rating {
-  background: url(../bundles/ezdemo/images/star.png) left -1000px repeat-x;
+  background: url(../images/star.png) left -1000px repeat-x;
 }
 .ezsr-star-rating {
   position: relative;

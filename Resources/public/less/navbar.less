@@ -33,7 +33,7 @@
   &.extra-navi {
     position: relative;
     .nav {
-      background: transparent url('../bundles/ezdemo/images/bgr-extra-navi.png') no-repeat center bottom;
+      background: transparent url('../images/bgr-extra-navi.png') no-repeat center bottom;
       > li {
         border: none;
         position: relative;
@@ -60,7 +60,7 @@
       }
       a {
         display: inline-block;
-        padding: 5px 10px 5px 30px;
+        padding: 5px 10px;
       }
       ul {
         margin: 0;
@@ -69,6 +69,7 @@
         left: 170px;
         top: -1000px;
         z-index: 15;
+        padding: 0;
         #gradient > .vertical(@blue, @blueDark);
         .border-radius(0px 0px 3px 3px);
         .box-shadow(0 5px 5px rgba(0,0,0,0.35));
@@ -79,6 +80,8 @@
         }
         > .current {
           background: @blueDarker;
+          padding: 5px 10px;
+          color: @white;
         }
       }
       &:target {
@@ -88,10 +91,17 @@
         }
         a {
           color: @white;
+          padding-left: 10px;
         }
       }
     }
   }
+}
+
+.flag-icon {
+  width: 18px;
+  height: 12px;
+  margin-right: 5px;
 }
 
 .extra-navi .navbar-collapse {
