@@ -11,7 +11,7 @@
 
             {% for lang in availableLanguages %}
                 {% do routeRef.set( "siteaccess", ezpublish.translationSiteAccess( lang ) ) %}
-                    {% if lang == currentLang %}
+                    {% if lang == currentLanguage %}
                         <li class="current">
                             <span class="flag-icon flag-icon-background flag-icon-{{ lang[4:]|lower }}"></span>{{ lang[:3]|lower|capitalize }}
                         </li>
