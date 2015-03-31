@@ -21,9 +21,7 @@
 {% endif %}
 
 <!-- Complete page area: START -->
-{% if currentLocation is defined %}
-    {{ render( controller( "ezpublish_legacy.website_toolbar.controller:websiteToolbarAction", { 'locationId': currentLocation.id} ) ) }}
-{% endif %}
+    {{ render( controller( "ezpublish_legacy.website_toolbar.controller:websiteToolbarAction", { 'locationId': currentLocation.id|default( null )} ) ) }}
 <div id="page" class="">
     <!-- Header area: START -->
     {% block header %}
