@@ -18,6 +18,7 @@
         "knplabs/knp-menu-bundle": "1.*",
         "zetacomponents/feed": "~1.4",
         "ezsystems/demobundle-data": "~0.1",
+        "components/domready": "@dev",
         "components/bootstrap": "3.3.2"
     },
     "autoload": {

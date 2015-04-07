@@ -7,7 +7,7 @@ php:
 # list of paths/bundle to execute
 env:
     # test demo with content
-  - INSTALL="demoContentNonUniqueDB" PROFILE="demo" TEST="content"
+#  - INSTALL="demoContentNonUniqueDB" PROFILE="demo" TEST="content"
     # test demo w/o content
   - PROFILE="demo" TEST="clean"
 
