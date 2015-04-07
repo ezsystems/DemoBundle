@@ -18,7 +18,8 @@
         "knplabs/knp-menu-bundle": "1.*",
         "zetacomponents/feed": "~1.4",
         "ezsystems/demobundle-data": "~0.1",
-        "components/bootstrap": "3.3.2"
+        "components/bootstrap": "3.3.2",
+        "ezsystems/privacy-cookie-bundle": "~0.1"
     },
     "autoload": {
         "psr-0": {"EzSystems\\DemoBundle": ""}
