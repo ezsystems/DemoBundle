@@ -13,6 +13,8 @@ parameters:
     ezdemo.installer.democlean_installer.class: EzSystems\DemoBundle\Installer\DemoCleanInstaller
     ezdemo.installer.demo_installer.class: EzSystems\DemoBundle\Installer\DemoInstaller
 
+    ezdemo.privacy_cookie.banner_factory.class: EzSystems\DemoBundle\PrivacyCookie\DemoBundleBanner
+
 services:
     ezdemo.criteria_helper:
         class: %ezdemo.criteria_helper.class%
@@ -97,3 +99,35 @@ services:
         class: %ezdemo.installer.demo_installer.class%
         tags:
             - {name: ezplatform.installer, type: demo}
+
+    ezdemo.ez_content_banner_factory:
+        class: %ezdemo.privacy_cookie.banner_factory.class%
+        factory: ["%ezdemo.privacy_cookie.banner_factory.class%", build]
+        arguments:
+            - "@=parameter('ezdemo.privacy_cookie.content_banner.content_id') != '' ? service('ezdemo.ez_content_banner_factory.content_factory') : service('ezdemo.ez_content_banner_factory.content_factory_from_path')"
+            - @ezpublish.api.service.location
+            - @ezpublish.api.service.url_alias
+            - @translator.default
+
+    ezdemo.ez_content_banner_factory.content_factory:
+        class: eZ\Publish\API\Repository\Values\Content\Content
+        factory_service: ezpublish.api.service.content
+        factory_method: loadContent
+        arguments:
+            - %ezdemo.privacy_cookie.content_banner.content_id%
+
+    ezdemo.ez_content_banner_factory.content_factory_from_path:
+        class: eZ\Publish\API\Repository\Values\Content\Content
+        factory_service: ezpublish.api.service.content
+        factory_method: loadContent
+        arguments:
+            - @ezdemo.ez_content_banner_factory.path_converter
+
+    ezdemo.ez_content_banner_factory.path_converter:
+        class: EzSystems\DemoBundle\PrivacyCookie\PathConverter
+        factory_class: EzSystems\DemoBundle\PrivacyCookie\PathConverter
+        factory_method: getContentId
+        arguments:
+            - @ezpublish.api.service.url_alias
+            - @ezpublish.api.service.location
+            - %ezdemo.privacy_cookie.content_banner.path_string%
