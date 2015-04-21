@@ -1,0 +1,13 @@
+{{ ez_render_field(
+    content,
+    'image',
+    {
+        'template': 'eZDemoBundle:fields:ezimage_simple.html.twig',
+        'parameters': {
+            'alias': parameters.alias
+        },
+        'attr': {
+            'class': parameters.class
+        }
+    }
+) }}

@@ -1,0 +1,16 @@
+{% block ezobjectrelation_field %}
+    {% spaceless %}
+        {% if not ez_is_field_empty( content, field ) %}
+            <div {{ block( 'field_attributes' ) }}>
+                {{ render( controller( 'ez_content:viewContent', {
+                    'contentId': field.value.destinationContentId,
+                    'viewType': 'relation',
+                    'params': {
+                        'parameters': parameters
+                    }
+                    } )
+                ) }}
+            </div>
+        {% endif %}
+    {% endspaceless %}
+{% endblock %}
