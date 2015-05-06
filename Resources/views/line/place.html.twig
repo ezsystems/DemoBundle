@@ -11,15 +11,6 @@
         </a>
     </h2>
 
-    <div class="infobox-content">
-        <h2>
-            <a href="{{ path( 'ez_urlalias', {'locationId': content.contentInfo.mainLocationId} ) }}">
-                {{ ez_content_name( content ) }}
-            </a>
-        </h2>
-        {{ ez_render_field( content, 'image', { 'attr': { 'class': 'place-list-image' }, 'parameters': {'alias' : 'small' } } ) }}
-    </div>
-    
     <div class="row">
         {% if ez_is_field_empty( content, 'image' ) %}
             <div class="col-md-12">
@@ -28,11 +19,17 @@
         {% else %}
             <div class="col-md-3">
                 <figure class="place-list-image">
-                    {{ ez_render_field( content, 'image', {
-                        "template": "eZDemoBundle:fields:ezimage_simple.html.twig",
-                        'attr': {'class': 'place-list-image' },
-                        'parameters': {'alias' : 'large'} } )
-                    }}
+                    {{ ez_render_field(
+                        content,
+                        'image',
+                        {
+                            'template': 'eZDemoBundle:fields:ezobjectrelation_image.html.twig',
+                            'parameters': {
+                                'alias': 'large',
+                                'class': 'place-list-image'
+                            }
+                        }
+                    ) }}
                 </figure>
             </div>
             <div class="col-md-9">

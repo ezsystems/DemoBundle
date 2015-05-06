@@ -107,6 +107,11 @@ system:
                     template: "eZDemoBundle:embed:image.html.twig"
                     match:
                         Identifier\ContentType: [image]
+            relation:
+                image:
+                    template: "eZDemoBundle:relation:image.html.twig"
+                    match:
+                        Identifier\ContentType: [image]
 
         field_templates:
             - {template: "eZDemoBundle::content_fields.html.twig", priority: 10}

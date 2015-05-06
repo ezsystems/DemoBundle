@@ -10,8 +10,15 @@
         {% if not ez_is_field_empty( content, 'image' ) %}
             <div class="col-md-6">
                 {{ ez_render_field(
-                    content, 'image', { 'attr': { 'class': 'place-image' }, 'parameters': {'alias' : 'imageplacesize'} }
-                    )
+                    content,
+                    'image',
+                    {
+                        'template': 'eZDemoBundle:fields:ezobjectrelation_image.html.twig',
+                        'parameters': {
+                            'alias': 'imageplacesize',
+                            'class': 'place-image'
+                        }
+                    } )
                 }}
             </div>
             <div class="col-md-4">
