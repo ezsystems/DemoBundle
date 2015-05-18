@@ -152,4 +152,32 @@ class Context extends Demo
             );
         }
     }
+
+    /**
+     * Test if image is present on page and is downloadable (`img` tag must contain `alt` attribute)
+     * @Then I (should) see a valid thumbnail for image with alternative text :imageAlternativeText
+     */
+    public function iShouldSeeAVailidThumbnailForImageWithAlternativeText( $imageAlternativeText )
+    {
+        $image = $this->getXpath()->findXpath( "//img[contains(@alt, '" . $imageAlternativeText . "')]" );
+
+        if ( count( $image ) == 0 )
+        {
+            throw new \Exception( sprintf( 'Image with an alternative text `%s` was not found', $imageAlternativeText ) );
+        }
+
+        $file = $image[0]->getAttribute( 'src' );
+
+        $client = new \Guzzle\Http\Client();
+        $request = $client->get( $this->locatePath( $file ) );
+        $response = $request->send();
+
+        Assertion::equalTo(
+            $response->getStatusCode(), 200
+        );
+
+        Assertion::assertRegexp(
+            '/image\/(.*)/', $response->getHeader( 'content-type' )->__toString()
+        );
+    }
 }
