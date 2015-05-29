@@ -3,9 +3,6 @@
 
 {# BinaryFile that contains a video and that we want to display as HTML5 video. #}
 {% block ezbinaryfile_field %}
-    {% set videoUri = '/content/download/' ~ contentInfo.id ~ '/' ~ field.id
-                        ~ '/version/' ~ contentInfo.currentVersionNo ~  "/file/"
-                        ~ field.value.fileName|escape( 'url' ) %}
     {% set videoType = parameters.videoType|default( "video/mp4" ) %}
     {% set controls = parameters.controls|default( true ) %}
     {% set preload = parameters.preload|default( "auto" ) %}
@@ -13,6 +10,6 @@
     {% set height = parameters.height|default( 264 ) %}
     {% set poster = parameters.poster|default( "" ) %}
     <video{% if controls %} controls{% endif %} preload="{{ preload }}" width="{{ width }}" height="{{ height }}" poster="{{ poster }}" {{ block( "field_attributes" ) }}>
-        <source src="{{ field.value.uri }}" type="{{ videoType }}" />
+        <source src="{{ path( ez_route( 'ez_content_download', { 'content': content, 'fieldIdentifier': 'file' } ) ) }}" type="{{ videoType }}" />
     </video>
 {% endblock %}
