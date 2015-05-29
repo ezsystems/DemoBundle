@@ -40,7 +40,7 @@
                     {{ form_errors( form ) }}
                 </div>
 
-                <div class="control-group {% if form.firstName.vars.errors %}error{% endif %}">
+                <div class="control-group {% if form.firstName.vars.errors is not empty %}error{% endif %}">
                     {{ form_label( form.firstName, 'First Name'|trans,  { 'attr': {'class': 'control-label'}} ) }}
                     <div class="controls">
                         {{ form_widget( form.firstName, { 'attr': {'class': 'col-md-4'}} ) }}
@@ -48,7 +48,7 @@
                     </div>
                 </div>
 
-                <div class="control-group {% if form.lastName.vars.errors %}error{% endif %}">
+                <div class="control-group {% if form.lastName.vars.errors is not empty %}error{% endif %}">
                     {{ form_label( form.lastName, 'Last Name'|trans,  { 'attr': {'class': 'control-label'}} ) }}
                     <div class="controls">
                         {{ form_widget( form.lastName, { 'attr': {'class': 'col-md-4'}} ) }}
@@ -56,7 +56,7 @@
                     </div>
                 </div>
 
-                <div class="control-group {% if form.email.vars.errors %}error{% endif %}">
+                <div class="control-group {% if form.email.vars.errors is not empty %}error{% endif %}">
                     {{ form_label( form.email, 'Email'|trans,  { 'attr': {'class': 'control-label'}} ) }}
                     <div class="controls">
                         {{ form_widget( form.email, { 'attr': {'class': 'col-md-6'}} ) }}
@@ -64,7 +64,7 @@
                     </div>
                 </div>
 
-                <div class="control-group {% if form.subject.vars.errors %}error{% endif %}">
+                <div class="control-group {% if form.subject.vars.errors is not empty %}error{% endif %}">
                     {{ form_label( form.subject, 'Subject'|trans,  { 'attr': {'class': 'control-label'}} ) }}
                     <div class="controls">
                         {{ form_widget( form.subject, { 'attr': {'class': 'col-md-6'}} ) }}
@@ -72,7 +72,7 @@
                     </div>
                 </div>
 
-                <div class="control-group {% if form.country.vars.errors %}error{% endif %}">
+                <div class="control-group {% if form.country.vars.errors is not empty %}error{% endif %}">
                     {{ form_label( form.country, 'Country'|trans,  { 'attr': {'class': 'control-label'}} ) }}
                     <div class="controls">
                         {{ form_widget( form.country ) }}
@@ -80,7 +80,7 @@
                     </div>
                 </div>
 
-                <div class="control-group {% if form.message.vars.errors %}error{% endif %}">
+                <div class="control-group {% if form.message.vars.errors is not empty %}error{% endif %}">
                     {{ form_label( form.message, 'Message'|trans,  { 'attr': {'class': 'control-label'}} ) }}
                     <div class="controls">
                         {{ form_widget( form.message, { 'attr': {'class': 'col-md-8', 'rows': '10'} } ) }}
