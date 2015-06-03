@@ -1,21 +1,6 @@
 {% extends "eZDemoBundle::pagelayout.html.twig" %}
 
-{# Customizing the error message to add a css class since form_errors doesn't accept parameters #}
-{% form_theme form _self %}
-
-{% block form_errors %}
-    {% if errors|length > 0 %}
-        <span class="help-inline">
-            {% for error in errors %}
-                {{ error.message }}
-                {% if not loop.last %},{% endif %}
-            {% endfor %}
-        </span>
-    {% endif %}
-{% endblock form_errors %}
-
 {% block content %}
-
 <section class="content-view-full">
     <div class="row">
         <div class="col-md-8">
@@ -34,61 +19,42 @@
                 </p>
 
             {% else %}
+                {%  form_theme form 'eZDemoBundle:forms:feedback_form.html.twig' %}
+
                 {{ form_start( form ) }}
 
-                <div class="row">
-                    {{ form_errors( form ) }}
-                </div>
+                {{ form_row( form.firstName, {
+                    'label': 'First Name',
+                    'label_attr': { 'class': 'control-label' },
+                    'attr': { 'class': 'col-md-4' }
+                } ) }}
 
-                <div class="control-group {% if form.firstName.vars.errors is not empty %}error{% endif %}">
-                    {{ form_label( form.firstName, 'First Name'|trans,  { 'attr': {'class': 'control-label'}} ) }}
-                    <div class="controls">
-                        {{ form_widget( form.firstName, { 'attr': {'class': 'col-md-4'}} ) }}
-                        {{ form_errors( form.firstName ) }}
-                    </div>
-                </div>
+                {{ form_row( form.lastName, {
+                    'label': 'Last Name',
+                    'attr': { 'class': 'col-md-4' }
+                } ) }}
 
-                <div class="control-group {% if form.lastName.vars.errors is not empty %}error{% endif %}">
-                    {{ form_label( form.lastName, 'Last Name'|trans,  { 'attr': {'class': 'control-label'}} ) }}
-                    <div class="controls">
-                        {{ form_widget( form.lastName, { 'attr': {'class': 'col-md-4'}} ) }}
-                        {{ form_errors( form.lastName ) }}
-                    </div>
-                </div>
+                {{ form_row( form.email, {
+                    'label': 'Email',
+                    'attr': { 'class': 'col-md-6' }
+                } ) }}
 
-                <div class="control-group {% if form.email.vars.errors is not empty %}error{% endif %}">
-                    {{ form_label( form.email, 'Email'|trans,  { 'attr': {'class': 'control-label'}} ) }}
-                    <div class="controls">
-                        {{ form_widget( form.email, { 'attr': {'class': 'col-md-6'}} ) }}
-                        {{ form_errors( form.email ) }}
-                    </div>
-                </div>
+                {{ form_row( form.subject, {
+                    'label': 'Subject',
+                    'attr': { 'class': 'col-md-6' }
+                } ) }}
 
-                <div class="control-group {% if form.subject.vars.errors is not empty %}error{% endif %}">
-                    {{ form_label( form.subject, 'Subject'|trans,  { 'attr': {'class': 'control-label'}} ) }}
-                    <div class="controls">
-                        {{ form_widget( form.subject, { 'attr': {'class': 'col-md-6'}} ) }}
-                        {{ form_errors( form.subject ) }}
-                    </div>
-                </div>
+                {{ form_row( form.country, { 'label': 'Country' } ) }}
 
-                <div class="control-group {% if form.country.vars.errors is not empty %}error{% endif %}">
-                    {{ form_label( form.country, 'Country'|trans,  { 'attr': {'class': 'control-label'}} ) }}
-                    <div class="controls">
-                        {{ form_widget( form.country ) }}
-                        {{ form_errors( form.country ) }}
-                    </div>
-                </div>
+                {{ form_row( form.message, {
+                    'label': 'Message',
+                    'attr': { 'class': 'col-md-8', 'rows': 10 }
+                } ) }}
 
-                <div class="control-group {% if form.message.vars.errors is not empty %}error{% endif %}">
-                    {{ form_label( form.message, 'Message'|trans,  { 'attr': {'class': 'control-label'}} ) }}
-                    <div class="controls">
-                        {{ form_widget( form.message, { 'attr': {'class': 'col-md-8', 'rows': '10'} } ) }}
-                        {{ form_errors( form.message ) }}
-                    </div>
-                </div>
-
-                {{ form_widget( form.save, { 'label': "Send form"|trans, 'attr': { 'class': 'btn btn-warning pull-right' } } ) }}
+                {{ form_row( form.save, {
+                    'label': "Send form",
+                    'attr': { 'class': 'btn btn-warning pull-right' }
+                } ) }}
 
                 {{ form_end( form ) }}
             {% endfor %}

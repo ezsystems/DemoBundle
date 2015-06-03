@@ -1,0 +1,22 @@
+{% block form_row -%}
+    {% set class = form.vars.label_attr.class is defined ?  form.vars.label_attr.class : 'control-label' %}
+
+    <div class="control-group{% if not form.vars.valid %} error{% endif %}">
+        {{- form_label(form) -}}
+        <div class="controls">
+            {{- form_widget(form) -}}
+            {{- form_errors(form) -}}
+        </div>
+    </div>
+{%- endblock form_row %}
+
+{% block form_errors %}
+    {% if errors|length > 0 %}
+        <span class="help-inline">
+            {% for error in errors %}
+                {{ error.message }}
+                {% if not loop.last %},{% endif %}
+            {% endfor %}
+        </span>
+    {% endif %}
+{% endblock form_errors %}
