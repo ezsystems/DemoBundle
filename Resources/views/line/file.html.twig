@@ -1,0 +1,22 @@
+{#
+    File line view
+#}
+
+<div class="content-view-line">
+    <div class="class-file">
+        <h2>{{ ez_content_name( content ) }}</h2>
+
+        <div class="attribute-short">
+            {{ ez_render_field( content, 'description' ) }}
+        </div>
+        <div class="break"></div>
+        <div class="attribute-file">
+            <p>{{ ez_render_field( content, 'file' ) }}</p>
+        </div>
+
+        <div class="attribute-link">
+            <p><a href={{ path( location ) }}>{{ 'Details'|trans }}</a></p>
+        </div>
+
+    </div>
+</div>

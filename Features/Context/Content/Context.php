@@ -37,6 +37,7 @@ class Context extends Demo
         $this->mainAttributes += array(
             "ez logo" => array( "class" => "logo", "href" => "/" ),
             "main content" => array( "class" => "main-content" ),
+            "main navigation" => array( "class" => "main-navi" ),
         );
     }
 
