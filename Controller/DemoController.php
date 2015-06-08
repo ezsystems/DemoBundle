@@ -13,6 +13,7 @@ use eZ\Bundle\EzPublishCoreBundle\Controller;
 use eZ\Publish\API\Repository\Values\Content\Location;
 use eZ\Publish\Core\Pagination\Pagerfanta\ContentSearchAdapter;
 use Pagerfanta\Pagerfanta;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use eZ\Publish\API\Repository\Values\Content\Query;
@@ -69,7 +70,7 @@ class DemoController extends Controller
      * @param \eZ\Publish\API\Repository\Values\Content\Location $location containing blog posts
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function listBlogPostsAction( Location $location )
+    public function listBlogPostsAction( Location $location, Request $request )
     {
         $response = new Response();
 
@@ -80,7 +81,7 @@ class DemoController extends Controller
         $response->headers->set( 'X-Location-Id', $location->id );
         $response->setVary( 'X-User-Hash' );
 
-        $viewParameters = $this->getRequest()->attributes->get( 'viewParameters' );
+        $viewParameters = $request->attributes->get( 'viewParameters' );
 
         // Getting location and content from ezpublish dedicated services
         $repository = $this->getRepository();
@@ -114,7 +115,7 @@ class DemoController extends Controller
             new ContentSearchAdapter( $query, $this->getRepository()->getSearchService() )
         );
         $pager->setMaxPerPage( $this->container->getParameter( 'ezdemo.blog.blog_post_list.limit' ) );
-        $pager->setCurrentPage( $this->getRequest()->get( 'page', 1 ) );
+        $pager->setCurrentPage( $request->get( 'page', 1 ) );
 
         return $this->render(
             'eZDemoBundle:full:blog.html.twig',
