@@ -33,7 +33,8 @@ class Demo extends Context
             "place" => "/eZ-Mountains",
             "services" => "/Shopping/Services",
             "products" => "/Shopping/Products",
-            "resources" => "/Getting-Started/Resources"
+            "resources" => "/Getting-Started/Resources",
+            "partner" => "/Partner",
         );
 
         $this->mainAttributes += array(
