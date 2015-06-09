@@ -13,6 +13,7 @@ use eZ\Bundle\EzPublishCoreBundle\Controller;
 use eZ\Publish\API\Repository\Values\Content\Location;
 use EzSystems\DemoBundle\Entity\Feedback;
 use EzSystems\DemoBundle\Helper\EmailHelper;
+use Symfony\Component\HttpFoundation\Request;
 
 class FeedbackFormController extends Controller
 {
@@ -27,12 +28,11 @@ class FeedbackFormController extends Controller
      *
      * @return mixed
      */
-    public function showFeedbackFormAction( Location $location, $viewType, $layout = false, array $params = array() )
+    public function showFeedbackFormAction( Request $request, Location $location, $viewType, $layout = false, array $params = array() )
     {
         // Creating a form using Symfony's form component
         $feedback = new Feedback();
         $form = $this->createForm( $this->get( 'ezdemo.form.type.feedback' ), $feedback );
-        $request = $this->getRequest();
 
         if ( $request->isMethod( 'POST' ) )
         {
