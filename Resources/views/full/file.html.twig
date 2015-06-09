@@ -1,0 +1,30 @@
+{% extends "eZDemoBundle::pagelayout.html.twig" %}
+
+{% block content %}
+    <section class="content-view-full">
+        <article class="class-file">
+
+            <div class="attribute-header">
+                <h1>{{ ez_content_name( content ) }}</h1>
+            </div>
+
+            {% if not ez_is_field_empty( content, 'description' ) %}
+                <div class="attribute-long">
+                    {{ ez_render_field( content, 'description' ) }}
+                </div>
+            {% endif %}
+
+            <div class="attribute-file">
+                {{ ez_render_field( content, 'file', { attr: { 'class': 'btn btn-warning' } } ) }}
+            </div>
+
+            <div class="attribute-tags">
+                {{ ez_render_field( content, 'tags', { 'attr': { 'class' : 'tags-wrapper' } } ) }}
+            </div>
+
+            <div class="attribute-star-rating">
+                {{ render( controller( 'eZDemoBundle:Demo:viewStarRating', { 'location': location } ) ) }}
+            </div>
+        </article>
+    </section>
+{% endblock %}
