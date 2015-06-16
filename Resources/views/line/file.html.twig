@@ -1,22 +1,23 @@
-{#
-    File line view
-#}
+{% set fileSize = ez_field_value( content, 'file' ).fileSize|ez_file_size( 4 ) %}
+{% set dateModified = content.contentInfo.modificationDate|localizeddate( 'short', 'short', app.request.locale ) %}
+{% set downloadPath = path( ez_route( 'ez_content_download', { 'content': content, 'fieldIdentifier': 'file' } ) ) %}
 
 <div class="content-view-line">
-    <div class="class-file">
-        <h2>{{ ez_content_name( content ) }}</h2>
+    <div class="attribute-header">
+        <h2>
+            <a href="{{ path( 'ez_urlalias', { 'contentId': content.id } ) }}" class="teaser-link">{{ ez_content_name( content ) }}</a>
+        </h2>
+    </div>
 
-        <div class="attribute-short">
+    <article class="class-file file-to-download">
+        <div class="header">
+            <span class="file-size">{{ 'File size:'|trans }} {{ fileSize }}</span>
+            <span class="modified-date">({{ 'Modified:'|trans }} {{ dateModified }})</span>
+            <a href="{{ downloadPath }}" class="pull-right">{{ 'Download file'|trans }}</a>
+        </div>
+
+        <div class="description">
             {{ ez_render_field( content, 'description' ) }}
         </div>
-        <div class="break"></div>
-        <div class="attribute-file">
-            <p>{{ ez_render_field( content, 'file' ) }}</p>
-        </div>
-
-        <div class="attribute-link">
-            <p><a href={{ path( location ) }}>{{ 'Details'|trans }}</a></p>
-        </div>
-
-    </div>
+    </article>
 </div>

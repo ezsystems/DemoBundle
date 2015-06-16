@@ -77,6 +77,14 @@ system:
                     template: "eZDemoBundle:full:folder.html.twig"
                     match:
                         Identifier\ContentType: [folder]
+                file:
+                    template: "eZDemoBundle:full:file.html.twig"
+                    match:
+                        Identifier\ContentType: [file]
+                video:
+                    template: "eZDemoBundle:full:video.html.twig"
+                    match:
+                        Identifier\ContentType: [video]
 
             line:
                 article:
@@ -104,6 +112,10 @@ system:
                     template: "eZDemoBundle:line:file.html.twig"
                     match:
                         Identifier\ContentType: [file]
+                video:
+                    template: "eZDemoBundle:line:video.html.twig"
+                    match:
+                        Identifier\ContentType: [video]
 
         content_view:
             embed:
