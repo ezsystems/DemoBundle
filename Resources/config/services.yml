@@ -104,30 +104,14 @@ services:
         class: %ezdemo.privacy_cookie.banner_factory.class%
         factory: ["%ezdemo.privacy_cookie.banner_factory.class%", build]
         arguments:
-            - "@=parameter('ezdemo.privacy_cookie.content_banner.content_id') != '' ? service('ezdemo.ez_content_banner_factory.content_factory') : service('ezdemo.ez_content_banner_factory.content_factory_from_path')"
+            - contentId: %ezdemo.privacy_cookie.content_banner.content_id%
+              pathString: %ezdemo.privacy_cookie.content_banner.path_string%
+              learnMoreText: %ez_privacy_cookie.banner_link_text%
+              learnMoreUrl: %ez_privacy_cookie.banner_link_url%
+              bannerCaption: %ez_privacy_cookie.banner_caption%
+              validityDays: %ez_privacy_cookie.days%
+              cookieName: %ez_privacy_cookie.cookie_name%
             - @ezpublish.api.service.location
+            - @ezpublish.api.service.content
             - @ezpublish.api.service.url_alias
             - @translator.default
-
-    ezdemo.ez_content_banner_factory.content_factory:
-        class: eZ\Publish\API\Repository\Values\Content\Content
-        factory_service: ezpublish.api.service.content
-        factory_method: loadContent
-        arguments:
-            - %ezdemo.privacy_cookie.content_banner.content_id%
-
-    ezdemo.ez_content_banner_factory.content_factory_from_path:
-        class: eZ\Publish\API\Repository\Values\Content\Content
-        factory_service: ezpublish.api.service.content
-        factory_method: loadContent
-        arguments:
-            - @ezdemo.ez_content_banner_factory.path_converter
-
-    ezdemo.ez_content_banner_factory.path_converter:
-        class: EzSystems\DemoBundle\PrivacyCookie\PathConverter
-        factory_class: EzSystems\DemoBundle\PrivacyCookie\PathConverter
-        factory_method: getContentId
-        arguments:
-            - @ezpublish.api.service.url_alias
-            - @ezpublish.api.service.location
-            - %ezdemo.privacy_cookie.content_banner.path_string%
