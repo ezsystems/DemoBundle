@@ -86,11 +86,12 @@ services:
             - @ezpublish.api.repository
             - %ezdemo.premium_content.role_id%
 
-    ezdemo.installer.democlean_installer:
-        parent: ezplatform.installer.db_based_installer
-        class: %ezdemo.installer.democlean_installer.class%
-        tags:
-            - {name: ezplatform.installer, type: demo-clean}
+    # Disabled as it is currently broken missing some data
+    #ezdemo.installer.democlean_installer:
+    #    parent: ezplatform.installer.db_based_installer
+    #    class: %ezdemo.installer.democlean_installer.class%
+    #    tags:
+    #        - {name: ezplatform.installer, type: demo-clean}
 
     ezdemo.installer.demo_installer:
         parent: ezplatform.installer.db_based_installer
