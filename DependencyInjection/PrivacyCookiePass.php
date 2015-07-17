@@ -8,7 +8,7 @@ namespace EzSystems\DemoBundle\DependencyInjection;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 
-class eZDemoCompilerPass implements CompilerPassInterface
+class PrivacyCookiePass implements CompilerPassInterface
 {
     public function process( ContainerBuilder $container )
     {
@@ -23,7 +23,6 @@ class eZDemoCompilerPass implements CompilerPassInterface
         }
 
         $definition = $container->getDefinition( 'ez_privacy_cookie.twig.extension' );
-        $eZBannerFactory = $container->getDefinition( 'ezdemo.ez_content_banner_factory' );
-        $definition->replaceArgument( 1, $eZBannerFactory );
+        $definition->replaceArgument( 1, $container->getDefinition( 'ezdemo.ez_content_banner_factory' ) );
     }
 }

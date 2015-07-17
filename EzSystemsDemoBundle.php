@@ -11,7 +11,7 @@ namespace EzSystems\DemoBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
-use EzSystems\DemoBundle\DependencyInjection\eZDemoCompilerPass;
+use EzSystems\DemoBundle\DependencyInjection\PrivacyCookiePass;
 
 class EzSystemsDemoBundle extends Bundle
 {
@@ -21,6 +21,6 @@ class EzSystemsDemoBundle extends Bundle
     {
         parent::build( $container );
 
-        $container->addCompilerPass( new eZDemoCompilerPass() );
+        $container->addCompilerPass( new PrivacyCookiePass() );
     }
 }
