@@ -13,6 +13,8 @@ parameters:
     ezdemo.installer.democlean_installer.class: EzSystems\DemoBundle\Installer\DemoCleanInstaller
     ezdemo.installer.demo_installer.class: EzSystems\DemoBundle\Installer\DemoInstaller
 
+    ezdemo.privacy_cookie.banner_factory.class: EzSystems\DemoBundle\PrivacyCookie\DemoBundleBanner
+
 services:
     ezdemo.criteria_helper:
         class: %ezdemo.criteria_helper.class%
@@ -97,3 +99,19 @@ services:
         class: %ezdemo.installer.demo_installer.class%
         tags:
             - {name: ezplatform.installer, type: demo}
+
+    ezdemo.ez_content_banner_factory:
+        class: %ezdemo.privacy_cookie.banner_factory.class%
+        factory: ["%ezdemo.privacy_cookie.banner_factory.class%", build]
+        arguments:
+            - contentId: %ezdemo.privacy_cookie.content_banner.content_id%
+              pathString: %ezdemo.privacy_cookie.content_banner.path_string%
+              learnMoreText: %ez_privacy_cookie.banner_link_text%
+              learnMoreUrl: %ez_privacy_cookie.banner_link_url%
+              bannerCaption: %ez_privacy_cookie.banner_caption%
+              validityDays: %ez_privacy_cookie.days%
+              cookieName: %ez_privacy_cookie.cookie_name%
+            - @ezpublish.api.service.location
+            - @ezpublish.api.service.content
+            - @ezpublish.api.service.url_alias
+            - @translator.default

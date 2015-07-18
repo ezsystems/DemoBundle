@@ -47,3 +47,7 @@ parameters:
     ## Premium content
     ezdemo.premium_content.section_id: 7
     ezdemo.premium_content.role_id: 6
+
+    # You can choose which type of identifier will be used to load privacy policy page by PrivacyCookieBundle
+    ezdemo.privacy_cookie.content_banner.content_id: ~
+    ezdemo.privacy_cookie.content_banner.path_string: "Privacy-policy"
