@@ -17,7 +17,6 @@ use eZ\Publish\Core\Pagination\Pagerfanta\ContentSearchAdapter;
 use eZ\Bundle\EzPublishCoreBundle\Controller;
 use Pagerfanta\Pagerfanta;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpFoundation\Request;
 
 class FolderController extends Controller
@@ -26,22 +25,10 @@ class FolderController extends Controller
      * Displays the sub folder if it exists
      *
      * @param \eZ\Publish\API\Repository\Values\Content\Location $location of a folder
-     * @throws NotFoundHttpException $location is flagged as invisible
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function showFolderListAsideViewAction( Location $location )
+    public function showFolderListAsideViewAction( Location $location, $viewType, $layout = false, array $params = array() )
     {
-        $response = new Response();
-
-        if ( $location->invisible )
-        {
-            throw new NotFoundHttpException( "Location #$location->id cannot be displayed as it is flagged as invisible." );
-        }
-
-        $response->setSharedMaxAge( $this->getConfigResolver()->getParameter( 'content.default_ttl' ) );
-        $response->headers->set( 'X-Location-Id', $location->id );
-        $response->setVary( 'X-User-Hash' );
-
         $languages = $this->getConfigResolver()->getParameter( 'languages' );
 
         $includedContentTypeIdentifiers = $this->container->getParameter( 'ezdemo.folder.folder_tree.included_content_types' );
@@ -68,9 +55,9 @@ class FolderController extends Controller
 
         return $this->get( 'ez_content' )->viewLocation(
             $location->id,
-            'aside_sub',
-            true,
-            ['treeChildItems' => $treeChildItems]
+            $viewType,
+            $layout,
+            array( 'treeChildItems' => $treeChildItems ) + $params
         );
     }
 
@@ -79,22 +66,10 @@ class FolderController extends Controller
      *
      * @param \eZ\Publish\API\Repository\Values\Content\Location $location of a folder
      * @param \Symfony\Component\HttpFoundation\Request $request request object
-     * @throws NotFoundHttpException $location is flagged as invisible
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function showFolderListAction( Request $request, Location $location )
+    public function showFolderListAction( Request $request, Location $location, $viewType, $layout = false, array $params = array() )
     {
-        $response = new Response();
-
-        if ( $location->invisible )
-        {
-            throw new NotFoundHttpException( "Location #$location->id cannot be displayed as it is flagged as invisible." );
-        }
-
-        $response->setSharedMaxAge( $this->getConfigResolver()->getParameter( 'content.default_ttl' ) );
-        $response->headers->set( 'X-Location-Id', $location->id );
-        $response->setVary( 'X-User-Hash' );
-
         $content = $this->getRepository()
             ->getContentService()
             ->loadContentByContentInfo( $location->getContentInfo() );
@@ -149,9 +124,9 @@ class FolderController extends Controller
 
         return $this->get( 'ez_content' )->viewLocation(
             $location->id,
-            'full',
-            true,
-            ['pagerFolder' => $pager, 'treeItems' => $treeItems]
+            $viewType,
+            $layout,
+            array( 'pagerFolder' => $pager, 'treeItems' => $treeItems ) + $params
         );
     }
 }
