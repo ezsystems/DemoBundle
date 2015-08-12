@@ -13,6 +13,7 @@ Feature: Start page
     @javascript
     Scenario: Login using inline javascript form
         Given I am on the homepage
+        And I see "login" link
         And I click at "login" link
         When I fill in "login-username" with "admin"
         And I fill in "login-password" with "publish"
