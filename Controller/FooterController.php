@@ -21,20 +21,18 @@ class FooterController extends Controller
      */
     public function indexAction()
     {
-        $footerContentId = $this->container->getParameter( 'ezdemo.footer.content_id' );
-        $footerContent = $this->getRepository()->getContentService()->loadContent( $footerContentId );
+        $footerContentId = $this->container->getParameter('ezdemo.footer.content_id');
+        $footerContent = $this->getRepository()->getContentService()->loadContent($footerContentId);
 
         $response = new Response();
         $response->setPublic();
-        $response->setSharedMaxAge( 86400 );
-        $response->headers->set( 'X-Location-Id', $footerContent->contentInfo->mainLocationId );
-        $response->setVary( 'X-User-Hash' );
+        $response->setSharedMaxAge(86400);
+        $response->headers->set('X-Location-Id', $footerContent->contentInfo->mainLocationId);
+        $response->setVary('X-User-Hash');
 
         return $this->render(
-            "eZDemoBundle::page_footer.html.twig",
-            array(
-                "content" => $footerContent
-            ),
+            'eZDemoBundle::page_footer.html.twig',
+            array('content' => $footerContent),
             $response
         );
     }
@@ -42,46 +40,45 @@ class FooterController extends Controller
     /**
      * Return latest content for footer.
      *
-     * @param $currentContentId
+     * @param mixed $currentContentId
      *
      * @return Response
      */
-    public function latestContentAction( $currentContentId )
+    public function latestContentAction($currentContentId)
     {
         $locationService = $this->getRepository()->getLocationService();
         $contentService = $this->getRepository()->getContentService();
 
         // Get the root location through ConfigResolver.
-        $rootLocationId = $this->getConfigResolver()->getParameter( 'content.tree_root.location_id' );
-        $rootLocation = $locationService->loadLocation( $rootLocationId );
+        $rootLocationId = $this->getConfigResolver()->getParameter('content.tree_root.location_id');
+        $rootLocation = $locationService->loadLocation($rootLocationId);
 
         $response = new Response;
         $response->setPublic();
-        $response->setSharedMaxAge( 86400 );
-        $response->headers->set( 'X-Location-Id', $rootLocationId );
-        $response->setVary( 'X-User-Hash' );
+        $response->setSharedMaxAge(86400);
+        $response->headers->set('X-Location-Id', $rootLocationId);
+        $response->setVary('X-User-Hash');
 
         // Build our exclude criterion.
         // We just want to exclude locations for current content which are under root location.
-        $excludeLocations = $locationService->loadLocations( $contentService->loadContentInfo( $currentContentId ), $rootLocation );
+        $currentContentInfo = $contentService->loadContentInfo($currentContentId);
+        $excludeLocations = $locationService->loadLocations($currentContentInfo, $rootLocation);
         $excludeCriterion = $this
-            ->get( 'ezdemo.criteria_helper' )
-            ->generateLocationIdExcludeCriterion( $excludeLocations );
+            ->get('ezdemo.criteria_helper')
+            ->generateLocationIdExcludeCriterion($excludeLocations);
 
         // Retrieve latest content through the MenuHelper.
         // We only want articles that are located somewhere in the tree under root location.
-        $latestContent = $this->get( 'ezdemo.menu_helper' )->getLatestContent(
+        $latestContent = $this->get('ezdemo.menu_helper')->getLatestContent(
             $rootLocation,
-            $this->container->getParameter( 'ezdemo.footer.latest_content.content_types' ),
+            $this->container->getParameter('ezdemo.footer.latest_content.content_types'),
             $excludeCriterion,
-            $this->container->getParameter( 'ezdemo.footer.latest_content.limit' )
+            $this->container->getParameter('ezdemo.footer.latest_content.limit')
         );
 
         return $this->render(
             'eZDemoBundle:footer:latest_content.html.twig',
-            array(
-                'latestContent' => $latestContent
-            ),
+            array('latestContent' => $latestContent),
             $response
         );
     }
