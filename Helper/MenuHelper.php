@@ -68,7 +68,7 @@ class MenuHelper
 
         $query = new LocationQuery(
             array(
-                'criterion' => new Criterion\LogicalAnd( $criteria ),
+                'query' => new Criterion\LogicalAnd( $criteria ),
                 'sortClauses' => array( new SortClause\Location\Priority( LocationQuery::SORT_ASC ) )
             )
         );
@@ -104,7 +104,7 @@ class MenuHelper
 
         $query = new Query(
             array(
-                'criterion' => new Criterion\LogicalAnd( $criteria ),
+                'query' => new Criterion\LogicalAnd( $criteria ),
                 'sortClauses' => array( new SortClause\DatePublished( Query::SORT_DESC ) )
             )
         );

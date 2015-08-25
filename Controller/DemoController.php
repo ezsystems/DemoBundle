@@ -105,7 +105,7 @@ class DemoController extends Controller
 
         // Generating query
         $query = new Query();
-        $query->criterion = $criteria;
+        $query->query = $criteria;
         $query->sortClauses = array(
             new SortClause\Field( 'blog_post', 'publication_date', Query::SORT_DESC, $languages[0] )
         );
