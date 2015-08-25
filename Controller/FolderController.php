@@ -51,7 +51,7 @@ class FolderController extends Controller
         );
 
         $subContentQuery = new LocationQuery();
-        $subContentQuery->criterion = $subContentCriteria;
+        $subContentQuery->query = $subContentCriteria;
         $subContentQuery->sortClauses = array(
             new SortClause\ContentName()
         );
@@ -112,7 +112,7 @@ class FolderController extends Controller
 
         // Generating query
         $query = new LocationQuery();
-        $query->criterion = $criteria;
+        $query->query = $criteria;
         $query->sortClauses = array(
             new SortClause\DatePublished()
         );
@@ -133,7 +133,7 @@ class FolderController extends Controller
         );
 
         $subContentQuery = new LocationQuery();
-        $subContentQuery->criterion = $subContentCriteria;
+        $subContentQuery->query = $subContentCriteria;
         $subContentQuery->sortClauses = array(
             new SortClause\ContentName()
         );
