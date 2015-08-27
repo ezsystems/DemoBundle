@@ -6,7 +6,6 @@
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  * @version //autogentag//
  */
-
 namespace EzSystems\DemoBundle\Controller;
 
 use eZ\Bundle\EzPublishCoreBundle\Controller;
@@ -53,7 +52,7 @@ class FooterController extends Controller
         $rootLocationId = $this->getConfigResolver()->getParameter('content.tree_root.location_id');
         $rootLocation = $locationService->loadLocation($rootLocationId);
 
-        $response = new Response;
+        $response = new Response();
         $response->setPublic();
         $response->setSharedMaxAge(86400);
         $response->headers->set('X-Location-Id', $rootLocationId);

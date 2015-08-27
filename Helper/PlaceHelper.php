@@ -6,7 +6,6 @@
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  * @version //autogentag//
  */
-
 namespace EzSystems\DemoBundle\Helper;
 
 use eZ\Publish\API\Repository\SearchService;
@@ -15,7 +14,7 @@ use eZ\Publish\API\Repository\Values\Content\Query;
 use eZ\Publish\API\Repository\Values\Content\Query\Criterion;
 
 /**
- * Helper for places
+ * Helper for places.
  */
 class PlaceHelper
 {
@@ -30,14 +29,14 @@ class PlaceHelper
     private $searchHelper;
 
     /**
-     * Min distance in kilometers to display items in the place list
+     * Min distance in kilometers to display items in the place list.
      *
      * @var int
      */
     private $placeListMinDist;
 
     /**
-     * Max distance in kilometers to display items in the place list
+     * Max distance in kilometers to display items in the place list.
      *
      * @var int
      */
@@ -48,8 +47,7 @@ class PlaceHelper
         SearchHelper $searchHelper,
         $placeListMinDist,
         $placeListMaxDist
-    )
-    {
+    ) {
         $this->searchService = $searchService;
         $this->searchHelper = $searchHelper;
         $this->placeListMinDist = $placeListMinDist;
@@ -57,7 +55,7 @@ class PlaceHelper
     }
 
     /**
-     * Returns all places contained in a place_list
+     * Returns all places contained in a place_list.
      *
      * @param \eZ\Publish\API\Repository\Values\Content\Location $location of a place_list
      * @param string|string[] $contentTypes to be retrieved
@@ -65,21 +63,21 @@ class PlaceHelper
      *
      * @return \eZ\Publish\API\Repository\Values\Content\Content[]
      */
-    public function getPlaceList( Location $location, $contentTypes, $languages = array() )
+    public function getPlaceList(Location $location, $contentTypes, $languages = array())
     {
         $query = new Query();
         $query->filter = new Criterion\LogicalAnd(
             array(
-                new Criterion\ContentTypeIdentifier( $contentTypes ),
-                new Criterion\Subtree( $location->pathString ),
-                new Criterion\LanguageCode( $languages )
+                new Criterion\ContentTypeIdentifier($contentTypes),
+                new Criterion\Subtree($location->pathString),
+                new Criterion\LanguageCode($languages),
             )
         );
         $query->performCount = false;
 
-        $searchResults = $this->searchService->findContent( $query );
+        $searchResults = $this->searchService->findContent($query);
 
-        return $this->searchHelper->buildListFromSearchResult( $searchResults );
+        return $this->searchHelper->buildListFromSearchResult($searchResults);
     }
 
     /**
@@ -96,36 +94,35 @@ class PlaceHelper
      *
      * @return \eZ\Publish\API\Repository\Values\Content\Content[]
      */
-    public function getPlaceListSorted( Location $location, $latitude, $longitude, $contentTypes, $maxDist = null, $sortClauses = array(), $languages = array() )
+    public function getPlaceListSorted(Location $location, $latitude, $longitude, $contentTypes, $maxDist = null, $sortClauses = array(), $languages = array())
     {
-        if ( $maxDist === null )
-        {
+        if ($maxDist === null) {
             $maxDist = $this->placeListMaxDist;
         }
 
         $query = new Query();
         $query->filter = new Criterion\LogicalAnd(
             array(
-                new Criterion\ContentTypeIdentifier( $contentTypes ),
-                new Criterion\Subtree( $location->pathString ),
-                new Criterion\LanguageCode( $languages ),
+                new Criterion\ContentTypeIdentifier($contentTypes),
+                new Criterion\Subtree($location->pathString),
+                new Criterion\LanguageCode($languages),
                 new Criterion\MapLocationDistance(
-                    "location",
+                    'location',
                     Criterion\Operator::BETWEEN,
                     array(
                         $this->placeListMinDist,
-                        $maxDist
+                        $maxDist,
                     ),
                     $latitude,
                     $longitude
-                )
+                ),
             )
         );
         $query->sortClauses = $sortClauses;
         $query->performCount = false;
 
-        $searchResults = $this->searchService->findContent( $query );
+        $searchResults = $this->searchService->findContent($query);
 
-        return $this->searchHelper->buildListFromSearchResult( $searchResults );
+        return $this->searchHelper->buildListFromSearchResult($searchResults);
     }
 }

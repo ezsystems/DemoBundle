@@ -1,12 +1,11 @@
 <?php
 /**
- * This file is part of the ezsystems/demo-bundle package
+ * This file is part of the ezsystems/demo-bundle package.
  *
  * @copyright Copyright (C) eZ Systems AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  * @version //autogentag//
  */
-
 namespace EzSystems\DemoBundle\Controller;
 
 use eZ\Publish\API\Repository\Values\Content\LocationQuery;
@@ -23,50 +22,48 @@ use Symfony\Component\HttpFoundation\Request;
 class FolderController extends Controller
 {
     /**
-     * Displays the sub folder if it exists
+     * Displays the sub folder if it exists.
      *
      * @param \eZ\Publish\API\Repository\Values\Content\Location $location of a folder
      * @throws NotFoundHttpException $location is flagged as invisible
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function showFolderListAsideViewAction( Location $location )
+    public function showFolderListAsideViewAction(Location $location)
     {
         $response = new Response();
 
-        if ( $location->invisible )
-        {
-            throw new NotFoundHttpException( "Location #$location->id cannot be displayed as it is flagged as invisible." );
+        if ($location->invisible) {
+            throw new NotFoundHttpException("Location #$location->id cannot be displayed as it is flagged as invisible.");
         }
 
-        $response->setSharedMaxAge( $this->getConfigResolver()->getParameter( 'content.default_ttl' ) );
-        $response->headers->set( 'X-Location-Id', $location->id );
-        $response->setVary( 'X-User-Hash' );
+        $response->setSharedMaxAge($this->getConfigResolver()->getParameter('content.default_ttl'));
+        $response->headers->set('X-Location-Id', $location->id);
+        $response->setVary('X-User-Hash');
 
-        $languages = $this->getConfigResolver()->getParameter( 'languages' );
+        $languages = $this->getConfigResolver()->getParameter('languages');
 
-        $includedContentTypeIdentifiers = $this->container->getParameter( 'ezdemo.folder.folder_tree.included_content_types' );
+        $includedContentTypeIdentifiers = $this->container->getParameter('ezdemo.folder.folder_tree.included_content_types');
 
-        $subContentCriteria = $this->get( 'ezdemo.criteria_helper' )->generateSubContentCriterion(
+        $subContentCriteria = $this->get('ezdemo.criteria_helper')->generateSubContentCriterion(
             $location, $includedContentTypeIdentifiers, $languages
         );
 
         $subContentQuery = new LocationQuery();
         $subContentQuery->query = $subContentCriteria;
         $subContentQuery->sortClauses = array(
-            new SortClause\ContentName()
+            new SortClause\ContentName(),
         );
         $subContentQuery->performCount = false;
 
         $searchService = $this->getRepository()->getSearchService();
-        $subContent = $searchService->findLocations( $subContentQuery );
+        $subContent = $searchService->findLocations($subContentQuery);
 
         $treeChildItems = array();
-        foreach ( $subContent->searchHits as $hit )
-        {
+        foreach ($subContent->searchHits as $hit) {
             $treeChildItems[] = $hit->valueObject;
         }
 
-        return $this->get( 'ez_content' )->viewLocation(
+        return $this->get('ez_content')->viewLocation(
             $location->id,
             'aside_sub',
             true,
@@ -75,38 +72,37 @@ class FolderController extends Controller
     }
 
     /**
-     * Displays the list of article
+     * Displays the list of article.
      *
      * @param \eZ\Publish\API\Repository\Values\Content\Location $location of a folder
      * @param \Symfony\Component\HttpFoundation\Request $request request object
      * @throws NotFoundHttpException $location is flagged as invisible
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function showFolderListAction( Request $request, Location $location )
+    public function showFolderListAction(Request $request, Location $location)
     {
         $response = new Response();
 
-        if ( $location->invisible )
-        {
-            throw new NotFoundHttpException( "Location #$location->id cannot be displayed as it is flagged as invisible." );
+        if ($location->invisible) {
+            throw new NotFoundHttpException("Location #$location->id cannot be displayed as it is flagged as invisible.");
         }
 
-        $response->setSharedMaxAge( $this->getConfigResolver()->getParameter( 'content.default_ttl' ) );
-        $response->headers->set( 'X-Location-Id', $location->id );
-        $response->setVary( 'X-User-Hash' );
+        $response->setSharedMaxAge($this->getConfigResolver()->getParameter('content.default_ttl'));
+        $response->headers->set('X-Location-Id', $location->id);
+        $response->setVary('X-User-Hash');
 
         $content = $this->getRepository()
             ->getContentService()
-            ->loadContentByContentInfo( $location->getContentInfo() );
+            ->loadContentByContentInfo($location->getContentInfo());
 
         // Getting language for the current siteaccess
-        $languages = $this->getConfigResolver()->getParameter( 'languages' );
+        $languages = $this->getConfigResolver()->getParameter('languages');
 
-        $excludedContentTypes = $this->container->getParameter( 'ezdemo.folder.folder_view.excluded_content_types' );
+        $excludedContentTypes = $this->container->getParameter('ezdemo.folder.folder_view.excluded_content_types');
 
         // Using the criteria helper (a demobundle custom service) to generate our query's criteria.
         // This is a good practice in order to have less code in your controller.
-        $criteria = $this->get( 'ezdemo.criteria_helper' )->generateListFolderCriterion(
+        $criteria = $this->get('ezdemo.criteria_helper')->generateListFolderCriterion(
             $location, $excludedContentTypes, $languages
         );
 
@@ -114,40 +110,39 @@ class FolderController extends Controller
         $query = new LocationQuery();
         $query->query = $criteria;
         $query->sortClauses = array(
-            new SortClause\DatePublished()
+            new SortClause\DatePublished(),
         );
 
         // Initialize pagination.
         $pager = new Pagerfanta(
-            new ContentSearchAdapter( $query, $this->getRepository()->getSearchService() )
+            new ContentSearchAdapter($query, $this->getRepository()->getSearchService())
         );
 
-        $pager->setMaxPerPage( $this->container->getParameter( 'ezdemo.folder.folder_list.limit' ) );
-        $pager->setCurrentPage( $request->get( 'page', 1 ) );
+        $pager->setMaxPerPage($this->container->getParameter('ezdemo.folder.folder_list.limit'));
+        $pager->setCurrentPage($request->get('page', 1));
 
-        $includedContentTypeIdentifiers = $this->container->getParameter( 'ezdemo.folder.folder_tree.included_content_types' );
+        $includedContentTypeIdentifiers = $this->container->getParameter('ezdemo.folder.folder_tree.included_content_types');
 
         // Get sub folder structure
-        $subContentCriteria = $this->get( 'ezdemo.criteria_helper' )->generateSubContentCriterion(
+        $subContentCriteria = $this->get('ezdemo.criteria_helper')->generateSubContentCriterion(
             $location, $includedContentTypeIdentifiers, $languages
         );
 
         $subContentQuery = new LocationQuery();
         $subContentQuery->query = $subContentCriteria;
         $subContentQuery->sortClauses = array(
-            new SortClause\ContentName()
+            new SortClause\ContentName(),
         );
 
         $searchService = $this->getRepository()->getSearchService();
-        $subContent = $searchService->findLocations( $subContentQuery );
+        $subContent = $searchService->findLocations($subContentQuery);
 
         $treeItems = array();
-        foreach ( $subContent->searchHits as $hit )
-        {
+        foreach ($subContent->searchHits as $hit) {
             $treeItems[] = $hit->valueObject;
         }
 
-        return $this->get( 'ez_content' )->viewLocation(
+        return $this->get('ez_content')->viewLocation(
             $location->id,
             'full',
             true,

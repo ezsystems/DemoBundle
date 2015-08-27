@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of the DemoBundle package
+ * This file is part of the DemoBundle package.
  *
  * @copyright Copyright (C) eZ Systems AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributd with this source code.
@@ -69,8 +69,7 @@ class Builder
         ConfigResolverInterface $configResolver,
         LocationService $locationService,
         TranslationHelper $translationHelper
-    )
-    {
+    ) {
         $this->factory = $factory;
         $this->searchService = $searchService;
         $this->router = $router;
@@ -79,13 +78,13 @@ class Builder
         $this->translationHelper = $translationHelper;
     }
 
-    public function createTopMenu( Request $request )
+    public function createTopMenu(Request $request)
     {
-        $menu = $this->factory->createItem( 'root' );
+        $menu = $this->factory->createItem('root');
         $this->addLocationsToMenu(
             $menu,
             $this->getMenuItems(
-                $this->configResolver->getParameter( 'content.tree_root.location_id' )
+                $this->configResolver->getParameter('content.tree_root.location_id')
             )
         );
 
@@ -93,62 +92,60 @@ class Builder
     }
 
     /**
-     * Adds locations from $searchHit to $menu
+     * Adds locations from $searchHit to $menu.
      *
      * @param ItemInterface $menu
      * @param SearchHit[] $searchHits
-     * @return void
      */
-    private function addLocationsToMenu( ItemInterface $menu, array $searchHits )
+    private function addLocationsToMenu(ItemInterface $menu, array $searchHits)
     {
-        foreach ( $searchHits as $searchHit )
-        {
+        foreach ($searchHits as $searchHit) {
             /** @var Location $location */
             $location = $searchHit->valueObject;
-            $menuItem = isset( $menu[$location->parentLocationId] ) ? $menu[$location->parentLocationId] : $menu;
+            $menuItem = isset($menu[$location->parentLocationId]) ? $menu[$location->parentLocationId] : $menu;
             $menuItem->addChild(
                 $location->id,
                 array(
-                    'label' => $this->translationHelper->getTranslatedContentNameByContentInfo( $location->contentInfo ),
-                    'uri' => $this->router->generate( $location ),
-                    'attributes' => array( 'id' => 'nav-location-' . $location->id )
+                    'label' => $this->translationHelper->getTranslatedContentNameByContentInfo($location->contentInfo),
+                    'uri' => $this->router->generate($location),
+                    'attributes' => array('id' => 'nav-location-' . $location->id),
                 )
             );
-            $menuItem->setChildrenAttribute( 'class', 'nav' );
+            $menuItem->setChildrenAttribute('class', 'nav');
         }
     }
 
     /**
-     * Queries the repository for menu items, as locations filtered on the list in TopIdentifierList in menu.ini
+     * Queries the repository for menu items, as locations filtered on the list in TopIdentifierList in menu.ini.
      * @param int|string $rootLocationId Root location for menu items. Only two levels below this one are searched
      * @return SearchHit[]
      */
-    private function getMenuItems( $rootLocationId )
+    private function getMenuItems($rootLocationId)
     {
-        $rootLocation = $this->locationService->loadLocation( $rootLocationId );
+        $rootLocation = $this->locationService->loadLocation($rootLocationId);
 
         $query = new LocationQuery();
 
         $query->query = new Criterion\LogicalAnd(
             array(
-                new Criterion\ContentTypeIdentifier( $this->getTopMenuContentTypeIdentifierList() ),
-                new Criterion\Visibility( Criterion\Visibility::VISIBLE ),
+                new Criterion\ContentTypeIdentifier($this->getTopMenuContentTypeIdentifierList()),
+                new Criterion\Visibility(Criterion\Visibility::VISIBLE),
                 new Criterion\Location\Depth(
                     Criterion\Operator::BETWEEN,
-                    array( $rootLocation->depth + 1, $rootLocation->depth + 2 )
+                    array($rootLocation->depth + 1, $rootLocation->depth + 2)
                 ),
-                new Criterion\Subtree( $rootLocation->pathString ),
-                new Criterion\LanguageCode( $this->configResolver->getParameter( 'languages' ) )
+                new Criterion\Subtree($rootLocation->pathString),
+                new Criterion\LanguageCode($this->configResolver->getParameter('languages')),
             )
         );
-        $query->sortClauses = array( new Query\SortClause\Location\Path() );
+        $query->sortClauses = array(new Query\SortClause\Location\Path());
         $query->performCount = false;
 
-        return $this->searchService->findLocations( $query )->searchHits;
+        return $this->searchService->findLocations($query)->searchHits;
     }
 
     private function getTopMenuContentTypeIdentifierList()
     {
-        return $this->configResolver->getParameter( 'MenuContentSettings.TopIdentifierList', 'menu' );
+        return $this->configResolver->getParameter('MenuContentSettings.TopIdentifierList', 'menu');
     }
 }

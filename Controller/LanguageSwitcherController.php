@@ -6,7 +6,6 @@
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  * @version //autogentag//
  */
-
 namespace EzSystems\DemoBundle\Controller;
 
 use eZ\Bundle\EzPublishCoreBundle\Controller;
@@ -23,24 +22,22 @@ class LanguageSwitcherController extends Controller
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function showSwitcherAction( Request $request, RouteReference $routeReference )
+    public function showSwitcherAction(Request $request, RouteReference $routeReference)
     {
         /** @var \eZ\Publish\Core\Helper\TranslationHelper $translationHelper */
-        $translationHelper = $this->container->get( 'ezpublish.translation_helper' );
+        $translationHelper = $this->container->get('ezpublish.translation_helper');
         /** @var \eZ\Publish\Core\MVC\Symfony\Locale\LocaleConverterInterface $localeConverter */
-        $localeConverter = $this->container->get( 'ezpublish.locale.converter' );
+        $localeConverter = $this->container->get('ezpublish.locale.converter');
         // get current eZ language
-        $currentEzLanguage = $localeConverter->convertToEz( $request->get( '_locale' ) );
+        $currentEzLanguage = $localeConverter->convertToEz($request->get('_locale'));
 
         $siteaccess = [];
         $availableLanguages = [];
 
         // create an array for corresponding siteaccesses names depending on the lang
-        foreach ( $translationHelper->getAvailableLanguages() as $lang )
-        {
-            if ( $lang != null )
-            {
-                $siteaccess[$lang] = $translationHelper->getTranslationSiteAccess( $lang );
+        foreach ($translationHelper->getAvailableLanguages() as $lang) {
+            if ($lang != null) {
+                $siteaccess[$lang] = $translationHelper->getTranslationSiteAccess($lang);
                 $availableLanguages[] = $lang;
             }
         }
@@ -51,7 +48,7 @@ class LanguageSwitcherController extends Controller
                 'routeRef' => $routeReference,
                 'siteaccess' => $siteaccess,
                 'currentLanguage' => $currentEzLanguage,
-                'availableLanguages' => $availableLanguages
+                'availableLanguages' => $availableLanguages,
             )
         );
     }

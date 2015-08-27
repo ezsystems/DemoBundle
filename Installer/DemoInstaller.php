@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of the eZ Publish Kernel package
+ * This file is part of the eZ Publish Kernel package.
  *
  * @copyright Copyright (C) eZ Systems AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
@@ -47,9 +47,9 @@ class DemoInstaller extends DbBasedInstaller implements Installer
 
     public function importBinaries()
     {
-        $this->output->writeln( "Copying storage directory contents..." );
+        $this->output->writeln('Copying storage directory contents...');
         $fs = new Filesystem();
-        $fs->mkdir( 'web/var/ezdemo_site' );
+        $fs->mkdir('web/var/ezdemo_site');
         $fs->mirror(
             'vendor/ezsystems/demobundle-data/data/storage',
             'web/var/ezdemo_site/storage'
