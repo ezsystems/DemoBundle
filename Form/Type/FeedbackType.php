@@ -6,26 +6,24 @@
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  * @version //autogentag//
  */
-
 namespace EzSystems\DemoBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class FeedbackType extends AbstractType
 {
-    public function buildForm( FormBuilderInterface $builder, array $options )
+    public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add( 'firstName', 'text' )
-            ->add( 'lastName', 'text' )
-            ->add( 'email', 'email' )
-            ->add( 'subject', 'text' )
-            ->add( 'country', 'country' )
-            ->add( 'message', 'textarea' )
-            ->add( 'save', 'submit' );
+            ->add('firstName', 'text')
+            ->add('lastName', 'text')
+            ->add('email', 'email')
+            ->add('subject', 'text')
+            ->add('country', 'country')
+            ->add('message', 'textarea')
+            ->add('save', 'submit');
     }
 
     public function getName()
@@ -33,8 +31,8 @@ class FeedbackType extends AbstractType
         return 'ezdemo_feedback';
     }
 
-    public function configureOptions( OptionsResolver $resolver )
+    public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults( array( 'data_class' => 'EzSystems\DemoBundle\Entity\Feedback' ) );
+        $resolver->setDefaults(array('data_class' => 'EzSystems\DemoBundle\Entity\Feedback'));
     }
 }

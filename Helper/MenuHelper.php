@@ -6,7 +6,6 @@
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  * @version //autogentag//
  */
-
 namespace EzSystems\DemoBundle\Helper;
 
 use eZ\Publish\API\Repository\Repository;
@@ -17,7 +16,7 @@ use eZ\Publish\API\Repository\Values\Content\Query\Criterion;
 use eZ\Publish\API\Repository\Values\Content\Query\SortClause;
 
 /**
- * Helper for menus
+ * Helper for menus.
  */
 class MenuHelper
 {
@@ -38,7 +37,7 @@ class MenuHelper
      */
     private $searchHelper;
 
-    public function __construct( Repository $repository, $defaultMenuLimit, SearchHelper $searchHelper )
+    public function __construct(Repository $repository, $defaultMenuLimit, SearchHelper $searchHelper)
     {
         $this->repository = $repository;
         $this->defaultMenuLimit = $defaultMenuLimit;
@@ -56,26 +55,27 @@ class MenuHelper
      *
      * @return \eZ\Publish\API\Repository\Values\Content\Location[] Location objects, indexed by their contentId.
      */
-    public function getTopMenuContent( $topLocationId, Criterion $criterion = null )
+    public function getTopMenuContent($topLocationId, Criterion $criterion = null)
     {
         $criteria = array(
-            new Criterion\ParentLocationId( $topLocationId ),
-            new Criterion\Visibility( Criterion\Visibility::VISIBLE )
+            new Criterion\ParentLocationId($topLocationId),
+            new Criterion\Visibility(Criterion\Visibility::VISIBLE),
         );
 
-        if ( !empty( $criterion ) )
+        if (!empty($criterion)) {
             $criteria[] = $criterion;
+        }
 
         $query = new LocationQuery(
             array(
-                'query' => new Criterion\LogicalAnd( $criteria ),
-                'sortClauses' => array( new SortClause\Location\Priority( LocationQuery::SORT_ASC ) )
+                'query' => new Criterion\LogicalAnd($criteria),
+                'sortClauses' => array(new SortClause\Location\Priority(LocationQuery::SORT_ASC)),
             )
         );
         $query->limit = $this->defaultMenuLimit;
         $query->performCount = false;
 
-        return $this->searchHelper->buildListFromSearchResult( $this->repository->getSearchService()->findLocations( $query ) );
+        return $this->searchHelper->buildListFromSearchResult($this->repository->getSearchService()->findLocations($query));
     }
 
     /**
@@ -89,29 +89,30 @@ class MenuHelper
      *
      * @return \eZ\Publish\API\Repository\Values\Content\Content[]
      */
-    public function getLatestContent( Location $rootLocation, array $includeContentTypeIdentifiers = array(), Criterion $criterion = null, $limit = null )
+    public function getLatestContent(Location $rootLocation, array $includeContentTypeIdentifiers = array(), Criterion $criterion = null, $limit = null)
     {
         $criteria = array(
-            new Criterion\Subtree( $rootLocation->pathString ),
-            new Criterion\Visibility( Criterion\Visibility::VISIBLE )
+            new Criterion\Subtree($rootLocation->pathString),
+            new Criterion\Visibility(Criterion\Visibility::VISIBLE),
         );
 
-        if ( $includeContentTypeIdentifiers )
-            $criteria[] = new Criterion\ContentTypeIdentifier( $includeContentTypeIdentifiers );
+        if ($includeContentTypeIdentifiers) {
+            $criteria[] = new Criterion\ContentTypeIdentifier($includeContentTypeIdentifiers);
+        }
 
-        if ( !empty( $criterion ) )
+        if (!empty($criterion)) {
             $criteria[] = $criterion;
+        }
 
         $query = new Query(
             array(
-                'query' => new Criterion\LogicalAnd( $criteria ),
-                'sortClauses' => array( new SortClause\DatePublished( Query::SORT_DESC ) )
+                'query' => new Criterion\LogicalAnd($criteria),
+                'sortClauses' => array(new SortClause\DatePublished(Query::SORT_DESC)),
             )
         );
         $query->limit = $limit ?: $this->defaultMenuLimit;
         $query->performCount = false;
 
-        return $this->searchHelper->buildListFromSearchResult( $this->repository->getSearchService()->findContent( $query ) );
+        return $this->searchHelper->buildListFromSearchResult($this->repository->getSearchService()->findContent($query));
     }
-
 }

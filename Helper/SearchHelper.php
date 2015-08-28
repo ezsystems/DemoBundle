@@ -6,7 +6,6 @@
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  * @version //autogentag//
  */
-
 namespace EzSystems\DemoBundle\Helper;
 
 use eZ\Publish\API\Repository\Values\Content\Search\SearchResult;
@@ -17,7 +16,7 @@ use Pagerfanta\Pagerfanta;
 use eZ\Publish\Core\Pagination\Pagerfanta\ContentSearchAdapter;
 
 /**
- * Helper for searches
+ * Helper for searches.
  */
 class SearchHelper
 {
@@ -31,14 +30,14 @@ class SearchHelper
      */
     private $searchListLimit;
 
-    public function __construct( SearchService $searchService, $searchListLimit )
+    public function __construct(SearchService $searchService, $searchListLimit)
     {
         $this->searchService = $searchService;
         $this->searchListLimit = $searchListLimit;
     }
 
     /**
-     * Search for content for a given $searchText and returns a pager
+     * Search for content for a given $searchText and returns a pager.
      *
      * @param string $searchText to be looked up
      * @param int $currentPage to be displayed
@@ -46,24 +45,24 @@ class SearchHelper
      *
      * @return \Pagerfanta\Pagerfanta
      */
-    public function searchForPaginatedContent( $searchText, $currentPage, $languages )
+    public function searchForPaginatedContent($searchText, $currentPage, $languages)
     {
         // Generating query
         $query = new Query();
-        $query->query = new Criterion\FullText( $searchText );
+        $query->query = new Criterion\FullText($searchText);
         $query->filter = new Criterion\LogicalAnd(
             array(
-                new Criterion\Visibility( Criterion\Visibility::VISIBLE ),
-                new Criterion\LanguageCode( $languages, true )
+                new Criterion\Visibility(Criterion\Visibility::VISIBLE),
+                new Criterion\LanguageCode($languages, true),
             )
         );
 
         // Initialize pagination.
         $pager = new Pagerfanta(
-            new ContentSearchAdapter( $query, $this->searchService )
+            new ContentSearchAdapter($query, $this->searchService)
         );
-        $pager->setMaxPerPage( $this->searchListLimit );
-        $pager->setCurrentPage( $currentPage );
+        $pager->setMaxPerPage($this->searchListLimit);
+        $pager->setCurrentPage($currentPage);
 
         return $pager;
     }
@@ -76,11 +75,10 @@ class SearchHelper
      *
      * @return array
      */
-    public function buildListFromSearchResult( SearchResult $searchResult )
+    public function buildListFromSearchResult(SearchResult $searchResult)
     {
         $list = array();
-        foreach ( $searchResult->searchHits as $searchHit )
-        {
+        foreach ($searchResult->searchHits as $searchHit) {
             $list[$searchHit->valueObject->id] = $searchHit->valueObject;
         }
 
