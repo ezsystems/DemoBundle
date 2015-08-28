@@ -370,7 +370,7 @@ INSERT INTO `ezcontentclass` VALUES (0,'<title>',1423236421,14,36,'forums',2,1,3
 INSERT INTO `ezcontentclass` VALUES (0,'<name>',1423236421,14,37,'video',2,0,3,1440579755,14,'b38417e8194fb8f893ca918d297b4fa8','a:2:{s:6:\"eng-GB\";s:121:\"Defines a structure for storing video files. The Video content type is used to hold a file and a description of the file.\";s:16:\"always-available\";s:6:\"eng-GB\";}','a:2:{s:6:\"eng-GB\";s:5:\"Video\";s:16:\"always-available\";s:6:\"eng-GB\";}',1,1,'',0);
 INSERT INTO `ezcontentclass` VALUES (0,'<name>',1423236421,14,38,'place',2,0,3,1440579567,14,'861f02510226434178f3859242fe40d7','a:2:{s:6:\"eng-GB\";s:80:\"Defines a structure for storing a Place object (includes Geolocation attribute).\";s:16:\"always-available\";s:6:\"eng-GB\";}','a:2:{s:6:\"eng-GB\";s:5:\"Place\";s:16:\"always-available\";s:6:\"eng-GB\";}',1,1,'',0);
 INSERT INTO `ezcontentclass` VALUES (0,'<name>',1423236421,14,39,'place_list',2,1,3,1440404785,14,'e3461a7a3d2b6c0d291be6becfb6127e','a:2:{s:6:\"eng-GB\";s:60:\"Here you set up a structure for storing Place objects in it.\";s:16:\"always-available\";s:6:\"eng-GB\";}','a:2:{s:6:\"eng-GB\";s:10:\"Place list\";s:16:\"always-available\";s:6:\"eng-GB\";}',1,1,'',0);
-INSERT INTO `ezcontentclass` VALUES (0,'<text_line>',1431942809,14,40,'almighty',2,0,3,1440580164,14,'b04ae3a76963fe8389b7f3de863f4c74','a:2:{s:6:\"eng-GB\";s:38:\"All default field types of eZ Platform\";s:16:\"always-available\";s:6:\"eng-GB\";}','a:2:{s:6:\"eng-GB\";s:8:\"Almighty\";s:16:\"always-available\";s:6:\"eng-GB\";}',1,1,'',0);
+INSERT INTO `ezcontentclass` VALUES (0,'<text_line>',1431942809,14,40,'almighty',2,0,3,1440623067,14,'b04ae3a76963fe8389b7f3de863f4c74','a:2:{s:6:\"eng-GB\";s:38:\"All default field types of eZ Platform\";s:16:\"always-available\";s:6:\"eng-GB\";}','a:2:{s:6:\"eng-GB\";s:8:\"Almighty\";s:16:\"always-available\";s:6:\"eng-GB\";}',1,1,'',0);
 /*!40000 ALTER TABLE `ezcontentclass` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -563,11 +563,12 @@ INSERT INTO `ezcontentclass_attribute` VALUES (1,'',40,0,0,0,0,0,0,0,0,'','','',
 INSERT INTO `ezcontentclass_attribute` VALUES (1,'',40,0,0,0,0,0,0,0,0,'','','','','<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<related-objects><constraints/><type value=\"2\"/><selection_type value=\"0\"/><object_class value=\"\"/><contentobject-placement/></related-objects>\n','ezobjectrelationlist',326,'object_relations',0,0,1,15,'a:2:{s:6:\"eng-GB\";s:0:\"\";s:16:\"always-available\";s:6:\"eng-GB\";}','a:2:{s:6:\"eng-GB\";s:42:\"Stores relations to other content objects.\";s:16:\"always-available\";s:6:\"eng-GB\";}','a:2:{s:6:\"eng-GB\";s:19:\"A list of relations\";s:16:\"always-available\";s:6:\"eng-GB\";}',0);
 INSERT INTO `ezcontentclass_attribute` VALUES (1,'',40,0,0,0,0,1,0,0,0,'','','','','<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<ezselection><options><option id=\"0\" name=\"Option 1\"/><option id=\"1\" name=\"Option 2\"/><option id=\"2\" name=\"Option 3\"/><option id=\"3\" name=\"Option 4\"/><option id=\"4\" name=\"Option 5\"/></options></ezselection>\n','ezselection',327,'multiple_selection',0,0,1,16,'a:2:{s:6:\"eng-GB\";s:0:\"\";s:16:\"always-available\";s:6:\"eng-GB\";}','a:2:{s:6:\"eng-GB\";s:18:\"Allows selections.\";s:16:\"always-available\";s:6:\"eng-GB\";}','a:2:{s:6:\"eng-GB\";s:18:\"Multiple selection\";s:16:\"always-available\";s:6:\"eng-GB\";}',0);
 INSERT INTO `ezcontentclass_attribute` VALUES (1,'',40,0,0,0,0,0,0,0,0,'','','','','<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<ezselection><options><option id=\"0\" name=\"Option 1\"/><option id=\"1\" name=\"Option 2\"/><option id=\"2\" name=\"Option 3\"/><option id=\"3\" name=\"Option 4\"/><option id=\"4\" name=\"Option 5\"/></options></ezselection>\n','ezselection',328,'single_selection',0,0,1,17,'a:2:{s:6:\"eng-GB\";s:0:\"\";s:16:\"always-available\";s:6:\"eng-GB\";}','a:2:{s:6:\"eng-GB\";s:29:\"Allows single selection only.\";s:16:\"always-available\";s:6:\"eng-GB\";}','a:2:{s:6:\"eng-GB\";s:16:\"Single selection\";s:16:\"always-available\";s:6:\"eng-GB\";}',0);
-INSERT INTO `ezcontentclass_attribute` VALUES (1,'',40,0,0,0,0,10,0,0,0,'','','','','','ezxmltext',331,'xml_block',0,0,1,18,'a:2:{s:6:\"eng-GB\";s:0:\"\";s:16:\"always-available\";s:6:\"eng-GB\";}','a:2:{s:6:\"eng-GB\";s:0:\"\";s:16:\"always-available\";s:6:\"eng-GB\";}','a:2:{s:6:\"eng-GB\";s:9:\"Editorial\";s:16:\"always-available\";s:6:\"eng-GB\";}',0);
-INSERT INTO `ezcontentclass_attribute` VALUES (1,'',40,0,0,0,0,0,0,0,0,'','','','','','ezauthor',332,'authors',0,0,1,19,'a:2:{s:6:\"eng-GB\";s:0:\"\";s:16:\"always-available\";s:6:\"eng-GB\";}','a:2:{s:6:\"eng-GB\";s:37:\"Stores info about additional authors.\";s:16:\"always-available\";s:6:\"eng-GB\";}','a:2:{s:6:\"eng-GB\";s:9:\"Author(s)\";s:16:\"always-available\";s:6:\"eng-GB\";}',0);
-INSERT INTO `ezcontentclass_attribute` VALUES (1,'',40,0,0,0,0,0,0,0,0,'','','','','','ezcountry',333,'country',0,0,1,20,'a:2:{s:6:\"eng-GB\";s:0:\"\";s:16:\"always-available\";s:6:\"eng-GB\";}','a:2:{s:6:\"eng-GB\";s:22:\"Stores a user country.\";s:16:\"always-available\";s:6:\"eng-GB\";}','a:2:{s:6:\"eng-GB\";s:7:\"Country\";s:16:\"always-available\";s:6:\"eng-GB\";}',0);
-INSERT INTO `ezcontentclass_attribute` VALUES (1,'',40,0,0,0,0,0,0,0,0,'','','','','','ezkeyword',334,'keywords',0,0,1,21,'a:2:{s:6:\"eng-GB\";s:0:\"\";s:16:\"always-available\";s:6:\"eng-GB\";}','a:2:{s:6:\"eng-GB\";s:16:\"Stores Keywords.\";s:16:\"always-available\";s:6:\"eng-GB\";}','a:2:{s:6:\"eng-GB\";s:8:\"Keywords\";s:16:\"always-available\";s:6:\"eng-GB\";}',0);
-INSERT INTO `ezcontentclass_attribute` VALUES (1,'',40,0,0,0,0,0,0,0,0,'','','','','','ezgmaplocation',335,'geolocation',0,0,1,22,'a:2:{s:6:\"eng-GB\";s:0:\"\";s:16:\"always-available\";s:6:\"eng-GB\";}','a:2:{s:6:\"eng-GB\";s:36:\"Geolocation associated to this type.\";s:16:\"always-available\";s:6:\"eng-GB\";}','a:2:{s:6:\"eng-GB\";s:11:\"Geolocation\";s:16:\"always-available\";s:6:\"eng-GB\";}',0);
+INSERT INTO `ezcontentclass_attribute` VALUES (1,'',40,0,0,0,0,10,0,0,0,'','','','','','ezxmltext',331,'xml_block',0,0,1,19,'a:2:{s:6:\"eng-GB\";s:0:\"\";s:16:\"always-available\";s:6:\"eng-GB\";}','a:2:{s:6:\"eng-GB\";s:0:\"\";s:16:\"always-available\";s:6:\"eng-GB\";}','a:2:{s:6:\"eng-GB\";s:9:\"Editorial\";s:16:\"always-available\";s:6:\"eng-GB\";}',0);
+INSERT INTO `ezcontentclass_attribute` VALUES (1,'',40,0,0,0,0,0,0,0,0,'','','','','','ezauthor',332,'authors',0,0,1,20,'a:2:{s:6:\"eng-GB\";s:0:\"\";s:16:\"always-available\";s:6:\"eng-GB\";}','a:2:{s:6:\"eng-GB\";s:37:\"Stores info about additional authors.\";s:16:\"always-available\";s:6:\"eng-GB\";}','a:2:{s:6:\"eng-GB\";s:9:\"Author(s)\";s:16:\"always-available\";s:6:\"eng-GB\";}',0);
+INSERT INTO `ezcontentclass_attribute` VALUES (1,'',40,0,0,0,0,0,0,0,0,'','','','','','ezcountry',333,'country',0,0,1,21,'a:2:{s:6:\"eng-GB\";s:0:\"\";s:16:\"always-available\";s:6:\"eng-GB\";}','a:2:{s:6:\"eng-GB\";s:22:\"Stores a user country.\";s:16:\"always-available\";s:6:\"eng-GB\";}','a:2:{s:6:\"eng-GB\";s:7:\"Country\";s:16:\"always-available\";s:6:\"eng-GB\";}',0);
+INSERT INTO `ezcontentclass_attribute` VALUES (1,'',40,0,0,0,0,0,0,0,0,'','','','','','ezkeyword',334,'keywords',0,0,1,22,'a:2:{s:6:\"eng-GB\";s:0:\"\";s:16:\"always-available\";s:6:\"eng-GB\";}','a:2:{s:6:\"eng-GB\";s:16:\"Stores Keywords.\";s:16:\"always-available\";s:6:\"eng-GB\";}','a:2:{s:6:\"eng-GB\";s:8:\"Keywords\";s:16:\"always-available\";s:6:\"eng-GB\";}',0);
+INSERT INTO `ezcontentclass_attribute` VALUES (1,'',40,0,0,0,0,0,0,0,0,'','','','','','ezgmaplocation',335,'geolocation',0,0,1,23,'a:2:{s:6:\"eng-GB\";s:0:\"\";s:16:\"always-available\";s:6:\"eng-GB\";}','a:2:{s:6:\"eng-GB\";s:36:\"Geolocation associated to this type.\";s:16:\"always-available\";s:6:\"eng-GB\";}','a:2:{s:6:\"eng-GB\";s:11:\"Geolocation\";s:16:\"always-available\";s:6:\"eng-GB\";}',0);
+INSERT INTO `ezcontentclass_attribute` VALUES (1,'',40,0,0,0,0,10,0,0,0,'','','','','','ezrichtext',336,'rich_text',0,0,1,18,'a:2:{s:6:\"eng-GB\";s:0:\"\";s:16:\"always-available\";s:6:\"eng-GB\";}','a:2:{s:6:\"eng-GB\";s:0:\"\";s:16:\"always-available\";s:6:\"eng-GB\";}','a:2:{s:6:\"eng-GB\";s:19:\"Rich Text editorial\";s:16:\"always-available\";s:6:\"eng-GB\";}',0);
 /*!40000 ALTER TABLE `ezcontentclass_attribute` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -608,7 +609,6 @@ INSERT INTO `ezcontentclass_classgroup` VALUES (37,0,3,'Media');
 INSERT INTO `ezcontentclass_classgroup` VALUES (38,0,1,'Content');
 INSERT INTO `ezcontentclass_classgroup` VALUES (39,0,1,'Content');
 INSERT INTO `ezcontentclass_classgroup` VALUES (40,0,1,'Content');
-INSERT INTO `ezcontentclass_classgroup` VALUES (40,1,1,'Content');
 /*!40000 ALTER TABLE `ezcontentclass_classgroup` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -649,7 +649,6 @@ INSERT INTO `ezcontentclass_name` VALUES (37,0,3,'eng-GB','Video');
 INSERT INTO `ezcontentclass_name` VALUES (38,0,3,'eng-GB','Place');
 INSERT INTO `ezcontentclass_name` VALUES (39,0,3,'eng-GB','Place list');
 INSERT INTO `ezcontentclass_name` VALUES (40,0,3,'eng-GB','Almighty');
-INSERT INTO `ezcontentclass_name` VALUES (40,1,3,'eng-GB','Almighty');
 /*!40000 ALTER TABLE `ezcontentclass_name` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1399,6 +1398,7 @@ INSERT INTO `ezcontentobject_attribute` VALUES (0,332,126,0,NULL,'<?xml version=
 INSERT INTO `ezcontentobject_attribute` VALUES (0,333,126,0,NULL,'','ezcountry',787,'eng-GB',2,0,'',1);
 INSERT INTO `ezcontentobject_attribute` VALUES (0,334,126,0,NULL,'','ezkeyword',788,'eng-GB',2,0,'',1);
 INSERT INTO `ezcontentobject_attribute` VALUES (0,335,126,0,0,'','ezgmaplocation',789,'eng-GB',2,0,'',1);
+INSERT INTO `ezcontentobject_attribute` VALUES (0,336,126,NULL,NULL,'<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<section xmlns=\"http://docbook.org/ns/docbook\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" version=\"5.0-variant ezpublish-1.0\"/>','ezrichtext',790,'eng-GB',2,0,'',1);
 /*!40000 ALTER TABLE `ezcontentobject_attribute` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -10876,4 +10876,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-08-26 11:11:15
+-- Dump completed on 2015-08-26 23:05:49
