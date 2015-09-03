@@ -174,7 +174,6 @@ INSERT INTO `ezcobj_state_link` VALUES (118,1);
 INSERT INTO `ezcobj_state_link` VALUES (119,1);
 INSERT INTO `ezcobj_state_link` VALUES (120,1);
 INSERT INTO `ezcobj_state_link` VALUES (121,1);
-INSERT INTO `ezcobj_state_link` VALUES (126,1);
 /*!40000 ALTER TABLE `ezcobj_state_link` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -751,7 +750,6 @@ INSERT INTO `ezcontentobject` VALUES (3,1,118,2,3,1423236436,'Partners',14,14232
 INSERT INTO `ezcontentobject` VALUES (3,1,119,2,3,1423236436,'Subscribers',14,1423236436,'226e4d301bf3c766bd2005d8ba4b11e7',2,1);
 INSERT INTO `ezcontentobject` VALUES (4,1,120,2,3,1423236437,'Subscriber User',14,1423236437,'dc4b3dc3ffe1011bd17805022ca03e43',2,1);
 INSERT INTO `ezcontentobject` VALUES (4,1,121,2,3,1423236437,'Member User',14,1423236437,'0babb43b1d50793b3f6dab2d780a7d77',2,1);
-INSERT INTO `ezcontentobject` VALUES (40,1,126,2,2,0,'New Almighty',14,0,'c677f5b77c123007eb8a0a27661c9dd4',1,0);
 /*!40000 ALTER TABLE `ezcontentobject` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1376,29 +1374,6 @@ INSERT INTO `ezcontentobject_attribute` VALUES (0,310,116,NULL,NULL,NULL,'ezobje
 INSERT INTO `ezcontentobject_attribute` VALUES (0,310,116,0,101,'','ezobjectrelation',678,'eng-GB',2,101,'',2);
 INSERT INTO `ezcontentobject_attribute` VALUES (0,310,117,NULL,NULL,NULL,'ezobjectrelation',679,'eng-GB',2,0,'',1);
 INSERT INTO `ezcontentobject_attribute` VALUES (0,310,117,0,102,'','ezobjectrelation',679,'eng-GB',2,102,'',2);
-INSERT INTO `ezcontentobject_attribute` VALUES (0,311,126,0,NULL,'','ezstring',768,'eng-GB',2,0,'',1);
-INSERT INTO `ezcontentobject_attribute` VALUES (0,313,126,0,NULL,'','eztext',769,'eng-GB',2,0,'',1);
-INSERT INTO `ezcontentobject_attribute` VALUES (0,314,126,0,0,'','ezinteger',770,'eng-GB',2,0,'',1);
-INSERT INTO `ezcontentobject_attribute` VALUES (0,315,126,0,NULL,'','ezfloat',771,'eng-GB',2,0,'',1);
-INSERT INTO `ezcontentobject_attribute` VALUES (0,316,126,0,NULL,'','ezdate',772,'eng-GB',2,0,'',1);
-INSERT INTO `ezcontentobject_attribute` VALUES (0,317,126,0,NULL,'','ezdatetime',773,'eng-GB',2,0,'',1);
-INSERT INTO `ezcontentobject_attribute` VALUES (0,318,126,0,0,'','ezboolean',774,'eng-GB',2,0,'',1);
-INSERT INTO `ezcontentobject_attribute` VALUES (0,319,126,0,NULL,'','ezemail',775,'eng-GB',2,0,'',1);
-INSERT INTO `ezcontentobject_attribute` VALUES (0,320,126,0,NULL,'','eztime',776,'eng-GB',2,0,'',1);
-INSERT INTO `ezcontentobject_attribute` VALUES (0,321,126,0,0,'','ezurl',777,'eng-GB',2,0,'',1);
-INSERT INTO `ezcontentobject_attribute` VALUES (0,322,126,0,NULL,'','ezbinaryfile',778,'eng-GB',2,0,'',1);
-INSERT INTO `ezcontentobject_attribute` VALUES (0,323,126,0,NULL,'<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<ezimage serial_number=\"\" is_valid=\"\" filename=\"\" suffix=\"\" basename=\"\" dirpath=\"\" url=\"\" original_filename=\"\" mime_type=\"\" width=\"\" height=\"\" alternative_text=\"\" alias_key=\"1293033771\" timestamp=\"1431952714\"/>\n','ezimage',779,'eng-GB',2,0,'',1);
-INSERT INTO `ezcontentobject_attribute` VALUES (0,324,126,0,NULL,'','ezmedia',780,'eng-GB',2,0,'',1);
-INSERT INTO `ezcontentobject_attribute` VALUES (0,325,126,0,NULL,'','ezobjectrelation',781,'eng-GB',2,0,'',1);
-INSERT INTO `ezcontentobject_attribute` VALUES (0,326,126,0,NULL,'<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<related-objects><relation-list/></related-objects>\n','ezobjectrelationlist',782,'eng-GB',2,0,'',1);
-INSERT INTO `ezcontentobject_attribute` VALUES (0,327,126,0,NULL,'','ezselection',783,'eng-GB',2,0,'',1);
-INSERT INTO `ezcontentobject_attribute` VALUES (0,328,126,0,NULL,'','ezselection',784,'eng-GB',2,0,'',1);
-INSERT INTO `ezcontentobject_attribute` VALUES (0,331,126,0,1045487555,'<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<section xmlns:image=\"http://ez.no/namespaces/ezpublish3/image/\" xmlns:xhtml=\"http://ez.no/namespaces/ezpublish3/xhtml/\" xmlns:custom=\"http://ez.no/namespaces/ezpublish3/custom/\"/>\n','ezxmltext',785,'eng-GB',2,0,'',1);
-INSERT INTO `ezcontentobject_attribute` VALUES (0,332,126,0,NULL,'<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<ezauthor><authors><author id=\"0\" name=\"Administrator User\" email=\"noreply@ez.no\"/></authors></ezauthor>\n','ezauthor',786,'eng-GB',2,0,'',1);
-INSERT INTO `ezcontentobject_attribute` VALUES (0,333,126,0,NULL,'','ezcountry',787,'eng-GB',2,0,'',1);
-INSERT INTO `ezcontentobject_attribute` VALUES (0,334,126,0,NULL,'','ezkeyword',788,'eng-GB',2,0,'',1);
-INSERT INTO `ezcontentobject_attribute` VALUES (0,335,126,0,0,'','ezgmaplocation',789,'eng-GB',2,0,'',1);
-INSERT INTO `ezcontentobject_attribute` VALUES (0,336,126,NULL,NULL,'<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<section xmlns=\"http://docbook.org/ns/docbook\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" version=\"5.0-variant ezpublish-1.0\"/>','ezrichtext',790,'eng-GB',2,0,'',1);
 /*!40000 ALTER TABLE `ezcontentobject_attribute` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1522,7 +1497,6 @@ INSERT INTO `ezcontentobject_name` VALUES ('eng-GB',1,118,3,'Partners','eng-GB')
 INSERT INTO `ezcontentobject_name` VALUES ('eng-GB',1,119,3,'Subscribers','eng-GB');
 INSERT INTO `ezcontentobject_name` VALUES ('eng-GB',1,120,3,'Subscriber User','eng-GB');
 INSERT INTO `ezcontentobject_name` VALUES ('eng-GB',1,121,3,'Member User','eng-GB');
-INSERT INTO `ezcontentobject_name` VALUES ('eng-GB',1,126,2,'New Almighty','eng-GB');
 /*!40000 ALTER TABLE `ezcontentobject_name` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1722,7 +1696,6 @@ INSERT INTO `ezcontentobject_version` VALUES (114,1430747840,14,576,2,3,14307478
 INSERT INTO `ezcontentobject_version` VALUES (115,1430747868,14,577,2,3,1430747888,1,0,2,0);
 INSERT INTO `ezcontentobject_version` VALUES (116,1430747897,14,578,2,3,1430747917,1,0,2,0);
 INSERT INTO `ezcontentobject_version` VALUES (117,1430747925,14,579,2,3,1430747942,1,0,2,0);
-INSERT INTO `ezcontentobject_version` VALUES (126,1431952714,14,584,2,2,1431952714,5,0,1,0);
 /*!40000 ALTER TABLE `ezcontentobject_version` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -3186,7 +3159,6 @@ UNLOCK TABLES;
 
 LOCK TABLES `ezmedia` WRITE;
 /*!40000 ALTER TABLE `ezmedia` DISABLE KEYS */;
-INSERT INTO `ezmedia` VALUES (780,'','',0,0,0,0,'','','http://www.macromedia.com/shockwave/download/index.cgi?P1_Prod_Version=ShockwaveFlash','high',1,0);
 /*!40000 ALTER TABLE `ezmedia` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -3315,7 +3287,6 @@ INSERT INTO `eznode_assignment` VALUES (114,2,-1,115,1,2,110,'a2c302d12e7626c5f0
 INSERT INTO `eznode_assignment` VALUES (115,2,-1,116,1,2,110,'8ef8377f6f21011dbfd2be75d0b8a5ea','0',1,1,0,0);
 INSERT INTO `eznode_assignment` VALUES (116,2,-1,117,1,2,110,'d97f5298b335507192c0768e2d56f786','0',1,1,0,0);
 INSERT INTO `eznode_assignment` VALUES (117,2,-1,118,1,2,110,'5dd5394bbec6fb6c7f4a9940bb2d63fc','0',1,1,0,0);
-INSERT INTO `eznode_assignment` VALUES (126,1,0,123,1,3,2,'b0b327236cb5f16ceddd03af0f0150d9','0',1,1,0,0);
 /*!40000 ALTER TABLE `eznode_assignment` ENABLE KEYS */;
 UNLOCK TABLES;
 
