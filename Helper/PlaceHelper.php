@@ -75,7 +75,7 @@ class PlaceHelper
         );
         $query->performCount = false;
 
-        $searchResults = $this->searchService->findContent($query);
+        $searchResults = $this->searchService->findContentInfo($query);
 
         return $this->searchHelper->buildListFromSearchResult($searchResults);
     }
@@ -121,7 +121,7 @@ class PlaceHelper
         $query->sortClauses = $sortClauses;
         $query->performCount = false;
 
-        $searchResults = $this->searchService->findContent($query);
+        $searchResults = $this->searchService->findContentInfo($query);
 
         return $this->searchHelper->buildListFromSearchResult($searchResults);
     }
