@@ -13,7 +13,7 @@
         "php": ">=5.3.3",
         "ezsystems/ezpublish-kernel": "~6.0@dev",
         "ezsystems/comments-bundle": "~6.0@dev",
-        "ezsystems/platform-ui-assets-bundle": "~0.1",
+        "ezsystems/platform-ui-assets-bundle": "~1.0@dev",
         "whiteoctober/breadcrumbs-bundle": "~1.0.1",
         "knplabs/knp-menu-bundle": "1.*",
         "zetacomponents/feed": "~1.4",
