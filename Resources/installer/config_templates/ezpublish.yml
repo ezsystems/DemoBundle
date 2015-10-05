@@ -21,10 +21,11 @@ ezpublish:
         # Available siteaccesses
         list:
             - demo_site
+            - fre
 
         # Siteaccess groups. Use them to group common settings.
         groups:
-            demo_site_group: [demo_site]
+            demo_site_group: [demo_site, fre]
         default_siteaccess: demo_site
         match:
             URIElement: 1
@@ -35,6 +36,7 @@ ezpublish:
     # System settings, grouped by siteaccess and/or siteaccess group
     system:
         demo_site_group:
+            translation_siteaccesses: [demo_site, fre]
             repository: demo_repository
             var_dir: var/ezdemo_site
             languages:
