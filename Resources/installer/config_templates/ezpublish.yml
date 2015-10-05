@@ -35,7 +35,7 @@ ezpublish:
 
     # System settings, grouped by siteaccess and/or siteaccess group
     system:
-        demo_site_group:
+        default:
             translation_siteaccesses: [demo_site, fre]
             repository: demo_repository
             var_dir: var/ezdemo_site
