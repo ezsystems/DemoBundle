@@ -11,15 +11,15 @@
     "minimum-stability": "dev",
     "require": {
         "php": ">=5.3.3",
-        "ezsystems/ezpublish-kernel": "~6.0@dev",
-        "ezsystems/comments-bundle": "~6.0@dev",
-        "ezsystems/platform-ui-assets-bundle": "~1.0@dev",
+        "ezsystems/ezpublish-kernel": "~6.0@beta",
+        "ezsystems/comments-bundle": "~6.0@beta",
+        "ezsystems/platform-ui-assets-bundle": "~1.0@beta",
         "whiteoctober/breadcrumbs-bundle": "~1.0.1",
         "knplabs/knp-menu-bundle": "1.*",
         "zetacomponents/feed": "~1.4",
-        "ezsystems/demobundle-data": "~0.1",
+        "ezsystems/demobundle-data": "~1.0@beta",
         "components/bootstrap": "3.3.2",
-        "ezsystems/privacy-cookie-bundle": "~0.1"
+        "ezsystems/privacy-cookie-bundle": "~1.0@beta"
     },
     "autoload": {
         "psr-0": {"EzSystems\\DemoBundle": ""}
