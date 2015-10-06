@@ -9,7 +9,9 @@
 namespace EzSystems\DemoBundle\Helper;
 
 use eZ\Publish\API\Repository\Values\Content\Location;
+use eZ\Publish\API\Repository\Values\Content\Query;
 use eZ\Publish\API\Repository\Values\Content\Query\Criterion;
+use eZ\Publish\API\Repository\Values\Content\Query\SortClause;
 use eZ\Publish\Core\Base\Exceptions\InvalidArgumentType;
 use DateTime;
 use DateInterval;
@@ -141,5 +143,50 @@ class CriteriaHelper
         }
 
         return new Criterion\LogicalAnd($criteria);
+    }
+
+    public function getSortClauseBySortField($sortField, $sortOrder = Location::SORT_ORDER_ASC)
+    {
+        $sortOrder = $sortOrder == Location::SORT_ORDER_DESC ? Query::SORT_DESC : Query::SORT_ASC;
+        switch ($sortField) {
+            case Location::SORT_FIELD_PATH:
+                return new SortClause\Location\Path($sortOrder);
+
+            case Location::SORT_FIELD_PUBLISHED:
+                return new SortClause\DatePublished($sortOrder);
+
+            case Location::SORT_FIELD_MODIFIED:
+                return new SortClause\DateModified($sortOrder);
+
+            case Location::SORT_FIELD_SECTION:
+                return new SortClause\SectionIdentifier($sortOrder);
+
+            case Location::SORT_FIELD_DEPTH:
+                return new SortClause\Location\Depth($sortOrder);
+
+            //@todo: sort clause not yet implemented
+            // case Location::SORT_FIELD_CLASS_IDENTIFIER:
+
+            //@todo: sort clause not yet implemented
+            // case Location::SORT_FIELD_CLASS_NAME:
+
+            case Location::SORT_FIELD_PRIORITY:
+                return new SortClause\Location\Priority($sortOrder);
+
+            case Location::SORT_FIELD_NAME:
+                return new SortClause\ContentName($sortOrder);
+
+            //@todo: sort clause not yet implemented
+            // case Location::SORT_FIELD_MODIFIED_SUBNODE:
+
+            case Location::SORT_FIELD_NODE_ID:
+                return new SortClause\Location\Id($sortOrder);
+
+            case Location::SORT_FIELD_CONTENTOBJECT_ID:
+                return new SortClause\ContentId($sortOrder);
+
+            default:
+                return new SortClause\Location\Path($sortOrder);
+        }
     }
 }

@@ -102,7 +102,9 @@ class FolderController extends Controller
 
         // Using the criteria helper (a demobundle custom service) to generate our query's criteria.
         // This is a good practice in order to have less code in your controller.
-        $criteria = $this->get('ezdemo.criteria_helper')->generateListFolderCriterion(
+        $criteriaHelper = $this->get('ezdemo.criteria_helper');
+
+        $criteria = $criteriaHelper->generateListFolderCriterion(
             $location, $excludedContentTypes, $languages
         );
 
@@ -110,7 +112,7 @@ class FolderController extends Controller
         $query = new LocationQuery();
         $query->query = $criteria;
         $query->sortClauses = array(
-            new SortClause\DatePublished(),
+            $criteriaHelper->getSortClauseBySortField($location->sortField, $location->sortOrder),
         );
 
         // Initialize pagination.
@@ -124,7 +126,7 @@ class FolderController extends Controller
         $includedContentTypeIdentifiers = $this->container->getParameter('ezdemo.folder.folder_tree.included_content_types');
 
         // Get sub folder structure
-        $subContentCriteria = $this->get('ezdemo.criteria_helper')->generateSubContentCriterion(
+        $subContentCriteria = $criteriaHelper->generateSubContentCriterion(
             $location, $includedContentTypeIdentifiers, $languages
         );
 
