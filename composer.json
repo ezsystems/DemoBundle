@@ -17,9 +17,9 @@
         "whiteoctober/breadcrumbs-bundle": "~1.0.1",
         "knplabs/knp-menu-bundle": "1.*",
         "zetacomponents/feed": "~1.4",
-        "ezsystems/demobundle-data": "~0.1",
+        "ezsystems/demobundle-data": "~1.0@dev",
         "components/bootstrap": "3.3.2",
-        "ezsystems/privacy-cookie-bundle": "~0.1"
+        "ezsystems/privacy-cookie-bundle": "~1.0@dev"
     },
     "autoload": {
         "psr-0": {"EzSystems\\DemoBundle": ""}
