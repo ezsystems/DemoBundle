@@ -156,9 +156,20 @@ class DemoController extends Controller
      */
     public function showBlogPostAction( $locationId, $viewType, $layout = false, array $params = array() )
     {
-        // We need the author, whatever the view type is.
         $repository = $this->getRepository();
-        $location = $repository->getLocationService()->loadLocation( $locationId );
+        if ( isset( $params['location'] ) && $params['location'] instanceof Location )
+        {
+            $location = $params['location'];
+        }
+        else if ( is_numeric( $locationId ) )
+        {
+            $location = $repository->getLocationService()->loadLocation( $locationId );
+        }
+        else
+        {
+            throw new NotFoundHttpException( "Unknown location '$locationId' cannot be displayed." );
+        }
+        // We need the author, whatever the view type is.
         $author = $repository->getUserService()->loadUser( $location->getContentInfo()->ownerId );
 
         // TODO once the keyword service is available, load the number of keyword for each keyword
