@@ -1,0 +1,8 @@
+demo:
+    suites:
+        content:
+            paths: [ vendor/ezsystems/demobundle/EzSystems/DemoBundle/Features/Content ]
+            contexts: [ EzSystems\DemoBundle\Features\Context\Content\Context ]
+        clean:
+            paths: [ vendor/ezsystems/demobundle/EzSystems/DemoBundle/Features/Clean ]
+            contexts: [ EzSystems\DemoBundle\Features\Context\Demo ]
