@@ -15,7 +15,6 @@ use eZ\Publish\API\Repository\Values\Content\Location;
 use eZ\Publish\Core\Pagination\Pagerfanta\ContentSearchAdapter;
 use eZ\Bundle\EzPublishCoreBundle\Controller;
 use Pagerfanta\Pagerfanta;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -30,15 +29,9 @@ class FolderController extends Controller
      */
     public function showFolderListAsideViewAction(Location $location)
     {
-        $response = new Response();
-
         if ($location->invisible) {
             throw new NotFoundHttpException("Location #$location->id cannot be displayed as it is flagged as invisible.");
         }
-
-        $response->setSharedMaxAge($this->getConfigResolver()->getParameter('content.default_ttl'));
-        $response->headers->set('X-Location-Id', $location->id);
-        $response->setVary('X-User-Hash');
 
         $languages = $this->getConfigResolver()->getParameter('languages');
 
@@ -81,19 +74,9 @@ class FolderController extends Controller
      */
     public function showFolderListAction(Request $request, Location $location)
     {
-        $response = new Response();
-
         if ($location->invisible) {
             throw new NotFoundHttpException("Location #$location->id cannot be displayed as it is flagged as invisible.");
         }
-
-        $response->setSharedMaxAge($this->getConfigResolver()->getParameter('content.default_ttl'));
-        $response->headers->set('X-Location-Id', $location->id);
-        $response->setVary('X-User-Hash');
-
-        $content = $this->getRepository()
-            ->getContentService()
-            ->loadContentByContentInfo($location->getContentInfo());
 
         // Getting language for the current siteaccess
         $languages = $this->getConfigResolver()->getParameter('languages');
