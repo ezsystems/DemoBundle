@@ -10,11 +10,12 @@ namespace EzSystems\DemoBundle\Controller;
 
 use eZ\Bundle\EzPublishCoreBundle\Controller;
 use eZ\Publish\API\Repository\Values\Content\Location;
+use eZ\Publish\Core\MVC\Symfony\View\ContentView;
+use eZ\Publish\Core\MVC\Symfony\View\View;
 use eZ\Publish\Core\Pagination\Pagerfanta\ContentSearchAdapter;
 use Pagerfanta\Pagerfanta;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use eZ\Publish\API\Repository\Values\Content\Query;
 use eZ\Publish\API\Repository\Values\Content\Query\SortClause;
 
@@ -41,23 +42,20 @@ class DemoController extends Controller
     /**
      * Renders article with extra parameters that controls page elements visibility such as image and summary.
      *
-     * @param $locationId
-     * @param $viewType
-     * @param bool $layout
-     * @param array $params
+     * @param \eZ\Publish\Core\MVC\Symfony\View\View $view
+     *
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function showArticleAction($locationId, $viewType, $layout = false, array $params = array())
+    public function showArticleAction(View $view)
     {
-        return $this->get('ez_content')->viewLocation(
-            $locationId,
-            $viewType,
-            $layout,
-            array(
+        $view->addParameters(
+            [
                 'showSummary' => $this->container->getParameter('ezdemo.article.full_view.show_summary'),
                 'showImage' => $this->container->getParameter('ezdemo.article.full_view.show_image'),
-            ) + $params
+            ]
         );
+
+        return $view;
     }
 
     /**
@@ -66,39 +64,24 @@ class DemoController extends Controller
      *       the view. Since it is not calling the ViewControler we don't need to match a specific
      *       method signature.
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\Location $location containing blog posts
+     * @param \eZ\Publish\Core\MVC\Symfony\View\ContentView $view
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     *
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function listBlogPostsAction(Location $location, Request $request)
+    public function listBlogPostsAction(ContentView $view, Request $request)
     {
-        $response = new Response();
-
-        // Setting default cache configuration (you can override it in you siteaccess config)
-        $response->setSharedMaxAge($this->getConfigResolver()->getParameter('content.default_ttl'));
-
-        // Make the response location cache aware for the reverse proxy
-        $response->headers->set('X-Location-Id', $location->id);
-        $response->setVary('X-User-Hash');
-
         $viewParameters = $request->attributes->get('viewParameters');
 
-        // Getting location and content from ezpublish dedicated services
-        $repository = $this->getRepository();
-        if ($location->invisible) {
-            throw new NotFoundHttpException("Location #$location->id cannot be displayed as it is flagged as invisible.");
-        }
-
-        $content = $repository
-            ->getContentService()
-            ->loadContentByContentInfo($location->getContentInfo());
-
-        // Getting language for the current siteaccess
+        // This could be changed to use dynamic parameters injection
         $languages = $this->getConfigResolver()->getParameter('languages');
 
         // Using the criteria helper (a demobundle custom service) to generate our query's criteria.
         // This is a good practice in order to have less code in your controller.
         $criteria = $this->get('ezdemo.criteria_helper')->generateListBlogPostCriterion(
-            $location, $viewParameters, $languages
+            $view->getLocation(),
+            $viewParameters,
+            $languages
         );
 
         // Generating query
@@ -115,15 +98,12 @@ class DemoController extends Controller
         $pager->setMaxPerPage($this->container->getParameter('ezdemo.blog.blog_post_list.limit'));
         $pager->setCurrentPage($request->get('page', 1));
 
-        return $this->render(
-            'eZDemoBundle:full:blog.html.twig',
-            array(
-                'location' => $location,
-                'content' => $content,
-                'pagerBlog' => $pager,
-            ),
-            $response
-        );
+        $view->addParameters(['pagerBlog' => $pager]);
+
+        // The template identifier can be set from the controller action
+        $view->setTemplateIdentifier('eZDemoBundle:full:blog.html.twig');
+
+        return $view;
     }
 
     /**
@@ -133,29 +113,16 @@ class DemoController extends Controller
      *       Viewcontroller's viewLocation method. To be able to do that, we need to implement it's
      *       full signature.
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\Location $location of the blog post
-     * @param $viewType
-     * @param bool $layout
-     * @param array $params
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @param ContentView $view
+     *
+     * @return View
      */
-    public function showBlogPostAction(Location $location, $viewType, $layout = false, array $params = array())
+    public function showBlogPostAction(ContentView $view)
     {
-        // We need the author, whatever the view type is.
-        $repository = $this->getRepository();
-        $author = $repository->getUserService()->loadUser($location->getContentInfo()->ownerId);
+        $author = $this->getRepository()->getUserService()->loadUser($view->getContent()->contentInfo->ownerId);
+        $view->addParameters(['author' => $author]);
 
-        // TODO once the keyword service is available, load the number of keyword for each keyword
-
-        // Delegate view rendering to the original ViewController
-        // (makes it possible to continue using defined template rules)
-        // We just add "author" to the list of variables exposed to the final template
-        return $this->get('ez_content')->viewLocation(
-            $location->id,
-            $viewType,
-            $layout,
-            array('author' => $author) + $params
-        );
+        return $view;
     }
 
     /**

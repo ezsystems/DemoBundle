@@ -9,13 +9,15 @@ namespace EzSystems\DemoBundle\PremiumContent;
 
 use eZ\Publish\API\Repository\Repository;
 use eZ\Publish\API\Repository\Values\Content\Location;
+use eZ\Publish\Core\MVC\Symfony\View\ContentValueView;
 use eZ\Publish\Core\MVC\Symfony\View\ContentView;
-use eZ\Publish\Core\MVC\Symfony\View\Provider\Location as LocationViewProvider;
+use eZ\Publish\Core\MVC\Symfony\View\View;
+use eZ\Publish\Core\MVC\Symfony\View\ViewProvider;
 
 /**
  * Returns the premium_content view if it applies to a location and if the user isn't a Premium subscriber.
  */
-class PremiumLocationViewProvider implements LocationViewProvider
+class PremiumLocationViewProvider implements ViewProvider
 {
     /**
      * ID of the section used to mark content as Premium.
@@ -38,13 +40,19 @@ class PremiumLocationViewProvider implements LocationViewProvider
         $this->subscriptionChecker = $subscriptionChecker;
     }
 
-    public function getView(Location $location, $viewType)
+    public function getView(View $view)
     {
+        $viewType = $view->getViewType();
+
         if ($viewType !== 'full') {
             return null;
         }
 
-        if ($location->getContentInfo()->sectionId !== $this->premiumSectionId) {
+        if (!$view instanceof ContentValueView) {
+            return null;
+        }
+
+        if ($view->getContent()->contentInfo->sectionId !== $this->premiumSectionId) {
             return null;
         }
 
