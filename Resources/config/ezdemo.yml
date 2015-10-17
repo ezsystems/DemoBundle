@@ -23,12 +23,6 @@ system:
                     template: "eZDemoBundle:full:article.html.twig"
                     match:
                         Identifier\ContentType: [article]
-                # There are two ways to add extra information to your response using a custom controller
-                blog:
-                    # Fully customized, handling everything yourself
-                    controller: "eZDemoBundle:Demo:listBlogPosts"
-                    match:
-                        Identifier\ContentType: [blog]
                 blog_post:
                     # Enriched controller, only adding extra parameters
                     controller: "eZDemoBundle:Demo:showBlogPost"
@@ -80,11 +74,6 @@ system:
                     template: "eZDemoBundle:line:article.html.twig"
                     match:
                         Identifier\ContentType: [article]
-                blog_post:
-                    controller: "eZDemoBundle:Demo:showBlogPost"
-                    template: "eZDemoBundle:line:blog_post.html.twig"
-                    match:
-                        Identifier\ContentType: [blog_post]
                 place:
                     template: "eZDemoBundle:line:place.html.twig"
                     match:
@@ -107,6 +96,19 @@ system:
                         Identifier\ContentType: [video]
 
         content_view:
+            full:
+                # Fully customized, handling everything yourself
+                blog:
+                    match:
+                        Identifier\ContentType: [blog]
+                    controller: 'ez_query:contentAction'
+                    template: 'eZDemoBundle:full:blog.html.twig'
+                    params:
+                        query: 'DemoBundle:BlogPosts'
+                        queryParameters:
+                            blogPathString: @=location.pathString
+                        variable: blog_posts_list
+                        enablePager: true
             embed:
                 image:
                     template: "eZDemoBundle:embed:image.html.twig"
@@ -117,6 +119,12 @@ system:
                     template: "eZDemoBundle:relation:image.html.twig"
                     match:
                         Identifier\ContentType: [image]
+            line:
+                blog_post:
+                    controller: "eZDemoBundle:Demo:showBlogPost"
+                    template: "eZDemoBundle:line:blog_post.html.twig"
+                    match:
+                        Identifier\ContentType: [blog_post]
 
         field_templates:
             - {template: "eZDemoBundle::content_fields.html.twig", priority: 10}

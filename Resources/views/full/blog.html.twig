@@ -5,20 +5,20 @@
         <div class="class-blog">
             <div class="row">
                 <div class="col-md-8">
-                    {% if pagerBlog|length() > 0 %}
+                    {% if blog_posts_list|length() > 0 %}
                         <section class="content-view-children">
-                            {% for post in pagerBlog %}
+                            {% for post in blog_posts_list.searchHits %}
                                 {# Displaying blog_post elements calling the view line #}
-                                {{ render_esi( controller( 'ez_content:viewLocation', {'locationId': post.contentInfo.mainLocationId, 'viewType': 'line'} ) ) }}
+                                {{ render_esi( controller( 'ez_content:viewLocation', {'locationId': post.valueObject.contentInfo.mainLocationId, 'viewType': 'line'} ) ) }}
                             {% endfor %}
                         </section>
 
                         {# Pagination is displayed only if needed (number of posts > limit) #}
-                        {% if pagerBlog.haveToPaginate() %}
-                            <div class="pagination-centered">
-                                {{ pagerfanta( pagerBlog, 'twitter_bootstrap_translated', {'routeName': location} ) }}
-                            </div>
-                        {% endif %}
+                        {#{% if blog_posts_list.haveToPaginate() %}#}
+                            {#<div class="pagination-centered">#}
+                                {#{{ pagerfanta( blog_posts_list, 'twitter_bootstrap_translated', {'routeName': location} ) }}#}
+                            {#</div>#}
+                        {#{% endif %}#}
 
                     {% endif %}
                 </div>
