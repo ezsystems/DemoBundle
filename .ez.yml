@@ -1,0 +1,15 @@
+v: 0
+ 
+#meta_repo: "https://github.com/ezsystems/ezplatform.git"
+meta:
+  repo: "https://github.com/ezsystems/ezplatform.git"
+
+#only needed if you need to create alias
+require: "ezsystems/demobundle:dev-master as 6.0.x-dev"
+
+integrate:
+  matrix:
+   -
+    install: "demo"
+    arguments: "--profile demo --suite content"
+    require:
