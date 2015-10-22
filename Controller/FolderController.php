@@ -11,11 +11,10 @@ namespace EzSystems\DemoBundle\Controller;
 use eZ\Publish\API\Repository\Values\Content\LocationQuery;
 use eZ\Publish\API\Repository\Values\Content\Query;
 use eZ\Publish\API\Repository\Values\Content\Query\SortClause;
-use eZ\Publish\API\Repository\Values\Content\Location;
+use eZ\Publish\Core\MVC\Symfony\View\ContentView;
 use eZ\Publish\Core\Pagination\Pagerfanta\ContentSearchAdapter;
 use eZ\Bundle\EzPublishCoreBundle\Controller;
 use Pagerfanta\Pagerfanta;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpFoundation\Request;
 
 class FolderController extends Controller
@@ -23,22 +22,16 @@ class FolderController extends Controller
     /**
      * Displays the sub folder if it exists.
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\Location $location of a folder
-     * @throws NotFoundHttpException $location is flagged as invisible
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @param \eZ\Publish\Core\MVC\Symfony\View\ContentView $view
+     *
+     * @return \Symfony\Component\HttpFoundation\Response $location is flagged as invisible
      */
-    public function showFolderListAsideViewAction(Location $location)
+    public function showFolderListAsideViewAction(ContentView $view)
     {
-        if ($location->invisible) {
-            throw new NotFoundHttpException("Location #$location->id cannot be displayed as it is flagged as invisible.");
-        }
-
-        $languages = $this->getConfigResolver()->getParameter('languages');
-
-        $includedContentTypeIdentifiers = $this->container->getParameter('ezdemo.folder.folder_tree.included_content_types');
-
         $subContentCriteria = $this->get('ezdemo.criteria_helper')->generateSubContentCriterion(
-            $location, $includedContentTypeIdentifiers, $languages
+            $view->getLocation(),
+            $this->container->getParameter('ezdemo.folder.folder_tree.included_content_types'),
+            $this->getConfigResolver()->getParameter('languages')
         );
 
         $subContentQuery = new LocationQuery();
@@ -56,37 +49,29 @@ class FolderController extends Controller
             $treeChildItems[] = $hit->valueObject;
         }
 
-        return $this->get('ez_content')->viewLocation(
-            $location->id,
-            'aside_sub',
-            true,
-            ['treeChildItems' => $treeChildItems]
-        );
+        $view->addParameters(['treeChildItems' => $treeChildItems]);
+
+        return $view;
     }
 
     /**
      * Displays the list of article.
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\Location $location of a folder
      * @param \Symfony\Component\HttpFoundation\Request $request request object
-     * @throws NotFoundHttpException $location is flagged as invisible
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @param \eZ\Publish\Core\MVC\Symfony\View\ContentView $view
+     *
+     * @return \Symfony\Component\HttpFoundation\Response $location is flagged as invisible
      */
-    public function showFolderListAction(Request $request, Location $location)
+    public function showFolderListAction(Request $request, ContentView $view)
     {
-        if ($location->invisible) {
-            throw new NotFoundHttpException("Location #$location->id cannot be displayed as it is flagged as invisible.");
-        }
-
-        // Getting language for the current siteaccess
         $languages = $this->getConfigResolver()->getParameter('languages');
-
-        $excludedContentTypes = $this->container->getParameter('ezdemo.folder.folder_view.excluded_content_types');
 
         // Using the criteria helper (a demobundle custom service) to generate our query's criteria.
         // This is a good practice in order to have less code in your controller.
         $criteria = $this->get('ezdemo.criteria_helper')->generateListFolderCriterion(
-            $location, $excludedContentTypes, $languages
+            $view->getLocation(),
+            $this->container->getParameter('ezdemo.folder.folder_view.excluded_content_types'),
+            $languages
         );
 
         // Generating query
@@ -108,7 +93,7 @@ class FolderController extends Controller
 
         // Get sub folder structure
         $subContentCriteria = $this->get('ezdemo.criteria_helper')->generateSubContentCriterion(
-            $location, $includedContentTypeIdentifiers, $languages
+            $view->getLocation(), $includedContentTypeIdentifiers, $languages
         );
 
         $subContentQuery = new LocationQuery();
@@ -125,11 +110,8 @@ class FolderController extends Controller
             $treeItems[] = $hit->valueObject;
         }
 
-        return $this->get('ez_content')->viewLocation(
-            $location->id,
-            'full',
-            true,
-            ['pagerFolder' => $pager, 'treeItems' => $treeItems]
-        );
+        $view->addParameters(['pagerFolder' => $pager, 'treeItems' => $treeItems]);
+
+        return $view;
     }
 }
