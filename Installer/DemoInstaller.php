@@ -30,18 +30,8 @@ class DemoInstaller extends DbBasedInstaller implements Installer
     public function createConfiguration()
     {
         $this->copyConfigurationFile(
-            __DIR__ . '/../Resources/installer/config_templates/ezpublish.yml',
-            'ezpublish/config/ezpublish.yml'
-        );
-
-        $this->copyConfigurationFile(
-            'vendor/ezsystems/ezpublish-kernel/eZ/Bundle/PlatformInstallerBundle/src/Resources/config_templates/common/ezpublish_dev.yml',
-            'ezpublish/config/ezpublish_dev.yml'
-        );
-
-        $this->copyConfigurationFile(
-            'vendor/ezsystems/ezpublish-kernel/eZ/Bundle/PlatformInstallerBundle/src/Resources/config_templates/common/ezpublish_prod.yml',
-            'ezpublish/config/ezpublish_prod.yml'
+            __DIR__ . '/../Resources/installer/config_templates/ezplatform.yml',
+            'ezpublish/config/ezplatform.yml'
         );
     }
 
