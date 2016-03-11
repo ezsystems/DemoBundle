@@ -1,5 +1,4 @@
 {# Template parameters:
-#    - 'routeRef'
 #    - 'siteaccess'
 #    - 'currentLanguage'
 #    - 'availableLanguages'
@@ -8,20 +7,18 @@
 {% if availableLanguages|length > 1 %}
     <div id="lang-selector" class="transition-showed">
         <ul class="lang-select">
-
             {% for lang in availableLanguages %}
-                {% do routeRef.set( "siteaccess", ezpublish.translationSiteAccess( lang ) ) %}
-                    {% if lang == currentLanguage %}
-                        <li class="current">
+                {% if lang == currentLanguage %}
+                    <li class="current">
+                        <span class="flag-icon flag-icon-background flag-icon-{{ lang[4:]|lower }}"></span>{{ lang[:3]|lower|capitalize }}
+                    </li>
+                {% else %}
+                    <li>
+                        <a href="{{ translatedUrls[lang] }}">
                             <span class="flag-icon flag-icon-background flag-icon-{{ lang[4:]|lower }}"></span>{{ lang[:3]|lower|capitalize }}
-                        </li>
-                    {% else %}
-                        <li>
-                            <a href="{{ url( routeRef ) }}">
-                                <span class="flag-icon flag-icon-background flag-icon-{{ lang[4:]|lower }}"></span>{{ lang[:3]|lower|capitalize }}
-                            </a>
-                        </li>
-                    {% endif %}
+                        </a>
+                    </li>
+                {% endif %}
             {% endfor %}
         </ul>
 

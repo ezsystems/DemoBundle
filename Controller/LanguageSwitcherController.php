@@ -11,6 +11,7 @@ namespace EzSystems\DemoBundle\Controller;
 use eZ\Bundle\EzPublishCoreBundle\Controller;
 use eZ\Publish\Core\MVC\Symfony\Routing\RouteReference;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\Exception\MissingMandatoryParametersException;
 
 class LanguageSwitcherController extends Controller
 {
@@ -33,19 +34,27 @@ class LanguageSwitcherController extends Controller
 
         $siteaccess = [];
         $availableLanguages = [];
+        $translatedUrls = [];
 
         // create an array for corresponding siteaccesses names depending on the lang
         foreach ($translationHelper->getAvailableLanguages() as $lang) {
             if ($lang != null) {
-                $siteaccess[$lang] = $translationHelper->getTranslationSiteAccess($lang);
-                $availableLanguages[] = $lang;
+                $sa = $translationHelper->getTranslationSiteAccess($lang);
+                $routeReference->set('siteaccess', $sa);
+                try {
+                    $translatedUrls[$lang] = $this->generateUrl($routeReference);
+                    $siteaccess[$lang] = $sa;
+                    $availableLanguages[] = $lang;
+                } catch (MissingMandatoryParametersException $e) {
+                    // No version available in this language
+                }
             }
         }
 
         return $this->render(
             'eZDemoBundle:parts:languages_switcher.html.twig',
             array(
-                'routeRef' => $routeReference,
+                'translatedUrls' => $translatedUrls,
                 'siteaccess' => $siteaccess,
                 'currentLanguage' => $currentEzLanguage,
                 'availableLanguages' => $availableLanguages,
