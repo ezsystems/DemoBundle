@@ -16,6 +16,7 @@
         "ezsystems/platform-ui-assets-bundle": "~1.0@dev",
         "whiteoctober/breadcrumbs-bundle": "~1.0.1",
         "knplabs/knp-menu-bundle": "1.*",
+        "twig/twig": "~1.28",
         "zetacomponents/feed": "~1.4",
         "ezsystems/demobundle-data": "~1.0@dev",
         "components/bootstrap": "3.3.2",
