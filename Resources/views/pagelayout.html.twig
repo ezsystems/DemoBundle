@@ -22,7 +22,7 @@
 
 <!-- Complete page area: START -->
 {% if ezpublish.legacy is defined %}
-    {{ render( controller( "ezpublish_legacy.website_toolbar.controller:websiteToolbarAction", { 'locationId': currentLocation.id|default( null )} ) ) }}
+    {{ render_esi( controller( "ezpublish_legacy.website_toolbar.controller:websiteToolbarAction", { 'locationId': currentLocation.id|default( null )} ) ) }}
 {% endif %}
 <div id="page" class="">
     <!-- Header area: START -->
