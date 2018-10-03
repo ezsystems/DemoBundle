@@ -21,7 +21,15 @@
 {% endif %}
 
 <!-- Complete page area: START -->
-    {{ render_esi( controller( "ezpublish_legacy.website_toolbar.controller:websiteToolbarAction", { 'locationId': currentLocation.id|default( null )} ) ) }}
+    {{ render_esi(
+        controller(
+            "ezpublish_legacy.website_toolbar.controller:websiteToolbarAction",
+            {
+                'locationId': currentLocation.id|default( null ),
+                'originalSemanticPathInfo': ezpublish.requestedUriString
+            }
+        )
+    ) }}
 <div id="page" class="">
     <!-- Header area: START -->
     {% block header %}
