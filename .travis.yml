@@ -27,6 +27,7 @@ before_script:
   # Checkout meta repo, change the branch and/or remote to use a different ezpublish branch/distro
   - git clone --depth 1 --single-branch --branch master https://github.com/ezsystems/ezplatform.git
   - cd ezplatform
+  - composer require "ezsystems/ezpublish-kernel:dev-ezp24624-query_controller_take2 as 6.0.x-dev"
 
   # Install everything needed for behat testing, using our local branch of this repo
   - ./bin/.travis/setup_from_external_repo.sh $BRANCH_BUILD_DIR "ezsystems/demobundle:dev-tmp_travis_branch"
